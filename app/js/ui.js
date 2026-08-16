@@ -644,8 +644,6 @@
   }
 
   function advance() {
-    var willJump = SIM.jump;
-    SIM.jump = false;
     var stage = SIM.session.next();
     SIM.stageNo += 1;
     $('sim-progress-fill').style.width = Math.min(96, SIM.stageNo * 2) + '%';
@@ -656,22 +654,23 @@
     if (stage.kind === 'regular_recap') {
       appendCard({ title: stage.title, lines: stage.lines, cls: 'reg' });
       showStageButtons();
-      return;
+      return;  // 保留 SIM.jump，继续征战能跳到真正的赛程
     }
-    if (!stage.entries.length) { advance(); return; }  // 主队无赛事的轮次自动跳过
+    if (!stage.entries.length) { advance(); return; }  // 主队无赛事的轮次自动跳过（保留 jump）
     stage.entries.forEach(function (entry) {
       appendEntryCard(entry, stage.title);
     });
     pumpReveal();
-    if (willJump) {
-      requestAnimationFrame(function () {
+    if (SIM.jump) {
+      SIM.jump = false;
+      setTimeout(function () {
         var cards = $('sim-events').querySelectorAll('.story-event');
         if (cards.length) {
           var el = cards[cards.length - 1];
           var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
           window.scrollTo({ top: top, behavior: 'smooth' });
         }
-      });
+      }, 30);
     }
   }
 
@@ -777,10 +776,23 @@
     $('sim-goon').style.display = '';
   }
 
-  function skipStage() {
+  function skipAll() {
     if (SIM.timer) { clearInterval(SIM.timer); SIM.timer = null; }
     while (SIM.queue.length) SIM.queue.shift()();
-    showStageButtons();
+    SIM.jump = false;
+    var guard = 0;
+    while (guard++ < 500) {
+      var stage = SIM.session.next();
+      SIM.stageNo += 1;
+      if (stage.kind === 'done') {
+        finishSim(stage.champion);
+        go('#/result');
+        return;
+      }
+      if (stage.kind === 'regular_recap') continue;
+      (stage.entries || []).forEach(function (entry) { SIM.path.push(entry); });
+    }
+    go('#/result');
   }
 
   function finishSim(championId) {
@@ -1076,7 +1088,7 @@
       });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
-      $('sim-skip').addEventListener('click', skipStage);
+      $('sim-skip').addEventListener('click', skipAll);
       $('sim-sub').addEventListener('click', showPosPicker);
       $('sim-goon').addEventListener('click', function () { SIM.jump = true; advance(); });
       $('sim-next').addEventListener('click', function () { go('#/result'); });
