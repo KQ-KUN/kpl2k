@@ -157,6 +157,9 @@ img{display:block}
   transition:transform .25s ease;
 }
 .drawer.show{transform:translateX(-50%) translateY(0)}
+.drawer-head{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.drawer-head .back{font-size:15px;color:var(--blue);padding:4px 10px;border:1px solid var(--line2);border-radius:10px;flex:none}
+.drawer-head h3{font-size:16px;flex:1}
 .drawer h3{font-size:16px;margin-bottom:4px}
 .drawer .sub{font-size:12px;color:var(--mut);margin-bottom:10px}
 .drawer .ver-chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}

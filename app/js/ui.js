@@ -329,37 +329,44 @@
   /* -------- 换人抽屉 -------- */
   function openPicker(slotIdx) {
     picker = { open: true, slot: slotIdx, pid: null, sid: null };
-    var pos = POS_ORDER[slotIdx];
-    $('picker-title').textContent = pos + ' · 换人';
     D.loadTeam(STATE.team).then(function (data) {
       currentTeamData = data;
-      $('picker-sub').textContent = teamName(STATE.team) + ' 历届' + pos;
-      var candidates = currentTeamData.players.filter(function (p) {
-        return p.versions.some(function (v) { return v.position === pos; });
-      }).sort(function (a, b) {
-        var ra = maxRatingFor(a, pos), rb = maxRatingFor(b, pos);
-        return rb - ra;
-      });
-      $('picker-ver').innerHTML = '';
-      $('picker-pool').innerHTML = candidates.map(function (p) {
-        var best = bestVersionFor(p, pos);
-        var ava = p.icon
-          ? '<div class="ava"><img src="' + esc(p.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(p.name[0]) + '&#39;"></div>'
-          : '<div class="ava">' + esc(p.name[0]) + '</div>';
-        return '<button class="pool-item" data-pid="' + p.player_id + '">' + ava +
-          '<div><div class="pname">' + esc(p.name) + '</div>' +
-          '<div class="pver">' + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
-          '<div class="prate">' + Math.round(best.rating) + '</div></button>';
-      }).join('');
-      $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-        el.addEventListener('click', function () {
-          pickPlayer(el.getAttribute('data-pid'), pos);
-        });
-      });
+      renderPool(POS_ORDER[slotIdx]);
       $('drawer').classList.add('show');
       $('drawer-mask').classList.add('show');
     }).catch(function () {
       closePicker();
+    });
+  }
+
+  /* 选手列表（可按返回回到此视图） */
+  function renderPool(pos) {
+    $('picker-pool').style.display = '';
+    $('picker-ver').innerHTML = '';
+    $('picker-back').style.display = 'none';
+    $('picker-confirm').style.display = '';
+    $('picker-title').textContent = pos + ' · 换人';
+    $('picker-sub').textContent = teamName(STATE.team) + ' 历届' + pos;
+    var candidates = currentTeamData.players.filter(function (p) {
+      return p.versions.some(function (v) { return v.position === pos; });
+    }).sort(function (a, b) {
+      var ra = maxRatingFor(a, pos), rb = maxRatingFor(b, pos);
+      return rb - ra;
+    });
+    $('picker-pool').innerHTML = candidates.map(function (p) {
+      var best = bestVersionFor(p, pos);
+      var ava = p.icon
+        ? '<div class="ava"><img src="' + esc(p.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(p.name[0]) + '&#39;"></div>'
+        : '<div class="ava">' + esc(p.name[0]) + '</div>';
+      return '<button class="pool-item" data-pid="' + p.player_id + '">' + ava +
+        '<div><div class="pname">' + esc(p.name) + '</div>' +
+        '<div class="pver">' + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
+        '<div class="prate">' + Math.round(best.rating) + '</div></button>';
+    }).join('');
+    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
+      el.addEventListener('click', function () {
+        pickPlayer(el.getAttribute('data-pid'), pos);
+      });
     });
   }
 
@@ -379,11 +386,16 @@
     var vers = p.versions.filter(function (v) { return v.position === pos; })
       .sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
     picker.sid = (vers[0] || {}).season_id || null;
+    $('picker-pool').style.display = 'none';
+    $('picker-back').style.display = '';
+    $('picker-title').textContent = p.name + ' · 选择版本';
+    $('picker-sub').textContent = '该选手在' + pos + '位的不同时期版本';
     $('picker-ver').innerHTML = vers.map(function (v) {
       var sel = v.season_id === picker.sid ? ' sel' : '';
       return '<button class="vchip' + sel + '" data-sid="' + v.season_id + '">' +
         esc(v.label) + ' · ' + Math.round(v.rating) + '</button>';
     }).join('');
+    $('drawer').scrollTop = 0;
     $('picker-ver').querySelectorAll('.vchip').forEach(function (el) {
       el.addEventListener('click', function () {
         picker.sid = el.getAttribute('data-sid');
@@ -411,6 +423,8 @@
     $('drawer').classList.remove('show');
     $('drawer-mask').classList.remove('show');
     $('picker-confirm').style.display = '';
+    $('picker-pool').style.display = '';
+    $('picker-back').style.display = 'none';
   }
 
   /* 模拟页：按曲名选择对局 BGM */
@@ -971,6 +985,9 @@
       });
       $('drawer-mask').addEventListener('click', closePicker);
       $('picker-confirm').addEventListener('click', confirmPicker);
+      $('picker-back').addEventListener('click', function () {
+        renderPool(POS_ORDER[picker.slot]);
+      });
       // BGM 控制
       $('bgm-toggle').addEventListener('click', function () {
         BGM.setMuted(!BGM.isMuted());
