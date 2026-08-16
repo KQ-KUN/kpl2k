@@ -450,6 +450,7 @@
     var A_W = { '对抗路': 0.9, '打野': 1.0, '中路': 1.1, '发育路': 0.8, '游走': 1.8 };
     var D_W = { '对抗路': 1.1, '打野': 1.0, '中路': 1.2, '发育路': 1.4, '游走': 0.9 };
     function dist(roster, total, wmap) {
+      if (!roster || !roster.length) return {};
       var out = {}, weights = [], sum = 0;
       roster.forEach(function (r) {
         var w = wmap[r.position] || 1.0;

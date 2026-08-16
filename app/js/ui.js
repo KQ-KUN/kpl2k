@@ -375,6 +375,25 @@
 
   /* 2026 现役首发：优先 S2，缺失队用 S1 */
   function presetRoster(fid) {
+    // 1) 优先按"2026 年版本"拼 5 位置（槽位战力与球星卡版本一致）
+    var data = currentTeamData;
+    if (data && data.players && data.players.length) {
+      var byPos = {};
+      POS_ORDER.forEach(function (pos) { byPos[pos] = []; });
+      data.players.forEach(function (p) {
+        var best = null;
+        (p.versions || []).forEach(function (v) {
+          if (v.year === 2026 && (!best || v.rating > best.rating)) best = v;
+        });
+        if (best) byPos[best.position].push({ pid: p.player_id, sid: best.season_id, rating: best.rating });
+      });
+      var slots = POS_ORDER.map(function (pos) {
+        var lst = byPos[pos].slice().sort(function (a, b) { return b.rating - a.rating; });
+        return lst[0] ? { pid: lst[0].pid, sid: lst[0].sid } : null;
+      }).filter(Boolean);
+      if (slots.length === 5) return slots;
+    }
+    // 2) 回退：S2 / S1 赛季记录
     for (var i = 0; i < PRESET_SEASONS.length; i++) {
       var recs = D.seasonRoster(fid, PRESET_SEASONS[i]);
       if (recs.length >= 5) {
@@ -394,7 +413,16 @@
     if (currentTeamData) {
       currentTeamData.players.forEach(function (p) {
         if (p.player_id !== pid) return;
-        p.versions.forEach(function (v) { if (v.season_id === sid) ver = v; });
+        // 优先精确匹配版本赛季；旧状态可能存了同一年其它赛季，回退按年份匹配
+        p.versions.forEach(function (v) {
+          if (v.season_id === sid) ver = v;
+        });
+        if (!ver) {
+          var y = String(sid).match(/(20\d{2})/);
+          if (y) {
+            p.versions.forEach(function (v) { if (String(v.year) === y[1] && (!ver || v.rating > ver.rating)) ver = v; });
+          }
+        }
       });
     }
     return { rec: rec, ver: ver, name: playerName(pid), icon: playerIcon(pid) };
@@ -406,7 +434,7 @@
       var inner;
       if (slot) {
         var info = slotInfo(slot.pid, slot.sid);
-        var rating = info.rec ? info.rec.rating : (info.ver ? info.ver.rating : null);
+        var rating = info.ver ? info.ver.rating : (info.rec ? info.rec.rating : null);
         var label = (info.ver && info.ver.label) || (slot.sid || '').replace(/^(KPL|KCC|L)/, '');
         var ava = info.icon
           ? '<div class="ava"><img src="' + esc(info.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(info.name[0]) + '&#39;"></div>'
@@ -626,7 +654,7 @@
           '<div class="si-tags">' + tags.map(function (t) { return '<span class="tag-pill">' + t + '</span>'; }).join('') + '</div></div>' +
           '<div class="si-go">›</div></button>';
       }).join('');
-      var open = curYear === y;
+      var open = String(curYear) === String(y);
       return '<div class="season-group" data-year="' + y + '">' +
         '<button class="sg-year' + (open ? ' open' : '') + '" data-year="' + y + '">' +
         '<span class="sg-label">' + y + ' 年</span>' +
