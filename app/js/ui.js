@@ -928,7 +928,11 @@
     D.loadBase().then(function () {
       window.addEventListener('hashchange', router);
       // 绑定固定按钮
-      $('btn-classic').addEventListener('click', function () { go('#/team'); });
+      $('btn-classic').addEventListener('click', function () {
+        BGM.unlock();
+        BGM.play('intro');
+        go('#/team');
+      });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
       $('sim-skip').addEventListener('click', skipStage);

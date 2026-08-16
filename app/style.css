@@ -241,8 +241,10 @@ tr.l td.tag{color:var(--red);font-weight:600}
 td.tag{text-align:center}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px;scrollbar-width:thin}
 .stats-table{min-width:680px}
-.stats-table td{white-space:nowrap}
+.stats-table th{text-align:center}
+.stats-table td{white-space:nowrap;text-align:center}
 .stats-table td:first-child{min-width:96px}
+.stats-table td:first-child{text-align:left}
 
 .share-tip{font-size:12px;color:var(--mut);text-align:center;margin-top:10px}
 .bounce{animation:bounce 1s ease infinite}

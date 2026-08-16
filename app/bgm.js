@@ -44,6 +44,7 @@
   var current = null;      // active scene key
   var activeTeam = null;   // team key for the active champion track
   var pending = null;      // { key, team } requested before user gesture
+  var lastRequested = null; // most recent scene request, for unlock fallback
   var trackIndex = 0;      // active battle BGM index
   var muted = false;
   var volume = DEFAULT_VOLUME;
@@ -218,6 +219,7 @@
      */
     play: function (sceneKey, team) {
       if (!scenes[sceneKey]) return;
+      lastRequested = { key: sceneKey, team: team || null };
       var sameTrack = current === sceneKey && audio && !audio.paused &&
         (sceneKey !== 'champion' || activeTeam === team);
       if (sameTrack) {
@@ -254,6 +256,9 @@
         pending = null;
         if (!current || current !== key || (key === 'champion' && activeTeam !== team)) startScene(key, team);
         else if (audio && audio.paused) safePlay(audio);
+      } else if (lastRequested && !current) {
+        // 首次请求发生在解锁前且未被 pending 捕获：恢复最近一次请求
+        startScene(lastRequested.key, lastRequested.team);
       } else if (current && audio && audio.paused && !muted) {
         safePlay(audio);
       }
