@@ -47,3 +47,4 @@
 - **线上托管（当前）**：Cloudflare Workers 项目 `kpl2k.hkq2297409816.workers.dev`，已连接 GitHub 仓库 `KQ-KUN/kpl2k` 自动部署（Workers Builds，轮询模式）。发布命令：`python tools/push_to_github.py -m "说明"`（增量上传变更文件，GitHub API 直传绕过沙箱网络限制）。Cloudflare 检测到 main 更新后 1-2 分钟自动部署。
 - **音乐压缩**：`tools/compress_audio.py` 压到 96kbps（app/assets/audio 约 27.6MB，原文件备份在 backup_audio/，不部署）。
 - **UI 反馈已修**（2026-08-16）：切队重置首发、桌面/大屏加宽（720/860px）、球星卡两列、轮间换人（每场后"更换阵容/继续征战"、逐局 700ms 慢速 reveal + 跳过）、战绩卡头像 32px。
+- **王朝预设**（2026-08-16）：build_web 生成王朝阵容时只从"存在赛程分片的赛季"里选人，修复 19QG/19eStar 引用 L20200002（无分片）导致点击无反应；描述校对：24-25AG=九连决赛·六连冠、22eStar=六连决赛五夺冠、19QG=2019 冬冠、25狼队=2025 年总亚军（鸟巢憾负 AG，春冠/挑杯均为 AG/WB）；切普通队时清空 STATE.dynasty 并重渲染王朝条（金色边框随取消选中）。
