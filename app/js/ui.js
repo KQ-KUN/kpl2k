@@ -786,11 +786,39 @@
   function finishSim(championId) {
     var championName = championId ? teamName(championId) : null;
     var isChamp = championName === teamName(STATE.team);
+    // 本次征战选手数据：由逐场统计汇总（场次/击杀/死亡/助攻/MVP/参团/胜率）
+    var runStats = {};
+    var trackPids = {};
+    STATE.roster.forEach(function (slot) {
+      trackPids[slot.pid] = true;
+      runStats[slot.pid] = { games: 0, k: 0, d: 0, a: 0, mvp: 0 };
+    });
+    var teamKills = 0, runWins = 0, runMatches = SIM.path.length;
+    SIM.path.forEach(function (p) {
+      if (p.win) runWins++;
+      var st = p.stats || {};
+      Object.keys(st).forEach(function (pid) {
+        if (!trackPids[pid]) return;
+        var s = runStats[pid], t = st[pid];
+        s.games += t.games; s.k += t.k; s.d += t.d; s.a += t.a; s.mvp += t.mvp;
+      });
+    });
+    Object.keys(runStats).forEach(function (pid) { teamKills += runStats[pid].k; });
+    Object.keys(runStats).forEach(function (pid) {
+      var s = runStats[pid];
+      s.kda = s.d ? (s.k + s.a) / s.d : (s.k + s.a);
+      s.avgK = s.games ? s.k / s.games : 0;
+      s.avgD = s.games ? s.d / s.games : 0;
+      s.avgA = s.games ? s.a / s.games : 0;
+      s.participation = teamKills ? (s.k + s.a) / teamKills : 0;
+      s.winRate = runMatches ? runWins / runMatches : 0;
+    });
     STATE.lastRun = {
       champion: championId, team: STATE.team, season: STATE.season, seed: STATE.seed,
       path: SIM.path, regular: SIM.session ? SIM.session.getRegular() : {},
       rosterNames: STATE.roster.map(function (s) { return playerName(s.pid); }),
-      records: recordsForRoster(STATE.roster), seasonName: SIM.seasonName
+      records: recordsForRoster(STATE.roster), seasonName: SIM.seasonName,
+      runStats: runStats
     };
     saveState();
     $('sim-skip').style.display = 'none';
@@ -849,13 +877,18 @@
     $('result-roster').innerHTML = run.records.map(function (r) {
       var name = playerName(r.player_id);
       var icon = playerIcon(r.player_id);
+      var rs = (run.runStats || {})[r.player_id];
       var ava = icon
         ? '<img class="pava" src="' + esc(icon) + '" onerror="this.outerHTML=&#39;<div class=&quot;pava&quot;>' + esc(name[0]) + '</div>&#39;">'
         : '<div class="pava">' + esc(name[0]) + '</div>';
-      var mvp = r.mvp_count ? ' · MVP ' + r.mvp_count : '';
+      var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
+      var avgK = rs ? f1(rs.avgK) : f1(r.avg_kill_num);
+      var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
+      var games = rs ? rs.games : (r.games || 0);
+      var mvp = rs ? rs.mvp : (r.mvp_count || 0);
       return '<div class="result-pc">' + ava +
         '<div><div class="pnm">' + esc(name) + '<span class="ppos">' + esc(r.position) + '</span></div>' +
-        '<div class="pstat">KDA ' + f1(r.avg_kda) + ' · 场均击杀 ' + f1(r.avg_kill_num) + ' · 参团 ' + pct(r.avg_participation_rate) + ' · ' + (r.games || 0) + ' 场' + mvp + '</div></div></div>';
+        '<div class="pstat">KDA ' + kda + ' · 场均击杀 ' + avgK + ' · 参团 ' + part + ' · ' + games + ' 场' + (mvp ? ' · MVP ' + mvp : '') + '</div></div></div>';
     }).join('');
 
     $('result-path').innerHTML = run.path.map(function (p) {
@@ -864,18 +897,27 @@
     }).join('');
 
     $('result-stats').innerHTML = run.records.map(function (r) {
+      var rs = (run.runStats || {})[r.player_id];
+      var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
+      var avgK = rs ? f1(rs.avgK) : f1(r.avg_kill_num);
+      var avgD = rs ? f1(rs.avgD) : f1(r.avg_death_num);
+      var avgA = rs ? f1(rs.avgA) : f1(r.avg_assist_num);
+      var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
+      var winRate = rs ? pct(rs.winRate) : pct(r.win_rate);
+      var games = rs ? rs.games : (r.games || 0);
+      var mvp = rs ? rs.mvp : (r.mvp_count || 0);
       return '<tr><td><b>' + esc(playerName(r.player_id)) + '</b><br><span class="mut">' + esc(r.position) + '</span></td>' +
-        '<td>' + f1(r.avg_kda) + '</td>' +
-        '<td>' + f1(r.avg_kill_num) + ' / ' + f1(r.avg_death_num) + ' / ' + f1(r.avg_assist_num) + '</td>' +
-        '<td>' + pct(r.avg_participation_rate) + '</td>' +
+        '<td>' + kda + '</td>' +
+        '<td>' + avgK + ' / ' + avgD + ' / ' + avgA + '</td>' +
+        '<td>' + part + '</td>' +
         '<td>' + pct(r.avg_hurt_to_hero_total_rate) + '</td>' +
         '<td>' + pct(r.avg_be_hurt_by_hero_total_rate) + '</td>' +
         '<td>' + Math.round(r.avg_gpm || 0) + '</td>' +
         '<td>' + f1(r.avg_damage_convert_rate) + '</td>' +
         '<td>' + f1(r.avg_push_tower_num) + '</td>' +
-        '<td>' + pct(r.win_rate) + '</td>' +
-        '<td>' + (r.games || 0) + '</td>' +
-        '<td>' + (r.mvp_count || '-') + '</td></tr>';
+        '<td>' + winRate + '</td>' +
+        '<td>' + games + '</td>' +
+        '<td>' + (mvp || '-') + '</td></tr>';
     }).join('');
     requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
@@ -973,9 +1015,13 @@
       x.fillText(playerName(r.player_id), P, y);
       x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
       x.fillText(r.position, P + 330, y);
+      var rs = (run.runStats || {})[r.player_id];
+      var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
+      var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
+      var mvp = rs ? rs.mvp : (r.mvp_count || 0);
       x.textAlign = 'right';
       x.fillStyle = '#f0b90b'; x.font = '600 28px sans-serif';
-      x.fillText('KDA ' + f1(r.avg_kda) + ' · 参团 ' + pct(r.avg_participation_rate) + ' · MVP ' + (r.mvp_count || 0), W - P, y);
+      x.fillText('KDA ' + kda + ' · 参团 ' + part + ' · MVP ' + mvp, W - P, y);
       x.textAlign = 'left';
     });
 

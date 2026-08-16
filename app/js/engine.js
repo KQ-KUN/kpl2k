@@ -423,6 +423,61 @@
     return lines;
   }
 
+  /* 本场 10 名选手的逐局 k/d/a + 每局 MVP（用于战绩卡"本次征战"数据） */
+  function simMatchStats(rng, rosterA, rosterB, results) {
+    var agg = {};
+    function ensure(pid) {
+      if (!agg[pid]) agg[pid] = { games: 0, k: 0, d: 0, a: 0, mvp: 0 };
+      return agg[pid];
+    }
+    var K_W = { '对抗路': 0.8, '打野': 1.4, '中路': 1.1, '发育路': 1.5, '游走': 0.3 };
+    var A_W = { '对抗路': 0.9, '打野': 1.0, '中路': 1.1, '发育路': 0.8, '游走': 1.8 };
+    var D_W = { '对抗路': 1.1, '打野': 1.0, '中路': 1.2, '发育路': 1.4, '游走': 0.9 };
+    function dist(roster, total, wmap) {
+      var out = {}, weights = [], sum = 0;
+      roster.forEach(function (r) {
+        var w = wmap[r.position] || 1.0;
+        weights.push(w); sum += w;
+      });
+      var left = total;
+      roster.forEach(function (r, i) {
+        var v = Math.max(0, Math.round(total * weights[i] / sum + (rng.random() * 2 - 1) * 0.6));
+        out[r.player_id] = v;
+        left -= v;
+      });
+      while (left > 0) {
+        var idx = rng.randint(0, roster.length - 1);
+        out[roster[idx].player_id]++;
+        left--;
+      }
+      return out;
+    }
+    (results || []).forEach(function (g) {
+      var winnerR = g === 'A' ? rosterA : rosterB;
+      var loserR = g === 'A' ? rosterB : rosterA;
+      var wk = rng.randint(9, 22);
+      var lk = rng.randint(3, 12);
+      var wK = dist(winnerR, wk, K_W), wA = dist(winnerR, Math.round(wk * 1.1), A_W);
+      var lK = dist(loserR, lk, K_W), lA = dist(loserR, Math.round(lk * 0.9), A_W);
+      var wD = dist(winnerR, rng.randint(1, 4), D_W);
+      var lD = dist(loserR, rng.randint(8, 16), D_W);
+      winnerR.concat(loserR).forEach(function (r) {
+        var s = ensure(r.player_id);
+        s.games++;
+        s.k += (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
+        s.a += (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
+        s.d += (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
+      });
+      var best = null, bestScore = -1;
+      winnerR.forEach(function (r) {
+        var sc = (wK[r.player_id] || 0) + (wA[r.player_id] || 0) * 0.6 - (wD[r.player_id] || 0) * 0.7 + rng.random() * 3.0;
+        if (sc > bestScore) { bestScore = sc; best = r.player_id; }
+      });
+      if (best) ensure(best).mvp++;
+    });
+    return agg;
+  }
+
   /* ---------------- 赛季模拟 ---------------- */
   function franchiseNames(franchises) {
     var out = {};
@@ -822,7 +877,8 @@
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
         games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames),
-        results: resultsTrack
+        results: resultsTrack,
+        stats: simMatchStats(rng, rosterA, rosterB, m.results)
       };
     }
 
