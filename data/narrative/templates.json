@@ -97,7 +97,12 @@
     "{team_a}开局三线压制，{team_b}的{hero_b}发育受阻",
     "BP 尘埃落定，{team_a}拿到强势组合，{team_b}只能以{system}应战",
     "红蓝针锋相对，{team_a}的{system}撞上{team_b}的野核节奏",
-    "{team_b}一级团设计得逞，但{team_a}稳住阵脚，等待{system}成型"
+    "{team_b}一级团设计得逞，但{team_a}稳住阵脚，等待{system}成型",
+    "开局{team_a}.{player_a}手感火热，一级团就逼出{team_b}的{hero_b}闪现",
+    "{team_a}.{player_a}开局三分钟完成单杀，{team_b}的节奏被打乱",
+    "{team_b}.{player_b}开局游走带起节奏，{team_a}不得不收缩防线",
+    "双方互换野区，{team_a}.{player_a}抢先升到四级，虎视眈眈",
+    "{team_b}.{player_b}开局抢下河蟹直接反野，{team_a}的{system}成型被迫减速"
   ],
   "events": [
     "{minute}分钟龙团，{team}.{player}抢到{objective}，不再彷徨",

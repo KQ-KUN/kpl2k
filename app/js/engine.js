@@ -325,7 +325,25 @@
   }
 
   /* ---------------- 叙事 ---------------- */
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, player, comeback) {
+  function uniqNames(roster, pnames) {
+    var out = [];
+    (roster || []).forEach(function (r) {
+      var n = pnames[r.player_id] || r.player_id;
+      if (n && out.indexOf(n) < 0) out.push(n);
+    });
+    return out;
+  }
+
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback) {
+    var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
+    var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
+    var winPool = winner === teamA ? poolA : poolB;
+    // 每个小局可带 2-3 名高光选手：中期一、中期二各一人，结尾/梗再随机补人
+    var p1 = rng.choice(winPool);
+    var pRest = winPool.filter(function (n) { return n !== p1; });
+    var p2 = pRest.length ? rng.choice(pRest) : p1;
+    var pa = rng.choice(poolA);
+    var pb = rng.choice(poolB);
     var roles = Object.keys(tpl.heroes || {});
     function pickHero() {
       return rng.choice(tpl.heroes[rng.choice(roles)]);
@@ -342,16 +360,17 @@
     var loser = winner === teamA ? teamB : teamA;
     var opening = rng.choice(tpl.openings)
       .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
-      .replace(/\{system\}/g, systemA).replace(/\{hero_b\}/g, heroB);
+      .replace(/\{system\}/g, systemA).replace(/\{hero_b\}/g, heroB)
+      .replace(/\{player_a\}/g, pa).replace(/\{player_b\}/g, pb);
     var events = rng.sample(tpl.events, 2);
-    function fmtEvent(tmpl, minute) {
+    function fmtEvent(tmpl, minute, player) {
       return tmpl
         .replace(/\{team\}/g, winner).replace(/\{player\}/g, player)
         .replace(/\{opp\}/g, loser).replace(/\{minute\}/g, minute)
         .replace(/\{objective\}/g, rng.choice(OBJECTIVES));
     }
-    var mid1 = fmtEvent(events[0], rng.randint(7, 12));
-    var mid2 = fmtEvent(events[1], rng.randint(13, 19));
+    var mid1 = fmtEvent(events[0], rng.randint(7, 12), p1);
+    var mid2 = fmtEvent(events[1], rng.randint(13, 19), p2);
     var ending;
     if (comeback) {
       ending = rng.choice(tpl.comebacks).replace(/\{team_a\}/g, winner);
@@ -362,11 +381,19 @@
     }
     var stealLines = tpl.steal_lines || ['请神梦老师，{player}成功偷家'];
     if (winner.indexOf('AG') >= 0 && rng.random() < 0.12) {
-      ending = rng.choice(stealLines).replace(/\{team_a\}/g, winner).replace(/\{player\}/g, player);
+      ending = rng.choice(stealLines).replace(/\{team_a\}/g, winner).replace(/\{player\}/g, rng.choice(winPool));
     }
     var line = '第' + gameNo + '局\nBP：' + bp + '\n开局：' + opening + '\n中期：' + mid1 + '；' + mid2 + '\n结束：' + ending;
     if (tpl.meme_quotes && tpl.meme_quotes.length && rng.random() < 0.15) {
-      var meme = rng.choice(tpl.meme_quotes).replace(/\{team\}/g, winner).replace(/\{player\}/g, player);
+      var memePool = winPool.length > 2 ? rng.sample(winPool, 2) : winPool.slice();
+      var mi = 0;
+      var meme = rng.choice(tpl.meme_quotes)
+        .replace(/\{team\}/g, winner)
+        .replace(/\{player\}/g, function () {
+          var n = memePool[mi % memePool.length];
+          mi++;
+          return n;
+        });
       var leads = (tpl.scene_leads || {})['名场面'] || [];
       var lead = leads.length ? rng.choice(leads) : '';
       line += '\n' + (lead ? lead + meme : meme);
@@ -376,6 +403,8 @@
 
   function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames) {
     var lines = [];
+    var namesA = uniqNames(rosterA, pnames);
+    var namesB = uniqNames(rosterB, pnames);
     var curA = 0, curB = 0;
     var everBehind = false;
     for (var idx = 0; idx < results.length; idx++) {
@@ -387,13 +416,9 @@
         curB += 1; winTeam = nb; winRoster = rosterB; loseTeam = na;
       }
       if ((winTeam === na && curA < curB) || (winTeam === nb && curB < curA)) everBehind = true;
-      var pname = '选手';
-      if (winRoster && winRoster.length) {
-        pname = (pnames[winRoster[(idx) % winRoster.length].player_id]) || '选手';
-      }
       var winScore = winTeam === na ? curA : curB;
       var loseScore = winTeam === na ? curB : curA;
-      lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, pname, everBehind));
+      lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind));
     }
     return lines;
   }
