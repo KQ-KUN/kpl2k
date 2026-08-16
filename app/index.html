@@ -113,7 +113,7 @@
 </div>
 <div class="bottom-bar" id="sim-bar" style="display:none">
   <div style="display:flex;gap:10px">
-    <button class="btn ghost" id="sim-skip" style="flex:1">直接看结果</button>
+    <button class="btn ghost" id="sim-skip" style="flex:1">一键跳转</button>
     <button class="btn" id="sim-sub" style="display:none;flex:1">更换阵容</button>
     <button class="btn gold" id="sim-goon" style="display:none;flex:1">继续征战</button>
     <button class="btn gold" id="sim-next" style="display:none;flex:1">查看战绩</button>
@@ -163,6 +163,17 @@
     <button class="btn" id="share-copy">复制链接</button>
   </div>
   <button class="btn gold" id="share-close" style="width:100%;margin-top:10px">关闭</button>
+</div>
+
+<!-- ================= 一键跳转确认 ================= -->
+<div class="confirm-mask" id="confirm-mask"></div>
+<div class="confirm-box" id="confirm-box">
+  <div class="cf-title">一键跳转</div>
+  <div class="cf-body">是否直接查看比赛结果？将跳过剩余赛程的文字，直接生成最终战绩。</div>
+  <div class="cf-actions">
+    <button class="btn ghost" id="cf-cancel">再看看</button>
+    <button class="btn gold" id="cf-ok">直接查看</button>
+  </div>
 </div>
 
 <!-- ================= 换人抽屉 ================= -->

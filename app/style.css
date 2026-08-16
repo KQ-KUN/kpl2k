@@ -269,9 +269,20 @@ td.tag{text-align:center}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px;scrollbar-width:thin}
 .stats-table{min-width:680px}
 .stats-table th{text-align:center}
+.stats-table th:first-child{text-align:left}
 .stats-table td{white-space:nowrap;text-align:center}
 .stats-table td:first-child{min-width:96px}
 .stats-table td:first-child{text-align:left}
+
+/* 一键跳转确认弹窗 */
+.confirm-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;display:none}
+.confirm-mask.show{display:block}
+.confirm-box{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:71;width:min(88vw,360px);background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:20px 18px;display:none;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.confirm-box.show{display:block}
+.confirm-box .cf-title{font-size:16px;font-weight:800;text-align:center;color:var(--gold);margin-bottom:10px}
+.confirm-box .cf-body{font-size:13px;color:var(--mut);line-height:1.7;text-align:center;margin-bottom:16px}
+.confirm-box .cf-actions{display:flex;gap:10px}
+.confirm-box .cf-actions .btn{flex:1}
 
 .share-tip{font-size:12px;color:var(--mut);text-align:center;margin-top:10px}
 .bounce{animation:bounce 1s ease infinite}

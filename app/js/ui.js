@@ -850,6 +850,15 @@
     go('#/result');
   }
 
+  function openConfirm() {
+    $('confirm-mask').classList.add('show');
+    $('confirm-box').classList.add('show');
+  }
+  function closeConfirm() {
+    $('confirm-mask').classList.remove('show');
+    $('confirm-box').classList.remove('show');
+  }
+
   function finishSim(championId) {
     var championName = championId ? teamName(championId) : null;
     var isChamp = championName === teamName(STATE.team);
@@ -1008,7 +1017,7 @@
 
   function shareLink() {
     var rosterStr = STATE.roster.map(function (s) { return s.pid + '@' + s.sid; }).join(',');
-    var url = location.origin + location.pathname + '#/s?' +
+    var url = location.href.split('#')[0] + '#/s?' +
       't=' + encodeURIComponent(STATE.team) +
       '&s=' + encodeURIComponent(STATE.season) +
       '&r=' + encodeURIComponent(rosterStr) +
@@ -1160,7 +1169,13 @@
       });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
-      $('sim-skip').addEventListener('click', skipAll);
+      $('sim-skip').addEventListener('click', openConfirm);
+      $('cf-ok').addEventListener('click', function () {
+        closeConfirm();
+        skipAll();
+      });
+      $('cf-cancel').addEventListener('click', closeConfirm);
+      $('confirm-mask').addEventListener('click', closeConfirm);
       $('sim-sub').addEventListener('click', showPosPicker);
       $('sim-goon').addEventListener('click', function () { SIM.jump = true; advance(); });
       $('sim-next').addEventListener('click', function () { go('#/result'); });
