@@ -188,6 +188,10 @@
   function showHome() {
     showPage('home');
     BGM.play('intro');
+    if (DATA.manifest) {
+      $('stat-line').innerHTML = '<b>' + DATA.manifest.teams2026.length + '</b> 支战队 · <b>' +
+        DATA.manifest.seasons.length + '</b> 个赛季 · <b>' + Object.keys(DATA.players).length + '</b> 名选手';
+    }
   }
 
   /* ================= 组队 ================= */
@@ -282,10 +286,9 @@
           '<div class="pmeta">' + esc(label) + ' · ' + esc(pos) + '</div></div>' +
           '<div class="rating">' + (rating != null ? Math.round(rating) : '-') + '</div><div class="arrow">›</div>';
       } else {
-        inner = '<div class="pos">' + esc(pos) + '</div>' +
-          '<div class="info pname mut">点击补位</div><div class="arrow">›</div>';
+        inner = '<div class="info pname mut">点击补位</div><div class="arrow">›</div>';
       }
-      return '<button class="slot" data-i="' + i + '"><div class="pos">' + esc(pos) + '</div>' + inner + '</button>';
+      return '<button class="slot" data-i="' + i + '"><div class="pos p' + i + '">' + esc(pos) + '</div>' + inner + '</button>';
     }).join('');
     $('team-slots').innerHTML = html;
     $('team-slots').querySelectorAll('.slot').forEach(function (el) {
@@ -539,16 +542,15 @@
     SIM.path.push(entry);
     var el = document.createElement('div');
     el.className = 'story-event';
-    var winCls = entry.win ? 'green' : 'red';
-    el.innerHTML = '<div class="se-title">' + esc(stageTitle) + ' · vs ' + esc(entry.opp) +
-      ' <span class="' + winCls + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>';
+    el.innerHTML = '<div class="se-title">' + stageIcon(stageTitle) + ' ' + esc(stageTitle) + ' · vs ' + esc(entry.opp) +
+      ' <span class="score-pill ' + (entry.win ? 'win' : 'lose') + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>';
     $('sim-events').appendChild(el);
     requestAnimationFrame(function () { el.classList.add('show'); scrollBottom(); });
     entry.games.forEach(function (g, gi) {
       var fn = function () {
         var gd = document.createElement('div');
         gd.className = 'se-game';
-        gd.innerHTML = esc(g).replace(/\n/g, '<br>');
+        gd.innerHTML = gameHtml(g, STATE.roster.map(function (s) { return playerName(s.pid); }));
         el.appendChild(gd);
         scrollBottom();
       };
@@ -584,6 +586,53 @@
 
   function scrollBottom() {
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
+  /* 战报文本 -> 结构化块（BP/开局/中期/结束 + 名场面引用），选手名高亮 */
+  function hlText(t, names) {
+    var out = t;
+    (names || []).forEach(function (n) {
+      if (!n) return;
+      var re = new RegExp('(\\.)' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      out = out.replace(re, '<b class="hl">$1' + n + '</b>');
+    });
+    return out;
+  }
+
+  function gameHtml(g, names) {
+    var lines = esc(g).split('\n');
+    var parts = [];
+    lines.forEach(function (line) {
+      var m = line.match(/^(第\d+局)(.*)$/);
+      if (m) {
+        parts.push('<div class="g-head">' + m[1] + (m[2] ? ' · ' + m[2] : '') + '</div>');
+        return;
+      }
+      var tag = null;
+      ['BP', '开局', '中期', '结束'].forEach(function (t) {
+        if (tag === null && line.indexOf(t + '：') === 0) tag = t;
+      });
+      if (tag) {
+        var txt = line.slice(tag.length + 1);
+        var segs = txt.split('；').filter(function (s) { return s.trim(); });
+        var cls = tag === 'BP' ? 'bp' : (tag === '开局' ? 'open' : (tag === '中期' ? 'mid' : 'end'));
+        segs.forEach(function (s) {
+          parts.push('<div class="g-row ' + cls + '"><span class="g-tag">' + tag + '</span>' +
+            '<span class="g-txt">' + hlText(s.trim(), names) + '</span></div>');
+        });
+        return;
+      }
+      if (line.trim()) parts.push('<div class="g-quote">' + hlText(line.trim(), names) + '</div>');
+    });
+    return parts.join('');
+  }
+
+  function stageIcon(title) {
+    var t = String(title || '');
+    if (t.indexOf('决赛') >= 0 || t.indexOf('总决赛') >= 0) return '🏆';
+    if (t.indexOf('胜者组') >= 0 || t.indexOf('败者组') >= 0) return '⚔️';
+    if (t.indexOf('卡位') >= 0) return '🎯';
+    return '📋';
   }
 
   function showStageButtons() {
