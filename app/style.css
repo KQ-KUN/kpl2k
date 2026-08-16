@@ -91,18 +91,22 @@ img{display:block}
 .mode-card.locked{opacity:.55}
 .mode-card.locked:active{transform:none}
 
-/* 首页历史战绩 */
-.history{margin-top:26px;width:100%;text-align:left}
-.history-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;color:var(--gold);margin-bottom:8px}
-.his-item{background:rgba(8,18,38,.55);border:1px solid var(--line2);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:transform .1s ease}
+/* 首页历史战绩入口 */
+.history-entry{margin-top:22px;width:100%;display:flex;align-items:center;gap:10px;background:rgba(8,18,38,.55);border:1px solid var(--line2);border-radius:14px;padding:14px 16px;cursor:pointer;color:#e9f1fb;font-size:15px;font-weight:700;text-align:left;transition:transform .1s ease}
+.history-entry:active{transform:scale(.985)}
+.history-entry .he-count{margin-left:auto;font-size:12px;color:var(--gold);background:rgba(240,185,11,.12);border:1px solid rgba(240,185,11,.35);border-radius:10px;padding:2px 9px}
+.history-entry .he-arrow{font-size:18px;color:var(--gold);flex:none}
+
+/* 历史战绩页 */
+.his-item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:transform .1s ease}
 .his-item:active{transform:scale(.985)}
 .his-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.his-team{font-size:13px;font-weight:700;color:#e9f1fb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.his-team{font-size:13px;font-weight:700;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .his-banner{font-size:11px;padding:2px 8px;border-radius:8px;flex:none;font-weight:600}
 .his-banner.win{background:rgba(63,185,80,.16);color:#3fb950}
 .his-banner.runner{background:rgba(143,168,204,.16);color:#8fa8cc}
 .his-banner.elim{background:rgba(248,81,73,.16);color:#f85149}
-.his-sub{font-size:11px;color:#c7d2fe;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.his-sub{font-size:11px;color:var(--mut);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .footnote{margin-top:auto;padding-top:40px;font-size:11px;color:#dbeafe}
 
 /* ---- 组队 ---- */

@@ -35,15 +35,25 @@
       <div class="mc-tag">图鉴</div>
     </a>
   </div>
-  <div class="history" id="history-wrap" style="display:none">
-    <div class="history-head">
-      <span>📜 历史战绩</span>
-      <button class="link-mut" id="history-clear" style="background:none;border:none;color:var(--mut);font-size:11px;text-decoration:underline;cursor:pointer">清空</button>
-    </div>
-    <div id="history-list"></div>
-  </div>
+  <button class="history-entry" id="history-entry" style="display:none">
+    <span>📜 历史战绩</span>
+    <span class="he-count" id="history-count">0</span>
+    <span class="he-arrow">›</span>
+  </button>
   <div class="footnote">民间算法 · 平行时空 · 非官方</div>
   <button class="link-mut" id="btn-disclaimer" style="margin-top:6px;background:none;border:none;color:var(--mut);font-size:11px;text-decoration:underline;cursor:pointer">免责声明</button>
+</div>
+
+<!-- ================= 历史战绩页 ================= -->
+<div id="history" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/'">‹</button>
+    <h1>历史战绩</h1>
+    <button class="link-mut" id="history-clear" style="background:none;border:none;color:var(--mut);font-size:12px;text-decoration:underline;cursor:pointer">清空</button>
+  </div>
+  <div class="sub mut" id="history-meta"></div>
+  <div id="history-list"></div>
+  <div class="empty" id="history-empty" style="display:none;text-align:center;padding:40px 0;color:var(--mut)">还没有征战记录，快去组一支队伍吧</div>
 </div>
 
 <!-- ================= 免责声明（未同意前全屏遮罩） ================= -->

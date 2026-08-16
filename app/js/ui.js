@@ -103,23 +103,31 @@
     function p(n) { return (n < 10 ? '0' : '') + n; }
     return (d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
   }
-  function renderHistory() {
-    var wrap = $('history-wrap');
-    if (!wrap) return;
+  function renderHomeHistory() {
+    var entry = $('history-entry');
+    if (!entry) return;
     var h = loadHistory();
-    if (!h.length) { wrap.style.display = 'none'; return; }
-    wrap.style.display = '';
-    $('history-list').innerHTML = h.map(function (r, i) {
+    if (!h.length) { entry.style.display = 'none'; return; }
+    entry.style.display = 'flex';
+    $('history-count').textContent = h.length;
+  }
+  function showHistory() {
+    showPage('history');
+    var h = loadHistory();
+    var list = $('history-list');
+    $('history-meta').textContent = h.length ? '共 ' + h.length + ' 条征战记录' : '';
+    $('history-empty').style.display = h.length ? 'none' : 'block';
+    list.innerHTML = h.map(function (r, i) {
       var cls = r.champ ? 'win' : (r.banner && String(r.banner).indexOf('亚军') >= 0 ? 'runner' : 'elim');
       return '<div class="his-item" data-i="' + i + '">' +
         '<div class="his-top"><span class="his-team">' + esc(r.teamName) + ' · ' + esc(r.seasonName) + '</span>' +
         '<span class="his-banner ' + cls + '">' + esc(r.banner) + '</span></div>' +
         '<div class="his-sub">' + esc((r.rosterNames || []).join('、')) + ' · ' + fmtTime(r.savedAt) + '</div></div>';
     }).join('');
-    $('history-list').querySelectorAll('.his-item').forEach(function (el) {
+    list.querySelectorAll('.his-item').forEach(function (el) {
       el.addEventListener('click', function () { restoreHistory(parseInt(el.getAttribute('data-i'), 10)); });
     });
-    $('history-clear').onclick = function () { saveHistory([]); renderHistory(); };
+    $('history-clear').onclick = function () { saveHistory([]); showHistory(); };
   }
   function restoreHistory(i) {
     var h = loadHistory();
@@ -226,6 +234,7 @@
     else if (hash.indexOf('#/season') === 0) showSeason();
     else if (hash.indexOf('#/sim') === 0) showSim();
     else if (hash.indexOf('#/result') === 0) showResult();
+    else if (hash.indexOf('#/history') === 0) showHistory();
     else showHome();
   }
 
@@ -255,7 +264,7 @@
 
   /* ---------------- 视图切换 ---------------- */
   function showPage(name) {
-    ['home', 'team', 'season', 'sim', 'result'].forEach(function (p) {
+    ['home', 'team', 'season', 'sim', 'result', 'history'].forEach(function (p) {
       $(p).classList.toggle('active', p === name);
     });
     ['team-bar', 'season-bar', 'sim-bar', 'result-bar'].forEach(function (b) {
@@ -277,7 +286,7 @@
       $('stat-line').innerHTML = '<b>' + DATA.manifest.teams2026.length + '</b> 支战队 · <b>' +
         DATA.manifest.seasons.length + '</b> 个赛季 · <b>' + Object.keys(DATA.players).length + '</b> 名选手';
     }
-    renderHistory();
+    renderHomeHistory();
   }
 
   /* ================= 组队 ================= */
@@ -1167,6 +1176,7 @@
         BGM.play('intro');
         go('#/team');
       });
+      $('history-entry').addEventListener('click', function () { go('#/history'); });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
       $('sim-skip').addEventListener('click', openConfirm);
