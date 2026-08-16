@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KPL 2K · BGM 测试</title>
+  <style>
+    :root{--bg:#0d1117;--card:#161b22;--line:#21262d;--fg:#e6edf3;--mut:#8b949e;--gold:#f0b90b;--blue:#58a6ff}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:20px;max-width:480px;margin:0 auto}
+    h1{font-size:19px;margin-bottom:4px}
+    .sub{color:var(--mut);font-size:12px;margin-bottom:18px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+    .card h2{font-size:14px;margin-bottom:8px;color:var(--gold)}
+    .card p{color:var(--mut);font-size:12px;margin-bottom:10px}
+    button{display:block;width:100%;padding:12px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;background:#0d1117;color:var(--fg);font-size:15px;cursor:pointer}
+    button:active{background:#1c2128}
+    button.on{border-color:var(--blue);color:var(--blue)}
+    .row{display:flex;gap:8px}
+    .row button{flex:1}
+    .status{color:var(--mut);font-size:12px;margin-top:6px;white-space:pre-wrap}
+  </style>
+</head>
+<body>
+  <h1>KPL 2K · BGM 测试</h1>
+  <div class="sub">音源在 app/assets/audio/：首页.m4a（首页）、云梦谣/冠军杯/明日坐标/王者冰刃/荣耀主题.m4a（对局，按歌名选）、无双的王者.m4a（默认战歌）、各队小孩.m4a（专属战歌）</div>
+
+  <div class="card">
+    <h2>场景切换</h2>
+    <p>模拟完整链路：开头 → 对局 → 夺冠。点击任意按钮后，下一次点击即满足浏览器自动播放限制。</p>
+    <button id="b-intro">开头 · 巅峰对决</button>
+    <button id="b-battle">对局 · 王者大厅 BGM</button>
+    <button id="b-champion">夺冠 · 战歌</button>
+  </div>
+
+  <div class="card" id="track-card">
+    <h2>对局 BGM 切换</h2>
+    <p>对局场景下可自由切换曲目，点击歌名直接换歌。</p>
+    <div id="track-list"></div>
+  </div>
+
+  <div class="card" id="champion-card">
+    <h2>夺冠战歌（按队）</h2>
+    <p>不同战队夺冠放不同战歌。</p>
+    <div id="champ-list"></div>
+  </div>
+
+  <div class="card">
+    <h2>控制</h2>
+    <div class="row">
+      <button id="b-stop">停止</button>
+      <button id="b-mute">静音/恢复</button>
+    </div>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <script src="bgm.js"></script>
+  <script>
+    BGM.init({
+      intro: 'assets/audio/首页.m4a',
+      battle: [
+        { name: '云梦谣', src: 'assets/audio/云梦谣.m4a' },
+        { name: '冠军杯', src: 'assets/audio/冠军杯.m4a' },
+        { name: '明日坐标', src: 'assets/audio/明日坐标.m4a' },
+        { name: '王者冰刃', src: 'assets/audio/王者冰刃.m4a' },
+        { name: '荣耀主题', src: 'assets/audio/荣耀主题.m4a' }
+      ],
+      battleDefault: 3,
+      champion: {
+        default: 'assets/audio/无双的王者.m4a',
+        byTeam: {
+          '成都AG超玩会': 'assets/audio/红小孩.m4a',
+          '武汉eStarPro': 'assets/audio/星小孩.m4a',
+          '重庆狼队': 'assets/audio/狼小孩.m4a',
+          '深圳DYG': 'assets/audio/DYG小孩.m4a',
+          '南通Hero久竞': 'assets/audio/HERO小孩.m4a',
+          'KSG': 'assets/audio/KSG小孩.m4a',
+          '广州TTG': 'assets/audio/TT小孩.m4a',
+          '长沙TES.A': 'assets/audio/突然的陀螺小孩.m4a',
+          '北京WB': 'assets/audio/淬炼小孩.m4a'
+        }
+      }
+    });
+
+    var active = null;
+    var statusEl = document.getElementById('status');
+    var LABELS = { intro: '巅峰对决（开头）', battle: '王者大厅 BGM（对局）', champion: '战歌（夺冠）' };
+
+    // 进游戏默认直接播放首页音乐（首次点击解锁后响起）
+    BGM.play('intro');
+
+    function refresh() {
+      var scene = BGM.getScene();
+      document.querySelectorAll('button.on').forEach(function (b) { b.classList.remove('on'); });
+      if (scene) document.getElementById('b-' + scene).classList.add('on');
+      statusEl.textContent =
+        '当前场景：' + (scene ? LABELS[scene] : '无') +
+        (scene === 'battle' ? '\n对局曲目：' + BGM.getTrackName() + '（' + (BGM.getTrackIndex() + 1) + ' / ' + BGM.getTrackCount() + '）' : '') +
+        (scene === 'champion' ? '\n夺冠队伍：' + (BGM.getTeam() || '默认战歌') : '') +
+        '\n静音：' + (BGM.isMuted() ? '是' : '否') +
+        '\n音量：' + BGM.getVolume().toFixed(2) +
+        '\n\n提示：浏览器要求首次点击后才能出声，点过一次按钮后就会正常播放。';
+    }
+
+    ['intro', 'battle', 'champion'].forEach(function (key) {
+      document.getElementById('b-' + key).addEventListener('click', function () {
+        BGM.unlock();
+        BGM.play(key);
+        refresh();
+      });
+    });
+
+    document.getElementById('b-stop').addEventListener('click', function () {
+      BGM.unlock();
+      BGM.stop();
+      refresh();
+    });
+
+    var trackList = document.getElementById('track-list');
+    BGM.getTrackNames().forEach(function (name, i) {
+      var b = document.createElement('button');
+      b.textContent = name;
+      b.id = 'b-track-' + i;
+      b.addEventListener('click', function () {
+        BGM.unlock();
+        BGM.play('battle');
+        BGM.playTrack(i);
+        refresh();
+      });
+      trackList.appendChild(b);
+    });
+
+    var champList = document.getElementById('champ-list');
+    var champTeams = [
+      ['成都AG超玩会', 'AG'],
+      ['武汉eStarPro', 'eStarPro'],
+      ['重庆狼队', '狼队'],
+      ['北京WB', 'WB'],
+      ['深圳DYG', 'DYG'],
+      ['南通Hero久竞', 'Hero'],
+      ['KSG', 'KSG'],
+      ['广州TTG', 'TTG'],
+      ['长沙TES.A', 'TES']
+    ];
+    champTeams.forEach(function (pair) {
+      var b = document.createElement('button');
+      b.textContent = pair[1] + ' 夺冠';
+      b.addEventListener('click', function () {
+        BGM.unlock();
+        BGM.play('champion', pair[0]);
+        refresh();
+      });
+      champList.appendChild(b);
+    });
+
+    document.getElementById('b-mute').addEventListener('click', function () {
+      BGM.unlock();
+      BGM.setMuted(!BGM.isMuted());
+      refresh();
+    });
+
+    refresh();
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1117">
+<title>KPL 2K · 平行时空战队经理</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= 首页 ================= -->
+<div id="home" class="page">
+  <div class="hero">
+    <div class="logo">KPL 2K</div>
+    <div class="tagline">组一支你心中的阵容，改写 KPL 历史</div>
+  </div>
+  <div class="mode-cards">
+    <button class="mode-card" id="btn-classic">
+      <div class="mc-title">经典模式</div>
+      <div class="mc-desc">选定一支战队，同队选手可跨版本组队，征战任意赛季</div>
+      <div class="mc-tag">推荐</div>
+    </button>
+    <button class="mode-card locked">
+      <div class="mc-title">全明星模式</div>
+      <div class="mc-desc">跨战队自由搭配，任意选手同场竞技</div>
+      <div class="mc-tag">敬请期待</div>
+    </button>
+    <a class="mode-card" href="player_library.html" style="text-decoration:none">
+      <div class="mc-title">球星卡库</div>
+      <div class="mc-desc">按战队查阅历届选手版本与赛季数据</div>
+      <div class="mc-tag">图鉴</div>
+    </a>
+  </div>
+  <div class="footnote">民间算法 · 平行时空 · 非官方</div>
+</div>
+
+<!-- ================= 组队 ================= -->
+<div id="team" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/'">‹</button>
+    <h1>经典模式 · 组队</h1>
+    <span class="step">1 / 2</span>
+  </div>
+  <div class="team-strip" id="team-strip"></div>
+  <div class="slots" id="team-slots"></div>
+  <div class="card strength-box">
+    <div class="strength-main"><span class="strength-num" id="strength-num">-</span><span class="mut">阵容战力</span></div>
+    <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+    <div class="strength-break" id="strength-break"></div>
+  </div>
+</div>
+<div class="bottom-bar" id="team-bar" style="display:none">
+  <button class="btn gold" id="btn-confirm-team">确认阵容 · 选择战场</button>
+</div>
+
+<!-- ================= 战场 ================= -->
+<div id="season" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/team'">‹</button>
+    <h1>选择战场</h1>
+    <span class="step">2 / 2</span>
+  </div>
+  <div class="mut" style="font-size:12px;margin-bottom:10px">当前阵容：<span id="season-team-name"></span></div>
+  <div id="season-list"></div>
+</div>
+<div class="bottom-bar" id="season-bar" style="display:none">
+  <button class="btn gold" id="season-go" disabled>开始模拟</button>
+</div>
+
+<!-- ================= 模拟 ================= -->
+<div id="sim" class="page">
+  <div class="sim-top">
+    <button id="sim-prev">‹ 上一首</button>
+    <div class="track-name" id="sim-track"></div>
+    <button id="sim-next-track">下一首 ›</button>
+  </div>
+  <div class="sim-progress"><div class="fill" id="sim-progress-fill"></div></div>
+  <div id="sim-events"></div>
+</div>
+<div class="bottom-bar" id="sim-bar" style="display:none">
+  <div style="display:flex;gap:10px">
+    <button class="btn ghost" id="sim-skip" style="flex:1">跳过本局</button>
+    <button class="btn" id="sim-sub" style="display:none;flex:1">更换阵容</button>
+    <button class="btn gold" id="sim-goon" style="display:none;flex:1">继续征战</button>
+    <button class="btn gold" id="sim-next" style="display:none;flex:1">查看战绩</button>
+  </div>
+  <div class="mut" id="sim-done-tip" style="display:none;text-align:center;margin-top:8px"></div>
+</div>
+
+<!-- ================= 结算 ================= -->
+<div id="result" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/'">‹</button>
+    <h1>KPL 2K · 战绩卡</h1>
+    <button id="bgm-toggle" style="font-size:18px">🔊</button>
+  </div>
+  <div class="sub mut" id="result-sub" style="font-size:12px;margin-bottom:12px"></div>
+  <div class="res-banner" id="result-banner"></div>
+  <div class="card"><h2>阵容</h2><div id="result-roster"></div></div>
+  <div class="card"><h2>赛程</h2>
+    <table><tr><td><b>轮次</b></td><td><b>对手</b></td><td><b>比分</b></td><td><b>结果</b></td></tr>
+    <tbody id="result-path"></tbody></table>
+  </div>
+  <div class="card"><h2>选手数据</h2>
+    <table><tr><td><b>选手</b></td><td><b>KDA</b></td><td><b>击杀/死/助</b></td><td><b>参团</b></td><td><b>输出/承伤</b></td><td><b>MVP</b></td></tr>
+    <tbody id="result-stats"></tbody></table>
+  </div>
+  <div class="share-tip" id="share-tip">长按页面可保存战绩图 · 分享链接可还原本场平行时空</div>
+</div>
+<div class="bottom-bar" id="result-bar" style="display:none">
+  <div style="display:flex;gap:10px">
+    <button class="btn ghost" id="result-reteam" style="flex:1">重新组队</button>
+    <button class="btn" id="result-again" style="flex:1">再来一次</button>
+  </div>
+  <button class="btn gold" id="result-share" style="margin-top:10px;width:100%">分享这场平行时空</button>
+</div>
+
+<!-- ================= 换人抽屉 ================= -->
+<div class="drawer-mask" id="drawer-mask"></div>
+<div class="drawer" id="drawer">
+  <h3 id="picker-title">换人</h3>
+  <div class="sub" id="picker-sub"></div>
+  <div class="ver-chips" id="picker-ver"></div>
+  <div id="picker-pool"></div>
+  <button class="btn gold" id="picker-confirm" style="width:100%;margin-top:12px">确认换人</button>
+</div>
+
+<script src="js/bgm.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/narrative.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

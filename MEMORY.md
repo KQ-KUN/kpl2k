@@ -1,0 +1,48 @@
+# KPL 2K 项目记忆
+
+## 定位
+战队经理式 KPL 赛季模拟网页游戏（手机优先、无后端、静态包 + COS/CDN）。抽象层级=比赛，不做局内操作/BP/账号/排行榜。数据范围 2019 起。
+
+## 数据管线
+- 源：kpl.qq.com（赛程/战队）+ prod.comp.smoba.qq.com（选手/逐局 MVP）。
+- 一键重建 `python tools/rebuild_all.py`：审计→归属→组合胜率→清洗评分→映射→选手库→校验。
+- formats.json 由 build_kpl_maps.py 生成，勿手改；改赛制改脚本。
+- **坑**：淘汰轮常被命名"常规赛第X轮"（BO≥7），`fix_tournament_rounds()` 纠正；kpl 队 id 是 slug（`KPL2024S1_ag`），须 `remap_kpl_ids()` 映射回俱乐部 id。
+- **坑**：smoba 榜单 team_id=当前队而非当季队，历史赛季会被污染；battle 未覆盖的赛季在 `data/overrides/player_versions.json` 的 teams 手工修正（已修 2022 夏小胖/冰尘/笑影）。
+- KPL2026S2 已全量爬取，`clean_kpl.py` 里 `FORCE_BATTLEFIELD` 强制其为战场（status=1 但赛程齐）。
+
+## 引擎规则
+- 强度 = 50 + (首发均分 + 位置覆盖 + 老搭档 + 组合胜率化学 + 风格 - 50) × 0.6；组合胜率化学来自 `build_pair_win.py`（真实逐局胜率偏离 50%）。
+- 系列赛胜率 = sigmoid(强度差)，加 ±4 噪声；K=0.1。
+- **淘汰树是动态的**：参赛名单取首轮官方对阵种子顺序，晋级由模拟结果决定，不遍历后续官方固定对阵。单败逐轮淘汰，双败=标准胜者/败者组，总决赛败者组冠军需连赢两场。无战力数据的外卡队按 50 参赛。
+- **常规赛排名只做剧情、不改对位**：sim_engine 常规赛轮累计胜场/净胜局生成联盟排名，季后赛仍用官方首轮种子顺序配对；排名驱动"常规赛收官+首轮签位"文本（templates: regular_recap / seed_lines，KCC 无常规赛不出）。用户明确：不要按排名重排对阵。
+- 黑称红线：攻击长相身高/疾病侮辱/假赛指控/低俗擦边一律不进库。
+- 冠军判定：叙事层比"显示名"，主流程须 champion id 转显示名再传 ctx。
+
+## 评分（v3，代码即规则）
+- 分赛季 z-score 标准化（减中位数÷IQR）→ 全历史同位置 z 池百分位 → 分路权重加权 → 出场对数折扣（5场≈0.59，20场≈1.0）→ 50+49×score。
+- 小样本：≥5 场即可评分（传奇例 4 场），池子只用 ≥10 场。
+- 年度版本只统计正式战场赛季（排除季前/选拔），取当年峰值。
+- 球星卡：按选手×战队拆卡（ACTIVE_2026 白名单 20 队），版本按年合并；非现役标"现役：xx/退役"；分路核心指标展示。
+
+## 叙事
+- 文件：player_flavor（66 人彩蛋）、team_flavor（外号）、templates、rivalry_flavor（9 组恩怨局，55% 触发）。
+- 已删：弹幕玩法（统一"评论区"）、土狗/王八/棺材/勾兑/紧崽（改 32/懦崽）、假赛类。
+- AG 偷家彩蛋：`steal_lines`，AG 胜局 12% 触发"请神梦老师"。
+
+## BGM
+- `app/bgm.js`：intro（首页一首）/ battle（多首按名选曲，nextTrack/prevTrack 记住选择）/ champion（按队 byTeam，缺省回退"无双的王者"）。
+- 音源 `app/assets/audio/*.m4a`（首页.m4a、云梦谣.m4a、各队小孩.m4a、无双的王者.m4a）；移动端首次点击 `BGM.unlock()`。文档 docs/BGM.md，测试页 app/bgm_demo.html。
+
+## 战绩卡
+- 每次 story 模拟生成 `app/result_card.html`：结果横幅（冠军/亚军/止步·N强）、阵容卡（头像/KDA/参团/MVP）、赛程表、选手数据表；小数统一 1 位，可截图传播。
+
+## Web 前端（2026-08-16 起）
+- **纯前端 SPA**：`app/index.html` + `js/{engine,narrative,data,ui,bgm}.js`，hash 路由：`#/` 首页、`#/team` 组队、`#/season` 战场、`#/sim` 模拟、`#/result` 结算；分享链接 `#/s?t=&s=&r=pid@sid,...&seed=` 可还原阵容与结果。
+- **引擎 JS 化**：engine.js 与 tools/sim_engine.py 对齐（常规赛排名→官方种子剧情→动态淘汰树），mulberry32 种子可复现；narrative.js 对应 narrative.py。另含 `createSession()` 分阶段模拟：每场/每轮可暂停，轮间换人（setRoster 更新强度，rng 状态延续，已赛内容不变）。
+- **数据分片**：`tools/build_web.py` 生成 `app/data/`：base.json（franchise/选手/叙事/覆盖，137KB）+ manifest.json + seasons/{sid}.json（赛制+当季选手+pair_win）+ teams/{fid}.json（队卡版本，版本补代表 season_id）。已并入 rebuild_all.py。
+- **26 现役首发**：组队预设取 KPL2026S2 的 pickStarter（位置补全后即"一诺+钟意+长生+大帅+轩染"），缺失队回退 KPL2026S1；版本选择来自队卡 versions。
+- **BGM 场景**：intro=首页.m4a；battle=王者冰刃等 5 首（默认王者冰刃，可切）；champion=byTeam 小孩战歌（AG 红小孩/狼 狼小孩/eStar 星小孩/TTG TT小孩/KSG KSG小孩/Hero HERO小孩/DYG DYG小孩/TES 陀螺小孩），缺省无双的王者。
+- **部署**：已上线 Cloudflare Pages `https://kpl2k.pages.dev`（项目名 kpl2k，API Token 经 `tools/deploy_pages.py` 上传，Token 存 `%USERPROFILE%\.kpl2k_cf_token`）。一键更新：双击 `tools/deploy.bat`（需本机 Python 3，先 build_web 再上传）。注意：Codex 沙箱网络连不上 upload.pages.cloudflare.com，部署须在用户本机执行。`tools/deploy_cos.py` 为腾讯云 COS 备选。
+- **音乐压缩**：`tools/compress_audio.py` 压到 96kbps（app/assets/audio 约 27.6MB，原文件备份在 backup_audio/，不部署）。
+- **UI 反馈已修**（2026-08-16）：切队重置首发、桌面/大屏加宽（720/860px）、球星卡两列、轮间换人（每场后"更换阵容/继续征战"、逐局 700ms 慢速 reveal + 跳过）、战绩卡头像 32px。

@@ -1,0 +1,27 @@
+# 原始爬取数据与临时文件（体积大，不入库）
+data/raw/
+tmp/
+tmp_body_season.json
+tmp_edge*/
+tmp_edge_*/
+backup_audio/
+__pycache__/
+*.pyc
+
+# 爬虫辅助/旧页面（非产品）
+pvp_*.js
+pvp_*.json
+pvp_*.html
+kpl_raw_*.json
+kpl_netlog.json
+kpl_*.js
+kpl_*.html
+kpl_dom.html
+old_*.html
+dom_library.html
+hok_leagues.json
+shot_library.*
+
+# 本地环境
+.env
+*.log

@@ -1,0 +1,1464 @@
+{
+ "schema_version": "0.1",
+ "data_version": "2026-08-15",
+ "note": "smoba 俱乐部稳定 ID 草稿；显示名为当前名，历史改名映射待用 kpl.qq.com 赛季战队表对齐",
+ "franchises": [
+  {
+   "franchise_id": "10001",
+   "names": [
+    "重庆狼队"
+   ],
+   "abbreviations": [
+    "狼队"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2022S1",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190003",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10002",
+   "names": [
+    "上海EDG.M"
+   ],
+   "abbreviations": [
+    "EDG.M"
+   ],
+   "seasons": [
+    "KCC2022S1",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190003",
+    "L20190004",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10003",
+   "names": [
+    "北京WB"
+   ],
+   "abbreviations": [
+    "WB"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2022S1",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10004",
+   "names": [
+    "BA黑凤梨"
+   ],
+   "abbreviations": [
+    "BA"
+   ],
+   "seasons": [
+    "L20190001"
+   ]
+  },
+  {
+   "franchise_id": "10005",
+   "names": [
+    "KSG"
+   ],
+   "abbreviations": [
+    "KSG"
+   ],
+   "seasons": [
+    "KCC2022S1",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190004",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10006",
+   "names": [
+    "武汉eStarPro"
+   ],
+   "abbreviations": [
+    "ES"
+   ],
+   "seasons": [
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2022S1",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190003",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10007",
+   "names": [
+    "南通Hero久竞"
+   ],
+   "abbreviations": [
+    "Hero"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190003",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10008",
+   "names": [
+    "深圳DYG"
+   ],
+   "abbreviations": [
+    "DYG"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10009",
+   "names": [
+    "上海RNG.M"
+   ],
+   "abbreviations": [
+    "RNG.M"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190003",
+    "L20190004",
+    "L20200001",
+    "L20200002",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10010",
+   "names": [
+    "西安WE"
+   ],
+   "abbreviations": [
+    "WE"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190004",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10011",
+   "names": [
+    "KZ"
+   ],
+   "abbreviations": [
+    "KZ"
+   ],
+   "seasons": [
+    "L20190002",
+    "L20190003"
+   ]
+  },
+  {
+   "franchise_id": "10012",
+   "names": [
+    "ROX"
+   ],
+   "abbreviations": [
+    "ROX"
+   ],
+   "seasons": [
+    "L20190002",
+    "L20190003",
+    "L20190006",
+    "L20200002",
+    "L20200003"
+   ]
+  },
+  {
+   "franchise_id": "10014",
+   "names": [
+    "CW"
+   ],
+   "abbreviations": [
+    "CW"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "L20190002",
+    "L20190006",
+    "L20200002"
+   ]
+  },
+  {
+   "franchise_id": "10015",
+   "names": [
+    "EMC"
+   ],
+   "abbreviations": [
+    "EMC"
+   ],
+   "seasons": [
+    "KCC2022S1",
+    "L20190003",
+    "L20190006",
+    "L20200002",
+    "L20200003"
+   ]
+  },
+  {
+   "franchise_id": "10016",
+   "names": [
+    "佛山DRG"
+   ],
+   "abbreviations": [
+    "DRG"
+   ],
+   "seasons": [
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2022S1",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190004",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10017",
+   "names": [
+    "广州TTG"
+   ],
+   "abbreviations": [
+    "TTG"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10018",
+   "names": [
+    "济南RW侠"
+   ],
+   "abbreviations": [
+    "RW侠"
+   ],
+   "seasons": [
+    "KCC2021S",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190003",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10019",
+   "names": [
+    "TOPM"
+   ],
+   "abbreviations": [
+    "TOPM"
+   ],
+   "seasons": [
+    "L20190001"
+   ]
+  },
+  {
+   "franchise_id": "10020",
+   "names": [
+    "北京JDG"
+   ],
+   "abbreviations": [
+    "JDG"
+   ],
+   "seasons": [
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190001",
+    "L20190002",
+    "L20190004",
+    "L20200001",
+    "L20200002",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10021",
+   "names": [
+    "GOG"
+   ],
+   "abbreviations": [
+    "GOG"
+   ],
+   "seasons": [
+    "KCC2021S",
+    "KCC2022S1",
+    "L20190002",
+    "L20190003",
+    "L20190006",
+    "L20200003"
+   ]
+  },
+  {
+   "franchise_id": "10024",
+   "names": [
+    "VSG"
+   ],
+   "abbreviations": [
+    "VSG"
+   ],
+   "seasons": [
+    "L20190002",
+    "L20190003",
+    "L20200002"
+   ]
+  },
+  {
+   "franchise_id": "10025",
+   "names": [
+    "ESC"
+   ],
+   "abbreviations": [
+    "ESC"
+   ],
+   "seasons": [
+    "L20190002"
+   ]
+  },
+  {
+   "franchise_id": "10026",
+   "names": [
+    "NOVA"
+   ],
+   "abbreviations": [
+    "NOVA"
+   ],
+   "seasons": [
+    "L20190003",
+    "L20190006",
+    "L20200002"
+   ]
+  },
+  {
+   "franchise_id": "10027",
+   "names": [
+    "成都AG超玩会"
+   ],
+   "abbreviations": [
+    "AG"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2023",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190004",
+    "L20190006",
+    "L20200001",
+    "L20200003",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10028",
+   "names": [
+    "长沙TES.A"
+   ],
+   "abbreviations": [
+    "TES.A"
+   ],
+   "seasons": [
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2023",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20190004",
+    "L20200001",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10029",
+   "names": [
+    "SLT"
+   ],
+   "abbreviations": [
+    "SLT"
+   ],
+   "seasons": [
+    "L20190006"
+   ]
+  },
+  {
+   "franchise_id": "10031",
+   "names": [
+    "杭州LGD.NBW"
+   ],
+   "abbreviations": [
+    "LGD"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2020S2",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1",
+    "KPL2024S2",
+    "KPL2024S3",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1",
+    "KPL2026S2",
+    "L20200001",
+    "L20200002",
+    "L20210021"
+   ]
+  },
+  {
+   "franchise_id": "10032",
+   "names": [
+    "郑州MTG"
+   ],
+   "abbreviations": [
+    "MTG"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2022S1",
+    "KCC2024",
+    "KPL2021S1",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2023S1",
+    "KPL2023S2",
+    "L20200003"
+   ]
+  },
+  {
+   "franchise_id": "10033",
+   "names": [
+    "ESG"
+   ],
+   "abbreviations": [
+    "ESG"
+   ],
+   "seasons": [
+    "L20200002"
+   ]
+  },
+  {
+   "franchise_id": "10034",
+   "names": [
+    "东莞Wz"
+   ],
+   "abbreviations": [
+    "WZ"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2022S1"
+   ]
+  },
+  {
+   "franchise_id": "10035",
+   "names": [
+    "嵊州SZG"
+   ],
+   "abbreviations": [
+    "SZG"
+   ],
+   "seasons": [
+    "KCC2020W"
+   ]
+  },
+  {
+   "franchise_id": "10036",
+   "names": [
+    "XYG"
+   ],
+   "abbreviations": [
+    "XYG"
+   ],
+   "seasons": [
+    "KCC2020W",
+    "KCC2021S",
+    "KCC2021S2",
+    "KCC2025",
+    "KPL2021S2",
+    "KPL2022S1",
+    "KPL2022S2",
+    "KPL2023S1",
+    "KPL2023S2",
+    "KPL2024S1"
+   ]
+  },
+  {
+   "franchise_id": "10037",
+   "names": [
+    "DQ"
+   ],
+   "abbreviations": [
+    "DQ"
+   ],
+   "seasons": [
+    "KCC2020W"
+   ]
+  },
+  {
+   "franchise_id": "10038",
+   "names": [
+    "昆山SC"
+   ],
+   "abbreviations": [
+    "SC"
+   ],
+   "seasons": [
+    "KCC2021S"
+   ]
+  },
+  {
+   "franchise_id": "10101",
+   "names": [
+    "常山UUG"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2",
+    "KCC2023",
+    "KCC2025",
+    "KPL2022S2",
+    "KPL2025S2"
+   ]
+  },
+  {
+   "franchise_id": "10102",
+   "names": [
+    "MD"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2",
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10103",
+   "names": [
+    "HI"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2"
+   ]
+  },
+  {
+   "franchise_id": "10104",
+   "names": [
+    "HH"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2"
+   ]
+  },
+  {
+   "franchise_id": "10105",
+   "names": [
+    "TLG"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2"
+   ]
+  },
+  {
+   "franchise_id": "10106",
+   "names": [
+    "无锡JXG"
+   ],
+   "abbreviations": [],
+   "seasons": [
+    "KCC2021S2"
+   ]
+  },
+  {
+   "franchise_id": "10301",
+   "names": [
+    "TY"
+   ],
+   "abbreviations": [
+    "TY"
+   ],
+   "seasons": [
+    "KCC2022S1"
+   ]
+  },
+  {
+   "franchise_id": "10302",
+   "names": [
+    "BOA"
+   ],
+   "abbreviations": [
+    "BOA"
+   ],
+   "seasons": [
+    "KCC2022S1",
+    "KCC2023",
+    "KPL2024S1"
+   ]
+  },
+  {
+   "franchise_id": "10303",
+   "names": [
+    "TCG"
+   ],
+   "abbreviations": [
+    "TCG"
+   ],
+   "seasons": [
+    "KCC2022S1"
+   ]
+  },
+  {
+   "franchise_id": "10304",
+   "names": [
+    "YYG"
+   ],
+   "abbreviations": [
+    "YYG"
+   ],
+   "seasons": [
+    "KCC2022S1"
+   ]
+  },
+  {
+   "franchise_id": "10401",
+   "names": [
+    "镇江VTG"
+   ],
+   "abbreviations": [
+    "镇江VTG"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10402",
+   "names": [
+    "HJG"
+   ],
+   "abbreviations": [
+    "HJG"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10403",
+   "names": [
+    "情久"
+   ],
+   "abbreviations": [
+    "情久"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10404",
+   "names": [
+    "Wkk"
+   ],
+   "abbreviations": [
+    "Wkk"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10405",
+   "names": [
+    "虎牙小当家"
+   ],
+   "abbreviations": [
+    "虎牙小当家"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10406",
+   "names": [
+    "斗鱼XHW"
+   ],
+   "abbreviations": [
+    "斗鱼XHW"
+   ],
+   "seasons": [
+    "KCC2023"
+   ]
+  },
+  {
+   "franchise_id": "10601",
+   "names": [
+    "无锡TCG"
+   ],
+   "abbreviations": [
+    "TCG"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2024S2",
+    "KPL2026S1"
+   ]
+  },
+  {
+   "franchise_id": "10602",
+   "names": [
+    "九江TKL"
+   ],
+   "abbreviations": [
+    "九江TKL"
+   ],
+   "seasons": [
+    "KPL2024S2"
+   ]
+  },
+  {
+   "franchise_id": "10901",
+   "names": [
+    "深圳KLG"
+   ],
+   "abbreviations": [
+    "深圳KLG"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KPL2025S1"
+   ]
+  },
+  {
+   "franchise_id": "10902",
+   "names": [
+    "世巨A"
+   ],
+   "abbreviations": [
+    "世巨A"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10903",
+   "names": [
+    "桐乡情久"
+   ],
+   "abbreviations": [
+    "情久"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2025S1",
+    "KPL2025S2",
+    "KPL2025S3",
+    "KPL2026S1"
+   ]
+  },
+  {
+   "franchise_id": "10904",
+   "names": [
+    "佳美娜"
+   ],
+   "abbreviations": [
+    "佳美娜"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10905",
+   "names": [
+    "LTG"
+   ],
+   "abbreviations": [
+    "LTG"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "10906",
+   "names": [
+    "天鹿"
+   ],
+   "abbreviations": [
+    "天鹿"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10907",
+   "names": [
+    "青训凌云"
+   ],
+   "abbreviations": [
+    "青训凌云"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10908",
+   "names": [
+    "辣翻你是绝队"
+   ],
+   "abbreviations": [
+    "辣翻你是绝队"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10909",
+   "names": [
+    "梦之队Pro"
+   ],
+   "abbreviations": [
+    "梦之队Pro"
+   ],
+   "seasons": [
+    "KCC2024"
+   ]
+  },
+  {
+   "franchise_id": "10910",
+   "names": [
+    "WST"
+   ],
+   "abbreviations": [
+    "WST"
+   ],
+   "seasons": [
+    "KCC2024",
+    "KCC2025",
+    "KCC2026",
+    "KPL2026S2"
+   ]
+  },
+  {
+   "franchise_id": "12201",
+   "names": [
+    "OP"
+   ],
+   "abbreviations": [
+    "OP"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12202",
+   "names": [
+    "SYG"
+   ],
+   "abbreviations": [
+    "SYG"
+   ],
+   "seasons": [
+    "KCC2025",
+    "KCC2026",
+    "KPL2026S2"
+   ]
+  },
+  {
+   "franchise_id": "12203",
+   "names": [
+    "TE溯"
+   ],
+   "abbreviations": [
+    "TE溯"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12204",
+   "names": [
+    "WYG"
+   ],
+   "abbreviations": [
+    "WYG"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12205",
+   "names": [
+    "WD"
+   ],
+   "abbreviations": [
+    "WD"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12206",
+   "names": [
+    "金陵科技学院"
+   ],
+   "abbreviations": [
+    "金陵科技学院"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12207",
+   "names": [
+    "青训破军"
+   ],
+   "abbreviations": [
+    "青训破军"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12208",
+   "names": [
+    "桑杰队"
+   ],
+   "abbreviations": [
+    "桑杰队"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12209",
+   "names": [
+    "HBSE"
+   ],
+   "abbreviations": [
+    "HBSE"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12210",
+   "names": [
+    "NOVA"
+   ],
+   "abbreviations": [
+    "NOVA"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12211",
+   "names": [
+    "APG"
+   ],
+   "abbreviations": [
+    "APG"
+   ],
+   "seasons": [
+    "KCC2025"
+   ]
+  },
+  {
+   "franchise_id": "12401",
+   "names": [
+    "青训潜渊"
+   ],
+   "abbreviations": [
+    "青训潜渊"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12402",
+   "names": [
+    "重庆科技大学"
+   ],
+   "abbreviations": [
+    "重庆科技大学"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12403",
+   "names": [
+    "阿里巴巴PKQ"
+   ],
+   "abbreviations": [
+    "阿里巴巴PKQ"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12404",
+   "names": [
+    "ZDC"
+   ],
+   "abbreviations": [
+    "ZDC"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12405",
+   "names": [
+    "GKE"
+   ],
+   "abbreviations": [
+    "GKE"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12406",
+   "names": [
+    "ZJQ"
+   ],
+   "abbreviations": [
+    "ZJQ"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12407",
+   "names": [
+    "BOOM"
+   ],
+   "abbreviations": [
+    "BOOM"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12408",
+   "names": [
+    "BTR"
+   ],
+   "abbreviations": [
+    "BTR"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12409",
+   "names": [
+    "吵一吵"
+   ],
+   "abbreviations": [
+    "吵一吵"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12410",
+   "names": [
+    "好厚米"
+   ],
+   "abbreviations": [
+    "好厚米"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  },
+  {
+   "franchise_id": "12411",
+   "names": [
+    "WG"
+   ],
+   "abbreviations": [
+    "WG"
+   ],
+   "seasons": [
+    "KCC2026"
+   ]
+  }
+ ]
+}
