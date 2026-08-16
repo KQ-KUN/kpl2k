@@ -313,15 +313,9 @@
     var wgChamp = winnersBracket[0];
     var lgChamp = losersBracket[0] || null;
     if (lgChamp == null) return [wgChamp, roundsOut];
-    var champion = wgChamp;
     var r1 = playMatch(rng, strengths, wgChamp, lgChamp, finalBo);
-    roundsOut.push({ round: '总决赛第一场', a: wgChamp, b: lgChamp, w: r1[0], loser: r1[0] === wgChamp ? lgChamp : wgChamp, sa: r1[1], sb: r1[2], results: r1[3] });
-    if (r1[0] === lgChamp) {
-      var r2 = playMatch(rng, strengths, wgChamp, lgChamp, finalBo);
-      roundsOut.push({ round: '总决赛第二场', a: wgChamp, b: lgChamp, w: r2[0], loser: r2[0] === wgChamp ? lgChamp : wgChamp, sa: r2[1], sb: r2[2], results: r2[3] });
-      champion = r2[0];
-    }
-    return [champion, roundsOut];
+    roundsOut.push({ round: '总决赛', a: wgChamp, b: lgChamp, w: r1[0], loser: r1[0] === wgChamp ? lgChamp : wgChamp, sa: r1[1], sb: r1[2], results: r1[3] });
+    return [r1[0], roundsOut];
   }
 
   /* ---------------- 叙事 ---------------- */
@@ -999,7 +993,6 @@
           l = new Array(Math.ceil(l.length / 2));
         }
         d.queue.push({ tag: '总决赛', kind: 'final1' });
-        d.queue.push({ tag: '总决赛', kind: 'final2' });
       }
       while (d.queue.length) {
         var s = d.queue.shift();
@@ -1025,18 +1018,10 @@
         if (s.kind === 'final1') {
           if (!d.l.length) { champion = d.w[0]; return null; }
           var r1 = runMatch(d.w[0], d.l[0], finalBo, false);
+          champion = r1.winnerId;
           var en1 = (track != null && (track === d.w[0] || track === d.l[0]))
             ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r1.winnerId, scoreA: r1.scoreA, scoreB: r1.scoreB, results: r1.results }, '总决赛')] : [];
-          if (r1.winnerId === d.w[0]) { champion = d.w[0]; return { title: '总决赛', entries: en1 }; }
-          return { title: '总决赛第一场', entries: en1 };
-        }
-        if (s.kind === 'final2') {
-          if (champion) return null;
-          var r2 = runMatch(d.w[0], d.l[0], finalBo, false);
-          champion = r2.winnerId;
-          var en2 = (track != null && (track === d.w[0] || track === d.l[0]))
-            ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r2.winnerId, scoreA: r2.scoreA, scoreB: r2.scoreB, results: r2.results }, '总决赛')] : [];
-          return { title: '总决赛', entries: en2 };
+          return { title: '总决赛', entries: en1 };
         }
       }
       return null;
