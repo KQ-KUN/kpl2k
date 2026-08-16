@@ -14,7 +14,7 @@ body{
   max-width:720px;margin:0 auto;min-height:100%;
 }
 @media (min-width:900px){
-  body{max-width:860px}
+  body{max-width:min(1280px,96vw)}
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 img{display:block}
@@ -47,7 +47,7 @@ img{display:block}
   border-top:1px solid var(--line);z-index:30;
 }
 @media (min-width:900px){
-  .bottom-bar{max-width:860px}
+  .bottom-bar{max-width:min(1280px,96vw)}
 }
 
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:12px}
@@ -323,14 +323,14 @@ td.tag{text-align:center}
 .sm-actions{display:flex;gap:10px;margin-top:10px}
 .sm-actions .btn{flex:1;min-height:42px;font-size:14px}
 
-/* 桌面端：王朝 5×2、战队 9×2（需放在基础规则之后，否则被覆盖） */
+/* 桌面端：加宽到两侧 + 王朝 5×2、战队 9×2（需放在基础规则之后，否则被覆盖） */
 @media (min-width:900px){
-  .dyn-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;overflow:visible;margin:0 0 8px;padding:0}
-  .dyn-chip{width:100%;padding:6px 9px;border-radius:10px}
-  .dyn-chip .dc-label{font-size:12px}
-  .dyn-chip .dc-desc{font-size:9px;margin-top:1px}
-  .team-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;overflow:visible;margin:0 0 8px;padding:0}
-  .team-chip{width:100%;padding:5px 2px;border-radius:10px}
-  .team-chip .tc-abbr{height:22px;font-size:13px}
-  .team-chip .tc-name{font-size:9px;margin-top:1px}
+  .dyn-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
+  .dyn-chip{width:100%;padding:8px 12px;border-radius:12px}
+  .dyn-chip .dc-label{font-size:14px}
+  .dyn-chip .dc-desc{font-size:10px;margin-top:2px}
+  .team-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
+  .team-chip{width:100%;padding:8px 4px;border-radius:12px}
+  .team-chip .tc-abbr{height:30px;font-size:15px}
+  .team-chip .tc-name{font-size:10px;margin-top:2px}
 }
