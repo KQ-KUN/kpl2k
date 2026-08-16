@@ -522,6 +522,10 @@
     $('season-team-name').textContent = STATE.team
       ? (teamName(STATE.team) + ' · ' + STATE.roster.map(function (s) { return playerName(s.pid); }).join('、'))
       : '未组队';
+    renderSeasonList();
+  }
+
+  function renderSeasonList() {
     var byYear = {};
     DATA.manifest.seasons.forEach(function (s) {
       var y = s.year || 0;
@@ -548,7 +552,7 @@
       el.addEventListener('click', function () {
         STATE.season = el.getAttribute('data-sid');
         saveState();
-        showSeason();
+        renderSeasonList();
       });
     });
     var canGo = !!(STATE.season && STATE.team && STATE.roster.length);

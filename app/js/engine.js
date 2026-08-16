@@ -545,6 +545,29 @@
       teams.forEach(function (t) {
         if (!(t in strengths)) strengths[t] = 50.0;
       });
+      // 外卡：玩家队不在本赛事参赛名单时，顶替首轮最弱队，并优先对阵剩余最弱对手，保证有真实对阵与战报
+      if (track != null && teams.indexOf(track) < 0 && teams.length) {
+        var sortedT = teams.slice().sort(function (x, y) {
+          return (strengths[x] || 50) - (strengths[y] || 50);
+        });
+        var weakest = sortedT[0];
+        var secondWeak = sortedT[1] || null;
+        var replacedNote = names[weakest] || '?';
+        var idxW = teams.indexOf(weakest);
+        teams[idxW] = track;
+        if (secondWeak && Math.floor(teams.indexOf(secondWeak) / 2) !== Math.floor(idxW / 2)) {
+          var idxS = teams.indexOf(secondWeak);
+          var posOppW = idxW % 2 === 0 ? idxW + 1 : idxW - 1;
+          var oppW = teams[posOppW];
+          teams[posOppW] = secondWeak;
+          teams[idxS] = oppW;
+        }
+        if (!(track in strengths)) strengths[track] = 50.0;
+        var firstOpp = teams[idxW % 2 === 0 ? idxW + 1 : idxW - 1];
+        var note = (names[track] || '这支队伍') + '以外卡身份顶替' + replacedNote +
+          '，登上' + (fmt.name || '本次赛事') + '的淘汰赛舞台，首轮对阵' + (names[firstOpp] || '?') + '。';
+        narrations.push(note);
+      }
 
       // 种子剧情：首轮对位 + 常规赛排名
       if (Object.keys(regularRank).length) {
@@ -582,8 +605,13 @@
         }
       }
 
-      var singleRounds = treeRounds.filter(function (r) { return r.type === 'single_elim'; });
-      var multiRounds = treeRounds.filter(function (r) { return ['double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0; });
+      var cfgType = (fmt.playoff_config || {}).type;
+      var singleRounds = treeRounds.filter(function (r) {
+        return r.type === 'single_elim' || (cfgType === 'single_elim' && (r.type === 'playoffs' || r.type === 'final'));
+      });
+      var multiRounds = treeRounds.filter(function (r) {
+        return cfgType !== 'single_elim' && ['double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0;
+      });
       var current = teams;
       var elimLog = [];
 
@@ -685,6 +713,7 @@
     });
 
     var teams = [];
+    var wildcardNote = null;
     if (treeRounds.length) {
       var firstRound = treeRounds[0];
       (firstRound.matches || []).forEach(function (m) {
@@ -692,9 +721,36 @@
         if (teams.indexOf(m.b_id) < 0) teams.push(m.b_id);
       });
       teams.forEach(function (t) { if (!(t in strengths)) strengths[t] = 50.0; });
+      // 外卡：玩家队不在本赛事参赛名单时，顶替首轮最弱队，并优先对阵剩余最弱对手，保证有真实对阵与战报
+      if (track != null && teams.indexOf(track) < 0 && teams.length) {
+        var sortedT = teams.slice().sort(function (x, y) {
+          return (strengths[x] || 50) - (strengths[y] || 50);
+        });
+        var weakest = sortedT[0];
+        var secondWeak = sortedT[1] || null;
+        var replacedNote = names[weakest] || '?';
+        var idxW = teams.indexOf(weakest);
+        teams[idxW] = track;
+        if (secondWeak && Math.floor(teams.indexOf(secondWeak) / 2) !== Math.floor(idxW / 2)) {
+          var idxS = teams.indexOf(secondWeak);
+          var posOppW = idxW % 2 === 0 ? idxW + 1 : idxW - 1;
+          var oppW = teams[posOppW];
+          teams[posOppW] = secondWeak;
+          teams[idxS] = oppW;
+        }
+        if (!(track in strengths)) strengths[track] = 50.0;
+        var firstOpp = teams[idxW % 2 === 0 ? idxW + 1 : idxW - 1];
+        wildcardNote = (names[track] || '这支队伍') + '以外卡身份顶替' + replacedNote +
+          '，登上' + (fmt.name || '本次赛事') + '的淘汰赛舞台，首轮对阵' + (names[firstOpp] || '?') + '。';
+      }
     }
-    var singleRounds = treeRounds.filter(function (r) { return r.type === 'single_elim'; });
-    var multiRounds = treeRounds.filter(function (r) { return ['double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0; });
+    var cfgType = (fmt.playoff_config || {}).type;
+    var singleRounds = treeRounds.filter(function (r) {
+      return r.type === 'single_elim' || (cfgType === 'single_elim' && (r.type === 'playoffs' || r.type === 'final'));
+    });
+    var multiRounds = treeRounds.filter(function (r) {
+      return cfgType !== 'single_elim' && ['double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0;
+    });
     var singleIdx = 0;
     var current = teams.slice();
     var champion = null;
@@ -814,7 +870,7 @@
       var winners = [], entries = [];
       for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i];
-        var r = runMatch(pair[0], pair[1], pair.bo, false);
+        var r = runMatch(pair[0], pair[1], pair[2], false);
         winners.push(r.winnerId);
         if (track != null && (track === pair[0] || track === pair[1])) {
           entries.push(entryFor({
@@ -911,6 +967,11 @@
               scoreA: rp.scoreA, scoreB: rp.scoreB, results: rp.results
             }, qp.rnd.name)] };
           }
+        }
+        if (wildcardNote) {
+          var wl = wildcardNote;
+          wildcardNote = null;
+          return { kind: 'regular_recap', title: '外卡登场', lines: [wl] };
         }
         if (!recapDone && Object.keys(regularGames).length) {
           recapDone = true;
