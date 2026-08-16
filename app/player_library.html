@@ -66,7 +66,11 @@ input{width:100%}
 </style>
 </head>
 <body>
-<h1 style="display:flex;justify-content:space-between;align-items:center">KPL 2K · 球星卡
+<h1 style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+  <span style="display:flex;align-items:center;gap:8px">
+    <button onclick="history.length>1?history.back():location.href='index.html'" style="font-size:20px;color:var(--blue);border:none;background:none;cursor:pointer;padding:0 4px">‹</button>
+    KPL 2K · 球星卡
+  </span>
   <a id="rule-link" href="javascript:void(0)" style="font-size:12px;color:var(--blue);text-decoration:underline;font-weight:400;flex:none">战力规则 ›</a>
 </h1>
 <div class="sub" id="meta"></div>

@@ -913,11 +913,16 @@
     go('#/result');
   }
 
-  function openConfirm() {
+  var confirmCb = null;
+  function openConfirm(title, body, onOk) {
+    $('cf-title').textContent = title;
+    $('cf-body').textContent = body;
+    confirmCb = onOk || null;
     $('confirm-mask').classList.add('show');
     $('confirm-box').classList.add('show');
   }
   function closeConfirm() {
+    confirmCb = null;
     $('confirm-mask').classList.remove('show');
     $('confirm-box').classList.remove('show');
   }
@@ -1233,10 +1238,20 @@
       $('history-entry').addEventListener('click', function () { go('#/history'); });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
-      $('sim-skip').addEventListener('click', openConfirm);
+      $('sim-skip').addEventListener('click', function () {
+        openConfirm('一键跳转', '是否直接查看比赛结果？将跳过剩余赛程的文字，直接生成最终战绩。', skipAll);
+      });
+      $('sim-back').addEventListener('click', function () {
+        openConfirm('返回首页', '当前模拟将中断，本次征战记录不会被保存。确定返回首页吗？', function () {
+          if (SIM.timer) { clearInterval(SIM.timer); SIM.timer = null; }
+          SIM.queue = [];
+          go('#/');
+        });
+      });
       $('cf-ok').addEventListener('click', function () {
+        var cb = confirmCb;
         closeConfirm();
-        skipAll();
+        if (cb) cb();
       });
       $('cf-cancel').addEventListener('click', closeConfirm);
       $('confirm-mask').addEventListener('click', closeConfirm);
