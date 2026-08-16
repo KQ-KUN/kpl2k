@@ -407,7 +407,7 @@ def render_result_card(custom: list[dict], path: list[dict], team: str, season_n
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KPL 2K · 战绩卡</title>
 <style>
-:root{{--bg:#0d1117;--card:#161b22;--line:#21262d;--fg:#e6edf3;--mut:#8b949e;--gold:#f0b90b;--blue:#58a6ff;--green:#3fb950;--red:#f85149}}
+:root{{--bg:#0b1a2e;--card:#12243f;--line:#1d3557;--fg:#e9f1fb;--mut:#8fa8cc;--gold:#f0b90b;--blue:#5da8ff;--green:#3fb950;--red:#f85149}}
 *{{box-sizing:border-box;margin:0;padding:0}}
 body{{background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:16px;max-width:520px;margin:0 auto}}
 h1{{font-size:20px;margin-bottom:2px}}

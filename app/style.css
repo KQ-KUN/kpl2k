@@ -1,7 +1,7 @@
 /* KPL 2K · 移动优先样式 */
 :root{
-  --bg:#0d1117;--card:#161b22;--line:#21262d;--line2:#2d333b;
-  --fg:#e6edf3;--mut:#8b949e;--gold:#f0b90b;--blue:#58a6ff;
+  --bg:#0b1a2e;--card:#12243f;--line:#1d3557;--line2:#29456e;
+  --fg:#e9f1fb;--mut:#8fa8cc;--gold:#f0b90b;--blue:#5da8ff;
   --green:#3fb950;--red:#f85149;--purple:#bc8cff;
   --radius:14px;
   --safe-bottom:env(safe-area-inset-bottom,0px);
@@ -43,7 +43,7 @@ img{display:block}
 .bottom-bar{
   position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:520px;
   padding:12px 14px calc(12px + var(--safe-bottom));
-  background:rgba(13,17,23,.92);backdrop-filter:blur(8px);
+  background:rgba(11,26,46,.94);backdrop-filter:blur(8px);
   border-top:1px solid var(--line);z-index:30;
 }
 @media (min-width:900px){
@@ -102,7 +102,7 @@ img{display:block}
   transition:transform .1s ease,border-color .1s ease;
 }
 .team-chip:active{transform:scale(.96)}
-.team-chip.sel{border-color:var(--gold);background:linear-gradient(180deg,rgba(240,185,11,.14),rgba(240,185,11,.03)),#1c1a0e;box-shadow:0 0 14px rgba(240,185,11,.18)}
+.team-chip.sel{border-color:var(--gold);background:linear-gradient(180deg,rgba(240,185,11,.16),rgba(240,185,11,.04)),#132947;box-shadow:0 0 14px rgba(240,185,11,.18)}
 .team-chip .tc-abbr{font-size:15px;font-weight:800;color:var(--gold);height:34px;display:flex;align-items:center;justify-content:center}
 .team-chip .tc-name{font-size:10px;color:var(--mut);line-height:1.2;margin-top:2px;word-break:break-all}
 
@@ -152,7 +152,7 @@ img{display:block}
 .drawer{
   position:fixed;left:50%;transform:translateX(-50%) translateY(100%);bottom:0;
   width:100%;max-width:520px;max-height:78vh;overflow-y:auto;z-index:50;
-  background:#11161f;border:1px solid var(--line2);border-bottom:none;
+  background:#0e1e36;border:1px solid var(--line2);border-bottom:none;
   border-radius:18px 18px 0 0;padding:14px 14px calc(14px + var(--safe-bottom));
   transition:transform .25s ease;
 }
@@ -180,8 +180,8 @@ img{display:block}
   background:var(--card);border:1.5px solid var(--line);border-radius:12px;
   padding:11px 12px;margin-bottom:8px;
 }
-.season-item:active{background:#1b212b}
-.season-item.sel{border-color:var(--gold);background:#1c1a0e}
+.season-item:active{background:#16263f}
+.season-item.sel{border-color:var(--gold);background:#132947}
 .season-item .si-name{font-size:14px;font-weight:700}
 .season-item .si-tags{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
 .tag-pill{font-size:10px;padding:1px 7px;border-radius:10px;border:1px solid var(--line2);color:var(--mut)}
@@ -220,7 +220,7 @@ img{display:block}
 /* ---- 结算 ---- */
 .res-banner{border-radius:14px;padding:16px;text-align:center;font-size:20px;font-weight:900;margin-bottom:12px}
 .res-banner.champ{background:#0f2a1e;color:var(--green);border:1px solid #1f6f43}
-.res-banner.runner{background:#1f242e;color:var(--mut);border:1px solid #30363d}
+.res-banner.runner{background:#1a2b45;color:var(--mut);border:1px solid #30486e}
 .res-banner.elim{background:#2d0f0f;color:var(--red);border:1px solid #8b3a3a}
 .res-banner.champ{animation:champGlow 2s ease-in-out infinite}
 @keyframes champGlow{0%,100%{box-shadow:0 0 16px rgba(63,185,80,.22)}50%{box-shadow:0 0 34px rgba(63,185,80,.55)}}

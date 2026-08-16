@@ -576,14 +576,13 @@
     el.innerHTML = '<div class="se-title">' + stageIcon(stageTitle) + ' ' + esc(stageTitle) + ' · vs ' + esc(entry.opp) +
       ' <span class="score-pill ' + (entry.win ? 'win' : 'lose') + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>';
     $('sim-events').appendChild(el);
-    requestAnimationFrame(function () { el.classList.add('show'); scrollBottom(); });
+    requestAnimationFrame(function () { el.classList.add('show'); });
     entry.games.forEach(function (g, gi) {
       var fn = function () {
         var gd = document.createElement('div');
         gd.className = 'se-game';
         gd.innerHTML = gameHtml(g, STATE.roster.map(function (s) { return playerName(s.pid); }));
         el.appendChild(gd);
-        scrollBottom();
       };
       if (gi === 0) fn();
       else SIM.queue.push(fn);
@@ -599,7 +598,7 @@
     el.className = 'story-event' + cls;
     el.innerHTML = '<div class="se-title">' + esc(ev.title) + '</div>' + lines;
     $('sim-events').appendChild(el);
-    requestAnimationFrame(function () { el.classList.add('show'); scrollBottom(); });
+    requestAnimationFrame(function () { el.classList.add('show'); });
   }
 
   function pumpReveal() {
