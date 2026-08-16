@@ -24,23 +24,23 @@ OUT = ROOT / "app" / "data"
 
 # 王朝战队预设：真实历史主力五人组（版本在运行时取该队内巅峰赛季）
 DYNASTIES = [
-    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 世冠+冬冠，Fly 时代起点",
+    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 冬冠，Fly 时代起点",
      "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
     {"id": "2019estar", "label": "19eStar 五虎", "team_fid": "10006", "desc": "2019 双冠，诺言花海 Cat",
      "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
-    {"id": "2020dyg", "label": "20DYG 王朝", "team_fid": "10008", "desc": "2020 秋冠，清清久诚易峥",
+    {"id": "2020dyg", "label": "20DYG 大魔王", "team_fid": "10008", "desc": "2020 秋冠，清清久诚易峥",
      "players": ["清清", "小义", "久诚", "易峥", "星宇"]},
-    {"id": "2021hero", "label": "21Hero 双冠", "team_fid": "10007", "desc": "20冬+21春，清融无畏星痕",
+    {"id": "2021hero", "label": "21Hero 双冠", "team_fid": "10007", "desc": "20冬+21春，星痕无畏清融",
      "players": ["星痕", "无畏", "清融", "久酷", "子阳"]},
-    {"id": "2021ttg", "label": "21TTG 五虎", "team_fid": "10017", "desc": "通天边路清清 + 不然九尾",
+    {"id": "2021ttg", "label": "21TTG 无冕", "team_fid": "10017", "desc": "巅峰亚军五虎，通天边路清清",
      "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
-    {"id": "2022estar", "label": "22eStar 五冠", "team_fid": "10006", "desc": "坦然花海清融易峥子阳",
+    {"id": "2022estar", "label": "22eStar 王朝", "team_fid": "10006", "desc": "21-22 六连决赛五夺冠",
      "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
-    {"id": "2023wolf", "label": "23狼队王朝", "team_fid": "10001", "desc": "胖鱼刀帆 + Fly，三冠",
+    {"id": "2023wolf", "label": "23狼队王朝", "team_fid": "10001", "desc": "2023 春+世冠，胖鱼刀帆",
      "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
-    {"id": "2024ag", "label": "24AG 双冠", "team_fid": "10027", "desc": "轩染钟意长生一诺大帅",
+    {"id": "2024ag", "label": "24-25AG 红色王朝", "team_fid": "10027", "desc": "九连决赛 · 六连冠",
      "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
-    {"id": "2025wolf", "label": "25狼队", "team_fid": "10001", "desc": "归期小胖向鱼道崽一笙",
+    {"id": "2025wolf", "label": "25狼队", "team_fid": "10001", "desc": "2025 年总亚军，鸟巢憾负 AG",
      "players": ["归期", "小胖", "向鱼", "道崽", "一笙"]},
 ]
 
@@ -243,6 +243,7 @@ def main() -> None:
     # ---- 5. 王朝战队预设（选手取该队内巅峰赛季版本）----
     name_by_id = {p["player_id"]: p["name"] for p in players}
     id_by_name = {p["name"]: p["player_id"] for p in players}
+    avail_sids = set(formats["seasons"].keys())
     dyn_out = []
     for d in DYNASTIES:
         roster = []
@@ -252,6 +253,7 @@ def main() -> None:
                 continue
             cand = [r for r in records
                     if r["player_id"] == pid and r["team_franchise"] == d["team_fid"]
+                    and r["season_id"] in avail_sids
                     and (r["games"] or 0) >= 5
                     and r["position"] in ("对抗路", "打野", "中路", "发育路", "游走")]
             if not cand:

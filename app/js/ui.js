@@ -274,6 +274,7 @@
         }
         saveState();
         renderTeamStrip();
+        renderDynastyStrip();
         loadTeamView(STATE.team);
       });
     });
