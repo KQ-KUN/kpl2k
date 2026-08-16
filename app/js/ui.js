@@ -495,7 +495,7 @@
 
   /* ================= 模拟 ================= */
   /* 分阶段模拟：逐局 reveal，每轮后可换人 */
-  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '' };
+  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false };
 
   function showSim() {
     showPage('sim');
@@ -554,6 +554,8 @@
   }
 
   function advance() {
+    var willJump = SIM.jump;
+    SIM.jump = false;
     var stage = SIM.session.next();
     SIM.stageNo += 1;
     $('sim-progress-fill').style.width = Math.min(96, SIM.stageNo * 2) + '%';
@@ -571,6 +573,12 @@
       appendEntryCard(entry, stage.title);
     });
     pumpReveal();
+    if (willJump) {
+      requestAnimationFrame(function () {
+        var cards = $('sim-events').querySelectorAll('.story-event');
+        if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   }
 
   function appendEntryCard(entry, stageTitle) {
@@ -810,6 +818,109 @@
     done();
   }
 
+  /* ---------------- 战绩分享图（Canvas 手绘） ---------------- */
+  function roundRectPath(x, px, py, w, h, r) {
+    x.beginPath();
+    x.moveTo(px + r, py);
+    x.arcTo(px + w, py, px + w, py + h, r);
+    x.arcTo(px + w, py + h, px, py + h, r);
+    x.arcTo(px, py + h, px, py, r);
+    x.arcTo(px, py, px + w, py, r);
+    x.closePath();
+  }
+
+  function renderShareImage() {
+    var run = STATE.lastRun;
+    if (!run) return;
+    var W = 1080, P = 64;
+    var rows = Math.min(run.path.length, 8);
+    var H = 400 + run.records.length * 108 + 90 + rows * 86 + 120;
+    var cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    var x = cv.getContext('2d');
+
+    var g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#0b1a2e'); g.addColorStop(1, '#123052');
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+    x.strokeStyle = '#f0b90b'; x.lineWidth = 6;
+    x.strokeRect(26, 26, W - 52, H - 52);
+
+    var team = teamName(run.team);
+    x.textAlign = 'center';
+    x.fillStyle = '#f0b90b';
+    x.font = '900 58px sans-serif';
+    x.fillText('KPL 2K · 战绩卡', W / 2, 122);
+    x.fillStyle = '#8fa8cc';
+    x.font = '30px sans-serif';
+    x.fillText(run.seasonName + ' · ' + team + ' · 种子 ' + run.seed, W / 2, 178);
+
+    var banner, color, bg;
+    if (run.champion && teamName(run.champion) === team) {
+      banner = '🏆 冠军'; color = '#3fb950'; bg = 'rgba(63,185,80,.16)';
+    } else if (run.path.length && String(run.path[run.path.length - 1].round).indexOf('决赛') >= 0) {
+      banner = '亚军'; color = '#8fa8cc'; bg = 'rgba(143,168,204,.16)';
+    } else {
+      banner = '赛季止步 · ' + placeText(run.path.length ? run.path[run.path.length - 1].round : '');
+      color = '#f85149'; bg = 'rgba(248,81,73,.16)';
+    }
+    roundRectPath(x, W / 2 - 270, 216, 540, 96, 18);
+    x.fillStyle = bg; x.fill();
+    x.strokeStyle = color; x.lineWidth = 3; x.stroke();
+    x.fillStyle = color; x.font = '700 42px sans-serif';
+    x.fillText(banner, W / 2, 278);
+
+    var y = 400;
+    x.textAlign = 'left';
+    x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
+    x.fillText('阵容', P, y); y += 18;
+    run.records.forEach(function (r) {
+      y += 90;
+      x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
+      x.fillText(playerName(r.player_id), P, y);
+      x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
+      x.fillText(r.position, P + 330, y);
+      x.textAlign = 'right';
+      x.fillStyle = '#f0b90b'; x.font = '600 28px sans-serif';
+      x.fillText('KDA ' + f1(r.avg_kda) + ' · 参团 ' + pct(r.avg_participation_rate) + ' · MVP ' + (r.mvp_count || 0), W - P, y);
+      x.textAlign = 'left';
+    });
+
+    y += 46;
+    x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
+    x.fillText('赛程', P, y); y += 16;
+    run.path.slice(-rows).forEach(function (p) {
+      y += 78;
+      x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
+      x.fillText(p.round + ' vs ' + p.opp, P, y);
+      x.textAlign = 'right';
+      x.fillStyle = p.win ? '#3fb950' : '#f85149'; x.font = '700 28px sans-serif';
+      x.fillText(p.score + ' ' + (p.win ? '胜' : '负'), W - P, y);
+      x.textAlign = 'left';
+    });
+
+    x.textAlign = 'center';
+    x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
+    x.fillText('民间算法 · 平行时空 · KPL 2K', W / 2, H - 66);
+
+    $('share-img').src = cv.toDataURL('image/png');
+    $('share-modal').classList.add('show');
+    $('share-mask').classList.add('show');
+  }
+
+  function closeShareModal() {
+    $('share-modal').classList.remove('show');
+    $('share-mask').classList.remove('show');
+  }
+
+  function downloadShare() {
+    var a = document.createElement('a');
+    a.href = $('share-img').src;
+    a.download = 'kpl2k-战绩卡.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   /* ---------------- 入口 ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initBGM();
@@ -822,7 +933,7 @@
       $('season-go').addEventListener('click', function () { go('#/sim'); });
       $('sim-skip').addEventListener('click', skipStage);
       $('sim-sub').addEventListener('click', showPosPicker);
-      $('sim-goon').addEventListener('click', advance);
+      $('sim-goon').addEventListener('click', function () { SIM.jump = true; advance(); });
       $('sim-next').addEventListener('click', function () { go('#/result'); });
       $('result-again').addEventListener('click', function () {
         STATE.seed = Math.floor(Math.random() * 100000);
@@ -834,7 +945,15 @@
         saveState();
         go('#/team');
       });
-      $('result-share').addEventListener('click', copyShare);
+      $('result-share').addEventListener('click', renderShareImage);
+      $('share-close').addEventListener('click', closeShareModal);
+      $('share-mask').addEventListener('click', closeShareModal);
+      $('share-download').addEventListener('click', downloadShare);
+      $('share-copy').addEventListener('click', function () {
+        fallbackCopy(shareLink(), function () {
+          $('share-copy').textContent = '已复制 ✓';
+        });
+      });
       $('drawer-mask').addEventListener('click', closePicker);
       $('picker-confirm').addEventListener('click', confirmPicker);
       // BGM 控制
