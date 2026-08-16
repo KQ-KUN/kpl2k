@@ -16,6 +16,7 @@
   var E = KPL_ENGINE, N = KPL_NARRATIVE, D = KPL_DATA, DATA = D.DATA;
   var STATE_KEY = 'kpl2k_state_v1';
   var DISCLAIMER_KEY = 'kpl2k_disclaimer_v1';
+  var HISTORY_KEY = 'kpl2k_history_v1';
   var POS_ORDER = ['对抗路', '打野', '中路', '发育路', '游走'];
   var PRESET_SEASONS = ['KPL2026S2', 'KPL2026S1']; // 2026 现役首发优先取最新
 
@@ -88,6 +89,50 @@
     var agreed = false;
     try { agreed = localStorage.getItem(DISCLAIMER_KEY) === '1'; } catch (e) { /* ignore */ }
     mask.style.display = agreed ? 'none' : 'flex';
+  }
+
+  /* ---------------- 历史战绩（首页） ---------------- */
+  function loadHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
+  }
+  function saveHistory(h) {
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 20))); } catch (e) { /* ignore */ }
+  }
+  function fmtTime(ts) {
+    var d = new Date(ts);
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return (d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  function renderHistory() {
+    var wrap = $('history-wrap');
+    if (!wrap) return;
+    var h = loadHistory();
+    if (!h.length) { wrap.style.display = 'none'; return; }
+    wrap.style.display = '';
+    $('history-list').innerHTML = h.map(function (r, i) {
+      var cls = r.champ ? 'win' : (r.banner && String(r.banner).indexOf('亚军') >= 0 ? 'runner' : 'elim');
+      return '<div class="his-item" data-i="' + i + '">' +
+        '<div class="his-top"><span class="his-team">' + esc(r.teamName) + ' · ' + esc(r.seasonName) + '</span>' +
+        '<span class="his-banner ' + cls + '">' + esc(r.banner) + '</span></div>' +
+        '<div class="his-sub">' + esc((r.rosterNames || []).join('、')) + ' · ' + fmtTime(r.savedAt) + '</div></div>';
+    }).join('');
+    $('history-list').querySelectorAll('.his-item').forEach(function (el) {
+      el.addEventListener('click', function () { restoreHistory(parseInt(el.getAttribute('data-i'), 10)); });
+    });
+    $('history-clear').onclick = function () { saveHistory([]); renderHistory(); };
+  }
+  function restoreHistory(i) {
+    var h = loadHistory();
+    var r = h[i];
+    if (!r || !r.lastRun) return;
+    STATE.team = r.team;
+    STATE.roster = r.roster || [];
+    STATE.season = r.season;
+    STATE.seed = r.seed;
+    STATE.dynasty = null;
+    STATE.lastRun = r.lastRun;
+    saveState();
+    go('#/result');
   }
 
   function teamName(fid) { return DATA.names[fid] || fid; }
@@ -232,6 +277,7 @@
       $('stat-line').innerHTML = '<b>' + DATA.manifest.teams2026.length + '</b> 支战队 · <b>' +
         DATA.manifest.seasons.length + '</b> 个赛季 · <b>' + Object.keys(DATA.players).length + '</b> 名选手';
     }
+    renderHistory();
   }
 
   /* ================= 组队 ================= */
@@ -660,6 +706,9 @@
     stage.entries.forEach(function (entry) {
       appendEntryCard(entry, stage.title);
     });
+    // reveal 期间隐藏轮间按钮，避免在文字播放中误点"继续征战"
+    $('sim-goon').style.display = 'none';
+    $('sim-sub').style.display = 'none';
     pumpReveal();
     if (SIM.jump) {
       SIM.jump = false;
@@ -712,6 +761,12 @@
       if (!SIM.queue.length) {
         clearInterval(SIM.timer);
         SIM.timer = null;
+        if (SIM.session && SIM.session.isDone && SIM.session.isDone()) {
+          // 整个赛季的最后一把打完，直接跳出查看战绩
+          finishSim(SIM.session.getChampion ? SIM.session.getChampion() : null);
+          go('#/result');
+          return;
+        }
         showStageButtons();
         return;
       }
@@ -833,6 +888,23 @@
       runStats: runStats
     };
     saveState();
+    // 写入首页历史战绩（精简 path 体积，只保留战绩卡需要的字段）
+    var runForHistory = JSON.parse(JSON.stringify(STATE.lastRun));
+    runForHistory.path = (runForHistory.path || []).map(function (p) {
+      return { round: p.round, opp: p.opp, score: p.score, win: p.win, results: p.results };
+    });
+    var hBanner = isChamp ? '🏆 冠军'
+      : (SIM.path.length && String(SIM.path[SIM.path.length - 1].round).indexOf('决赛') >= 0 ? '亚军'
+        : '止步·' + placeText(SIM.path.length ? SIM.path[SIM.path.length - 1].round : ''));
+    var hist = loadHistory();
+    hist.unshift({
+      team: STATE.team, teamName: teamName(STATE.team), season: STATE.season, seasonName: SIM.seasonName,
+      seed: STATE.seed, savedAt: Date.now(), champ: isChamp, banner: hBanner,
+      roster: STATE.roster.slice(),
+      rosterNames: STATE.roster.map(function (s) { return playerName(s.pid); }),
+      lastRun: runForHistory
+    });
+    saveHistory(hist);
     $('sim-skip').style.display = 'none';
     $('sim-sub').style.display = 'none';
     $('sim-goon').style.display = 'none';

@@ -334,7 +334,7 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -373,21 +373,36 @@
     var mid2 = fmtEvent(events[1], rng.randint(13, 19), p2);
     var ending;
     if (comeback) {
-      ending = rng.choice(tpl.comebacks).replace(/\{team_a\}/g, winner);
+      // 拖进巅峰对决/让二追三等措辞取决于是否已是系列赛最后一场
+      var cbPool = tpl.comebacks.filter(function (c) {
+        if (isLast) return c.indexOf('巅峰对决') < 0;      // 最后一场不能再"拖入"
+        return c.indexOf('让二追三') < 0 && c.indexOf('让三追三') < 0;  // 未结束不能提前宣布翻盘完成
+      });
+      ending = rng.choice(cbPool.length ? cbPool : tpl.comebacks).replace(/\{team_a\}/g, winner);
     } else {
-      ending = rng.choice(tpl.endings)
+      var endPool = tpl.endings.filter(function (e) {
+        return isLast ? (e.indexOf('目前比分') < 0 && e.indexOf('比分来到') < 0) : (e.indexOf('终结比赛') < 0);
+      });
+      ending = rng.choice(endPool.length ? endPool : tpl.endings)
         .replace(/\{team_a\}/g, winner).replace(/\{team_b\}/g, loser)
         .replace(/\{score_a\}/g, scoreA).replace(/\{score_b\}/g, scoreB);
     }
     var stealLines = tpl.steal_lines || ['请神梦老师，{player}成功偷家'];
     if (winner.indexOf('AG') >= 0 && rng.random() < 0.12) {
-      ending = rng.choice(stealLines).replace(/\{team_a\}/g, winner).replace(/\{player\}/g, rng.choice(winPool));
+      var stealPool = isLast ? stealLines : stealLines.filter(function (s) { return s.indexOf('终结比赛') < 0; });
+      ending = rng.choice(stealPool.length ? stealPool : stealLines)
+        .replace(/\{team_a\}/g, winner).replace(/\{player\}/g, rng.choice(winPool));
     }
     var line = '第' + gameNo + '局\nBP：' + bp + '\n开局：' + opening + '\n中期：' + mid1 + '；' + mid2 + '\n结束：' + ending;
     if (tpl.meme_quotes && tpl.meme_quotes.length && rng.random() < 0.15) {
+      // "打野的尽头是一片海" 只在本场有花海时出现
+      var hasHai = poolA.indexOf('花海') >= 0 || poolB.indexOf('花海') >= 0;
+      var quotePool = tpl.meme_quotes.filter(function (m) {
+        return m.indexOf('打野的尽头是一片海') < 0 || hasHai;
+      });
       var memePool = winPool.length > 2 ? rng.sample(winPool, 2) : winPool.slice();
       var mi = 0;
-      var meme = rng.choice(tpl.meme_quotes)
+      var meme = rng.choice(quotePool.length ? quotePool : tpl.meme_quotes)
         .replace(/\{team\}/g, winner)
         .replace(/\{player\}/g, function () {
           var n = memePool[mi % memePool.length];
@@ -418,7 +433,8 @@
       if ((winTeam === na && curA < curB) || (winTeam === nb && curB < curA)) everBehind = true;
       var winScore = winTeam === na ? curA : curB;
       var loseScore = winTeam === na ? curB : curA;
-      lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind));
+      lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind,
+        idx === results.length - 1));
     }
     return lines;
   }
@@ -647,6 +663,7 @@
         var note = (names[track] || '这支队伍') + '以外卡身份顶替' + replacedNote +
           '，登上' + (fmt.name || '本次赛事') + '的淘汰赛舞台，首轮对阵' + (names[firstOpp] || '?') + '。';
         narrations.push(note);
+        narrations.push('注：在原时间线中，该战队未进入' + (fmt.name || '本次赛事') + '，故以外卡身份参赛。');
       }
 
       // 种子剧情：首轮对位 + 常规赛排名
@@ -820,8 +837,11 @@
         }
         if (!(track in strengths)) strengths[track] = 50.0;
         var firstOpp = teams[idxW % 2 === 0 ? idxW + 1 : idxW - 1];
-        wildcardNote = (names[track] || '这支队伍') + '以外卡身份顶替' + replacedNote +
-          '，登上' + (fmt.name || '本次赛事') + '的淘汰赛舞台，首轮对阵' + (names[firstOpp] || '?') + '。';
+        wildcardNote = [
+          (names[track] || '这支队伍') + '以外卡身份顶替' + replacedNote +
+            '，登上' + (fmt.name || '本次赛事') + '的淘汰赛舞台，首轮对阵' + (names[firstOpp] || '?') + '。',
+          '注：在原时间线中，该战队未进入' + (fmt.name || '本次赛事') + '，故以外卡身份参赛。'
+        ];
       }
     }
     var cfgType = (fmt.playoff_config || {}).type;
@@ -1052,7 +1072,7 @@
         if (wildcardNote) {
           var wl = wildcardNote;
           wildcardNote = null;
-          return { kind: 'regular_recap', title: '外卡登场', lines: [wl] };
+          return { kind: 'regular_recap', title: '外卡登场', lines: wl };
         }
         if (!recapDone && Object.keys(regularGames).length) {
           recapDone = true;
@@ -1067,6 +1087,7 @@
           for (var i = 0; i + 1 < current.length; i += 2) pairs.push([current[i], current[i + 1], bo]);
           var res = pairEntries(pairs, rnd.name);
           current = res.winners.concat(current.length % 2 ? [current[current.length - 1]] : []);
+          if (current.length === 1) champion = current[0];
           if (res.entries.length) return { kind: 'elim_round', title: rnd.name, entries: res.entries };
           if (current.length <= 1) break;
         }
@@ -1081,6 +1102,22 @@
       },
       getRegular: function () {
         return { standings: regularInfo, track: track != null ? (regularInfo[track] || null) : null, seed_notes: seedNotes[track] || [] };
+      },
+      isDone: function () {
+        if (done) return true;
+        if (wildcardNote) return false;
+        if (regularQueue.length || playInQueue.length) return false;
+        if (!recapDone && Object.keys(regularGames).length) return false;
+        if (singleIdx < singleRounds.length) return false;
+        if (multiRounds.length && current.length > 1) {
+          if (champion) return true;
+          if (!d) return false;
+          if (d.queue.length) return false;
+        }
+        return true;
+      },
+      getChampion: function () {
+        return champion;
       }
     };
   }
