@@ -229,6 +229,7 @@
   }
 
   function loadTeamView(fid) {
+    $('team-slots').innerHTML = '<div class="mut" style="padding:20px;text-align:center">正在加载选手数据…</div>';
     var loaders = PRESET_SEASONS.map(D.loadSeason);
     Promise.all([D.loadTeam(fid)].concat(loaders)).then(function (res) {
       currentTeamData = res[0];
@@ -394,6 +395,34 @@
     picker.open = false;
     $('drawer').classList.remove('show');
     $('drawer-mask').classList.remove('show');
+    $('picker-confirm').style.display = '';
+  }
+
+  /* 模拟页：按曲名选择对局 BGM */
+  function showTrackPicker() {
+    $('picker-title').textContent = '选择对局音乐';
+    $('picker-sub').textContent = '点击曲目立即切换';
+    var names = BGM.getTrackNames() || [];
+    var cur = BGM.getTrackIndex();
+    $('picker-ver').innerHTML = '';
+    $('picker-pool').innerHTML = names.map(function (n, i) {
+      var playing = i === cur;
+      return '<button class="pool-item' + (playing ? ' sel' : '') + '" data-i="' + i + '">' +
+        '<div class="ava" style="background:linear-gradient(135deg,#f0b90b,#ff7b3d)">♪</div>' +
+        '<div><div class="pname">' + esc(n) + '</div>' +
+        '<div class="pver">' + (playing ? '正在播放' : '点击切换') + '</div></div>' +
+        '<div class="prate">' + (playing ? '▶' : '›') + '</div></button>';
+    }).join('');
+    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
+      el.addEventListener('click', function () {
+        BGM.playTrack(parseInt(el.getAttribute('data-i'), 10));
+        $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
+        closePicker();
+      });
+    });
+    $('picker-confirm').style.display = 'none';
+    $('drawer').classList.add('show');
+    $('drawer-mask').classList.add('show');
   }
 
   /* 模拟中"更换阵容"：先选要换的位置 */
@@ -467,7 +496,7 @@
   function showSim() {
     showPage('sim');
     BGM.play('battle');
-    $('sim-track').textContent = BGM.getTrackName() || '';
+    $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
     $('sim-progress-fill').style.width = '0%';
     $('sim-events').innerHTML = '';
     $('sim-skip').style.display = '';
@@ -485,6 +514,8 @@
       go('#/season');
       return;
     }
+    $('sim-events').innerHTML = '<div class="story-event show"><div class="se-title">📡 正在准备开赛</div>' +
+      '<div class="se-line mut">读取赛程与选手数据…</div></div>';
     var battleSid = STATE.season;
     var rosterSids = STATE.roster.map(function (s) { return s.sid; }).filter(Boolean);
     var sids = [battleSid].concat(rosterSids).filter(function (v, i, a) { return a.indexOf(v) === i; });
@@ -664,9 +695,11 @@
     $('sim-done-tip').style.display = '';
     if (isChamp) {
       $('sim-done-tip').textContent = '🏆 捧杯时刻！';
+      $('sim-done-tip').classList.add('champ');
       BGM.play('champion', championName);
     } else {
       $('sim-done-tip').textContent = '赛季落幕';
+      $('sim-done-tip').classList.remove('champ');
     }
     $('sim-progress-fill').style.width = '100%';
   }
@@ -800,11 +833,16 @@
       });
       $('sim-prev').addEventListener('click', function () {
         BGM.prevTrack();
-        $('sim-track').textContent = BGM.getTrackName() || '';
+        $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
       });
       $('sim-next-track').addEventListener('click', function () {
         BGM.nextTrack();
-        $('sim-track').textContent = BGM.getTrackName() || '';
+        $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
+      });
+      $('sim-track-btn').addEventListener('click', showTrackPicker);
+      $('sim-bgm-toggle').addEventListener('click', function () {
+        BGM.setMuted(!BGM.isMuted());
+        $('sim-bgm-toggle').textContent = BGM.isMuted() ? '🔇' : '🔊';
       });
       router();
     });

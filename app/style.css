@@ -166,6 +166,7 @@ img{display:block}
   display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid var(--line);width:100%;
 }
 .pool-item:last-child{border-bottom:none}
+.pool-item.sel{background:rgba(240,185,11,.07)}
 .pool-item .ava{width:38px;height:38px;font-size:15px}
 .pool-item .pname{font-size:14px;font-weight:600}
 .pool-item .pver{font-size:11px;color:var(--mut)}
@@ -188,8 +189,8 @@ img{display:block}
 
 /* ---- 模拟 ---- */
 .sim-top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.sim-top .track-name{font-size:13px;font-weight:700;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sim-top button{font-size:13px;color:var(--blue);padding:6px 8px;white-space:nowrap}
+.sim-top .track-name{font-size:13px;font-weight:800;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--gold);background:rgba(240,185,11,.08);border:1px solid rgba(240,185,11,.35);border-radius:14px;padding:6px 12px;margin:0 auto;flex:0 1 auto;min-width:120px}
 .sim-progress{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:14px}
 .sim-progress .fill{height:100%;background:var(--gold);width:0;transition:width .3s ease}
 
@@ -221,6 +222,10 @@ img{display:block}
 .res-banner.champ{background:#0f2a1e;color:var(--green);border:1px solid #1f6f43}
 .res-banner.runner{background:#1f242e;color:var(--mut);border:1px solid #30363d}
 .res-banner.elim{background:#2d0f0f;color:var(--red);border:1px solid #8b3a3a}
+.res-banner.champ{animation:champGlow 2s ease-in-out infinite}
+@keyframes champGlow{0%,100%{box-shadow:0 0 16px rgba(63,185,80,.22)}50%{box-shadow:0 0 34px rgba(63,185,80,.55)}}
+#sim-done-tip.champ{color:var(--gold);font-weight:800;font-size:15px;animation:champText 1.6s ease-in-out infinite}
+@keyframes champText{0%,100%{opacity:.85}50%{opacity:1;text-shadow:0 0 14px rgba(240,185,11,.75)}}
 .result-pc{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
 .result-pc:last-child{border-bottom:none}
 .result-pc .pnm{font-size:15px;font-weight:600}
