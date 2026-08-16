@@ -4,7 +4,7 @@
   app/data/manifest.json        赛季清单 + 2026 战队
   app/data/base.json            franchise/选手/叙事/覆盖表（首屏小包）
   app/data/seasons/{sid}.json   赛制 + 当季选手记录 + 组合胜率（按赛季加载）
-  app/data/teams/{fid}.json     该队历届选手球星卡（组队换人用）
+  app/data/teams/{fid}.json     该队历届选手版本卡（组队换人用）
 
 用法：
   python tools/build_web.py
@@ -43,8 +43,8 @@ DYNASTIES = [
      "season": "KPL2024S1", "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
     {"id": "2026ksg", "label": "26KSG 新王", "team_fid": "10005", "desc": "2026 春冠，4:0 横扫狼队，队史首冠",
      "season": "KPL2026S1", "players": ["无言", "句号", "流浪", "小屿", "一笙"]},
-    {"id": "2025wolf", "label": "25狼队", "team_fid": "10001", "desc": "2025 年总亚军，鸟巢憾负 AG",
-     "season": "KPL2025S3", "players": ["归期", "小胖", "紫幻", "道崽", "一笙"]},
+    {"id": "2026wolf", "label": "26狼队", "team_fid": "10001", "desc": "2026 挑战者杯冠军，队史十一冠",
+     "season": "KCC2026", "players": ["清清", "皖皖", "紫幻", "道崽", "信"]},
 ]
 
 ROSTER_KEEP = [
@@ -144,7 +144,7 @@ def main() -> None:
             "pair_win": pair_by_season.get(sid, {}),
         }, OUT / "seasons" / f"{sid}.json")
 
-    # ---- 3. 战队球星卡分片（选手×战队，版本补 season_id）----
+    # ---- 3. 战队版本卡分片（选手×战队，版本补 season_id）----
     rec_by_pid = defaultdict(list)
     for r in records:
         rec_by_pid[r["player_id"]].append(r)

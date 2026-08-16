@@ -375,7 +375,7 @@
 
   /* 2026 现役首发：优先 S2，缺失队用 S1 */
   function presetRoster(fid) {
-    // 1) 优先按"2026 年版本"拼 5 位置（槽位战力与球星卡版本一致）
+    // 1) 优先按"2026 年版本"拼 5 位置（槽位战力与选手图鉴版本一致）
     var data = currentTeamData;
     if (data && data.players && data.players.length) {
       var byPos = {};

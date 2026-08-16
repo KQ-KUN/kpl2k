@@ -250,7 +250,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KPL 2K · 球星卡</title>
+<title>KPL 2K · 选手图鉴</title>
 <style>
 :root{--bg:#0d1117;--card:#161b22;--line:#21262d;--fg:#e6edf3;--mut:#8b949e;--gold:#f0b90b;--blue:#58a6ff;--green:#3fb950}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -298,7 +298,7 @@ img.ava{object-fit:cover;background:#21262d}
 </style>
 </head>
 <body>
-<h1>KPL 2K · 球星卡</h1>
+<h1>KPL 2K · 选手图鉴</h1>
 <div class="sub" id="meta"></div>
 <div class="toolbar">
   <input id="q" placeholder="搜索选手（如 Fly / 小胖 / 一诺）">
@@ -382,7 +382,7 @@ function render(){
   });
   const groups={};
   for(const p of list)(groups[p.team]=groups[p.team]||[]).push(p);
-  $('#meta').textContent=`${DATA.players.length} 张球星卡 · 共 ${DATA.players.reduce((s,p)=>s+p.version_count,0)} 个版本 · 民间算法 · 平行时空`;
+  $('#meta').textContent=`${DATA.players.length} 位选手 · 共 ${DATA.players.reduce((s,p)=>s+p.version_count,0)} 个版本 · 民间算法 · 平行时空`;
   const teams=Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length||a.localeCompare(b,'zh'));
   $('#list').innerHTML=list.length?teams.map(t=>`<div class="team"><h2>${esc(t)}<span>${groups[t].length} 人</span></h2><div class="cards">${groups[t].map(card).join('')}</div></div>`).join(''):'<div class="empty">没有匹配的选手</div>';
 }
