@@ -44,5 +44,6 @@
 - **26 现役首发**：组队预设取 KPL2026S2 的 pickStarter（位置补全后即"一诺+钟意+长生+大帅+轩染"），缺失队回退 KPL2026S1；版本选择来自队卡 versions。
 - **BGM 场景**：intro=首页.m4a；battle=王者冰刃等 5 首（默认王者冰刃，可切）；champion=byTeam 小孩战歌（AG 红小孩/狼 狼小孩/eStar 星小孩/TTG TT小孩/KSG KSG小孩/Hero HERO小孩/DYG DYG小孩/TES 陀螺小孩），缺省无双的王者。
 - **部署**：已上线 Cloudflare Pages `https://kpl2k.pages.dev`（项目名 kpl2k，API Token 经 `tools/deploy_pages.py` 上传，Token 存 `%USERPROFILE%\.kpl2k_cf_token`）。一键更新：双击 `tools/deploy.bat`（需本机 Python 3，先 build_web 再上传）。注意：Codex 沙箱网络连不上 upload.pages.cloudflare.com，部署须在用户本机执行。`tools/deploy_cos.py` 为腾讯云 COS 备选。
+- **线上托管（当前）**：Cloudflare Workers 项目 `kpl2k.hkq2297409816.workers.dev`，已连接 GitHub 仓库 `KQ-KUN/kpl2k` 自动部署（Workers Builds，轮询模式）。发布命令：`python tools/push_to_github.py -m "说明"`（增量上传变更文件，GitHub API 直传绕过沙箱网络限制）。Cloudflare 检测到 main 更新后 1-2 分钟自动部署。
 - **音乐压缩**：`tools/compress_audio.py` 压到 96kbps（app/assets/audio 约 27.6MB，原文件备份在 backup_audio/，不部署）。
 - **UI 反馈已修**（2026-08-16）：切队重置首发、桌面/大屏加宽（720/860px）、球星卡两列、轮间换人（每场后"更换阵容/继续征战"、逐局 700ms 慢速 reveal + 跳过）、战绩卡头像 32px。
