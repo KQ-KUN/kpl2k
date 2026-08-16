@@ -16,10 +16,6 @@ body{
 @media (min-width:900px){
   body{max-width:860px}
 }
-@media (min-width:900px){
-  .team-strip{flex-wrap:wrap;overflow:visible;margin:0;padding-left:0;padding-right:0}
-  .dyn-strip{flex-wrap:wrap;overflow:visible;margin:0 0 6px;padding-left:0;padding-right:0}
-}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 img{display:block}
 
@@ -326,3 +322,11 @@ td.tag{text-align:center}
 .sm-head{font-size:14px;font-weight:700;color:var(--gold);text-align:center;margin-bottom:10px}
 .sm-actions{display:flex;gap:10px;margin-top:10px}
 .sm-actions .btn{flex:1;min-height:42px;font-size:14px}
+
+/* 桌面端：王朝 5×2、战队 9×2（需放在基础规则之后，否则被覆盖） */
+@media (min-width:900px){
+  .dyn-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
+  .dyn-chip{width:100%}
+  .team-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
+  .team-chip{width:100%}
+}
