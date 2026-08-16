@@ -325,8 +325,12 @@ td.tag{text-align:center}
 
 /* 桌面端：王朝 5×2、战队 9×2（需放在基础规则之后，否则被覆盖） */
 @media (min-width:900px){
-  .dyn-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
-  .dyn-chip{width:100%}
-  .team-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;overflow:visible;margin:0 0 10px;padding:0}
-  .team-chip{width:100%}
+  .dyn-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;overflow:visible;margin:0 0 8px;padding:0}
+  .dyn-chip{width:100%;padding:6px 9px;border-radius:10px}
+  .dyn-chip .dc-label{font-size:12px}
+  .dyn-chip .dc-desc{font-size:9px;margin-top:1px}
+  .team-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;overflow:visible;margin:0 0 8px;padding:0}
+  .team-chip{width:100%;padding:5px 2px;border-radius:10px}
+  .team-chip .tc-abbr{height:22px;font-size:13px}
+  .team-chip .tc-name{font-size:9px;margin-top:1px}
 }
