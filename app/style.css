@@ -93,6 +93,17 @@ img{display:block}
 .footnote{margin-top:auto;padding-top:40px;font-size:11px;color:#dbeafe}
 
 /* ---- 组队 ---- */
+.dyn-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -14px 2px;padding-left:14px;padding-right:14px;scrollbar-width:none}
+.dyn-strip::-webkit-scrollbar{display:none}
+.dyn-chip{
+  flex:none;width:150px;padding:9px 12px;text-align:left;border-radius:12px;
+  background:linear-gradient(135deg,rgba(240,185,11,.12),rgba(255,123,61,.05)),var(--card);
+  border:1.5px solid var(--line2);transition:transform .1s ease,border-color .1s ease;
+}
+.dyn-chip:active{transform:scale(.97)}
+.dyn-chip.sel{border-color:var(--gold);box-shadow:0 0 14px rgba(240,185,11,.22);background:linear-gradient(135deg,rgba(240,185,11,.2),rgba(255,123,61,.08)),var(--card)}
+.dyn-chip .dc-label{font-size:14px;font-weight:800;color:var(--gold)}
+.dyn-chip .dc-desc{font-size:10px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .team-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin:0 -14px;padding-left:14px;padding-right:14px;scrollbar-width:none}
 .team-strip::-webkit-scrollbar{display:none}
 .team-chip{

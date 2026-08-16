@@ -22,6 +22,28 @@ PROC = ROOT / "data" / "processed"
 NARR = ROOT / "data" / "narrative"
 OUT = ROOT / "app" / "data"
 
+# 王朝战队预设：真实历史主力五人组（版本在运行时取该队内巅峰赛季）
+DYNASTIES = [
+    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 世冠+冬冠，Fly 时代起点",
+     "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
+    {"id": "2019estar", "label": "19eStar 五虎", "team_fid": "10006", "desc": "2019 双冠，诺言花海 Cat",
+     "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
+    {"id": "2020dyg", "label": "20DYG 王朝", "team_fid": "10008", "desc": "2020 秋冠，清清久诚易峥",
+     "players": ["清清", "小义", "久诚", "易峥", "星宇"]},
+    {"id": "2021hero", "label": "21Hero 双冠", "team_fid": "10007", "desc": "20冬+21春，清融无畏星痕",
+     "players": ["星痕", "无畏", "清融", "久酷", "子阳"]},
+    {"id": "2021ttg", "label": "21TTG 五虎", "team_fid": "10017", "desc": "通天边路清清 + 不然九尾",
+     "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
+    {"id": "2022estar", "label": "22eStar 五冠", "team_fid": "10006", "desc": "坦然花海清融易峥子阳",
+     "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
+    {"id": "2023wolf", "label": "23狼队王朝", "team_fid": "10001", "desc": "胖鱼刀帆 + Fly，三冠",
+     "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
+    {"id": "2024ag", "label": "24AG 双冠", "team_fid": "10027", "desc": "轩染钟意长生一诺大帅",
+     "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
+    {"id": "2025wolf", "label": "25狼队", "team_fid": "10001", "desc": "归期小胖向鱼道崽一笙",
+     "players": ["归期", "小胖", "向鱼", "道崽", "一笙"]},
+]
+
 ROSTER_KEEP = [
     "player_id", "season_id", "team_franchise", "position", "games", "win_rate",
     "avg_kda", "avg_kill_num", "avg_death_num", "avg_assist_num", "avg_gpm",
@@ -218,8 +240,35 @@ def main() -> None:
     }
     dump(manifest, OUT / "manifest.json")
 
+    # ---- 5. 王朝战队预设（选手取该队内巅峰赛季版本）----
+    name_by_id = {p["player_id"]: p["name"] for p in players}
+    id_by_name = {p["name"]: p["player_id"] for p in players}
+    dyn_out = []
+    for d in DYNASTIES:
+        roster = []
+        for pn in d["players"]:
+            pid = id_by_name.get(pn)
+            if not pid:
+                continue
+            cand = [r for r in records
+                    if r["player_id"] == pid and r["team_franchise"] == d["team_fid"]
+                    and (r["games"] or 0) >= 5
+                    and r["position"] in ("对抗路", "打野", "中路", "发育路", "游走")]
+            if not cand:
+                continue
+            best = max(cand, key=lambda r: r["rating"])
+            roster.append({"player_id": pid, "season_id": best["season_id"]})
+        if len(roster) == 5:
+            dyn_out.append({
+                "id": d["id"], "label": d["label"], "team_fid": d["team_fid"],
+                "desc": d["desc"], "players": roster,
+            })
+        else:
+            print(f"[warn] 王朝预设 {d['label']} 仅凑齐 {len(roster)} 人，跳过")
+    dump({"dynasties": dyn_out}, OUT / "dynasties.json")
+
     total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file())
-    print(f"web 数据已生成：{len(seasons)} 赛季 / {len(teams2026)} 队 / {len(by_team)} 队卡 / {total/1024:.0f} KB")
+    print(f"web 数据已生成：{len(seasons)} 赛季 / {len(teams2026)} 队 / {len(by_team)} 队卡 / {len(dyn_out)} 王朝 / {total/1024:.0f} KB")
 
 
 if __name__ == "__main__":

@@ -12,6 +12,7 @@
     flavor: {},
     teamFlavor: {},
     rivalries: [],
+    dynasties: [],
     teamsCache: {},   // fid -> teams/{fid}.json
     seasonCache: {}   // sid -> seasons/{sid}.json
   };
@@ -37,7 +38,10 @@
       DATA.teamFlavor = (res[1].narrative.team_flavor || {}).teams || {};
       DATA.rivalries = (res[1].narrative.rivalries || {}).rivalries || [];
       DATA.names = KPL_ENGINE.franchiseNames(res[1].franchises);
-      return DATA;
+      return fetchJson('data/dynasties.json').then(function (d) {
+        DATA.dynasties = d.dynasties || [];
+        return DATA;
+      });
     });
   }
 

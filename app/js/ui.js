@@ -23,6 +23,7 @@
     roster: [],          // [{pid, sid}] 5 槽
     season: null,
     seed: 0,
+    dynasty: null,
     lastRun: null        // {champion, path, regular, events, rosterNames, records}
   };
 
@@ -33,6 +34,7 @@
     try {
       localStorage.setItem(STATE_KEY, JSON.stringify({
         team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed,
+        dynasty: STATE.dynasty,
         lastRun: STATE.lastRun
       }));
     } catch (e) { /* ignore */ }
@@ -46,6 +48,7 @@
       STATE.roster = s.roster || [];
       STATE.season = s.season || null;
       STATE.seed = s.seed || 0;
+      STATE.dynasty = s.dynasty || null;
       STATE.lastRun = s.lastRun || null;
     } catch (e) { /* ignore */ }
   }
@@ -218,8 +221,40 @@
     if (!STATE.team && DATA.manifest.teams2026.length) {
       STATE.team = DATA.manifest.teams2026[0].id;
     }
+    renderDynastyStrip();
     renderTeamStrip();
     loadTeamView(STATE.team);
+  }
+
+  /* 王朝战队预设：一键载入历史强阵（巅峰版本） */
+  function renderDynastyStrip() {
+    var html = DATA.dynasties.map(function (d) {
+      var sel = STATE.dynasty === d.id ? ' sel' : '';
+      return '<button class="dyn-chip' + sel + '" data-id="' + d.id + '">' +
+        '<div class="dc-label">' + esc(d.label) + '</div>' +
+        '<div class="dc-desc">' + esc(d.desc) + '</div></button>';
+    }).join('');
+    $('dynasty-strip').innerHTML = html;
+    $('dynasty-strip').querySelectorAll('.dyn-chip').forEach(function (el) {
+      el.addEventListener('click', function () { loadDynasty(el.getAttribute('data-id')); });
+    });
+  }
+
+  function loadDynasty(id) {
+    var d = DATA.dynasties.find(function (x) { return x.id === id; });
+    if (!d) return;
+    STATE.team = d.team_fid;
+    STATE.roster = d.players.map(function (p) { return { pid: p.player_id, sid: p.season_id }; });
+    STATE.dynasty = id;
+    saveState();
+    D.loadSeasons(d.players.map(function (p) { return p.season_id; })).then(function () {
+      renderTeamStrip();
+      renderDynastyStrip();
+      renderSlots();
+      renderStrength();
+    }).catch(function (e) {
+      $('team-slots').innerHTML = '<div class="mut">王朝阵容加载失败：' + esc(e.message) + '</div>';
+    });
   }
 
   function renderTeamStrip() {
@@ -235,6 +270,7 @@
         if (fid !== STATE.team) {
           STATE.team = fid;
           STATE.roster = [];  // 切队后重新加载该队 2026 首发
+          STATE.dynasty = null;
         }
         saveState();
         renderTeamStrip();
@@ -315,8 +351,8 @@
   function renderStrength() {
     var res = strengthOf();
     var eff = res[0], brk = res[1];
-    var pctFill = Math.max(6, Math.min(100, (eff - 40) / 40 * 100));
-    $('strength-num').textContent = eff.toFixed(1);
+    var pctFill = Math.max(6, Math.min(100, (brk.raw - 40) / 55 * 100));
+    $('strength-num').textContent = brk.raw.toFixed(1);
     $('strength-fill').style.width = pctFill + '%';
     $('strength-break').innerHTML =
       '<span>基础 <b>' + brk.base + '</b></span>' +
