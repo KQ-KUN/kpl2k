@@ -47,7 +47,11 @@
     });
   }
   function f1(v) { return (v == null || isNaN(v)) ? '-' : (Math.round(v * 10) / 10); }
-  function pct(v) { return (v == null || isNaN(v)) ? '-' : (Math.round(v * 1000) / 10) + '%'; }
+  function pct(v) {
+    if (v == null || isNaN(v)) return '-';
+    var x = v > 1 ? v : v * 100;  // 部分字段是百分数值（参团），部分是小数值（输出/胜率）
+    return (Math.round(x * 10) / 10) + '%';
+  }
   function go(hash) { location.hash = hash; }
 
   function teamName(fid) { return DATA.names[fid] || fid; }
@@ -747,7 +751,7 @@
         ? '<img class="pava" src="' + esc(icon) + '" onerror="this.outerHTML=&#39;<div class=&quot;pava&quot;>' + esc(name[0]) + '</div>&#39;">'
         : '<div class="pava">' + esc(name[0]) + '</div>';
       var mvp = r.mvp_count ? ' · MVP ' + r.mvp_count : '';
-      return '<div class="pc">' + ava +
+      return '<div class="result-pc">' + ava +
         '<div><div class="pnm">' + esc(name) + '<span class="ppos">' + esc(r.position) + '</span></div>' +
         '<div class="pstat">KDA ' + f1(r.avg_kda) + ' · 场均击杀 ' + f1(r.avg_kill_num) + ' · 参团 ' + pct(r.avg_participation_rate) + ' · ' + (r.games || 0) + ' 场' + mvp + '</div></div></div>';
     }).join('');
@@ -758,12 +762,20 @@
     }).join('');
 
     $('result-stats').innerHTML = run.records.map(function (r) {
-      return '<tr><td>' + esc(playerName(r.player_id)) + '</td><td>' + f1(r.avg_kda) + '</td>' +
-        '<td>' + f1(r.avg_kill_num) + '/' + f1(r.avg_death_num) + '/' + f1(r.avg_assist_num) + '</td>' +
+      return '<tr><td><b>' + esc(playerName(r.player_id)) + '</b><br><span class="mut">' + esc(r.position) + '</span></td>' +
+        '<td>' + f1(r.avg_kda) + '</td>' +
+        '<td>' + f1(r.avg_kill_num) + ' / ' + f1(r.avg_death_num) + ' / ' + f1(r.avg_assist_num) + '</td>' +
         '<td>' + pct(r.avg_participation_rate) + '</td>' +
-        '<td>' + pct(r.avg_hurt_to_hero_total_rate) + ' / ' + pct(r.avg_be_hurt_by_hero_total_rate) + '</td>' +
+        '<td>' + pct(r.avg_hurt_to_hero_total_rate) + '</td>' +
+        '<td>' + pct(r.avg_be_hurt_by_hero_total_rate) + '</td>' +
+        '<td>' + Math.round(r.avg_gpm || 0) + '</td>' +
+        '<td>' + f1(r.avg_damage_convert_rate) + '</td>' +
+        '<td>' + f1(r.avg_push_tower_num) + '</td>' +
+        '<td>' + pct(r.win_rate) + '</td>' +
+        '<td>' + (r.games || 0) + '</td>' +
         '<td>' + (r.mvp_count || '-') + '</td></tr>';
     }).join('');
+    requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
 
   function shareLink() {
