@@ -949,7 +949,7 @@
           if (!d.l.length) { champion = d.w[0]; return null; }
           var r1 = runMatch(d.w[0], d.l[0], finalBo, false);
           var en1 = (track != null && (track === d.w[0] || track === d.l[0]))
-            ? entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r1.winnerId, scoreA: r1.scoreA, scoreB: r1.scoreB, results: r1.results }, '总决赛') : [];
+            ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r1.winnerId, scoreA: r1.scoreA, scoreB: r1.scoreB, results: r1.results }, '总决赛')] : [];
           if (r1.winnerId === d.w[0]) { champion = d.w[0]; return { title: '总决赛', entries: en1 }; }
           return { title: '总决赛第一场', entries: en1 };
         }
@@ -958,7 +958,7 @@
           var r2 = runMatch(d.w[0], d.l[0], finalBo, false);
           champion = r2.winnerId;
           var en2 = (track != null && (track === d.w[0] || track === d.l[0]))
-            ? entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r2.winnerId, scoreA: r2.scoreA, scoreB: r2.scoreB, results: r2.results }, '总决赛') : [];
+            ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r2.winnerId, scoreA: r2.scoreA, scoreB: r2.scoreB, results: r2.results }, '总决赛')] : [];
           return { title: '总决赛', entries: en2 };
         }
       }

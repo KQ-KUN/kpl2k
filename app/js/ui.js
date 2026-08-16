@@ -15,6 +15,7 @@
 
   var E = KPL_ENGINE, N = KPL_NARRATIVE, D = KPL_DATA, DATA = D.DATA;
   var STATE_KEY = 'kpl2k_state_v1';
+  var DISCLAIMER_KEY = 'kpl2k_disclaimer_v1';
   var POS_ORDER = ['对抗路', '打野', '中路', '发育路', '游走'];
   var PRESET_SEASONS = ['KPL2026S2', 'KPL2026S1']; // 2026 现役首发优先取最新
 
@@ -67,6 +68,27 @@
     return (Math.round(x * 10) / 10) + '%';
   }
   function go(hash) { location.hash = hash; }
+
+  /* ---------------- 免责声明（未同意前全屏遮罩） ---------------- */
+  function initDisclaimer() {
+    var mask = $('disclaimer');
+    if (!mask) return;
+    $('btn-disclaimer').addEventListener('click', function () {
+      $('dc-hint').style.display = 'none';
+      mask.style.display = 'flex';
+    });
+    $('dc-agree').addEventListener('click', function () {
+      try { localStorage.setItem(DISCLAIMER_KEY, '1'); } catch (e) { /* ignore */ }
+      $('dc-hint').style.display = 'none';
+      mask.style.display = 'none';
+    });
+    $('dc-refuse').addEventListener('click', function () {
+      $('dc-hint').style.display = 'block';
+    });
+    var agreed = false;
+    try { agreed = localStorage.getItem(DISCLAIMER_KEY) === '1'; } catch (e) { /* ignore */ }
+    mask.style.display = agreed ? 'none' : 'flex';
+  }
 
   function teamName(fid) { return DATA.names[fid] || fid; }
   function abbrOf(fid) {
@@ -995,6 +1017,7 @@
 
   /* ---------------- 入口 ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
+    initDisclaimer();
     initBGM();
     loadState();
     D.loadBase().then(function () {
