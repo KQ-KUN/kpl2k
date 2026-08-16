@@ -22,28 +22,29 @@ PROC = ROOT / "data" / "processed"
 NARR = ROOT / "data" / "narrative"
 OUT = ROOT / "app" / "data"
 
-# 王朝战队预设：真实历史主力五人组（版本在运行时取该队内巅峰赛季）
+# 王朝战队预设：真实历史主力五人组；版本取王朝年代赛季（若该赛季无记录则就近回退），
+# 该选手当年战力差的部分由该赛季真实同场默契 + 组合胜率化学补偿
 DYNASTIES = [
-    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 冬冠，Fly 时代起点",
-     "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
+    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 秋冠，Fly 时代起点",
+     "season": "L20190004", "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
     {"id": "2019estar", "label": "19eStar 五虎", "team_fid": "10006", "desc": "2019 双冠，诺言花海 Cat",
-     "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
+     "season": "L20190003", "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
     {"id": "2020dyg", "label": "20DYG 大魔王", "team_fid": "10008", "desc": "2020 秋冠，清清久诚易峥",
-     "players": ["清清", "小义", "久诚", "易峥", "星宇"]},
+     "season": "KPL2020S2", "players": ["清清", "小义", "久诚", "易峥", "星宇"]},
     {"id": "2021hero", "label": "21Hero 双冠", "team_fid": "10007", "desc": "20冬+21春，星痕无畏清融",
-     "players": ["星痕", "无畏", "清融", "久酷", "子阳"]},
+     "season": "KPL2021S1", "players": ["星痕", "无畏", "清融", "久酷", "子阳"]},
     {"id": "2021ttg", "label": "21TTG 无冕", "team_fid": "10017", "desc": "巅峰亚军五虎，通天边路清清",
-     "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
+     "season": "KPL2021S2", "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
     {"id": "2022estar", "label": "22eStar 王朝", "team_fid": "10006", "desc": "21-22 六连决赛五夺冠",
-     "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
+     "season": "KPL2022S1", "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
     {"id": "2023wolf", "label": "23狼队王朝", "team_fid": "10001", "desc": "2023 春+世冠，胖鱼刀帆",
-     "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
+     "season": "KPL2023S1", "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
     {"id": "2024ag", "label": "24-25AG 红色王朝", "team_fid": "10027", "desc": "九连决赛 · 六连冠",
-     "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
+     "season": "KPL2024S1", "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
     {"id": "2026ksg", "label": "26KSG 新王", "team_fid": "10005", "desc": "2026 春冠，4:0 横扫狼队，队史首冠",
-     "players": ["无言", "句号", "流浪", "小屿", "一笙"]},
+     "season": "KPL2026S1", "players": ["无言", "句号", "流浪", "小屿", "一笙"]},
     {"id": "2025wolf", "label": "25狼队", "team_fid": "10001", "desc": "2025 年总亚军，鸟巢憾负 AG",
-     "players": ["归期", "小胖", "向鱼", "道崽", "一笙"]},
+     "season": "KPL2025S3", "players": ["归期", "小胖", "紫幻", "道崽", "一笙"]},
 ]
 
 ROSTER_KEEP = [
@@ -242,10 +243,11 @@ def main() -> None:
     }
     dump(manifest, OUT / "manifest.json")
 
-    # ---- 5. 王朝战队预设（选手取该队内巅峰赛季版本）----
+    # ---- 5. 王朝战队预设（选手取王朝年代赛季版本，缺记录时按时间就近回退）----
     name_by_id = {p["player_id"]: p["name"] for p in players}
     id_by_name = {p["name"]: p["player_id"] for p in players}
     avail_sids = set(formats["seasons"].keys())
+    season_order = list(formats["seasons"].keys())
     dyn_out = []
     for d in DYNASTIES:
         roster = []
@@ -260,12 +262,20 @@ def main() -> None:
                     and r["position"] in ("对抗路", "打野", "中路", "发育路", "游走")]
             if not cand:
                 continue
-            best = max(cand, key=lambda r: r["rating"])
-            roster.append({"player_id": pid, "season_id": best["season_id"]})
+            era = next((r for r in cand if r["season_id"] == d["season"]), None)
+            if era is not None:
+                roster.append({"player_id": pid, "season_id": era["season_id"]})
+                continue
+            # 年代赛季无记录：按时间就近回退，保证王朝可点开
+            target = season_order.index(d["season"])
+            near = min(cand, key=lambda r: (abs(season_order.index(r["season_id"]) - target),
+                                            season_order.index(r["season_id"])))
+            print(f"[warn] 王朝 {d['label']} {pn} 在 {d['season']} 无记录，回退 {near['season_id']}")
+            roster.append({"player_id": pid, "season_id": near["season_id"]})
         if len(roster) == 5:
             dyn_out.append({
                 "id": d["id"], "label": d["label"], "team_fid": d["team_fid"],
-                "desc": d["desc"], "players": roster,
+                "desc": d["desc"], "era_season": d["season"], "players": roster,
             })
         else:
             print(f"[warn] 王朝预设 {d['label']} 仅凑齐 {len(roster)} 人，跳过")
