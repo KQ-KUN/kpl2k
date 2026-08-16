@@ -205,7 +205,11 @@ img{display:block}
 
 /* ---- 战场 ---- */
 .season-group{margin-bottom:8px}
-.season-group .sg-year{font-size:13px;font-weight:800;color:var(--mut);padding:8px 2px 6px}
+.sg-year{display:flex;align-items:center;justify-content:space-between;width:100%;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px;font-weight:800;color:var(--fg);cursor:pointer;text-align:left;transition:border-color .12s ease}
+.sg-year:active{transform:scale(.99)}
+.sg-year.open{border-color:var(--gold);color:var(--gold)}
+.sg-arrow{color:var(--mut);font-size:13px;transition:transform .15s ease}
+.sg-items{padding:8px 0 4px}
 .season-item{
   display:flex;align-items:center;gap:10px;width:100%;
   background:var(--card);border:1.5px solid var(--line);border-radius:12px;

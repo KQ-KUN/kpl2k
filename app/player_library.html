@@ -176,7 +176,9 @@ function render(){
   const teams=Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length||a.localeCompare(b,'zh'));
   $('#list').innerHTML=list.length?teams.map(t=>`<div class="team"><h2>${esc(t)}<span>${groups[t].length} 人</span></h2><div class="cards">${groups[t].map(card).join('')}</div></div>`).join(''):'<div class="empty">没有匹配的选手</div>';
 }
-$('#team').innerHTML='<option value="">全部战队</option>'+[...new Set(DATA.players.map(p=>p.team))].sort((a,b)=>a.localeCompare(b,'zh')).map(t=>`<option>${esc(t)}</option>`).join('');
+const TEAMS=[...new Set(DATA.players.map(p=>p.team))].sort((a,b)=>a.localeCompare(b,'zh'));
+$('#team').innerHTML='<option value="">全部战队</option>'+['重庆狼队',...TEAMS.filter(t=>t!=='重庆狼队')].map(t=>`<option>${esc(t)}</option>`).join('');
+$('#team').value='重庆狼队';
 ['q','team','pos','sort'].forEach(id=>$('#'+id).addEventListener('input',render));
 render();
 $('#rule-link').addEventListener('click',()=>document.getElementById('rule-mask').style.display='flex');

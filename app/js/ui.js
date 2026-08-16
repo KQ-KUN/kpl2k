@@ -609,6 +609,10 @@
       (byYear[y] = byYear[y] || []).push(s);
     });
     var years = Object.keys(byYear).sort(function (a, b) { return b - a; });
+    var curYear = null;
+    DATA.manifest.seasons.forEach(function (s) {
+      if (s.season_id === STATE.season) curYear = s.year;
+    });
     var html = years.map(function (y) {
       var items = byYear[y].map(function (s) {
         var sel = s.season_id === STATE.season ? ' sel' : '';
@@ -622,9 +626,31 @@
           '<div class="si-tags">' + tags.map(function (t) { return '<span class="tag-pill">' + t + '</span>'; }).join('') + '</div></div>' +
           '<div class="si-go">›</div></button>';
       }).join('');
-      return '<div class="season-group"><div class="sg-year">' + y + ' 年</div>' + items + '</div>';
+      var open = curYear === y;
+      return '<div class="season-group" data-year="' + y + '">' +
+        '<button class="sg-year' + (open ? ' open' : '') + '" data-year="' + y + '">' +
+        '<span class="sg-label">' + y + ' 年</span>' +
+        '<span class="sg-arrow">' + (open ? '▾' : '▸') + '</span></button>' +
+        '<div class="sg-items"' + (open ? '' : ' style="display:none"') + '>' + items + '</div></div>';
     }).join('');
     $('season-list').innerHTML = html;
+    // 年份手风琴：默认只显示年份，点击展开/收起，一次只开一个
+    $('season-list').querySelectorAll('.sg-year').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var items = el.parentNode.querySelector('.sg-items');
+        var wasOpen = items.style.display !== 'none';
+        $('season-list').querySelectorAll('.season-group').forEach(function (g) {
+          var gi = g.querySelector('.sg-items');
+          if (gi) gi.style.display = 'none';
+          var gy = g.querySelector('.sg-year');
+          if (gy) gy.classList.remove('open');
+        });
+        if (!wasOpen) {
+          items.style.display = 'block';
+          el.classList.add('open');
+        }
+      });
+    });
     $('season-list').querySelectorAll('.season-item').forEach(function (el) {
       el.addEventListener('click', function () {
         STATE.season = el.getAttribute('data-sid');
