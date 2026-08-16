@@ -579,8 +579,8 @@
       go('#/season');
       return;
     }
-    $('sim-events').innerHTML = '<div class="story-event show"><div class="se-title">📡 正在准备开赛</div>' +
-      '<div class="se-line mut">读取赛程与选手数据…</div></div>';
+    $('sim-events').innerHTML = '<div class="story-event show" id="sim-loading"><div class="se-title">📡 正在生成平行时空</div>' +
+      '<div class="se-line mut">赛程与选手数据已就绪，马上开赛…</div></div>';
     var battleSid = STATE.season;
     var rosterSids = STATE.roster.map(function (s) { return s.sid; }).filter(Boolean);
     var sids = [battleSid].concat(rosterSids).filter(function (v, i, a) { return a.indexOf(v) === i; });
@@ -608,6 +608,8 @@
       SIM.stageNo = 0;
       SIM.path = [];
       SIM.seasonName = battle.name;
+      var loading = $('sim-loading');
+      if (loading) loading.remove();
       advance();
     }).catch(function (e) {
       $('sim-events').innerHTML = '<div class="card red">模拟失败：' + esc(e.message) + '</div>';
@@ -637,7 +639,11 @@
     if (willJump) {
       requestAnimationFrame(function () {
         var cards = $('sim-events').querySelectorAll('.story-event');
-        if (cards.length) cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (cards.length) {
+          var el = cards[cards.length - 1];
+          var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
       });
     }
   }

@@ -10,9 +10,9 @@
   var POSITIONS = ['对抗路', '打野', '中路', '发育路', '游走'];
   var CARRY_POSITIONS = ['发育路', '中路', '打野'];
   var OBJECTIVES = ['暴君', '主宰', '风暴龙王', '暗影暴君', '先知主宰'];
-  var K = 0.10;
+  var K = 0.08;
   var STRENGTH_NOISE = 4.0;
-  var COMPRESS = 0.6;
+  var COMPRESS = 1.0;
   var SYNERGY_CAP = 4.0;
   var SYNERGY_SCALE = 0.8;
   var PAIR_WIN_MIN = 10;

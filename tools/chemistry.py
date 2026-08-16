@@ -98,7 +98,7 @@ def build_chem(records: list[dict]) -> dict:
     }
 
 
-def lineup_strength(starter: list[dict], chem: dict | None, compress: float = 0.6) -> tuple[float, dict]:
+def lineup_strength(starter: list[dict], chem: dict | None, compress: float = 1.0) -> tuple[float, dict]:
     """有效强度 = 50 + (基础评分 + 位置覆盖 + 老搭档 + 风格适配 - 50) * 压缩系数。"""
     if not starter:
         return 50.0, {"base": 50.0, "coverage": 0.0, "synergy": 0.0, "style": 0.0}
