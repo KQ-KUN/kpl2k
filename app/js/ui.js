@@ -111,6 +111,19 @@
     entry.style.display = 'flex';
     $('history-count').textContent = h.length;
   }
+  /* 按战队名关键字匹配官方口号（KSG/Hero 等存多条的随机取一条） */
+  function teamSlogan(name) {
+    var map = DATA.teamSlogans || {};
+    var keys = Object.keys(map);
+    for (var i = 0; i < keys.length; i++) {
+      if (name.indexOf(keys[i]) >= 0) {
+        var s = map[keys[i]];
+        if (Array.isArray(s)) return s[Math.floor(Math.random() * s.length)];
+        return s;
+      }
+    }
+    return null;
+  }
   function showHistory() {
     showPage('history');
     var h = loadHistory();
@@ -989,7 +1002,8 @@
     $('sim-next').style.display = '';
     $('sim-done-tip').style.display = '';
     if (isChamp) {
-      $('sim-done-tip').textContent = '🏆 捧杯时刻！';
+      var sl = teamSlogan(championName || '');
+      $('sim-done-tip').textContent = sl ? ('🏆 捧杯时刻：' + sl + '！') : '🏆 捧杯时刻！';
       $('sim-done-tip').classList.add('champ');
       BGM.play('champion', championName);
     } else {
@@ -1035,6 +1049,13 @@
     $('result-banner').className = 'res-banner ' + cls;
     $('result-banner').textContent = banner;
     $('result-sub').textContent = run.seasonName + ' · ' + team + ' · 种子 ' + run.seed;
+    if (run.champion && teamName(run.champion) === team) {
+      var slogan = teamSlogan(team);
+      $('result-slogan').style.display = slogan ? '' : 'none';
+      $('result-slogan').textContent = slogan ? (slogan + '！') : '';
+    } else {
+      $('result-slogan').style.display = 'none';
+    }
 
     $('result-roster').innerHTML = run.records.map(function (r) {
       var name = playerName(r.player_id);

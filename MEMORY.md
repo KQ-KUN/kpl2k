@@ -32,6 +32,7 @@
 
 ## 叙事
 - 文件：player_flavor（66 人彩蛋）、team_flavor（外号）、templates、rivalry_flavor（9 组恩怨局，55% 触发）。
+- **叙事素材 v2 + 战队口号**（2026-08-17）：templates 各池大幅扩充（openings 23 / events 20 / endings 12 / bp 10 / comebacks 10 / meme 18 / upsets 8 等），融入李九冠军诗、瓶子/居居/英凯/潇洒解说金句与官方主持句式（让我们恭喜/金色雨/捧杯）；round_tags/final_lines/eliminations 等轮级池只被 CLI narrative 消费，前端不渲染，新增条目须避免占位符；comebacks 遵循 engine 过滤（末局禁"巅峰对决"、非末局禁"让二追三/让三追三"）。team_flavor 新增 slogans（13 队官方口号，KSG/Hero 多条随机），data.js 载入 DATA.teamSlogans，ui.js 夺冠"捧杯时刻"与战绩卡冠军横幅按队伍一一对应喊口号；player_flavor 补 信/无言/小屿。改模板后需 build_web 重打包 base.json；sim_engine.py openings 已补 player_a/player_b 格式化参数。
 - 已删：弹幕玩法（统一"评论区"）、土狗/王八/棺材/勾兑/紧崽（改 32/懦崽）、假赛类。
 - AG 偷家彩蛋：`steal_lines`，AG 胜局 12% 触发"请神梦老师"。
 

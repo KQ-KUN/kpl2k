@@ -36,6 +36,7 @@
       DATA.tpl = res[1].narrative.templates;
       DATA.flavor = (res[1].narrative.player_flavor || {}).flavors || {};
       DATA.teamFlavor = (res[1].narrative.team_flavor || {}).teams || {};
+      DATA.teamSlogans = (res[1].narrative.team_flavor || {}).slogans || {};
       DATA.rivalries = (res[1].narrative.rivalries || {}).rivalries || [];
       DATA.names = KPL_ENGINE.franchiseNames(res[1].franchises);
       return fetchJson('data/dynasties.json').then(function (d) {

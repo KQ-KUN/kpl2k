@@ -291,7 +291,10 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
     hero_b = rng.choice(tpl["heroes"].get("发育路", ["戈娅"]))
     obj = rng.choice(OBJECTIVES)
     loser = team_a if winner == team_b else team_b
-    opening = rng.choice(tpl["openings"]).format(team_a=team_a, team_b=team_b, system=system_a, hero_b=hero_b)
+    opening = rng.choice(tpl["openings"]).format(
+        team_a=team_a, team_b=team_b, system=system_a, hero_b=hero_b,
+        player_a=player, player_b=player,
+    )
     events = rng.sample(tpl["events"], 2)
     mid1 = events[0].format(
         team=winner, player=player, opp=loser, minute=rng.randint(7, 12), objective=rng.choice(OBJECTIVES),
