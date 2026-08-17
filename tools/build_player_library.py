@@ -295,10 +295,23 @@ img.ava{object-fit:cover;background:#21262d}
 .heroes{margin-top:4px;font-size:11px;color:var(--mut)}
 .meme{color:var(--mut);font-size:11px;margin-top:7px;padding:5px 8px;background:#0d1117;border:1px solid var(--line);border-radius:8px}
 .empty{color:var(--mut);text-align:center;padding:30px 0}
+.lib-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.rules-btn{background:var(--card);border:1px solid var(--line);color:var(--blue);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;flex:none}
+.rules-btn:hover{border-color:var(--blue)}
+.rules-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:20;padding:14px}
+.rules-mask.show{display:flex}
+.rules-box{background:var(--card);border:1px solid var(--line);border-radius:12px;max-width:520px;width:100%;max-height:80vh;overflow:auto;padding:16px}
+.rules-box h3{font-size:15px;margin-bottom:10px;color:var(--gold)}
+.rules-box .r{color:var(--mut);font-size:12px;line-height:1.7}
+.rules-box .r b{color:var(--fg)}
+.rules-close{width:100%;margin-top:12px;background:#0d1117;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px;cursor:pointer}
 </style>
 </head>
 <body>
-<h1>KPL 2K · 选手图鉴</h1>
+<div class="lib-head">
+  <h1>KPL 2K · 选手图鉴</h1>
+  <button class="rules-btn" id="rules-btn">战力规则</button>
+</div>
 <div class="sub" id="meta"></div>
 <div class="toolbar">
   <input id="q" placeholder="搜索选手（如 Fly / 小胖 / 一诺）">
@@ -307,6 +320,24 @@ img.ava{object-fit:cover;background:#21262d}
   <select id="sort"><option value="-peak">巅峰战力 ↓</option><option value="peak">巅峰战力 ↑</option><option value="name">名字</option><option value="-mvp">MVP 总数 ↓</option></select>
 </div>
 <div id="list"></div>
+<div class="rules-mask" id="rules-mask">
+  <div class="rules-box">
+    <h3>战力计算规则</h3>
+    <div class="r">
+      <b>1. 单版本评分（100 分制）</b><br>
+      先按赛季内同位置数据标准化（z 值），再放入全历史同位置池计算百分位，按分路权重加权、按出场场次打折，得出最终评分。<br><br>
+      <b>2. 分路看不同数据</b><br>
+      对抗路：承伤 / 输出 / 推塔；打野：击杀 / 参团 / 经济；中路：输出 / 伤害转化 / 参团；发育路：KDA / 输出 / 经济；游走：参团 / 承伤 / 助攻。<br><br>
+      <b>3. 出场折扣</b><br>
+      约 3 场即可出分，10 场以上基本拉满；样本过小时战力会偏低，属正常现象。<br><br>
+      <b>4. 阵容强度</b><br>
+      阵容战力 = 首发均分 + 位置覆盖 + 同场默契 + 组合胜率化学 + 风格修正（约 60% 压缩）。冠军阵容的"化学反应"来自该阵容当年的真实同场胜率。<br><br>
+      <b>5. 荣誉不参与计算</b><br>
+      冠军、FMVP、历史地位一律不计入战力——战力只反映赛场数据表现。
+    </div>
+    <button class="rules-close" id="rules-close">知道了</button>
+  </div>
+</div>
 <script id="library-data" type="application/json">__DATA__</script>
 <script>
 const DATA=JSON.parse(document.getElementById('library-data').textContent);
@@ -388,6 +419,9 @@ function render(){
 }
 $('#team').innerHTML='<option value="">全部战队</option>'+[...new Set(DATA.players.map(p=>p.team))].sort((a,b)=>a.localeCompare(b,'zh')).map(t=>`<option>${esc(t)}</option>`).join('');
 ['q','team','pos','sort'].forEach(id=>$('#'+id).addEventListener('input',render));
+$('#rules-btn').addEventListener('click',function(){$('#rules-mask').classList.add('show');});
+$('#rules-close').addEventListener('click',function(){$('#rules-mask').classList.remove('show');});
+$('#rules-mask').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 render();
 </script>
 </body>
