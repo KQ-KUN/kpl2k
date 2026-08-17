@@ -38,13 +38,17 @@ python tools/deploy_cos.py --bucket kpl2k-125xxxxxxx --region ap-shanghai
 
 ## 开启 CDN 得到网址
 
+> ⚠️ 2024 年 1 月后创建的 COS 桶，默认域名（含静态网站域名）访问任意文件都会强制下载（`x-cos-force-download: true`），**必须绑定自定义域名才能正常预览**；自定义域名接入 COS 要求该域名已完成 ICP 备案。因此正式上线前需要：买域名 → 备案（个人约 7–20 天）→ 绑定 COS。
+
 1. 腾讯云控制台 → CDN 内容分发网络 → 域名管理 → 添加域名：
-   - 加速域名：你拥有的一个域名（如 `kpl2k.example.com`），或在 COS 的"自定义源站域名"里直接用 COS 默认域名测试。
+   - 加速域名：你拥有的一个已备案域名（如 `kpl2k.example.com`）。
    - 源站：选择刚才的 COS 桶。
 2. 解析 CNAME 到 CDN 分配的地址，等生效（几分钟）。
 3. 打开 `https://你的域名/index.html` 即上线。
 
-> 不想先买域名的话，COS 静态网站默认会给你一个 `https://<bucket>.cos-website.ap-shanghai.myqcloud.com` 之类测试地址，可以直接先发这个链接（手机可打开，只是没那么短）。
+也可以跳过 CDN：在 COS 控制台"域名管理 → 自定义源站域名"里直接绑定已备案域名（选"静态网站源站"），DNS 解析到桶域名即可。
+
+> 备案过渡期（可选）：腾讯云开发 CloudBase 静态托管提供免备案默认域名（`*.tcloudbaseapp.com`，国内可访问，但会先跳转"开发测试提示页"且有限流），适合备案期间先让玩家玩上；正式传播仍建议等备案后走 COS 自定义域名。
 
 ## 更新数据
 
