@@ -838,9 +838,18 @@
         clearInterval(SIM.timer);
         SIM.timer = null;
         if (SIM.session && SIM.session.isDone && SIM.session.isDone()) {
-          // 整个赛季的最后一把打完，直接跳出查看战绩
-          finishSim(SIM.session.getChampion ? SIM.session.getChampion() : null);
-          go('#/result');
+          // 整个赛季的最后一把打完：先滚动到最后一场文字并停留，让总决赛/结局可读，再跳战绩卡
+          var cards = $('sim-events').querySelectorAll('.story-event');
+          if (cards.length) {
+            var el = cards[cards.length - 1];
+            var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+          }
+          var doneChamp = SIM.session.getChampion ? SIM.session.getChampion() : null;
+          setTimeout(function () {
+            finishSim(doneChamp);
+            go('#/result');
+          }, 2500);
           return;
         }
         showStageButtons();
