@@ -1648,6 +1648,10 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_single",
+    "playoff_qualify": 10
    }
   },
   "L20190003": {
@@ -2061,6 +2065,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 2,
+    "advance": 4
    }
   },
   "L20190004": {
@@ -3649,6 +3658,10 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_single",
+    "playoff_qualify": 10
    }
   },
   "L20190006": {
@@ -4042,6 +4055,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 1,
+    "advance": 8
    }
   },
   "L20200001": {
@@ -5813,6 +5831,10 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_single",
+    "playoff_qualify": 10
    }
   },
   "L20200003": {
@@ -6226,6 +6248,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 2,
+    "advance": 4
    }
   },
   "KPL2020S2": {
@@ -7997,6 +8024,10 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_single",
+    "playoff_qualify": 10
    }
   },
   "KCC2020W": {
@@ -8560,6 +8591,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 1,
+    "advance": 8
    }
   },
   "KPL2021S1": {
@@ -10297,6 +10333,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "swap",
+    "playoff_qualify": 10
    }
   },
   "KCC2021S": {
@@ -11214,6 +11255,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 2,
+    "advance": 4
    }
   },
   "KPL2021S2": {
@@ -13075,6 +13121,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "swap",
+    "playoff_qualify": 10
    }
   },
   "KCC2021S2": {
@@ -13548,6 +13599,11 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 1,
+    "advance": 8
    }
   },
   "KPL2022S1": {
@@ -15406,6 +15462,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "swap",
+    "playoff_qualify": 10
    }
   },
   "KPL2022S2": {
@@ -17267,6 +17328,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "swap",
+    "playoff_qualify": 10
    }
   },
   "KCC2022S1": {
@@ -17560,6 +17626,12 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 3,
+    "advance": 2,
+    "seeds": 2
    }
   },
   "KPL2023S1": {
@@ -19432,6 +19504,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KPL2023S2": {
@@ -21303,6 +21380,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KCC2023": {
@@ -21746,6 +21828,10 @@
     "type": "single_elim",
     "bo": 7,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "swiss",
+    "advance": 8
    }
   },
   "KPL2024S1": {
@@ -23612,6 +23698,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KPL2024S2": {
@@ -25483,6 +25574,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KPL2024S3": {
@@ -26249,6 +26345,12 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "annual",
+    "masters": 6,
+    "elite": 6,
+    "final_bo": 7
    }
   },
   "KCC2024": {
@@ -27049,6 +27151,11 @@
     "type": "single_elim",
     "bo": 9,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "group_stage",
+    "groups": 4,
+    "advance": 4
    }
   },
   "KPL2025S1": {
@@ -28923,6 +29030,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KPL2025S2": {
@@ -30789,6 +30901,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KPL2025S3": {
@@ -31544,6 +31661,12 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "annual",
+    "masters": 6,
+    "elite": 6,
+    "final_bo": 7
    }
   },
   "KCC2025": {
@@ -31967,6 +32090,13 @@
     "type": "double_elim",
     "bo": 9,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "bracket",
+    "bo5": 5,
+    "bo7": 7,
+    "de_bo": 7,
+    "final_bo": 9
    }
   },
   "KPL2026S1": {
@@ -33834,6 +33964,11 @@
     "type": "double_elim",
     "bo": 7,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   },
   "KCC2026": {
@@ -34257,6 +34392,13 @@
     "type": "double_elim",
     "bo": 9,
     "max_losses": 2
+   },
+   "regular_format": {
+    "type": "bracket",
+    "bo5": 5,
+    "bo7": 7,
+    "de_bo": 7,
+    "final_bo": 9
    }
   },
   "KPL2026S2": {
@@ -35962,6 +36104,11 @@
     "type": "single_elim",
     "bo": 5,
     "max_losses": 1
+   },
+   "regular_format": {
+    "type": "kpl_3round",
+    "r2_mode": "by_rank",
+    "playoff_qualify": 10
    }
   }
  }

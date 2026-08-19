@@ -130,7 +130,13 @@ def main() -> None:
                 "type": r["type"],
                 "bo": r.get("bo"),
                 "matches": [
-                    {"a_id": m["a_id"], "b_id": m["b_id"], "ts": m.get("ts")}
+                    {
+                        "a_id": m["a_id"],
+                        "b_id": m["b_id"],
+                        "a_group": m.get("a_group"),
+                        "b_group": m.get("b_group"),
+                        "ts": m.get("ts"),
+                    }
                     for m in r.get("matches", [])
                 ],
             }
@@ -140,6 +146,7 @@ def main() -> None:
             "season_id": sid,
             "name": fmt["name"],
             "source": fmt.get("source", ""),
+            "regular_format": fmt.get("regular_format"),
             "playoff_config": fmt.get("playoff_config") or {},
             "teams_by_group": fmt.get("teams_by_group") or {},
             "rounds": rounds_min,

@@ -24,6 +24,49 @@ RAW = ROOT / "data" / "raw"
 OUT = ROOT / "data" / "processed"
 DATA_VERSION = "2026-08-15"
 
+# ---------------------------------------------------------------------------
+# 各赛季赛制规则（2026-08-19 核对，来源：KPL 官方赛程赛制公告 / 世冠·挑杯·年总规则）
+#   kpl_single   2019-2020 常规赛单轮大循环，前 N 名进季后赛（双败）
+#   kpl_3round   2021+ 常规赛三轮（第一轮→升降分组→第二轮→卡位赛→B组淘汰→第三轮→季后赛）
+#                  r2_mode=swap    2021-2022：第一轮从季前 S/A/B 出发，组内排名局部升降
+#                  r2_mode=by_rank 2023+：第一轮抽签 Group1-3，每组 1-2→S、3-4→A、5-6→B
+#   group_stage  世冠/挑杯小组赛（组内循环），按组名次出线
+#   swiss        2023 挑杯瑞士轮（近似：官方小组赛全跑，按总排名出线）
+#   bracket      2025/2026 挑杯：官方 32 强 BO5 → 动态 16 强 BO7 → 8 强双败 BO7 → 决赛 BO9
+#   annual       年总：大师/精英组外循环擂台赛 → 直进+突围赛 → 8 队双败
+# ---------------------------------------------------------------------------
+REGULAR_RULES: dict[str, dict] = {
+    "L20190001": {"type": "kpl_single", "playoff_qualify": 10},
+    "L20190004": {"type": "kpl_single", "playoff_qualify": 10},
+    "L20200001": {"type": "kpl_single", "playoff_qualify": 10},
+    "KPL2020S2": {"type": "kpl_single", "playoff_qualify": 10},
+    "KPL2021S1": {"type": "kpl_3round", "r2_mode": "swap", "playoff_qualify": 10},
+    "KPL2021S2": {"type": "kpl_3round", "r2_mode": "swap", "playoff_qualify": 10},
+    "KPL2022S1": {"type": "kpl_3round", "r2_mode": "swap", "playoff_qualify": 10},
+    "KPL2022S2": {"type": "kpl_3round", "r2_mode": "swap", "playoff_qualify": 10},
+    "KPL2023S1": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2023S2": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2024S1": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2024S2": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2025S1": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2025S2": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2026S1": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2026S2": {"type": "kpl_3round", "r2_mode": "by_rank", "playoff_qualify": 10},
+    "KPL2024S3": {"type": "annual", "masters": 6, "elite": 6, "final_bo": 7},
+    "KPL2025S3": {"type": "annual", "masters": 6, "elite": 6, "final_bo": 7},
+    "L20190003": {"type": "group_stage", "groups": 2, "advance": 4},
+    "L20200003": {"type": "group_stage", "groups": 2, "advance": 4},
+    "KCC2021S": {"type": "group_stage", "groups": 2, "advance": 4},
+    "L20190006": {"type": "group_stage", "groups": 1, "advance": 8},
+    "KCC2020W": {"type": "group_stage", "groups": 1, "advance": 8},
+    "KCC2021S2": {"type": "group_stage", "groups": 1, "advance": 8},
+    "KCC2022S1": {"type": "group_stage", "groups": 3, "advance": 2, "seeds": 2},
+    "KCC2023": {"type": "swiss", "advance": 8},
+    "KCC2024": {"type": "group_stage", "groups": 4, "advance": 4},
+    "KCC2025": {"type": "bracket", "bo5": 5, "bo7": 7, "de_bo": 7, "final_bo": 9},
+    "KCC2026": {"type": "bracket", "bo5": 5, "bo7": 7, "de_bo": 7, "final_bo": 9},
+}
+
 
 def load(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -364,6 +407,7 @@ def main() -> None:
             "teams_by_group": teams_by_group,
             "champion_slug": champion_slug,
             "playoff_config": playoff_cfg,
+            "regular_format": REGULAR_RULES.get(sid),
         }
 
         # 冠军交叉校验：smoba 冠军 franchise_id -> slug，与 kpl 决赛 slug 对比

@@ -531,12 +531,234 @@ def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: lis
     return lines
 
 
+def _run_pairs(rng: random.Random, strengths: dict, pairs: list[list[str]], round_name: str, bo: int) -> tuple[list[str], list[dict]]:
+    winners: list[str] = []
+    log: list[dict] = []
+    for pair in pairs:
+        if len(pair) < 2 or not pair[0] or not pair[1]:
+            if pair:
+                winners.append(pair[0])
+            continue
+        w, sa, sb, results = play_match(rng, strengths, pair[0], pair[1], bo)
+        winners.append(w)
+        loser = pair[1] if w == pair[0] else pair[0]
+        log.append({"round": round_name, "a": pair[0], "b": pair[1], "w": w,
+                    "loser": loser, "sa": sa, "sb": sb, "results": results})
+    return winners, log
+
+
+def kpl_playoff10_py(rng: random.Random, strengths: dict, s6: list[str], a4: list[str], bo: int = 7) -> tuple[str, list[dict]]:
+    """KPL 季后赛 10 队双败（12 场，与官方一致）：胜者组半决 2 → 败者组 R1 2 → 败者组 R2 2
+    → 胜者组决赛 1 → 败者组 R3 2 → 败者组 R4（含胜者组决赛败者）1 → 败者组 R5 1 → 总决赛 1。"""
+    log: list[dict] = []
+    w2, log1 = _run_pairs(rng, strengths, [[s6[0], s6[3]], [s6[1], s6[2]]], "胜者组半决赛", bo)
+    wl = [e["loser"] for e in log1]
+    log.extend(log1)
+    l2, log2 = _run_pairs(rng, strengths, [[a4[0], a4[3]], [a4[1], a4[2]]], "败者组第一轮", bo)
+    log.extend(log2)
+    l3, log3 = _run_pairs(rng, strengths, [[l2[0], s6[4]], [l2[1], s6[5]]], "败者组第二轮", bo)
+    log.extend(log3)
+    w_champ_list, log4 = _run_pairs(rng, strengths, [[w2[0], w2[1]]], "胜者组决赛", bo)
+    log.extend(log4)
+    w_out = log4[0]["loser"]
+    l4, log5 = _run_pairs(rng, strengths, [[l3[0], wl[0]], [l3[1], wl[1]]], "败者组第三轮", bo)
+    log.extend(log5)
+    l5, log6 = _run_pairs(rng, strengths, [[l4[0], w_out]], "败者组第四轮", bo)
+    log.extend(log6)
+    l_champ, log7 = _run_pairs(rng, strengths, [[l5[0], l4[1]]], "败者组第五轮", bo)
+    log.extend(log7)
+    champ, log8 = _run_pairs(rng, strengths, [[w_champ_list[0], l_champ[0]]], "总决赛", bo)
+    log.extend(log8)
+    return champ[0], log
+
+
+def simulate_kpl3_season(
+    season_id: str, formats: dict, rosters: dict[str, list[dict]], rng: random.Random,
+    names: dict[str, str], tpl: dict, override_rosters: dict[str, list[dict]] | None = None,
+    chem: dict | None = None, track: str | None = None,
+) -> tuple[str | None, list[str], list[dict], dict[str, int]]:
+    """2021+ KPL 三轮常规赛动态晋级：第一轮官方赛程 → 升降分组 → 第二轮 → 卡位赛 → B 组淘汰 → 第三轮 → 季后赛 10 队双败。"""
+    if override_rosters:
+        rosters = {**rosters, **override_rosters}
+    fmt = formats["seasons"].get(season_id)
+    if not fmt:
+        return None, [], [], {}, {}
+    year_m = re.search(r"(20\d{2})", season_id)
+    year = int(year_m.group(1)) if year_m else None
+    reg_fmt = fmt.get("regular_format") or {}
+    mode = reg_fmt.get("r2_mode") or "by_rank"
+    strengths = {fid: team_strength(pick_starter(roster), chem) for fid, roster in rosters.items()}
+    narrations: list[str] = []
+    path: list[dict] = []
+    pnames = player_names()
+    losses: dict[str, int] = {}
+    regular_wins: dict[str, int] = {}
+    regular_games: dict[str, int] = {}
+    regular_gf: dict[str, int] = {}
+    regular_ga: dict[str, int] = {}
+
+    rr = [r for r in fmt["rounds"] if r["type"] == "round_robin"]
+    r1 = rr[0] if rr else None
+
+    def record(a: str, b: str, winner: str, sa: int, sb: int) -> None:
+        loser = b if winner == a else a
+        losses[loser] = losses.get(loser, 0) + 1
+        regular_wins[winner] = regular_wins.get(winner, 0) + 1
+        for t, sc, osc in ((a, sa, sb), (b, sb, sa)):
+            regular_games[t] = regular_games.get(t, 0) + 1
+            regular_gf[t] = regular_gf.get(t, 0) + sc
+            regular_ga[t] = regular_ga.get(t, 0) + osc
+
+    def track_entry(a: str, b: str, winner: str, sa: int, sb: int, results: list[str], round_name: str, bo: int) -> None:
+        if not track or track not in (a, b):
+            return
+        track_is_a = track == a
+        opp = b if track_is_a else a
+        opp_roster = pick_starter(rosters.get(opp, []))
+        opp_players = [pnames.get(r["player_id"], r["player_id"]) for r in opp_roster] if opp_roster else []
+        score_track, score_opp = (sa, sb) if track_is_a else (sb, sa)
+        results_track = results if track_is_a else [("B" if g == "A" else "A") for g in results]
+        na = names.get(a) or "A队"
+        nb = names.get(b) or "B队"
+        roster_a = pick_starter(rosters.get(a, []))
+        roster_b = pick_starter(rosters.get(b, []))
+        path.append({
+            "round": round_name,
+            "opp": names.get(opp) or "?",
+            "opp_players": opp_players,
+            "score": f"{score_track}:{score_opp}",
+            "win": winner == track,
+            "games": narrate_series(rng, tpl, na, nb, results, roster_a, roster_b, pnames, bo, year),
+            "results": results_track,
+        })
+
+    def run_series(a: str, b: str, bo: int, round_name: str) -> tuple[str, int, int, list[str]]:
+        w, sa, sb, results = play_match(rng, strengths, a, b, bo)
+        record(a, b, w, sa, sb)
+        track_entry(a, b, w, sa, sb, results, round_name, bo)
+        return w, sa, sb, results
+
+    def sort_by_rec(ids: list[str]) -> list[str]:
+        return sorted(
+            ids,
+            key=lambda fid: (
+                -regular_wins.get(fid, 0),
+                regular_ga.get(fid, 0) - regular_gf.get(fid, 0),
+                -strengths.get(fid, 50.0),
+                fid,
+            ),
+        )
+
+    def rr_schedule(ids: list[str]) -> list[list[str]]:
+        return [[ids[i], ids[j]] for i in range(len(ids)) for j in range(i + 1, len(ids))]
+
+    def group_names_of(ms: list[dict]) -> dict[str, list[str]]:
+        gs: dict[str, list[str]] = {}
+        for m in ms:
+            for key, gk in (("a_id", "a_group"), ("b_id", "b_group")):
+                if m.get(key) and m.get(gk):
+                    gs.setdefault(str(m[gk]), []).append(m[key])
+        for k in gs:
+            gs[k] = list(dict.fromkeys(gs[k]))
+        return gs
+
+    groups: dict[str, list[str]] = {}
+    if r1:
+        groups = group_names_of(r1["matches"])
+        bo1 = r1.get("bo") or 5
+        for m in r1["matches"]:
+            run_series(m["a_id"], m["b_id"], bo1, r1["name"])
+        for g in groups:
+            groups[g] = sort_by_rec(groups[g])
+
+    # 第二轮分组
+    if mode == "swap":
+        s, a, b = groups.get("S", []), groups.get("A", []), groups.get("B", [])
+        groups = {
+            "S": s[:4] + a[:2],
+            "A": s[4:] + a[2:4] + b[:2],
+            "B": a[4:] + b[2:],
+        }
+    else:
+        S, A, B = [], [], []
+        for g in groups.values():
+            r = sort_by_rec(g)
+            S += r[0:2]
+            A += r[2:4]
+            B += r[4:6]
+        groups = {"S": [t for t in S if t], "A": [t for t in A if t], "B": [t for t in B if t]}
+
+    # 第二轮
+    r2 = rr[1] if len(rr) > 1 else None
+    r2_name = (r2 or {}).get("name") or "常规赛第二轮"
+    bo2 = (r2 or {}).get("bo") or 5
+    for g in groups:
+        for p in rr_schedule(groups[g]):
+            run_series(p[0], p[1], bo2, f"{r2_name}·{g}组")
+    for g in groups:
+        groups[g] = sort_by_rec(groups[g])
+
+    # 卡位赛（S5/S6 vs A1/A2；A5/A6 vs B1/B2）
+    pi = next((r for r in fmt["rounds"] if r["type"] == "play_in"), None)
+    pi_name = (pi or {}).get("name") or "卡位赛"
+    pi_bo = 7
+    s, a, b = groups.get("S", []), groups.get("A", []), groups.get("B", [])
+    pairs = [[s[4], a[1]], [s[5], a[0]], [a[4], b[1]], [a[5], b[0]]]
+    s_win, a_fail, a_win = [], [], []
+    for p in pairs:
+        if len(p) < 2 or not p[0] or not p[1]:
+            continue
+        w, sa, sb, results = run_series(p[0], p[1], pi_bo, pi_name)
+        if p in ([[s[4], a[1]], [s[5], a[0]]][0:2] if False else [[s[4], a[1]], [s[5], a[0]]]):
+            s_win.append(w)
+            a_fail.append(p[1] if w == p[0] else p[0])
+        else:
+            a_win.append(w)
+    groups["S"] = sort_by_rec(s[:4] + s_win)
+    groups["A"] = sort_by_rec(a[2:4] + a_fail + a_win)
+    groups["B"] = []
+    if track and track not in groups["S"] + groups["A"]:
+        narrations.append(f"{names.get(track) or '本队'}在卡位赛后止步常规赛，无缘第三轮。")
+        return None, narrations, path, losses, {}
+
+    # 第三轮（B 组淘汰，只剩 S/A）
+    r3 = rr[2] if len(rr) > 2 else None
+    r3_name = (r3 or {}).get("name") or "常规赛第三轮"
+    bo3 = (r3 or {}).get("bo") or 5
+    for g in ("S", "A"):
+        for p in rr_schedule(groups.get(g, [])):
+            run_series(p[0], p[1], bo3, f"{r3_name}·{g}组")
+    for g in ("S", "A"):
+        groups[g] = sort_by_rec(groups.get(g, []))
+
+    # 季后赛：S 组 6 + A 组前 4
+    s6 = groups.get("S", [])
+    a4 = groups.get("A", [])[:4]
+    if track and track not in s6 + a4:
+        narrations.append(f"{names.get(track) or '本队'}未能进入季后赛，赛季结束。")
+        return None, narrations, path, losses, {}
+    if len(s6) == 6 and len(a4) == 4:
+        champion, log = kpl_playoff10_py(rng, strengths, s6, a4, 7)
+        for e in log:
+            if e.get("loser"):
+                losses[e["loser"]] = losses.get(e["loser"], 0) + 1
+            na = names.get(e["a"]) or "A队"
+            nb = names.get(e["b"]) or "B队"
+            narrations.extend(narrate_series(rng, tpl, na, nb, e["results"], pick_starter(rosters.get(e["a"], [])), pick_starter(rosters.get(e["b"], [])), pnames, None, year))
+            track_entry(e["a"], e["b"], e["w"], e["sa"], e["sb"], e["results"], e["round"], 7)
+        return champion, narrations, path, losses, {}
+    return None, narrations, path, losses, {}
+
+
 def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]], rng: random.Random, names: dict[str, str], tpl: dict, override_rosters: dict[str, list[dict]] | None = None, chem: dict | None = None, track: str | None = None) -> tuple[str | None, list[str], list[dict], dict[str, int]]:
     if override_rosters:
         rosters = {**rosters, **override_rosters}
     fmt = formats["seasons"].get(season_id)
     if not fmt:
         return None, [], [], {}, {}
+    reg_fmt = fmt.get("regular_format") or {}
+    if reg_fmt.get("type") == "kpl_3round":
+        return simulate_kpl3_season(season_id, formats, rosters, rng, names, tpl, override_rosters, chem, track)
     year_m = re.search(r"(20\d{2})", season_id)
     year = int(year_m.group(1)) if year_m else None
     playoff_cfg = (fmt or {}).get("playoff_config") or {}

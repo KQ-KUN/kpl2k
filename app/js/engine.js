@@ -528,7 +528,160 @@
     return m ? parseInt(m[1], 10) : null;
   }
 
+  /* ---------------- 赛制辅助：组内循环 / 排名 / 重组 / 淘汰树 ---------------- */
+  function rrSchedule(teamIds) {
+    var ms = [];
+    for (var i = 0; i < teamIds.length; i++) {
+      for (var j = i + 1; j < teamIds.length; j++) ms.push([teamIds[i], teamIds[j]]);
+    }
+    return ms;
+  }
+
+  // 按 (胜场, 净胜分, 战力) 排序
+  function sortByRecord(teamIds, rec, strengths) {
+    var copy = teamIds.slice();
+    copy.sort(function (a, b) {
+      var ra = rec[a] || { wins: 0, net: 0 }, rb = rec[b] || { wins: 0, net: 0 };
+      if (rb.wins !== ra.wins) return rb.wins - ra.wins;
+      if (rb.net !== ra.net) return rb.net - ra.net;
+      return (strengths[b] || 50) - (strengths[a] || 50);
+    });
+    return copy;
+  }
+
+  // 从官方赛程推导分组：同组队伍互为对手
+  function groupsFromMatches(matches, allTeams) {
+    var gid = {};
+    var groups = [];
+    function ensure(t) {
+      if (gid[t] === undefined) { gid[t] = groups.length; groups.push([t]); }
+      return gid[t];
+    }
+    (matches || []).forEach(function (m) {
+      var a = ensure(m.a_id), b = ensure(m.b_id);
+      if (a !== b) {
+        var to = groups[b], from = groups[a];
+        to.push.apply(to, from);
+        groups[a] = [];
+        from.forEach(function (t) { gid[t] = b; });
+      }
+    });
+    return groups.filter(function (g) { return g.length; }).concat(
+      (allTeams || []).filter(function (t) { return gid[t] === undefined; }).map(function (t) { return [t]; })
+    );
+  }
+
+  // KPL 季后赛 10 队双败结构
+  //   mode=sab    2021+：S1-S4 胜者组；S5/S6 直接进败者组第二轮；A1-A4 败者组第一轮
+  //   mode=legacy 2019-2020：常规赛前 4 胜者组；5-10 败者组第一轮（6 队 3 场）
+  function kplPlayoff10(wTop, lTop, mode) {
+    if (mode === 'legacy') {
+      return {
+        mode: 'legacy',
+        w: [wTop[0], wTop[3], wTop[1], wTop[2]],
+        wPairs: [[wTop[0], wTop[3]], [wTop[1], wTop[2]]],
+        l1: lTop.slice(),
+        l1Pairs: bracketPair(lTop),
+        late: []
+      };
+    }
+    var s6 = wTop, a4 = lTop;
+    return {
+      mode: 'sab',
+      w: [s6[0], s6[3], s6[1], s6[2]],   // 胜者组半决：S1vsS4、S2vsS3
+      wPairs: [[s6[0], s6[3]], [s6[1], s6[2]]],
+      l1: [a4[0], a4[3], a4[1], a4[2]],  // 败者组第一轮：A1vsA4、A2vsA3
+      l1Pairs: [[a4[0], a4[3]], [a4[1], a4[2]]],
+      late: [s6[4], s6[5]]               // S5/S6 败者组第二轮入场
+    };
+  }
+
+  // 标准单败括号：首轮 1vsN、2vsN-1…，后续轮胜者按顺序合并
+  function bracketPair(seeded) {
+    var pairs = [];
+    for (var i = 0; i < Math.floor(seeded.length / 2); i++) {
+      pairs.push([seeded[i], seeded[seeded.length - 1 - i]]);
+    }
+    return pairs;
+  }
+
+  // 按赛制类型构建阶段定义（2026-08-19：动态晋级，不再照官方固定赛程跑完全部轮次）
+  function buildPhaseDefs(fmt) {
+    var regFmt = fmt.regular_format || {};
+    var regType = regFmt.type || 'official';
+    function copyMatches(ms) {
+      return (ms || []).map(function (m) { return Object.assign({}, m); });
+    }
+    var rr = fmt.rounds.filter(function (r) { return r.type === 'round_robin'; });
+    var pi = fmt.rounds.filter(function (r) { return r.type === 'play_in'; });
+    var tree = fmt.rounds.filter(function (r) {
+      return ['single_elim', 'double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0;
+    });
+    var defs = [];
+    function rrName(i, fb) { return (rr[i] && rr[i].name) || fb; }
+    if (regType === 'kpl_3round') {
+      if (rr[0]) defs.push({ kind: 'official_rr', title: rrName(0, '常规赛第一轮'), matches: copyMatches(rr[0].matches), bo: rr[0].bo || 5, r1: true });
+      defs.push({ kind: 'rr_regroup', title: rrName(1, '常规赛第二轮'), bo: (rr[1] && rr[1].bo) || 5, r2: true });
+      defs.push({ kind: 'playin_sab', title: (pi[0] && pi[0].name) || '卡位赛', bo: 7 });
+      defs.push({ kind: 'rr_regroup', title: rrName(2, '常规赛第三轮'), bo: (rr[2] && rr[2].bo) || 5, r3: true });
+      defs.push({ kind: 'kpl_playoff10', title: '季后赛', bo: 7 });
+    } else if (regType === 'kpl_single') {
+      if (rr[0]) defs.push({ kind: 'official_rr', title: rrName(0, '常规赛'), matches: copyMatches(rr[0].matches), bo: rr[0].bo || 5, single: true });
+      defs.push({ kind: 'kpl_playoff10', title: '季后赛', bo: 7 });
+    } else if (regType === 'group_stage') {
+      if (rr[0]) defs.push({ kind: 'official_rr', title: rrName(0, '小组赛'), matches: copyMatches(rr[0].matches), bo: rr[0].bo || 3, groupStage: true });
+      var fbo = 7;
+      tree.forEach(function (r) { if (r.type === 'final' && r.bo) fbo = r.bo; });
+      defs.push({ kind: 'after_groups', title: '淘汰赛', bo: (tree[0] && tree[0].bo) || 7, finalBo: fbo });
+    } else if (regType === 'annual') {
+      var arena = null, survive = null;
+      fmt.rounds.forEach(function (r) {
+        if ((r.name || '').indexOf('擂台') >= 0) arena = r;
+        if ((r.name || '').indexOf('突围') >= 0) survive = r;
+      });
+      if (arena) defs.push({ kind: 'official_rr', title: arena.name, matches: copyMatches(arena.matches), bo: arena.bo || 5, annual: true });
+      defs.push({ kind: 'annual_survive', title: (survive && survive.name) || '突围赛', bo: 7 });
+      defs.push({ kind: 'de8', title: '淘汰赛', bo: 7, finalBo: regFmt.final_bo || 7 });
+    } else if (regType === 'bracket') {
+      var r32 = null;
+      fmt.rounds.forEach(function (r) {
+        if ((r.name || '').indexOf('32强') >= 0) r32 = r;
+      });
+      if (r32) defs.push({ kind: 'official_rr', title: r32.name, matches: copyMatches(r32.matches), bo: r32.bo || 5, bracket: true });
+      defs.push({ kind: 'bracket_r16', title: '16强', bo: 7 });
+      defs.push({ kind: 'de8', title: '8强', bo: 7, finalBo: regFmt.final_bo || 9 });
+    } else if (regType === 'swiss') {
+      if (rr[0]) defs.push({ kind: 'official_rr', title: rrName(0, '小组赛'), matches: copyMatches(rr[0].matches), bo: rr[0].bo || 3, swiss: true });
+      defs.push({ kind: 'after_groups', title: '淘汰赛', bo: 7, finalBo: 7 });
+    }
+    return defs;
+  }
+
   function simulateSeason(opts) {
+    var fmt0 = opts.formats[opts.season_id];
+    if (fmt0 && ((fmt0.regular_format || {}).type || 'official') !== 'official') {
+      // 动态赛制：复用 createDynamicSession 一次性跑完（与线上分阶段结果一致）
+      var sess = createDynamicSession(opts);
+      var narrations = [], path = [], losses = {};
+      var guard = 0;
+      while (!sess.isDone() && guard++ < 8000) {
+        var st = sess.next();
+        if (st.kind === 'regular_round' || st.kind === 'elim_round' || st.kind === 'play_in') {
+          (st.entries || []).forEach(function (e) {
+            path.push(e);
+            (e.games || []).forEach(function (g) { narrations.push(g); });
+            if (!e.win) losses[e.opp] = (losses[e.opp] || 0) + 1;
+          });
+        }
+      }
+      return {
+        champion: sess.getChampion(),
+        narrations: narrations,
+        path: path,
+        losses: losses,
+        regular: sess.getRegular()
+      };
+    }
     /* opts: {
      *   season_id, formats (seasons map), rosters {fid:[records]},
      *   rng, names {fid:name}, tpl, override_rosters?, chem?, track?
@@ -796,8 +949,643 @@
     return { champion: champion, narrations: narrations, path: path, losses: losses, regular: regularOut };
   }
 
+  /* ---------------- 动态赛制会话（按真实赛制动态晋级，2026-08-19） ---------------- */
+  function createDynamicSession(opts) {
+    var rosters = opts.rosters;
+    if (opts.override_rosters) rosters = Object.assign({}, rosters, opts.override_rosters);
+    var fmt = opts.formats[opts.season_id];
+    if (!fmt) return null;
+    var rng = opts.rng;
+    var names = opts.names, tpl = opts.tpl, track = opts.track || null;
+    var year = seasonYear(opts.season_id);
+    var pnames = {};
+    if (opts.players) {
+      Object.keys(opts.players).forEach(function (pid) { pnames[pid] = opts.players[pid].name; });
+    }
+    var regFmt = fmt.regular_format || {};
+    var regType = regFmt.type || 'official';
+    var phaseDefs = buildPhaseDefs(fmt);
+    var strengths = {};
+    Object.keys(rosters).forEach(function (fid) {
+      strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
+    });
+    var losses = {};
+    var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
+    var phaseIdx = 0, curDef = null;
+    var stageQueue = [], pendingNotes = [];
+    var groups = {}, rec = {};
+    var p10 = null, p10Step = 0;
+    var se = null;            // 单败状态 {pool, pairs, title, bo, finalBo, round}
+    var d8 = null;            // 8 队双败状态 {w, l, queue}
+    var elimPool = null, elimBo = 7, elimFinalBo = 7;
+    var done = false, champion = null, trackStopped = false;
+    var regularInfo = {}, regularRank = {}, seedNotes = {}, recapDone = false;
+
+    function recordMatch(aId, bId, r) {
+      losses[r.loserId] = (losses[r.loserId] || 0) + 1;
+      regularWins[r.winnerId] = (regularWins[r.winnerId] || 0) + 1;
+      [[aId, r.scoreA, r.scoreB], [bId, r.scoreB, r.scoreA]].forEach(function (t) {
+        regularGames[t[0]] = (regularGames[t[0]] || 0) + 1;
+        regularGf[t[0]] = (regularGf[t[0]] || 0) + t[1];
+        regularGa[t[0]] = (regularGa[t[0]] || 0) + t[2];
+      });
+      var ra = rec[aId] || (rec[aId] = { wins: 0, games: 0, net: 0 });
+      var rb = rec[bId] || (rec[bId] = { wins: 0, games: 0, net: 0 });
+      ra.games++; rb.games++;
+      if (r.winnerId === aId) { ra.wins++; ra.net += r.scoreA - r.scoreB; rb.net += r.scoreB - r.scoreA; }
+      else { rb.wins++; rb.net += r.scoreB - r.scoreA; ra.net += r.scoreA - r.scoreB; }
+    }
+
+    function runMatch(aId, bId, bo, record) {
+      var r = playMatch(rng, strengths, aId, bId, bo);
+      var out = { aId: aId, bId: bId, winnerId: r[0], loserId: r[0] === aId ? bId : aId,
+                  scoreA: r[1], scoreB: r[2], results: r[3] };
+      if (record) recordMatch(aId, bId, out);
+      return out;
+    }
+
+    function entryFor(m, rndName, bo) {
+      var na = names[m.aId] || 'A队', nb = names[m.bId] || 'B队';
+      var rosterA = pickStarter(rosters[m.aId] || []), rosterB = pickStarter(rosters[m.bId] || []);
+      var trackIsA = track === m.aId;
+      var opp = trackIsA ? m.bId : m.aId;
+      var scoreTrack = trackIsA ? m.scoreA : m.scoreB;
+      var scoreOpp = trackIsA ? m.scoreB : m.scoreA;
+      var resultsTrack = trackIsA ? m.results : m.results.map(function (g) { return g === 'A' ? 'B' : 'A'; });
+      var oppRoster = trackIsA ? rosterB : rosterA;
+      var oppPlayers = oppRoster.map(function (x) { return pnames[x.player_id] || x.player_id; });
+      return {
+        round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
+        score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
+        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year),
+        results: resultsTrack,
+        stats: simMatchStats(rng, rosterA, rosterB, m.results)
+      };
+    }
+
+    function teamNote(ids) {
+      return ids.map(function (t) { return names[t] || '?'; }).join('、');
+    }
+    function noteLine(s) { pendingNotes.push(s); }
+
+    function rankOfGroup(ids) {
+      return sortByRecord(ids, rec, strengths);
+    }
+    function allTeamsOf(matches) {
+      var out = [];
+      (matches || []).forEach(function (m) {
+        [m.a_id, m.b_id].forEach(function (t) { if (t && out.indexOf(t) < 0) out.push(t); });
+      });
+      return out;
+    }
+
+    // 官方小组赛 → 每组排名（组名按 matches 推导顺序）
+    function rankGroups(matches) {
+      // 优先用官方 group 字段命名（S/A/B、大师/精英），缺失时退回 组1/2/3
+      var nameById = {};
+      (matches || []).forEach(function (m) {
+        [['a_id', 'a_group'], ['b_id', 'b_group']].forEach(function (p) {
+          var id = m[p[0]], g = m[p[1]];
+          if (id && g && !nameById[id]) nameById[id] = g;
+        });
+      });
+      var gs = groupsFromMatches(matches, allTeamsOf(matches));
+      var out = {};
+      gs.forEach(function (g, i) {
+        var name = '组' + (i + 1);
+        if (g.length && nameById[g[0]]) {
+          var base = String(nameById[g[0]]);
+          if (base === 'S' || base === 'A' || base === 'B') name = base;
+        }
+        out[name] = rankOfGroup(g);
+      });
+      return out;
+    }
+
+    // 第一轮结束 → S/A/B 分组（2021-2022 swap；2023+ by_rank）
+    function regroup2() {
+      var mode = regFmt.r2_mode || 'by_rank';
+      if (mode === 'swap') {
+        var s = groups.S || [], a = groups.A || [], b = groups.B || [];
+        groups = {
+          S: s.slice(0, 4).concat(a.slice(0, 2)),
+          A: s.slice(4).concat(a.slice(2, 4)).concat(b.slice(0, 2)),
+          B: a.slice(4).concat(b.slice(2))
+        };
+      } else {
+        var S = [], A = [], B = [];
+        Object.keys(groups).forEach(function (k) {
+          var r = rankOfGroup(groups[k]);
+          S = S.concat(r[0], r[1]);
+          A = A.concat(r[2], r[3]);
+          B = B.concat(r[4], r[5]);
+        });
+        groups = { S: S.filter(Boolean), A: A.filter(Boolean), B: B.filter(Boolean) };
+      }
+    }
+
+    function trackIn(list) { return list.indexOf(track) >= 0; }
+
+    function stopTrack(title) {
+      trackStopped = true;
+      pendingNotes = [title];
+    }
+
+    function setupPhase(def) {
+      curDef = def;
+      stageQueue = [];
+      rec = {};
+      var kind = def.kind;
+      if (kind === 'official_rr') {
+        // 外卡：主队不在本赛事参赛名单时，顶替最弱参赛队
+        if (track != null && (def.matches || []).length) {
+          var participants = allTeamsOf(def.matches);
+          if (participants.indexOf(track) < 0 && participants.length) {
+            var sortedP = participants.slice().sort(function (x, y) {
+              return (strengths[x] || 50) - (strengths[y] || 50);
+            });
+            var weakestP = sortedP[0];
+            def.matches.forEach(function (m) {
+              if (m.a_id === weakestP) m.a_id = track;
+              if (m.b_id === weakestP) m.b_id = track;
+            });
+            if (!(track in strengths)) strengths[track] = 50.0;
+            noteLine((names[track] || '这支队伍') + '以外卡身份顶替' + (names[weakestP] || '?') +
+              '，登上' + (fmt.name || '本次赛事') + '的舞台。');
+            noteLine('注：在原时间线中，该战队未进入' + (fmt.name || '本次赛事') + '，故以外卡身份参赛。');
+          }
+        }
+        (def.matches || []).forEach(function (m) {
+          stageQueue.push({ aId: m.a_id, bId: m.b_id, bo: def.bo || 5, title: def.title });
+        });
+        if (def.r1 || def.single || def.groupStage || def.annual || def.swiss) {
+          groups = rankGroups(def.matches);
+        }
+      } else if (kind === 'rr_regroup') {
+        var g = groups;
+        Object.keys(g).forEach(function (gn) {
+          if (!g[gn] || !g[gn].length) return;
+          rrSchedule(g[gn]).forEach(function (p) {
+            stageQueue.push({ aId: p[0], bId: p[1], bo: def.bo || 5, title: def.title + '·' + gn + '组' });
+          });
+        });
+        if (def.r3 && trackStopped) return;
+      } else if (kind === 'playin_sab') {
+        var s = groups.S || [], a = groups.A || [], b = groups.B || [];
+        var pairs = [[s[4], a[1]], [s[5], a[0]], [a[4], b[1]], [a[5], b[0]]];
+        pairs.forEach(function (p) {
+          if (p[0] && p[1]) stageQueue.push({ aId: p[0], bId: p[1], bo: def.bo || 7, title: def.title });
+        });
+      } else if (kind === 'kpl_playoff10') {
+        var S = groups.S || [], A = groups.A || [];
+        if (regType === 'kpl_single') {
+          p10 = kplPlayoff10(S.slice(0, 4), A.slice(0, 6), 'legacy');
+          if (track != null && !(trackIn(S.slice(0, 4)) || trackIn(A.slice(0, 6)))) stopTrack('常规赛收官，' + (names[track] || '本队') + '未能进入季后赛');
+        } else {
+          p10 = kplPlayoff10(S.slice(0, 6), A.slice(0, 4), 'sab');
+          if (track != null && !(trackIn(S.slice(0, 6)) || trackIn(A.slice(0, 4)))) stopTrack('常规赛收官，' + (names[track] || '本队') + '未能进入季后赛');
+        }
+        p10Step = 0;
+      } else if (kind === 'after_groups') {
+        elimPool = groups.__advance || [];
+        elimBo = def.bo || 7;
+        elimFinalBo = def.finalBo || elimBo;
+        se = { pool: elimPool, pairs: null, title: def.title, bo: elimBo, finalBo: elimFinalBo, round: 1 };
+        if (track != null && !trackIn(elimPool)) stopTrack('小组赛收官，' + (names[track] || '本队') + '未能出线');
+      } else if (kind === 'annual_survive') {
+        var m5 = groups.__masterTail || [], e5 = groups.__eliteTail || [];
+        se = { pool: m5.concat(e5), pairs: null, title: def.title, bo: def.bo || 7, finalBo: def.bo || 7, round: 1, survive: true };
+        if (track != null && !(trackIn(se.pool) || trackIn(groups.__direct || []))) {
+          stopTrack('擂台赛收官，' + (names[track] || '本队') + '未能进入淘汰赛阶段');
+        }
+      } else if (kind === 'bracket_r16') {
+        elimPool = groups.__w32 || [];
+        elimBo = def.bo || 7;
+        se = { pool: elimPool, pairs: null, title: def.title, bo: elimBo, finalBo: elimBo, round: 1 };
+        if (track != null && !trackIn(elimPool)) stopTrack('32强战罢，' + (names[track] || '本队') + '未能晋级16强');
+      } else if (kind === 'de8') {
+        elimPool = groups.__q8 || elimPool || [];
+        elimBo = def.bo || 7;
+        elimFinalBo = def.finalBo || elimBo;
+        d8 = { w: elimPool.slice(), l: [], queue: [] };
+        var w = d8.w.slice(), l = [];
+        while (w.length > 1) {
+          d8.queue.push({ tag: '胜者组', kind: 'w' });
+          l = l.concat(new Array(Math.floor(w.length / 2)));
+          if (l.length >= 2) d8.queue.push({ tag: '败者组', kind: 'l' });
+          w = new Array(Math.ceil(w.length / 2));
+        }
+        while (l.length > 1) { d8.queue.push({ tag: '败者组', kind: 'l' }); l = new Array(Math.ceil(l.length / 2)); }
+        d8.queue.push({ tag: '总决赛', kind: 'final1' });
+        if (track != null && !trackIn(elimPool)) stopTrack((def.title || '淘汰赛') + '开赛，' + (names[track] || '本队') + '未能晋级');
+      }
+    }
+
+    // 阶段收尾：排名/重组/生成说明与下一阶段名单
+    function finishPhase(def) {
+      var kind = def.kind;
+      if (kind === 'official_rr') {
+        if (def.r1) {
+          regroup2();
+          noteLine('常规赛第一轮战罢，S组：' + teamNote(groups.S));
+          noteLine('A组：' + teamNote(groups.A) + '；B组：' + teamNote(groups.B));
+        } else if (def.single) {
+          var all = Object.keys(rec).sort(function (x, y) {
+            var rx = rec[x], ry = rec[y];
+            if (ry.wins !== rx.wins) return ry.wins - rx.wins;
+            if (ry.net !== rx.net) return ry.net - rx.net;
+            return (strengths[y] || 50) - (strengths[x] || 50);
+          });
+          var S10 = all.slice(0, 4), A10 = all.slice(4, 10);
+          groups.S = S10; groups.A = A10;
+          var qual = regFmt.playoff_qualify || 10;
+          if (track != null && all.indexOf(track) >= qual) stopTrack('常规赛收官，' + (names[track] || '本队') + '排名第' + (all.indexOf(track) + 1) + '，无缘季后赛');
+          noteLine('常规赛收官，前' + qual + '名晋级季后赛：' + teamNote(all.slice(0, qual)));
+        } else if (def.groupStage) {
+          var adv = [];
+          var gKeys = Object.keys(groups);
+          var per = regFmt.advance || 4;
+          gKeys.forEach(function (k) { adv = adv.concat(groups[k].slice(0, per)); });
+          // 种子队（官方淘汰赛首轮里有、小组赛没有的队）
+          var treeFirst = null;
+          fmt.rounds.forEach(function (r) {
+            if (!treeFirst && ['single_elim', 'double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0 && r.matches && r.matches.length) treeFirst = r;
+          });
+          var groupTeams = allTeamsOf(def.matches);
+          var seeds = [];
+          if (treeFirst) {
+            allTeamsOf(treeFirst.matches).forEach(function (t) { if (groupTeams.indexOf(t) < 0 && seeds.indexOf(t) < 0) seeds.push(t); });
+          }
+          adv = adv.concat(seeds.slice(0, regFmt.seeds || 0));
+          // 种子排序：小组第一名在前，其余按组序+排名
+          var seeded = [];
+          gKeys.forEach(function (k) { seeded = seeded.concat(groups[k]); });
+          var pool = [];
+          gKeys.forEach(function (k) { if (groups[k][0]) pool.push(groups[k][0]); });
+          adv.forEach(function (t) { if (pool.indexOf(t) < 0 && seeded.indexOf(t) >= 0) pool.push(t); });
+          seeds.forEach(function (t) { if (pool.indexOf(t) < 0) pool.push(t); });
+          groups.__advance = pool;
+          noteLine('小组赛战罢，' + pool.length + '支队伍晋级淘汰赛：' + teamNote(pool));
+          if (track != null && !trackIn(pool)) stopTrack('小组赛收官，' + (names[track] || '本队') + '未能晋级淘汰赛');
+        } else if (def.annual) {
+          // 大师/精英分组：官方擂台赛 matches 的 group 字段（S=大师、A=精英）
+          var masters = [], elite = [];
+          (def.matches || []).forEach(function (m) {
+            var items = [[m.a_id, m.a_group], [m.b_id, m.b_group]];
+            items.forEach(function (it) {
+              if (!it[0]) return;
+              var g = String(it[1] || '');
+              if (g === 'S' || g.indexOf('大师') >= 0) { if (masters.indexOf(it[0]) < 0) masters.push(it[0]); }
+              else if (g === 'A' || g.indexOf('精英') >= 0) { if (elite.indexOf(it[0]) < 0) elite.push(it[0]); }
+            });
+          });
+          if (!masters.length || !elite.length) {
+            var order = Object.keys(rec).sort(function (x, y) {
+              var rx = rec[x], ry = rec[y];
+              if (ry.wins !== rx.wins) return ry.wins - rx.wins;
+              if (ry.net !== rx.net) return ry.net - rx.net;
+              return (strengths[y] || 50) - (strengths[x] || 50);
+            });
+            masters = order.slice(0, 6);
+            elite = order.slice(6);
+          }
+          var mOrder = rankOfGroup(masters), eOrder = rankOfGroup(elite);
+          if (mOrder.length < 6 && eOrder.length > 6) {
+            var extra = eOrder.slice(6);
+            mOrder = mOrder.concat(extra.slice(0, 6 - mOrder.length));
+            eOrder = eOrder.slice(0, 6);
+          }
+          groups.__master = mOrder; groups.__elite = eOrder;
+          groups.__masterTail = mOrder.slice(4);   // 大师 5-6
+          groups.__eliteTail = eOrder.slice(1, 5); // 精英 2-5
+          groups.__direct = mOrder.slice(0, 4).concat(eOrder.slice(0, 1)); // 大师前4 + 精英第1
+          noteLine('擂台赛战罢，大师组前四与精英组第一直进淘汰赛：' + teamNote(groups.__direct));
+          noteLine('突围赛：' + teamNote(groups.__masterTail.concat(groups.__eliteTail)));
+          if (track != null && !(trackIn(groups.__direct) || trackIn(groups.__masterTail) || trackIn(groups.__eliteTail))) {
+            stopTrack('擂台赛收官，' + (names[track] || '本队') + '未能进入淘汰赛阶段');
+          }
+        } else if (def.swiss) {
+          var swOrder = Object.keys(rec).sort(function (x, y) {
+            var rx = rec[x], ry = rec[y];
+            if (ry.wins !== rx.wins) return ry.wins - rx.wins;
+            if (ry.net !== rx.net) return ry.net - rx.net;
+            return (strengths[y] || 50) - (strengths[x] || 50);
+          });
+          groups.__advance = swOrder.slice(0, regFmt.advance || 8);
+          noteLine('小组赛（瑞士轮）战罢，' + (regFmt.advance || 8) + '支队伍晋级淘汰赛：' + teamNote(groups.__advance));
+          if (track != null && !trackIn(groups.__advance)) stopTrack('小组赛收官，' + (names[track] || '本队') + '未能晋级淘汰赛');
+        } else if (def.bracket) {
+          // 32 强为单败：按官方对阵逐场取胜者，动态生成 16 强
+          var w32 = [];
+          (def.matches || []).forEach(function (m) {
+            var ra = rec[m.a_id] || { wins: 0 }, rb = rec[m.b_id] || { wins: 0 };
+            var w = ra.wins >= rb.wins ? m.a_id : m.b_id;
+            if (w && w32.indexOf(w) < 0) w32.push(w);
+          });
+          groups.__w32 = w32;
+          noteLine('32强战罢，' + w32.length + '支战队晋级16强');
+          if (track != null && !trackIn(w32)) stopTrack('32强战罢，' + (names[track] || '本队') + '未能晋级16强');
+        }
+      } else if (kind === 'rr_regroup') {
+        if (def.r2) {
+          // 生成卡位赛所需分组排名
+          Object.keys(groups).forEach(function (gn) { groups[gn] = rankOfGroup(groups[gn]); });
+          noteLine('常规赛第二轮战罢，卡位赛：S组第5/6名对阵A组前2名，A组第5/6名对阵B组前2名');
+        } else if (def.r3) {
+          groups.S = rankOfGroup(groups.S || []);
+          groups.A = rankOfGroup(groups.A || []);
+          var S6 = groups.S, A4 = groups.A.slice(0, 4);
+          noteLine('常规赛第三轮战罢，S组前六与A组前四晋级季后赛：' + teamNote(S6.concat(A4)));
+          if (track != null && !(trackIn(S6) || trackIn(A4))) {
+            stopTrack('常规赛收官，' + (names[track] || '本队') + '未能进入季后赛');
+          }
+        }
+      } else if (kind === 'playin_sab') {
+        // 卡位赛结果：S5/S6 vs A1/A2 胜者进 S；A5/A6 vs B1/B2 胜者进 A
+        var s = groups.S || [], a = groups.A || [], b = groups.B || [];
+        var sWin = [], aFail = [], aWin = [];
+        [[s[4], a[1]], [s[5], a[0]]].forEach(function (p) {
+          if (!p[0] || !p[1]) return;
+          var ra = rec[p[0]] || { wins: 0 }, rb = rec[p[1]] || { wins: 0 };
+          var w = ra.wins > rb.wins ? p[0] : p[1];
+          sWin.push(w);
+          aFail.push(w === p[0] ? p[1] : p[0]);
+        });
+        [[a[4], b[1]], [a[5], b[0]]].forEach(function (p) {
+          if (!p[0] || !p[1]) return;
+          var ra = rec[p[0]] || { wins: 0 }, rb = rec[p[1]] || { wins: 0 };
+          aWin.push(ra.wins > rb.wins ? p[0] : p[1]);
+        });
+        var s6 = s.slice(0, 4).concat(sWin);
+        var a6 = a.slice(2, 4).concat(aFail).concat(aWin);
+        groups.S = rankOfGroup(s6);
+        groups.A = rankOfGroup(a6);
+        groups.B = [];
+        noteLine('卡位赛结束，B组队伍无缘常规赛第三轮');
+        if (track != null && !(trackIn(groups.S) || trackIn(groups.A))) {
+          stopTrack('卡位赛失利，' + (names[track] || '本队') + '止步常规赛');
+        }
+      }
+    }
+
+    // 淘汰赛一轮（返回 entries 卡；完成返回 null）
+    function elimStep(def) {
+      var kind = def.kind;
+      // 返回协议：{card: 展示卡} 有主队场次；{done: true} 本阶段完成；null 继续推进（无主队场次）
+      if (kind === 'kpl_playoff10') {
+        if (p10Step === 0) {
+          var ws = runPairs(p10.wPairs, '胜者组半决赛', def.bo || 7);
+          p10.w2 = ws.winners; p10.wLosers = ws.losers; p10Step = 1;
+          return ws.entries.length ? { card: { kind: 'regular_round', title: '胜者组半决赛', entries: ws.entries } } : null;
+        }
+        if (p10Step === 1) {
+          var ls1 = runPairs(p10.l1Pairs, '败者组第一轮', def.bo || 7);
+          p10.l2 = ls1.winners; p10Step = 2;
+          return ls1.entries.length ? { card: { kind: 'regular_round', title: '败者组第一轮', entries: ls1.entries } } : null;
+        }
+        if (p10Step === 2) {
+          if (p10.mode === 'legacy') {
+            // 败者组第二轮：3 胜者 + 2 半决败者 = 5 队，轮空种子最高的半决败者，打 2 场
+            var pairsL2 = [[p10.l2[0], p10.l2[1]], [p10.l2[2], p10.wLosers[1]]];
+            var ls2l = runPairs(pairsL2, '败者组第二轮', def.bo || 7);
+            p10.l3 = ls2l.winners.concat(p10.wLosers[0]);
+            p10Step = 3;
+            return ls2l.entries.length ? { card: { kind: 'regular_round', title: '败者组第二轮', entries: ls2l.entries } } : null;
+          }
+          var pairs2 = [[p10.l2[0], p10.late[0]], [p10.l2[1], p10.late[1]]];
+          var ls2 = runPairs(pairs2, '败者组第二轮', def.bo || 7);
+          p10.l3 = ls2.winners; p10Step = 3;
+          return ls2.entries.length ? { card: { kind: 'regular_round', title: '败者组第二轮', entries: ls2.entries } } : null;
+        }
+        if (p10Step === 3) {
+          var wf = runPairs([[p10.w2[0], p10.w2[1]]], '胜者组决赛', def.bo || 7);
+          p10.wChamp = wf.winners[0]; p10.wLoser = wf.losers[0]; p10Step = 4;
+          return wf.entries.length ? { card: { kind: 'regular_round', title: '胜者组决赛', entries: wf.entries } } : null;
+        }
+        if (p10Step === 4) {
+          if (p10.mode === 'legacy') {
+            // 败者组第三轮：3 队 + 胜者组决赛败者 = 4 队，2 场
+            var pairsL3 = [[p10.l3[0], p10.l3[1]], [p10.l3[2], p10.wLoser]];
+            var ls3l = runPairs(pairsL3, '败者组第三轮', def.bo || 7);
+            p10.l4 = ls3l.winners; p10Step = 5;
+            return ls3l.entries.length ? { card: { kind: 'regular_round', title: '败者组第三轮', entries: ls3l.entries } } : null;
+          }
+          var pairs3 = [[p10.l3[0], p10.wLosers[0]], [p10.l3[1], p10.wLosers[1]]];
+          var ls3 = runPairs(pairs3, '败者组第三轮', def.bo || 7);
+          p10.l4 = ls3.winners; p10Step = 5;
+          return ls3.entries.length ? { card: { kind: 'regular_round', title: '败者组第三轮', entries: ls3.entries } } : null;
+        }
+        if (p10Step === 5) {
+          // 败者组第四轮：R3 胜者(2) + 胜者组决赛败者(1) = 3 队，轮空 R3 第 2 名，打 1 场
+          var pairs4 = [[p10.l4[0], p10.wLoser]];
+          var ls4 = runPairs(pairs4, '败者组第四轮', def.bo || 7);
+          p10.l5 = ls4.winners.concat(p10.l4[1]);
+          p10Step = 6;
+          return ls4.entries.length ? { card: { kind: 'regular_round', title: '败者组第四轮', entries: ls4.entries } } : null;
+        }
+        if (p10Step === 6) {
+          var lf = runPairs([[p10.l5[0], p10.l5[1]]], '败者组第五轮', def.bo || 7);
+          p10.lChamp = lf.winners[0]; p10Step = 7;
+          return lf.entries.length ? { card: { kind: 'regular_round', title: '败者组第五轮', entries: lf.entries } } : null;
+        }
+        if (p10Step === 7) {
+          var fin = runPairs([[p10.wChamp, p10.lChamp]], '总决赛', def.bo || 7);
+          champion = fin.winners[0]; done = true;
+          return fin.entries.length ? { card: { kind: 'regular_round', title: '总决赛', entries: fin.entries } } : { done: true };
+        }
+        return { done: true };
+      }
+      if (kind === 'de8') {
+        if (!d8) return { done: true };
+        while (d8.queue.length) {
+          var s = d8.queue.shift();
+          if (s.kind === 'w') {
+            var pairsW = [];
+            for (var i = 0; i + 1 < d8.w.length; i += 2) pairsW.push([d8.w[i], d8.w[i + 1]]);
+            var resW = runPairs(pairsW, '胜者组', elimBo);
+            d8.l = d8.l.concat(resW.losers);
+            d8.w = resW.winners.concat(d8.w.length % 2 ? [d8.w[d8.w.length - 1]] : []);
+            if (resW.entries.length) return { card: { kind: 'regular_round', title: '胜者组', entries: resW.entries } };
+            continue;
+          }
+          if (s.kind === 'l') {
+            var pairsL = [];
+            for (var k = 0; k + 1 < d8.l.length; k += 2) pairsL.push([d8.l[k], d8.l[k + 1]]);
+            var resL = runPairs(pairsL, '败者组', elimBo);
+            d8.l = resL.winners.concat(d8.l.length % 2 ? [d8.l[d8.l.length - 1]] : []);
+            if (resL.entries.length) return { card: { kind: 'regular_round', title: '败者组', entries: resL.entries } };
+            continue;
+          }
+          if (s.kind === 'final1') {
+            if (!d8.l.length) { champion = d8.w[0]; done = true; return { done: true }; }
+            var rf = runPairs([[d8.w[0], d8.l[0]]], '总决赛', elimFinalBo);
+            champion = rf.winners[0]; done = true;
+            if (rf.entries.length) return { card: { kind: 'regular_round', title: '总决赛', entries: rf.entries } };
+            return { done: true };
+          }
+        }
+        done = true;
+        return { done: true };
+      }
+      if (kind === 'after_groups' || kind === 'bracket_r16' || kind === 'annual_survive') {
+        if (!se) return { done: true };
+        if (kind === 'annual_survive') {
+          // 突围赛：6 队一轮 BO7 单败（3 场），胜者 3 队与直进队会师淘汰赛
+          if (!se.pairs) se.pairs = bracketPair(se.pool);
+          var resS = runPairs(se.pairs, def.title, se.bo || 7);
+          groups.__q8 = groups.__direct.concat(resS.winners);
+          se = null;
+          if (track != null && !trackIn(groups.__q8)) stopTrack('突围赛失利，' + (names[track] || '本队') + '止步' + def.title);
+          if (resS.entries.length) return { card: { kind: 'regular_round', title: def.title, entries: resS.entries } };
+          return { done: true };
+        }
+        var isFinal = se.pool.length <= 2;
+        var bo = isFinal ? se.finalBo : se.bo;
+        var pairs = se.pairs || bracketPair(se.pool);
+        var roundName = isFinal ? '总决赛' : (se.pool.length >= 16 ? '16强' : se.pool.length === 8 ? '8强' : se.pool.length === 4 ? '半决赛' : '淘汰赛·第' + se.round + '轮');
+        var res = runPairs(pairs, roundName, bo);
+        se.pool = res.winners;
+        se.pairs = null;
+        se.round++;
+        if (kind === 'bracket_r16') {
+          // 16 强单败一轮 16→8，之后交给 8 强双败（de8）
+          groups.__q8 = se.pool;
+          se = null;
+          if (res.entries.length) return { card: { kind: 'regular_round', title: roundName, entries: res.entries } };
+          return { done: true };
+        }
+        if (se.pool.length <= 1) {
+          champion = se.pool[0]; done = true;
+          if (res.entries.length) return { card: { kind: 'regular_round', title: roundName, entries: res.entries } };
+          return { done: true };
+        }
+        if (res.entries.length) return { card: { kind: 'regular_round', title: roundName, entries: res.entries } };
+        return null;
+      }
+      return null;
+    }
+
+    function runPairs(pairs, title, bo) {
+      var winners = [], losers = [], entries = [];
+      pairs.forEach(function (p) {
+        if (!p[0] || !p[1]) return;
+        var r = runMatch(p[0], p[1], bo, true);
+        winners.push(r.winnerId);
+        losers.push(r.loserId);
+        if (track != null && (track === p[0] || track === p[1])) {
+          entries.push(entryFor({ aId: p[0], bId: p[1], winnerId: r.winnerId, scoreA: r.scoreA, scoreB: r.scoreB, results: r.results }, title, bo));
+        }
+      });
+      return { winners: winners, losers: losers, entries: entries };
+    }
+
+    function computeRegular() {
+      if (!Object.keys(regularGames).length) return;
+      var order = Object.keys(regularGames).sort(function (a, b) {
+        var wa = -(regularWins[a] || 0), wb = -(regularWins[b] || 0);
+        if (wa !== wb) return wa - wb;
+        var na = (regularGa[a] || 0) - (regularGf[a] || 0);
+        var nb2 = (regularGa[b] || 0) - (regularGf[b] || 0);
+        if (na !== nb2) return na - nb2;
+        return (strengths[b] || 50) - (strengths[a] || 50);
+      });
+      order.forEach(function (fid, i) {
+        regularRank[fid] = i + 1;
+        regularInfo[fid] = { rank: i + 1, wins: regularWins[fid] || 0, losses: regularGames[fid] - (regularWins[fid] || 0), games: regularGames[fid], net: (regularGf[fid] || 0) - (regularGa[fid] || 0) };
+      });
+    }
+
+    function recapLines() {
+      var lines = [];
+      var info = track != null ? regularInfo[track] : null;
+      if (info) {
+        var recapTpls = tpl.regular_recap || ['常规赛收官，{team}以第{rank}名进入季后赛。'];
+        lines.push(rng.choice(recapTpls).replace(/\{team\}/g, names[track]).replace(/\{rank\}/g, info.rank).replace(/\{wins\}/g, info.wins).replace(/\{losses\}/g, info.losses));
+      }
+      return lines.concat(seedNotes[track] || []);
+    }
+
+    return {
+      setRoster: function (fid, records) {
+        rosters[fid] = records;
+        strengths[fid] = teamStrength(records, opts.chem);
+      },
+      next: function () {
+        var guard = 0;
+        while (guard++ < 2000) {
+          if (done) return { kind: 'done', title: '赛季收官', champion: champion };
+          // 1) 跑当前阶段对阵
+          if (curDef && stageQueue.length) {
+            var q = stageQueue.shift();
+            var r = runMatch(q.aId, q.bId, q.bo, true);
+            if (track != null && (track === q.aId || track === q.bId)) {
+              return { kind: 'regular_round', title: q.title, entries: [entryFor({ aId: q.aId, bId: q.bId, winnerId: r.winnerId, scoreA: r.scoreA, scoreB: r.scoreB, results: r.results }, q.title, q.bo)] };
+            }
+            continue;
+          }
+          // 2) 当前阶段完成 → 收尾
+          if (curDef) {
+            var isElim = ['kpl_playoff10', 'de8', 'after_groups', 'bracket_r16', 'annual_survive'].indexOf(curDef.kind) >= 0;
+            if (isElim) {
+              if (pendingNotes.length) { continue; }  // 先出说明/止步卡
+              var st = elimStep(curDef);
+              if (st && st.card) return st.card;
+              if (st && st.done) { curDef = null; continue; }
+              continue;
+            }
+            finishPhase(curDef);
+            curDef = null;
+            continue;
+          }
+          // 3) 说明卡
+          if (pendingNotes.length) {
+            var nl = pendingNotes;
+            pendingNotes = [];
+            if (trackStopped) {
+              computeRegular();
+              done = true;
+              return { kind: 'regular_recap', title: '赛季落幕', lines: nl };
+            }
+            return { kind: 'regular_recap', title: '赛程动态', lines: nl };
+          }
+          // 4) 进入下一阶段
+          if (phaseIdx >= phaseDefs.length) {
+            computeRegular();
+            if (!recapDone) {
+              recapDone = true;
+              return { kind: 'regular_recap', title: '赛季收官', lines: recapLines() };
+            }
+            done = true;
+            return { kind: 'done', title: '赛季收官', champion: champion };
+          }
+          var def = phaseDefs[phaseIdx++];
+          setupPhase(def);
+          if (curDef && ['kpl_playoff10', 'de8', 'after_groups', 'bracket_r16', 'annual_survive'].indexOf(curDef.kind) >= 0) {
+            if (pendingNotes.length) { continue; }  // 止步/说明卡优先
+            var st2 = elimStep(curDef);
+            if (st2 && st2.card) return st2.card;
+            if (st2 && st2.done) { curDef = null; continue; }
+            continue;
+          }
+        }
+        done = true;
+        return { kind: 'done', title: '赛季收官', champion: champion };
+      },
+      getRegular: function () {
+        computeRegular();
+        return { standings: regularInfo, track: track != null ? (regularInfo[track] || null) : null, seed_notes: seedNotes[track] || [] };
+      },
+      isDone: function () { return done; },
+      getChampion: function () { return champion; }
+    };
+  }
+
   /* ---------------- 分阶段模拟（轮间可换人） ---------------- */
   function createSession(opts) {
+    var fmt0 = opts.formats[opts.season_id];
+    if (fmt0 && ((fmt0.regular_format || {}).type || 'official') !== 'official') {
+      return createDynamicSession(opts);
+    }
     var rosters = opts.rosters;
     if (opts.override_rosters) rosters = Object.assign({}, rosters, opts.override_rosters);
     var fmt = opts.formats[opts.season_id];

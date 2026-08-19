@@ -79,3 +79,12 @@
 - **结束征战不自动跳转**（2026-08-19）：赛季最后一场打完，`pumpReveal` 不再自动 `finishSim + go('#/result')`——滚动到最后一场文字、隐藏跳过/换人/继续征战、只显示"结束征战"，点击才 `finishSim + go('#/result')`；`sim-skip`（一键跳转）仍保留确认后直跳。无头 Edge 实测狼队 KCC2026 全流程：打完停在 #/sim，3 秒不自动跳，点按钮才进战绩卡。
 - **冠军赛季隐性补偿**（2026-08-19）：`clean_kpl.py` 在人工校准之后对当季冠军队伍成员战力 +2.5（校准与补偿叠加，一诺 KPL2024S3=88.5、钟意=90.5）；补偿不对外明示"荣誉"，战力规则文案改为"版本权重：评分结合版本赛季浮动，高光年份自动上浮"。
 - **BP 英雄池按赛事年份**（2026-08-19）：新增 `data/narrative/heroes_pool.json`（2019-2026 每年前五位置各 8 个版本强势英雄，来源 KPL 英雄榜/赛季盘点），`build_web.py` 将池嵌入 base.json 的 `narrative.templates.heroes_pool`；`gameNarration/narrateSeries/simulateSeason/createSession` 全线传 year（从 season_id 提取），BP 与开局英雄按赛事年份取池（王朝穿越用赛事年份，不是选手版本年份），缺位置回退全局池。无头实测：2019 局无 2020+ 英雄、2026 局含源流之子。
+- **赛制全面修正：常规赛动态晋级**（2026-08-19）：此前引擎把三轮常规赛照官方固定赛程全部跑完，全负队仍按官方名单打第三轮。现按真实赛制重写 `createDynamicSession`（`createSession` 有 regular_format 时走新管线）：
+  - `kpl_3round`（2021-2026 KPL）：第一轮官方赛程 → 按组排名升降分组（2021-22 `swap`：S 后二↔A 前二、A 后二↔B 前二；2023+ `by_rank`：每组 1-2→S、3-4→A、5-6→B）→ 第二轮动态组内循环 → 卡位赛 BO7（S5vsA2、S6vsA1、A5vsB2、A6vsB1）→ B 组淘汰 → 第三轮仅 S/A 12 队 → 季后赛 10 队双败（S1-4 胜者组、S5-6 直接进败者组 R2、A1-4 败者组 R1，12 场结构与官方一致）。B 组被淘汰的队第三轮不再出场（无头实测：26 春无锡TCG 打完第二轮即止步）。
+  - `kpl_single`（2019-2020）：常规赛官方大循环 → 前 10 进季后赛（legacy 双败：前 4 胜者组、5-10 败者组 R1，含败者组轮空/胜者组决赛败者复活，12 场）。
+  - `group_stage`（世冠/挑杯小组赛）：小组赛官方赛程 → 按组名次出线（2022 挑杯 6+2 种子）→ 动态单败树，决赛按 final_bo。
+  - `annual`（年总）：擂台赛官方 36 场（大师/精英组外循环，用 a_group 字段区分 S/A）→ 大师前 4 + 精英第 1 直进，大师 5-6 + 精英 2-5 打突围赛（6 队 3 场 BO7）→ 8 队双败。
+  - `bracket`（2025/2026 挑杯）：32 强官方 BO5 → 动态 16 强 BO7 → 8 强双败 BO7 → 决赛 BO9。
+  - `swiss`（2023 挑杯）：官方瑞士轮赛程全跑，按总排名前 8 出线（近似）。
+  - 外卡机制保留：主队不在赛事名单时顶替最弱参赛队（动态管线内 first stage 处理）；阶段说明卡（分组/卡位赛/B 组淘汰）用 regular_recap 展示；止步即显示"结束征战"。
+  - `build_kpl_maps.py` 新增 `REGULAR_RULES` 表输出 `regular_format` 到 formats.json；`build_web.py` 赛季分片保留 `a_group/b_group` 与 `regular_format`。JS `simulateSeason` 与 Python CLI `simulate_kpl3_season` 同步接入（CLI 其他赛制类型仍以网页引擎为准）。
