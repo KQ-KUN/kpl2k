@@ -381,6 +381,16 @@ def main() -> None:
     if r_applied:
         print(f"rating overrides applied: {r_applied} 条战力校准")
 
+    # 冠军赛季隐性补偿：当季冠军队伍成员 +2.5（在校准之后叠加，保证一诺等手动校准版本也能上浮；不对外明示"荣誉"）
+    champ_fid = {s["season_id"]: s.get("champion_franchise") for s in seasons}
+    c_applied = 0
+    for s in stats:
+        if champ_fid.get(s["season_id"]) and champ_fid[s["season_id"]] == s["team_franchise"]:
+            s["rating"] = round(float(s["rating"]) + 2.5, 1)
+            c_applied += 1
+    if c_applied:
+        print(f"champion bonus applied: {c_applied} 条冠军赛季补偿")
+
     def dump(name: str, obj) -> None:
         (OUT / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
 

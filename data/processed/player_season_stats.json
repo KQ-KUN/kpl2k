@@ -27,7 +27,7 @@
    "avg_push_tower_num": 1.8481,
    "mvp_count": 11,
    "mvp_per_game": 0.1392,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "kills": 24.9,
@@ -143,7 +143,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 1,
    "mvp_per_game": 0.1667,
-   "rating": 68.6,
+   "rating": 71.1,
    "rating_components": {
     "metrics": {
      "participation": 19.5,
@@ -674,7 +674,7 @@
    "avg_push_tower_num": 0.7595,
    "mvp_count": 7,
    "mvp_per_game": 0.0886,
-   "rating": 82.7,
+   "rating": 85.2,
    "rating_components": {
     "metrics": {
      "kills": 16.1,
@@ -1169,7 +1169,7 @@
    "avg_push_tower_num": 0.137,
    "mvp_count": 9,
    "mvp_per_game": 0.1233,
-   "rating": 81.9,
+   "rating": 84.4,
    "rating_components": {
     "metrics": {
      "participation": 20.9,
@@ -1875,7 +1875,7 @@
    "avg_push_tower_num": 0.2278,
    "mvp_count": 18,
    "mvp_per_game": 0.2278,
-   "rating": 86.0,
+   "rating": 88.5,
    "rating_components": {
     "metrics": {
      "participation": 29.2,
@@ -2499,7 +2499,7 @@
    "avg_push_tower_num": 0.4848,
    "mvp_count": 2,
    "mvp_per_game": 0.0303,
-   "rating": 65.2,
+   "rating": 67.7,
    "rating_components": {
     "metrics": {
      "participation": 3.7,
@@ -2838,7 +2838,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 1,
    "mvp_per_game": 0.0556,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -4031,7 +4031,7 @@
    "avg_push_tower_num": 2.4444,
    "mvp_count": 3,
    "mvp_per_game": 0.1667,
-   "rating": 88.5,
+   "rating": 91.0,
    "rating_components": {
     "metrics": {
      "gold_rate": 21.3,
@@ -4407,7 +4407,7 @@
    "avg_push_tower_num": 0.5882,
    "mvp_count": 2,
    "mvp_per_game": 0.0588,
-   "rating": 62.9,
+   "rating": 65.4,
    "rating_components": {
     "metrics": {
      "kills": 6.8,
@@ -4446,7 +4446,7 @@
    "avg_push_tower_num": 0.6176,
    "mvp_count": 7,
    "mvp_per_game": 0.2059,
-   "rating": 85.0,
+   "rating": 87.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 7.8,
@@ -4830,7 +4830,7 @@
    "avg_push_tower_num": 2,
    "mvp_count": 13,
    "mvp_per_game": 0.3824,
-   "rating": 81.5,
+   "rating": 84.0,
    "rating_components": {
     "metrics": {
      "gold_rate": 6.2,
@@ -4868,7 +4868,7 @@
    "avg_push_tower_num": 0.8529,
    "mvp_count": 1,
    "mvp_per_game": 0.0294,
-   "rating": 88.7,
+   "rating": 91.2,
    "rating_components": {
     "metrics": {
      "kills": 24.0,
@@ -5101,7 +5101,7 @@
    "avg_push_tower_num": 0.1765,
    "mvp_count": 1,
    "mvp_per_game": 0.0294,
-   "rating": 81.3,
+   "rating": 83.8,
    "rating_components": {
     "metrics": {
      "participation": 22.3,
@@ -5557,7 +5557,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -6000,7 +6000,7 @@
    "avg_push_tower_num": 1.9136,
    "mvp_count": 22,
    "mvp_per_game": 0.2716,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 21.0,
@@ -6142,7 +6142,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "kills": 6.1,
@@ -6333,7 +6333,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -6514,7 +6514,7 @@
    "avg_push_tower_num": 0.625,
    "mvp_count": 5,
    "mvp_per_game": 0.0893,
-   "rating": 73.4,
+   "rating": 75.9,
    "rating_components": {
     "metrics": {
      "kills": 17.9,
@@ -7455,7 +7455,7 @@
    "avg_push_tower_num": 0.5556,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 78.5,
+   "rating": 81.0,
    "rating_components": {
     "metrics": {
      "kills": 13.5,
@@ -7999,7 +7999,7 @@
    "avg_push_tower_num": 0.7143,
    "mvp_count": 1,
    "mvp_per_game": 0.0476,
-   "rating": 65.4,
+   "rating": 67.9,
    "rating_components": {
     "metrics": {
      "kills": 8.9,
@@ -8038,7 +8038,7 @@
    "avg_push_tower_num": 0.2152,
    "mvp_count": 2,
    "mvp_per_game": 0.0253,
-   "rating": 83.2,
+   "rating": 85.7,
    "rating_components": {
     "metrics": {
      "participation": 29.7,
@@ -8380,7 +8380,7 @@
    "avg_push_tower_num": 0.7778,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 95.0,
+   "rating": 97.5,
    "rating_components": {
     "metrics": {
      "kills": 21.7,
@@ -8533,7 +8533,7 @@
    "avg_push_tower_num": 0.6111,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 76.5,
+   "rating": 79.0,
    "rating_components": {
     "metrics": {
      "kills": 22.3,
@@ -8952,7 +8952,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -10119,7 +10119,7 @@
    "avg_push_tower_num": 0.6778,
    "mvp_count": 2,
    "mvp_per_game": 0.0222,
-   "rating": 68.8,
+   "rating": 71.3,
    "rating_components": {
     "metrics": {
      "kills": 4.8,
@@ -11764,7 +11764,7 @@
    "avg_push_tower_num": 2.4839,
    "mvp_count": 23,
    "mvp_per_game": 0.371,
-   "rating": 89.9,
+   "rating": 92.4,
    "rating_components": {
     "metrics": {
      "gold_rate": 22.7,
@@ -12604,7 +12604,7 @@
    "avg_push_tower_num": 0.2529,
    "mvp_count": 13,
    "mvp_per_game": 0.1494,
-   "rating": 77.9,
+   "rating": 80.4,
    "rating_components": {
     "metrics": {
      "damage_convert": 10.9,
@@ -12904,7 +12904,7 @@
    "avg_push_tower_num": 2.0645,
    "mvp_count": 6,
    "mvp_per_game": 0.1935,
-   "rating": 63.2,
+   "rating": 65.7,
    "rating_components": {
     "metrics": {
      "gold_rate": 1.0,
@@ -13021,7 +13021,7 @@
    "avg_push_tower_num": 0.2556,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 77.9,
+   "rating": 80.4,
    "rating_components": {
     "metrics": {
      "participation": 15.7,
@@ -13708,7 +13708,7 @@
    "avg_push_tower_num": 1.1,
    "mvp_count": 14,
    "mvp_per_game": 0.1556,
-   "rating": 84.2,
+   "rating": 86.7,
    "rating_components": {
     "metrics": {
      "kills": 21.8,
@@ -13864,7 +13864,7 @@
    "avg_push_tower_num": 0.2222,
    "mvp_count": 1,
    "mvp_per_game": 0.0556,
-   "rating": 74.4,
+   "rating": 76.9,
    "rating_components": {
     "metrics": {
      "kills": 22.3,
@@ -14111,7 +14111,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 69.2,
+   "rating": 71.7,
    "rating_components": {
     "metrics": {
      "damage_convert": 1.4,
@@ -14307,7 +14307,7 @@
    "avg_push_tower_num": 3.2941,
    "mvp_count": 6,
    "mvp_per_game": 0.3529,
-   "rating": 94.0,
+   "rating": 96.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 24.4,
@@ -14979,7 +14979,7 @@
    "avg_push_tower_num": 0.2727,
    "mvp_count": 1,
    "mvp_per_game": 0.0909,
-   "rating": 83.7,
+   "rating": 86.2,
    "rating_components": {
     "metrics": {
      "participation": 32.8,
@@ -15084,7 +15084,7 @@
    "avg_push_tower_num": 0.7222,
    "mvp_count": 1,
    "mvp_per_game": 0.0556,
-   "rating": 82.1,
+   "rating": 84.6,
    "rating_components": {
     "metrics": {
      "kills": 17.1,
@@ -15226,7 +15226,7 @@
    "avg_push_tower_num": 1,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -15775,7 +15775,7 @@
    "avg_push_tower_num": 0.6765,
    "mvp_count": 2,
    "mvp_per_game": 0.0588,
-   "rating": 72.4,
+   "rating": 74.9,
    "rating_components": {
     "metrics": {
      "kills": 5.3,
@@ -16355,7 +16355,7 @@
    "avg_push_tower_num": 0.3235,
    "mvp_count": 7,
    "mvp_per_game": 0.2059,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 14.6,
@@ -16396,7 +16396,7 @@
    "avg_push_tower_num": 1.1176,
    "mvp_count": 4,
    "mvp_per_game": 0.1176,
-   "rating": 84.1,
+   "rating": 86.6,
    "rating_components": {
     "metrics": {
      "kills": 28.4,
@@ -16621,7 +16621,7 @@
    "avg_push_tower_num": 0.2353,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 84.1,
+   "rating": 86.6,
    "rating_components": {
     "metrics": {
      "participation": 29.7,
@@ -17601,7 +17601,7 @@
    "avg_push_tower_num": 3,
    "mvp_count": 8,
    "mvp_per_game": 0.2353,
-   "rating": 85.3,
+   "rating": 87.8,
    "rating_components": {
     "metrics": {
      "gold_rate": 8.5,
@@ -17831,7 +17831,7 @@
    "avg_push_tower_num": 0.1714,
    "mvp_count": 4,
    "mvp_per_game": 0.0571,
-   "rating": 86.8,
+   "rating": 89.3,
    "rating_components": {
     "metrics": {
      "participation": 32.9,
@@ -17869,7 +17869,7 @@
    "avg_push_tower_num": 0.7286,
    "mvp_count": 6,
    "mvp_per_game": 0.0857,
-   "rating": 89.2,
+   "rating": 91.7,
    "rating_components": {
     "metrics": {
      "kills": 23.7,
@@ -18281,7 +18281,7 @@
    "avg_push_tower_num": 2.6056,
    "mvp_count": 16,
    "mvp_per_game": 0.2254,
-   "rating": 68.0,
+   "rating": 70.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 0.8,
@@ -18821,7 +18821,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -20340,7 +20340,7 @@
    "avg_push_tower_num": 1.8,
    "mvp_count": 14,
    "mvp_per_game": 0.2154,
-   "rating": 91.0,
+   "rating": 93.5,
    "rating_components": {
     "metrics": {
      "kills": 29.7,
@@ -20667,7 +20667,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -21497,7 +21497,7 @@
    "avg_push_tower_num": 1.5,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 69.3,
+   "rating": 71.8,
    "rating_components": {
     "metrics": {
      "kills": 23.9,
@@ -21976,7 +21976,7 @@
    "avg_push_tower_num": 0.25,
    "mvp_count": 4,
    "mvp_per_game": 0.2,
-   "rating": 94.0,
+   "rating": 96.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 14.9,
@@ -22253,7 +22253,7 @@
    "avg_push_tower_num": 0.5294,
    "mvp_count": 10,
    "mvp_per_game": 0.1961,
-   "rating": 88.9,
+   "rating": 91.4,
    "rating_components": {
     "metrics": {
      "damage_convert": 15.0,
@@ -23441,7 +23441,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 4,
    "mvp_per_game": 0.1538,
-   "rating": 88.8,
+   "rating": 91.3,
    "rating_components": {
     "metrics": {
      "kills": 23.7,
@@ -24393,7 +24393,7 @@
    "avg_push_tower_num": 0.2692,
    "mvp_count": 7,
    "mvp_per_game": 0.2692,
-   "rating": 84.8,
+   "rating": 87.3,
    "rating_components": {
     "metrics": {
      "damage_convert": 5.2,
@@ -24633,7 +24633,7 @@
    "avg_push_tower_num": 1.1923,
    "mvp_count": 4,
    "mvp_per_game": 0.1538,
-   "rating": 90.0,
+   "rating": 92.5,
    "rating_components": {
     "metrics": {
      "kills": 28.8,
@@ -24672,7 +24672,7 @@
    "avg_push_tower_num": 0.4231,
    "mvp_count": 1,
    "mvp_per_game": 0.0385,
-   "rating": 78.7,
+   "rating": 81.2,
    "rating_components": {
     "metrics": {
      "participation": 12.6,
@@ -25332,7 +25332,7 @@
    "avg_push_tower_num": 3.2308,
    "mvp_count": 4,
    "mvp_per_game": 0.1538,
-   "rating": 66.6,
+   "rating": 69.1,
    "rating_components": {
     "metrics": {
      "participation": 4.4,
@@ -25640,7 +25640,7 @@
    "avg_push_tower_num": 0.4615,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 58.5,
+   "rating": 61.0,
    "rating_components": {
     "metrics": {
      "damage_convert": 1.4,
@@ -25836,7 +25836,7 @@
    "avg_push_tower_num": 0.2308,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 60.5,
+   "rating": 63.0,
    "rating_components": {
     "metrics": {
      "kills": 2.1,
@@ -25950,7 +25950,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -26054,7 +26054,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 1,
    "mvp_per_game": 0.5,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -26776,7 +26776,7 @@
    "avg_push_tower_num": 1,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -26974,7 +26974,7 @@
    "avg_push_tower_num": 0.1538,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 67.3,
+   "rating": 69.8,
    "rating_components": {
     "metrics": {
      "participation": 6.9,
@@ -27718,7 +27718,7 @@
    "avg_push_tower_num": 2.9333,
    "mvp_count": 8,
    "mvp_per_game": 0.5333,
-   "rating": 82.9,
+   "rating": 85.4,
    "rating_components": {
     "metrics": {
      "gold_rate": 15.5,
@@ -27794,7 +27794,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 1,
    "mvp_per_game": 0.5,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -28831,7 +28831,7 @@
    "avg_push_tower_num": 0.9231,
    "mvp_count": 1,
    "mvp_per_game": 0.0769,
-   "rating": 76.3,
+   "rating": 78.8,
    "rating_components": {
     "metrics": {
      "kills": 27.1,
@@ -28870,7 +28870,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -30991,7 +30991,7 @@
    "avg_push_tower_num": 0.275,
    "mvp_count": 14,
    "mvp_per_game": 0.175,
-   "rating": 90.0,
+   "rating": 92.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 10.1,
@@ -32141,7 +32141,7 @@
    "avg_push_tower_num": 2.7375,
    "mvp_count": 14,
    "mvp_per_game": 0.175,
-   "rating": 66.2,
+   "rating": 68.7,
    "rating_components": {
     "metrics": {
      "gold_rate": 1.6,
@@ -32179,7 +32179,7 @@
    "avg_push_tower_num": 1,
    "mvp_count": 8,
    "mvp_per_game": 0.1,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "kills": 7.3,
@@ -32218,7 +32218,7 @@
    "avg_push_tower_num": 0.25,
    "mvp_count": 4,
    "mvp_per_game": 0.0526,
-   "rating": 82.5,
+   "rating": 85.0,
    "rating_components": {
     "metrics": {
      "participation": 28.7,
@@ -32986,7 +32986,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -33080,7 +33080,7 @@
    "avg_push_tower_num": 0.3875,
    "mvp_count": 3,
    "mvp_per_game": 0.0375,
-   "rating": 78.8,
+   "rating": 81.3,
    "rating_components": {
     "metrics": {
      "kills": 17.4,
@@ -33738,7 +33738,7 @@
    "avg_push_tower_num": 0.6512,
    "mvp_count": 2,
    "mvp_per_game": 0.0465,
-   "rating": 75.2,
+   "rating": 77.7,
    "rating_components": {
     "metrics": {
      "kills": 13.3,
@@ -33776,7 +33776,7 @@
    "avg_push_tower_num": 0.2093,
    "mvp_count": 4,
    "mvp_per_game": 0.093,
-   "rating": 72.5,
+   "rating": 75.0,
    "rating_components": {
     "metrics": {
      "damage_convert": 3.1,
@@ -33932,7 +33932,7 @@
    "avg_push_tower_num": 1.0698,
    "mvp_count": 11,
    "mvp_per_game": 0.2558,
-   "rating": 87.2,
+   "rating": 89.7,
    "rating_components": {
     "metrics": {
      "kills": 18.4,
@@ -34546,7 +34546,7 @@
    "avg_push_tower_num": 2.7674,
    "mvp_count": 11,
    "mvp_per_game": 0.2558,
-   "rating": 84.5,
+   "rating": 87.0,
    "rating_components": {
     "metrics": {
      "gold_rate": 18.6,
@@ -36861,7 +36861,7 @@
    "avg_push_tower_num": 0.4186,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 84.3,
+   "rating": 86.8,
    "rating_components": {
     "metrics": {
      "participation": 30.4,
@@ -37210,7 +37210,7 @@
    "avg_push_tower_num": 3.6197,
    "mvp_count": 18,
    "mvp_per_game": 0.2535,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "participation": 10.8,
@@ -37324,7 +37324,7 @@
    "avg_push_tower_num": 0.3333,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -37505,7 +37505,7 @@
    "avg_push_tower_num": 3,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -37807,7 +37807,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -38536,7 +38536,7 @@
    "avg_push_tower_num": 1.0972,
    "mvp_count": 14,
    "mvp_per_game": 0.1944,
-   "rating": 93.0,
+   "rating": 95.5,
    "rating_components": {
     "metrics": {
      "kills": 29.7,
@@ -39855,7 +39855,7 @@
    "avg_push_tower_num": 0.2609,
    "mvp_count": 3,
    "mvp_per_game": 0.0435,
-   "rating": 87.2,
+   "rating": 89.7,
    "rating_components": {
     "metrics": {
      "participation": 32.8,
@@ -40317,7 +40317,7 @@
    "avg_push_tower_num": 0.3636,
    "mvp_count": 7,
    "mvp_per_game": 0.2121,
-   "rating": 84.3,
+   "rating": 86.8,
    "rating_components": {
     "metrics": {
      "damage_convert": 11.9,
@@ -40472,7 +40472,7 @@
    "avg_push_tower_num": 0.5507,
    "mvp_count": 5,
    "mvp_per_game": 0.0725,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "kills": 20.4,
@@ -41549,7 +41549,7 @@
    "avg_push_tower_num": 0.4359,
    "mvp_count": 8,
    "mvp_per_game": 0.2051,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 8.0,
@@ -42910,7 +42910,7 @@
    "avg_push_tower_num": 3.3571,
    "mvp_count": 2,
    "mvp_per_game": 0.1429,
-   "rating": 63.0,
+   "rating": 65.5,
    "rating_components": {
     "metrics": {
      "participation": 7.0,
@@ -43774,7 +43774,7 @@
    "avg_push_tower_num": 0.7143,
    "mvp_count": 5,
    "mvp_per_game": 0.3571,
-   "rating": 87.7,
+   "rating": 90.2,
    "rating_components": {
     "metrics": {
      "damage_convert": 13.6,
@@ -43853,7 +43853,7 @@
    "avg_push_tower_num": 1,
    "mvp_count": 3,
    "mvp_per_game": 0.2143,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "kills": 24.2,
@@ -44033,7 +44033,7 @@
    "avg_push_tower_num": 1.5714,
    "mvp_count": 1,
    "mvp_per_game": 0.0714,
-   "rating": 85.6,
+   "rating": 88.1,
    "rating_components": {
     "metrics": {
      "kills": 27.3,
@@ -44072,7 +44072,7 @@
    "avg_push_tower_num": 0.2143,
    "mvp_count": 1,
    "mvp_per_game": 0.0714,
-   "rating": 79.5,
+   "rating": 82.0,
    "rating_components": {
     "metrics": {
      "participation": 18.8,
@@ -45092,7 +45092,7 @@
    "avg_push_tower_num": 0.9615,
    "mvp_count": 10,
    "mvp_per_game": 0.1282,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "kills": 26.9,
@@ -45321,7 +45321,7 @@
    "avg_push_tower_num": 0.4231,
    "mvp_count": 25,
    "mvp_per_game": 0.3205,
-   "rating": 92.0,
+   "rating": 94.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 7.0,
@@ -45676,7 +45676,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 2,
    "mvp_per_game": 0.0256,
-   "rating": 84.8,
+   "rating": 87.3,
    "rating_components": {
     "metrics": {
      "participation": 30.0,
@@ -46304,7 +46304,7 @@
    "avg_push_tower_num": 0.6026,
    "mvp_count": 4,
    "mvp_per_game": 0.0513,
-   "rating": 91.0,
+   "rating": 93.5,
    "rating_components": {
     "metrics": {
      "kills": 21.8,
@@ -48683,7 +48683,7 @@
    "avg_push_tower_num": 3.5897,
    "mvp_count": 9,
    "mvp_per_game": 0.1154,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 3.5,
@@ -48951,7 +48951,7 @@
    "avg_push_tower_num": 0.175,
    "mvp_count": 2,
    "mvp_per_game": 0.025,
-   "rating": 80.2,
+   "rating": 82.7,
    "rating_components": {
     "metrics": {
      "participation": 28.5,
@@ -49780,7 +49780,7 @@
    "avg_push_tower_num": 0.9412,
    "mvp_count": 9,
    "mvp_per_game": 0.1765,
-   "rating": 93.9,
+   "rating": 96.4,
    "rating_components": {
     "metrics": {
      "kills": 28.6,
@@ -50345,7 +50345,7 @@
    "avg_push_tower_num": 0.7375,
    "mvp_count": 3,
    "mvp_per_game": 0.0375,
-   "rating": 69.4,
+   "rating": 71.9,
    "rating_components": {
     "metrics": {
      "kills": 3.7,
@@ -50613,7 +50613,7 @@
    "avg_push_tower_num": 2.1625,
    "mvp_count": 10,
    "mvp_per_game": 0.125,
-   "rating": 74.1,
+   "rating": 76.6,
    "rating_components": {
     "metrics": {
      "gold_rate": 9.6,
@@ -53013,7 +53013,7 @@
    "avg_push_tower_num": 0.2182,
    "mvp_count": 9,
    "mvp_per_game": 0.1636,
-   "rating": 80.0,
+   "rating": 82.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 1.1,
@@ -53054,7 +53054,7 @@
    "avg_push_tower_num": 0.931,
    "mvp_count": 6,
    "mvp_per_game": 0.2069,
-   "rating": 86.9,
+   "rating": 89.4,
    "rating_components": {
     "metrics": {
      "kills": 23.0,
@@ -53171,7 +53171,7 @@
    "avg_push_tower_num": 0.08,
    "mvp_count": 2,
    "mvp_per_game": 0.08,
-   "rating": 66.1,
+   "rating": 68.6,
    "rating_components": {
     "metrics": {
      "damage_convert": 5.8,
@@ -53755,7 +53755,7 @@
    "avg_push_tower_num": 1.4,
    "mvp_count": 6,
    "mvp_per_game": 0.4,
-   "rating": 91.0,
+   "rating": 93.5,
    "rating_components": {
     "metrics": {
      "kills": 29.9,
@@ -53941,7 +53941,7 @@
    "avg_push_tower_num": 0.4,
    "mvp_count": 3,
    "mvp_per_game": 0.2,
-   "rating": 83.1,
+   "rating": 85.6,
    "rating_components": {
     "metrics": {
      "damage_convert": 11.3,
@@ -55137,7 +55137,7 @@
    "avg_push_tower_num": 0.2667,
    "mvp_count": 1,
    "mvp_per_game": 0.0667,
-   "rating": 87.3,
+   "rating": 89.8,
    "rating_components": {
     "metrics": {
      "participation": 31.8,
@@ -55672,7 +55672,7 @@
    "avg_push_tower_num": 3.1333,
    "mvp_count": 2,
    "mvp_per_game": 0.1333,
-   "rating": 63.3,
+   "rating": 65.8,
    "rating_components": {
     "metrics": {
      "participation": 2.9,
@@ -56081,7 +56081,7 @@
    "avg_push_tower_num": 0.3333,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 71.6,
+   "rating": 74.1,
    "rating_components": {
     "metrics": {
      "kills": 11.7,
@@ -56549,7 +56549,7 @@
    "avg_push_tower_num": 0.3582,
    "mvp_count": 13,
    "mvp_per_game": 0.194,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 1.5,
@@ -56899,7 +56899,7 @@
    "avg_push_tower_num": 1.1667,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 73.8,
+   "rating": 76.3,
    "rating_components": {
     "metrics": {
      "kills": 24.5,
@@ -56975,7 +56975,7 @@
    "avg_push_tower_num": 0.0667,
    "mvp_count": 3,
    "mvp_per_game": 0.2,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "participation": 32.4,
@@ -57363,7 +57363,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 6,
    "mvp_per_game": 0.1,
-   "rating": 82.6,
+   "rating": 85.1,
    "rating_components": {
     "metrics": {
      "participation": 23.9,
@@ -57543,7 +57543,7 @@
    "avg_push_tower_num": 1.2969,
    "mvp_count": 11,
    "mvp_per_game": 0.1719,
-   "rating": 90.3,
+   "rating": 92.8,
    "rating_components": {
     "metrics": {
      "kills": 24.2,
@@ -58604,7 +58604,7 @@
    "avg_push_tower_num": 1.1818,
    "mvp_count": 1,
    "mvp_per_game": 0.0909,
-   "rating": 80.0,
+   "rating": 82.5,
    "rating_components": {
     "metrics": {
      "kills": 27.5,
@@ -58788,7 +58788,7 @@
    "avg_push_tower_num": 0.125,
    "mvp_count": 1,
    "mvp_per_game": 0.125,
-   "rating": 62.8,
+   "rating": 65.3,
    "rating_components": {
     "metrics": {
      "damage_convert": 1.0,
@@ -59785,7 +59785,7 @@
    "avg_push_tower_num": 1.2319,
    "mvp_count": 4,
    "mvp_per_game": 0.058,
-   "rating": 91.0,
+   "rating": 93.5,
    "rating_components": {
     "metrics": {
      "kills": 17.5,
@@ -60550,7 +60550,7 @@
    "avg_push_tower_num": 2.5067,
    "mvp_count": 12,
    "mvp_per_game": 0.16,
-   "rating": 74.2,
+   "rating": 76.7,
    "rating_components": {
     "metrics": {
      "gold_rate": 3.2,
@@ -61574,7 +61574,7 @@
    "avg_push_tower_num": 0.2222,
    "mvp_count": 2,
    "mvp_per_game": 0.2222,
-   "rating": 71.6,
+   "rating": 74.1,
    "rating_components": {
     "metrics": {
      "damage_convert": 6.9,
@@ -61732,7 +61732,7 @@
    "avg_push_tower_num": 0.3816,
    "mvp_count": 6,
    "mvp_per_game": 0.0789,
-   "rating": 82.5,
+   "rating": 85.0,
    "rating_components": {
     "metrics": {
      "kills": 9.9,
@@ -61989,7 +61989,7 @@
    "avg_push_tower_num": 0.6316,
    "mvp_count": 10,
    "mvp_per_game": 0.1316,
-   "rating": 87.2,
+   "rating": 89.7,
    "rating_components": {
     "metrics": {
      "kills": 27.0,
@@ -64517,7 +64517,7 @@
    "avg_push_tower_num": 1.8451,
    "mvp_count": 12,
    "mvp_per_game": 0.169,
-   "rating": 72.8,
+   "rating": 75.3,
    "rating_components": {
     "metrics": {
      "gold_rate": 3.8,
@@ -64555,7 +64555,7 @@
    "avg_push_tower_num": 0.1045,
    "mvp_count": 13,
    "mvp_per_game": 0.194,
-   "rating": 82.5,
+   "rating": 85.0,
    "rating_components": {
     "metrics": {
      "damage_convert": 6.9,
@@ -64960,7 +64960,7 @@
    "avg_push_tower_num": 0.2632,
    "mvp_count": 8,
    "mvp_per_game": 0.1053,
-   "rating": 85.6,
+   "rating": 88.1,
    "rating_components": {
     "metrics": {
      "participation": 29.0,
@@ -65883,7 +65883,7 @@
    "avg_push_tower_num": 0.8,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 70.6,
+   "rating": 73.1,
    "rating_components": {
     "metrics": {
      "gold_rate": 4.9,
@@ -66138,7 +66138,7 @@
    "avg_push_tower_num": 0.5417,
    "mvp_count": 6,
    "mvp_per_game": 0.25,
-   "rating": 89.3,
+   "rating": 91.8,
    "rating_components": {
     "metrics": {
      "kills": 24.0,
@@ -67260,7 +67260,7 @@
    "avg_push_tower_num": 2.125,
    "mvp_count": 5,
    "mvp_per_game": 0.2083,
-   "rating": 74.0,
+   "rating": 76.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 0.9,
@@ -67750,7 +67750,7 @@
    "avg_push_tower_num": 0.4583,
    "mvp_count": 3,
    "mvp_per_game": 0.125,
-   "rating": 81.3,
+   "rating": 83.8,
    "rating_components": {
     "metrics": {
      "kills": 13.7,
@@ -68372,7 +68372,7 @@
    "avg_push_tower_num": 0.0417,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 87.3,
+   "rating": 89.8,
    "rating_components": {
     "metrics": {
      "participation": 27.4,
@@ -68566,7 +68566,7 @@
    "avg_push_tower_num": 0.0417,
    "mvp_count": 4,
    "mvp_per_game": 0.1667,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 7.8,
@@ -69513,7 +69513,7 @@
    "avg_push_tower_num": 0.1579,
    "mvp_count": 12,
    "mvp_per_game": 0.1579,
-   "rating": 82.0,
+   "rating": 84.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 2.9,
@@ -69940,7 +69940,7 @@
    "avg_push_tower_num": 0.5263,
    "mvp_count": 10,
    "mvp_per_game": 0.1316,
-   "rating": 82.9,
+   "rating": 85.4,
    "rating_components": {
     "metrics": {
      "kills": 19.9,
@@ -69979,7 +69979,7 @@
    "avg_push_tower_num": 0.8,
    "mvp_count": 1,
    "mvp_per_game": 0.2,
-   "rating": 57.1,
+   "rating": 59.6,
    "rating_components": {
     "metrics": {
      "kills": 0.2,
@@ -70173,7 +70173,7 @@
    "avg_push_tower_num": 0.2,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 59.8,
+   "rating": 62.3,
    "rating_components": {
     "metrics": {
      "kills": 8.8,
@@ -71305,7 +71305,7 @@
    "avg_push_tower_num": 0.6053,
    "mvp_count": 5,
    "mvp_per_game": 0.0658,
-   "rating": 86.2,
+   "rating": 88.7,
    "rating_components": {
     "metrics": {
      "kills": 20.7,
@@ -71461,7 +71461,7 @@
    "avg_push_tower_num": 0.1184,
    "mvp_count": 10,
    "mvp_per_game": 0.1316,
-   "rating": 83.9,
+   "rating": 86.4,
    "rating_components": {
     "metrics": {
      "participation": 13.8,
@@ -71816,7 +71816,7 @@
    "avg_push_tower_num": 1.4857,
    "mvp_count": 10,
    "mvp_per_game": 0.1429,
-   "rating": 79.1,
+   "rating": 81.6,
    "rating_components": {
     "metrics": {
      "gold_rate": 9.4,
@@ -72817,7 +72817,7 @@
    "avg_push_tower_num": 1.0909,
    "mvp_count": 1,
    "mvp_per_game": 0.0909,
-   "rating": 69.0,
+   "rating": 71.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 13.2,
@@ -73011,7 +73011,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 1,
    "mvp_per_game": 0.2,
-   "rating": 60.7,
+   "rating": 63.2,
    "rating_components": {
     "metrics": {
      "damage_convert": 6.9,
@@ -73052,7 +73052,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.3,
+   "rating": 59.8,
    "rating_components": {
     "metrics": {
      "participation": 1.1,
@@ -74328,7 +74328,7 @@
    "avg_push_tower_num": 0.0833,
    "mvp_count": 11,
    "mvp_per_game": 0.131,
-   "rating": 81.1,
+   "rating": 83.6,
    "rating_components": {
     "metrics": {
      "participation": 13.7,
@@ -75312,7 +75312,7 @@
    "avg_push_tower_num": 0.631,
    "mvp_count": 4,
    "mvp_per_game": 0.0476,
-   "rating": 78.2,
+   "rating": 80.7,
    "rating_components": {
     "metrics": {
      "kills": 16.7,
@@ -75350,7 +75350,7 @@
    "avg_push_tower_num": 0.119,
    "mvp_count": 17,
    "mvp_per_game": 0.2024,
-   "rating": 92.3,
+   "rating": 94.8,
    "rating_components": {
     "metrics": {
      "damage_convert": 8.6,
@@ -76193,7 +76193,7 @@
    "avg_push_tower_num": 0.3929,
    "mvp_count": 14,
    "mvp_per_game": 0.1667,
-   "rating": 86.0,
+   "rating": 88.5,
    "rating_components": {
     "metrics": {
      "kills": 20.5,
@@ -77364,7 +77364,7 @@
    "avg_push_tower_num": 1.9762,
    "mvp_count": 9,
    "mvp_per_game": 0.1071,
-   "rating": 87.0,
+   "rating": 89.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 8.7,
@@ -78217,7 +78217,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 3,
    "mvp_per_game": 0.075,
-   "rating": 84.7,
+   "rating": 87.2,
    "rating_components": {
     "metrics": {
      "kills": 24.6,
@@ -79147,7 +79147,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 59.1,
+   "rating": 61.6,
    "rating_components": {
     "metrics": {
      "participation": 1.8,
@@ -79261,7 +79261,7 @@
    "avg_push_tower_num": 0.075,
    "mvp_count": 5,
    "mvp_per_game": 0.125,
-   "rating": 85.9,
+   "rating": 88.4,
    "rating_components": {
     "metrics": {
      "damage_convert": 6.6,
@@ -79654,7 +79654,7 @@
    "avg_push_tower_num": 0.1522,
    "mvp_count": 9,
    "mvp_per_game": 0.1957,
-   "rating": 80.2,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "kills": 23.8,
@@ -79963,7 +79963,7 @@
    "avg_push_tower_num": 0.1667,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 66.6,
+   "rating": 69.1,
    "rating_components": {
     "metrics": {
      "damage_convert": 14.6,
@@ -80309,7 +80309,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 52.5,
+   "rating": 55.0,
    "rating_components": {
     "metrics": {
      "kills": 2.1,
@@ -80661,7 +80661,7 @@
    "avg_push_tower_num": 0.325,
    "mvp_count": 6,
    "mvp_per_game": 0.15,
-   "rating": 90.9,
+   "rating": 93.4,
    "rating_components": {
     "metrics": {
      "participation": 28.8,
@@ -81086,7 +81086,7 @@
    "avg_push_tower_num": 1.7826,
    "mvp_count": 6,
    "mvp_per_game": 0.1304,
-   "rating": 62.8,
+   "rating": 88.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 3.0,
@@ -81346,7 +81346,7 @@
    "avg_push_tower_num": 2.2121,
    "mvp_count": 4,
    "mvp_per_game": 0.1212,
-   "rating": 79.5,
+   "rating": 82.0,
    "rating_components": {
     "metrics": {
      "gold_rate": 2.5,
@@ -82582,7 +82582,7 @@
    "avg_push_tower_num": 0.2424,
    "mvp_count": 5,
    "mvp_per_game": 0.1515,
-   "rating": 82.6,
+   "rating": 85.1,
    "rating_components": {
     "metrics": {
      "participation": 19.8,
@@ -83462,7 +83462,7 @@
    "avg_push_tower_num": 0.303,
    "mvp_count": 10,
    "mvp_per_game": 0.303,
-   "rating": 90.0,
+   "rating": 92.5,
    "rating_components": {
     "metrics": {
      "kills": 27.2,
@@ -83611,7 +83611,7 @@
    "avg_push_tower_num": 0.2727,
    "mvp_count": 5,
    "mvp_per_game": 0.1515,
-   "rating": 82.1,
+   "rating": 84.6,
    "rating_components": {
     "metrics": {
      "damage_convert": 4.0,
@@ -85903,7 +85903,7 @@
    "avg_push_tower_num": 0.7273,
    "mvp_count": 3,
    "mvp_per_game": 0.0909,
-   "rating": 83.5,
+   "rating": 86.0,
    "rating_components": {
     "metrics": {
      "kills": 17.7,
@@ -86821,7 +86821,7 @@
    "avg_push_tower_num": 0.1781,
    "mvp_count": 4,
    "mvp_per_game": 0.0548,
-   "rating": 84.1,
+   "rating": 86.6,
    "rating_components": {
     "metrics": {
      "participation": 25.6,
@@ -86926,7 +86926,7 @@
    "avg_push_tower_num": 2.1644,
    "mvp_count": 10,
    "mvp_per_game": 0.137,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 3.3,
@@ -87030,7 +87030,7 @@
    "avg_push_tower_num": 0.589,
    "mvp_count": 19,
    "mvp_per_game": 0.2603,
-   "rating": 93.0,
+   "rating": 95.5,
    "rating_components": {
     "metrics": {
      "kills": 29.5,
@@ -87790,7 +87790,7 @@
    "avg_push_tower_num": 0.5,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 55.6,
+   "rating": 58.1,
    "rating_components": {
     "metrics": {
      "kills": 0.2,
@@ -88444,7 +88444,7 @@
    "avg_push_tower_num": 0.4576,
    "mvp_count": 2,
    "mvp_per_game": 0.0339,
-   "rating": 83.5,
+   "rating": 86.0,
    "rating_components": {
     "metrics": {
      "kills": 21.5,
@@ -88705,7 +88705,7 @@
    "avg_push_tower_num": 0.1233,
    "mvp_count": 19,
    "mvp_per_game": 0.2603,
-   "rating": 89.5,
+   "rating": 92.0,
    "rating_components": {
     "metrics": {
      "damage_convert": 6.6,
@@ -91166,7 +91166,7 @@
    "avg_push_tower_num": 0,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -91532,7 +91532,7 @@
    "avg_push_tower_num": 1.7941,
    "mvp_count": 7,
    "mvp_per_game": 0.1029,
-   "rating": 69.9,
+   "rating": 72.4,
    "rating_components": {
     "metrics": {
      "gold_rate": 2.2,
@@ -91827,7 +91827,7 @@
    "avg_push_tower_num": 1,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -92506,7 +92506,7 @@
    "avg_push_tower_num": 0.7083,
    "mvp_count": 15,
    "mvp_per_game": 0.2083,
-   "rating": 87.0,
+   "rating": 89.5,
    "rating_components": {
     "metrics": {
      "kills": 27.6,
@@ -94081,7 +94081,7 @@
    "avg_push_tower_num": 0.1944,
    "mvp_count": 20,
    "mvp_per_game": 0.2778,
-   "rating": 91.3,
+   "rating": 93.8,
    "rating_components": {
     "metrics": {
      "damage_convert": 9.7,
@@ -94626,7 +94626,7 @@
    "avg_push_tower_num": 0.3714,
    "mvp_count": 8,
    "mvp_per_game": 0.1143,
-   "rating": 90.2,
+   "rating": 92.7,
    "rating_components": {
     "metrics": {
      "participation": 28.1,
@@ -94664,7 +94664,7 @@
    "avg_push_tower_num": 0.4306,
    "mvp_count": 3,
    "mvp_per_game": 0.0417,
-   "rating": 80.1,
+   "rating": 82.6,
    "rating_components": {
     "metrics": {
      "kills": 16.6,
@@ -96411,7 +96411,7 @@
    "avg_push_tower_num": 0.4878,
    "mvp_count": 2,
    "mvp_per_game": 0.0488,
-   "rating": 70.7,
+   "rating": 73.2,
    "rating_components": {
     "metrics": {
      "kills": 16.5,
@@ -96800,7 +96800,7 @@
    "avg_push_tower_num": 0.234,
    "mvp_count": 13,
    "mvp_per_game": 0.2766,
-   "rating": 91.3,
+   "rating": 93.8,
    "rating_components": {
     "metrics": {
      "damage_convert": 12.4,
@@ -97070,7 +97070,7 @@
    "avg_push_tower_num": 0.3191,
    "mvp_count": 5,
    "mvp_per_game": 0.1064,
-   "rating": 89.6,
+   "rating": 92.1,
    "rating_components": {
     "metrics": {
      "participation": 33.9,
@@ -97108,7 +97108,7 @@
    "avg_push_tower_num": 0.6383,
    "mvp_count": 8,
    "mvp_per_game": 0.1702,
-   "rating": 89.5,
+   "rating": 92.0,
    "rating_components": {
     "metrics": {
      "kills": 26.7,
@@ -97646,7 +97646,7 @@
    "avg_push_tower_num": 1.1667,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.8,
+   "rating": 60.3,
    "rating_components": {
     "metrics": {
      "gold_rate": 0.4,
@@ -97801,7 +97801,7 @@
    "avg_push_tower_num": 1.7805,
    "mvp_count": 6,
    "mvp_per_game": 0.1463,
-   "rating": 71.4,
+   "rating": 73.9,
    "rating_components": {
     "metrics": {
      "gold_rate": 6.9,
@@ -97956,7 +97956,7 @@
    "avg_push_tower_num": 0.8333,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 69.8,
+   "rating": 72.3,
    "rating_components": {
     "metrics": {
      "kills": 25.0,
@@ -98727,7 +98727,7 @@
    "avg_push_tower_num": 0.1935,
    "mvp_count": 6,
    "mvp_per_game": 0.1935,
-   "rating": 79.6,
+   "rating": 82.1,
    "rating_components": {
     "metrics": {
      "damage_convert": 5.0,
@@ -100170,7 +100170,7 @@
    "avg_push_tower_num": 0.1613,
    "mvp_count": 4,
    "mvp_per_game": 0.129,
-   "rating": 87.0,
+   "rating": 89.5,
    "rating_components": {
     "metrics": {
      "participation": 31.1,
@@ -100970,7 +100970,7 @@
    "avg_push_tower_num": 0.3548,
    "mvp_count": 2,
    "mvp_per_game": 0.0645,
-   "rating": 75.2,
+   "rating": 77.7,
    "rating_components": {
     "metrics": {
      "kills": 11.7,
@@ -101823,7 +101823,7 @@
    "avg_push_tower_num": 1.871,
    "mvp_count": 8,
    "mvp_per_game": 0.2581,
-   "rating": 85.0,
+   "rating": 87.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 11.5,
@@ -103325,7 +103325,7 @@
    "avg_push_tower_num": 0.7097,
    "mvp_count": 4,
    "mvp_per_game": 0.129,
-   "rating": 77.2,
+   "rating": 79.7,
    "rating_components": {
     "metrics": {
      "kills": 12.9,
@@ -103887,7 +103887,7 @@
    "avg_push_tower_num": 0.1461,
    "mvp_count": 14,
    "mvp_per_game": 0.1573,
-   "rating": 80.0,
+   "rating": 82.5,
    "rating_components": {
     "metrics": {
      "damage_convert": 8.2,
@@ -104042,7 +104042,7 @@
    "avg_push_tower_num": 0.1573,
    "mvp_count": 7,
    "mvp_per_game": 0.0787,
-   "rating": 86.4,
+   "rating": 88.9,
    "rating_components": {
     "metrics": {
      "participation": 24.2,
@@ -104789,7 +104789,7 @@
    "avg_push_tower_num": 1.6463,
    "mvp_count": 19,
    "mvp_per_game": 0.2317,
-   "rating": 80.3,
+   "rating": 82.8,
    "rating_components": {
     "metrics": {
      "gold_rate": 23.2,
@@ -105135,7 +105135,7 @@
    "avg_push_tower_num": 0.6071,
    "mvp_count": 8,
    "mvp_per_game": 0.0952,
-   "rating": 88.1,
+   "rating": 90.6,
    "rating_components": {
     "metrics": {
      "kills": 20.3,
@@ -106094,7 +106094,7 @@
    "avg_push_tower_num": 1.1429,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 60.2,
+   "rating": 62.7,
    "rating_components": {
     "metrics": {
      "gold_rate": 0.8,
@@ -107231,7 +107231,7 @@
    "avg_push_tower_num": 0.2,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.4,
+   "rating": 59.9,
    "rating_components": {
     "metrics": {
      "kills": 13.3,
@@ -107911,7 +107911,7 @@
    "avg_push_tower_num": 0.809,
    "mvp_count": 6,
    "mvp_per_game": 0.0674,
-   "rating": 81.8,
+   "rating": 84.3,
    "rating_components": {
     "metrics": {
      "kills": 27.8,
@@ -108604,7 +108604,7 @@
    "avg_push_tower_num": 1.4048,
    "mvp_count": 12,
    "mvp_per_game": 0.2857,
-   "rating": 91.6,
+   "rating": 94.1,
    "rating_components": {
     "metrics": {
      "kills": 25.9,
@@ -109369,7 +109369,7 @@
    "avg_push_tower_num": 0.7381,
    "mvp_count": 2,
    "mvp_per_game": 0.0476,
-   "rating": 74.3,
+   "rating": 76.8,
    "rating_components": {
     "metrics": {
      "kills": 4.0,
@@ -110132,7 +110132,7 @@
    "avg_push_tower_num": 0.1429,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 79.0,
+   "rating": 81.5,
    "rating_components": {
     "metrics": {
      "participation": 9.0,
@@ -111991,7 +111991,7 @@
    "avg_push_tower_num": 0.0714,
    "mvp_count": 5,
    "mvp_per_game": 0.119,
-   "rating": 89.7,
+   "rating": 92.2,
    "rating_components": {
     "metrics": {
      "damage_convert": 8.3,
@@ -112032,7 +112032,7 @@
    "avg_push_tower_num": 1.7619,
    "mvp_count": 12,
    "mvp_per_game": 0.2857,
-   "rating": 84.0,
+   "rating": 86.5,
    "rating_components": {
     "metrics": {
      "gold_rate": 6.5,
@@ -118730,7 +118730,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0769,
-   "rating": 56.2,
+   "rating": 58.7,
    "rating_components": {
     "metrics": {
      "kills": 3.5,
@@ -119630,7 +119630,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 50.0,
+   "rating": 52.5,
    "rating_components": {}
   },
   {
@@ -119658,7 +119658,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 82.7,
+   "rating": 85.2,
    "rating_components": {
     "metrics": {
      "participation": 24.7,
@@ -119695,7 +119695,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.1667,
-   "rating": 80.9,
+   "rating": 83.4,
    "rating_components": {
     "metrics": {
      "hurt_rate": 16.2,
@@ -120865,7 +120865,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 82.6,
+   "rating": 85.1,
    "rating_components": {
     "metrics": {
      "participation": 34.0,
@@ -121768,7 +121768,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 15,
    "mvp_per_game": 0.1899,
-   "rating": 88.0,
+   "rating": 90.5,
    "rating_components": {
     "metrics": {
      "hurt_rate": 3.4,
@@ -121922,7 +121922,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 75.7,
+   "rating": 78.2,
    "rating_components": {
     "metrics": {
      "hurt_rate": 9.4,
@@ -121959,7 +121959,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 81.2,
+   "rating": 83.7,
    "rating_components": {
     "metrics": {
      "participation": 16.6,
@@ -121996,7 +121996,7 @@
    "avg_push_tower_num": null,
    "mvp_count": 8,
    "mvp_per_game": 0.4444,
-   "rating": 91.6,
+   "rating": 94.1,
    "rating_components": {
     "metrics": {
      "hurt_rate": 13.2,

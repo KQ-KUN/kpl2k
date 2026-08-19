@@ -94,14 +94,17 @@ def main() -> None:
         }
         for f in franchises
     ]
+    templates = json.loads((NARR / "templates.json").read_text(encoding="utf-8"))
+    templates["heroes_pool"] = json.loads((NARR / "heroes_pool.json").read_text(encoding="utf-8"))
     base = {
         "franchises": franchises_min,
         "players": players_min,
         "narrative": {
-            "templates": json.loads((NARR / "templates.json").read_text(encoding="utf-8")),
+            "templates": templates,
             "player_flavor": json.loads((NARR / "player_flavor.json").read_text(encoding="utf-8")),
             "team_flavor": json.loads((NARR / "team_flavor.json").read_text(encoding="utf-8")),
             "rivalries": json.loads((NARR / "rivalry_flavor.json").read_text(encoding="utf-8")),
+            "heroes_pool": json.loads((NARR / "heroes_pool.json").read_text(encoding="utf-8")),
         },
         "overrides": ov,
     }

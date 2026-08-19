@@ -19,6 +19,7 @@ import argparse
 import json
 import math
 import random
+import re
 from pathlib import Path
 
 import chemistry
@@ -55,7 +56,11 @@ def load_overrides() -> dict:
 
 def load_templates() -> dict:
     if TEMPLATES_PATH.exists():
-        return json.loads(TEMPLATES_PATH.read_text(encoding="utf-8"))
+        tpl = json.loads(TEMPLATES_PATH.read_text(encoding="utf-8"))
+        pool_path = TEMPLATES_PATH.parent / "heroes_pool.json"
+        if pool_path.exists():
+            tpl.setdefault("heroes_pool", json.loads(pool_path.read_text(encoding="utf-8")))
+        return tpl
     return {
         "systems": SYSTEMS,
         "heroes": HERO_POOL,
@@ -270,11 +275,17 @@ def dynamic_double_elim(
     return champion, rounds_out
 
 
-def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False) -> str:
-    roles = list(tpl["heroes"].keys())
+def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False, year: int | None = None) -> str:
+    year_pool = (tpl.get("heroes_pool") or {}).get(str(year)) if year else None
+    hero_source = year_pool or tpl["heroes"]
+    roles = list(hero_source.keys())
 
     def pick_hero() -> str:
-        return rng.choice(tpl["heroes"][rng.choice(roles)])
+        role = rng.choice(roles)
+        pool = hero_source.get(role)
+        if not isinstance(pool, list) or not pool:
+            pool = tpl["heroes"].get(role) or []
+        return rng.choice(pool) if pool else "不知火舞"
 
     system_a = rng.choice(tpl["systems"])
     system_b = rng.choice(tpl["systems"])
@@ -291,7 +302,8 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
         system_a=system_a,
         system_b=system_b,
         )
-    hero_b = rng.choice(tpl["heroes"].get("发育路", ["戈娅"]))
+    hero_b_pool = hero_source.get("发育路") or tpl["heroes"].get("发育路") or ["戈娅"]
+    hero_b = rng.choice(hero_b_pool)
     obj = rng.choice(OBJECTIVES)
     loser = team_a if winner == team_b else team_b
     opening = rng.choice(tpl["openings"]).format(
@@ -499,7 +511,7 @@ def build_custom_roster(specs: list[tuple[str, str]]) -> list[dict]:
     return out
 
 
-def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: list[str], roster_a: list[dict], roster_b: list[dict], pnames: dict[str, str], bo: int | None = None) -> list[str]:
+def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: list[str], roster_a: list[dict], roster_b: list[dict], pnames: dict[str, str], bo: int | None = None, year: int | None = None) -> list[str]:
     lines: list[str] = []
     cur_a = cur_b = 0
     ever_behind = False
@@ -515,7 +527,7 @@ def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: lis
         pname = pnames.get(win_roster[(idx - 1) % len(win_roster)]["player_id"], "选手") if win_roster else "选手"
         win_score, lose_score = (cur_a, cur_b) if win_team == na else (cur_b, cur_a)
         is_peak = bo and len(results) >= bo and idx == len(results)
-        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak))
+        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak, year))
     return lines
 
 
@@ -525,6 +537,8 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
     fmt = formats["seasons"].get(season_id)
     if not fmt:
         return None, [], [], {}, {}
+    year_m = re.search(r"(20\d{2})", season_id)
+    year = int(year_m.group(1)) if year_m else None
     playoff_cfg = (fmt or {}).get("playoff_config") or {}
     elim_default = 1 if playoff_cfg.get("type") == "single_elim" else 2
     strengths = {fid: team_strength(pick_starter(roster), chem) for fid, roster in rosters.items()}
@@ -584,7 +598,7 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
                     "opp_players": opp_players,
                     "score": f"{score_track}:{score_opp}",
                     "win": winner_id == track,
-                    "games": narrate_series(rng, tpl, na, nb, game_results, roster_a, roster_b, pnames),
+                    "games": narrate_series(rng, tpl, na, nb, game_results, roster_a, roster_b, pnames, bo, year),
                     "results": results_track,
                 })
 
@@ -735,7 +749,7 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
                 nb = names.get(e["b"]) or "B队"
                 roster_a = pick_starter(rosters.get(e["a"], []))
                 roster_b = pick_starter(rosters.get(e["b"], []))
-                narrations.extend(narrate_series(rng, tpl, na, nb, e["results"], roster_a, roster_b, pnames))
+                narrations.extend(narrate_series(rng, tpl, na, nb, e["results"], roster_a, roster_b, pnames, None, year))
                 if track and track in (e["a"], e["b"]):
                     track_is_a = track == e["a"]
                     opp = e["b"] if track_is_a else e["a"]
@@ -750,7 +764,7 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
                         "opp_players": opp_players,
                         "score": f"{score_track}:{score_opp}",
                         "win": e["w"] == track,
-                        "games": narrate_series(rng, tpl, na, nb, e["results"], roster_a, roster_b, pnames),
+                        "games": narrate_series(rng, tpl, na, nb, e["results"], roster_a, roster_b, pnames, None, year),
                         "results": results_track,
                     })
     if champion:

@@ -328,7 +328,7 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak, year) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -338,9 +338,19 @@
     var p2 = pRest.length ? rng.choice(pRest) : p1;
     var pa = rng.choice(poolA);
     var pb = rng.choice(poolB);
-    var roles = Object.keys(tpl.heroes || {});
+    // BP 英雄池按赛事年份取对应版本，避免穿越时空出现未上线英雄（如 2020 年的源流之子）
+    var yearPool = (year && tpl.heroes_pool) ? (tpl.heroes_pool[String(year)] || null) : null;
+    var heroSource = yearPool || tpl.heroes || {};
+    var roles = Object.keys(heroSource);
+    function listFor(role) {
+      var pool = heroSource[role];
+      if (Array.isArray(pool) && pool.length) return pool;
+      var fb = tpl.heroes && tpl.heroes[role];
+      return (Array.isArray(fb) && fb.length) ? fb : [];
+    }
     function pickHero() {
-      return rng.choice(tpl.heroes[rng.choice(roles)]);
+      var list = listFor(rng.choice(roles));
+      return list.length ? rng.choice(list) : '不知火舞';
     }
     var systemA = rng.choice(tpl.systems);
     var systemB = rng.choice(tpl.systems);
@@ -356,7 +366,8 @@
         .replace(/\{hero_b1\}/g, pickHero()).replace(/\{hero_b2\}/g, pickHero())
         .replace(/\{system_a\}/g, systemA).replace(/\{system_b\}/g, systemB);
     }
-    var heroB = rng.choice((tpl.heroes && tpl.heroes['发育路']) || ['戈娅']);
+    var devPool = listFor('发育路');
+    var heroB = rng.choice(devPool.length ? devPool : ['戈娅']);
     var loser = winner === teamA ? teamB : teamA;
     var opening = rng.choice(tpl.openings)
       .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
@@ -416,7 +427,7 @@
     return line;
   }
 
-  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames, bo) {
+  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames, bo, year) {
     var lines = [];
     var namesA = uniqNames(rosterA, pnames);
     var namesB = uniqNames(rosterB, pnames);
@@ -435,7 +446,7 @@
       var loseScore = winTeam === na ? curB : curA;
       var isPeak = bo && results.length >= bo && idx === results.length - 1;
       lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind,
-        idx === results.length - 1, isPeak));
+        idx === results.length - 1, isPeak, year));
     }
     return lines;
   }
@@ -512,6 +523,11 @@
     return out;
   }
 
+  function seasonYear(sid) {
+    var m = /(20\d{2})/.exec(sid || '');
+    return m ? parseInt(m[1], 10) : null;
+  }
+
   function simulateSeason(opts) {
     /* opts: {
      *   season_id, formats (seasons map), rosters {fid:[records]},
@@ -526,6 +542,7 @@
     var rng = opts.rng;
     var names = opts.names;
     var tpl = opts.tpl;
+    var year = seasonYear(opts.season_id);
     var track = opts.track || null;
     var playoffCfg = fmt.playoff_config || {};
     var strengths = {};
@@ -580,7 +597,7 @@
           path.push({
             round: rnd.name, opp: oppName, opp_players: oppPlayers,
             score: scoreTrack + ':' + scoreOpp, win: winnerId === track,
-            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames, bo),
+            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames, bo, year),
             results: resultsTrack
           });
         }
@@ -743,7 +760,7 @@
           var na2 = names[e.a] || 'A队', nb2 = names[e.b] || 'B队';
           var rosterA2 = pickStarter(rosters[e.a] || []);
           var rosterB2 = pickStarter(rosters[e.b] || []);
-          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo));
+          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year));
           if (track != null && (track === e.a || track === e.b)) {
             var tIsA = track === e.a;
             var opp2 = tIsA ? e.b : e.a;
@@ -756,7 +773,7 @@
             path.push({
               round: e.round, opp: oppName2, opp_players: oppPlayers2,
               score: st + ':' + so, win: e.w === track,
-              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo),
+              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year),
               results: rt
             });
           }
@@ -787,6 +804,7 @@
     if (!fmt) return null;
     var rng = opts.rng;
     var names = opts.names, tpl = opts.tpl, track = opts.track || null;
+    var year = seasonYear(opts.season_id);
     var pnames = {};
     if (opts.players) {
       Object.keys(opts.players).forEach(function (pid) { pnames[pid] = opts.players[pid].name; });
@@ -898,7 +916,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
-        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo),
+        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year),
         results: resultsTrack,
         stats: simMatchStats(rng, rosterA, rosterB, m.results)
       };

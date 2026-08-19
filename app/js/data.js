@@ -34,6 +34,7 @@
       DATA.players = res[1].players;
       DATA.franchises = res[1].franchises;
       DATA.tpl = res[1].narrative.templates;
+      DATA.tpl.heroes_pool = res[1].narrative.heroes_pool || DATA.tpl.heroes_pool || {};
       DATA.flavor = (res[1].narrative.player_flavor || {}).flavors || {};
       DATA.teamFlavor = (res[1].narrative.team_flavor || {}).teams || {};
       DATA.teamSlogans = (res[1].narrative.team_flavor || {}).slogans || {};

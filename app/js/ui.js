@@ -838,18 +838,17 @@
         clearInterval(SIM.timer);
         SIM.timer = null;
         if (SIM.session && SIM.session.isDone && SIM.session.isDone()) {
-          // 整个赛季的最后一把打完：先滚动到最后一场文字并停留，让总决赛/结局可读，再跳战绩卡
+          // 整个赛季的最后一把打完：滚动到最后一场文字，显示"结束征战"，由玩家点击进入战绩卡
           var cards = $('sim-events').querySelectorAll('.story-event');
           if (cards.length) {
             var el = cards[cards.length - 1];
             var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
             window.scrollTo({ top: top, behavior: 'smooth' });
           }
-          var doneChamp = SIM.session.getChampion ? SIM.session.getChampion() : null;
-          setTimeout(function () {
-            finishSim(doneChamp);
-            go('#/result');
-          }, 2500);
+          $('sim-skip').style.display = 'none';
+          $('sim-sub').style.display = 'none';
+          $('sim-goon').style.display = 'none';
+          $('sim-next').style.display = '';
           return;
         }
         showStageButtons();
@@ -1290,7 +1289,11 @@
       $('confirm-mask').addEventListener('click', closeConfirm);
       $('sim-sub').addEventListener('click', showPosPicker);
       $('sim-goon').addEventListener('click', function () { SIM.jump = true; advance(); });
-      $('sim-next').addEventListener('click', function () { go('#/result'); });
+      $('sim-next').addEventListener('click', function () {
+        var champ = SIM.session && SIM.session.getChampion ? SIM.session.getChampion() : null;
+        finishSim(champ);
+        go('#/result');
+      });
       $('result-again').addEventListener('click', function () {
         STATE.seed = Math.floor(Math.random() * 100000);
         saveState();
