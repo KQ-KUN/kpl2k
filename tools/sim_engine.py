@@ -270,7 +270,7 @@ def dynamic_double_elim(
     return champion, rounds_out
 
 
-def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool) -> str:
+def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False) -> str:
     roles = list(tpl["heroes"].keys())
 
     def pick_hero() -> str:
@@ -278,7 +278,10 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
 
     system_a = rng.choice(tpl["systems"])
     system_b = rng.choice(tpl["systems"])
-    bp = rng.choice(tpl.get("bp_lines", ["BP 结束，{team_a} 对阵 {team_b}"])).format(
+    if is_peak:
+        bp = "巅峰对决！双方盲选当前版本最强阵容，英雄完全相同，拼的就是硬实力"
+    else:
+        bp = rng.choice(tpl.get("bp_lines", ["BP 结束，{team_a} 对阵 {team_b}"])).format(
         team_a=team_a,
         team_b=team_b,
         hero_a1=pick_hero(),
@@ -287,7 +290,7 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
         hero_b2=pick_hero(),
         system_a=system_a,
         system_b=system_b,
-    )
+        )
     hero_b = rng.choice(tpl["heroes"].get("发育路", ["戈娅"]))
     obj = rng.choice(OBJECTIVES)
     loser = team_a if winner == team_b else team_b
@@ -346,6 +349,8 @@ def place_text(round_name: str) -> str:
         return "8强"
     if "双败" in n or "淘汰" in n:
         return "8强"  # 挑战者杯双败淘汰赛为 8 队阶段
+    if "胜者组" in n or "败者组" in n:
+        return "季后赛"  # engine 生成的双败轮次名，联赛不一定是 8 强阶段
     if "半决赛" in n:
         return "4强"
     if "决赛" in n or "总决赛" in n:
@@ -494,7 +499,7 @@ def build_custom_roster(specs: list[tuple[str, str]]) -> list[dict]:
     return out
 
 
-def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: list[str], roster_a: list[dict], roster_b: list[dict], pnames: dict[str, str]) -> list[str]:
+def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: list[str], roster_a: list[dict], roster_b: list[dict], pnames: dict[str, str], bo: int | None = None) -> list[str]:
     lines: list[str] = []
     cur_a = cur_b = 0
     ever_behind = False
@@ -509,7 +514,8 @@ def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: lis
             ever_behind = True
         pname = pnames.get(win_roster[(idx - 1) % len(win_roster)]["player_id"], "选手") if win_roster else "选手"
         win_score, lose_score = (cur_a, cur_b) if win_team == na else (cur_b, cur_a)
-        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind))
+        is_peak = bo and len(results) >= bo and idx == len(results)
+        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak))
     return lines
 
 

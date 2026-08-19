@@ -1028,7 +1028,9 @@
     if (n.indexOf('32强') >= 0) return '32强';
     if (n.indexOf('16强') >= 0) return '16强';
     if (n.indexOf('8强') >= 0) return '8强';
-    if (n.indexOf('双败') >= 0 || n.indexOf('淘汰') >= 0 || n.indexOf('胜者组') >= 0 || n.indexOf('败者组') >= 0) return '8强';
+    if (n.indexOf('双败') >= 0 || n.indexOf('淘汰') >= 0) return '8强';
+    // 胜者组/败者组是 engine 生成的双败轮次名，联赛不一定是 8 强阶段，不再硬猜强次
+    if (n.indexOf('胜者组') >= 0 || n.indexOf('败者组') >= 0) return '季后赛';
     if (n.indexOf('半决赛') >= 0) return '4强';
     if (n.indexOf('决赛') >= 0 || n.indexOf('总决赛') >= 0) return '2强';
     return '淘汰赛';

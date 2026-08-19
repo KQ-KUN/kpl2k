@@ -27,8 +27,9 @@ POS_WEIGHTS = {
     # 对抗路：核心是单带/切后/输出，参团率对单带边路天然偏低，移出权重
     "对抗路": {"kills": 0.25, "hurt_rate": 0.22, "kda": 0.18, "towers": 0.15, "mvp": 0.12, "be_hurt_rate": 0.08},
     "打野": {"kills": 0.30, "participation": 0.20, "kda": 0.15, "gold_rate": 0.15, "hurt_rate": 0.10, "towers": 0.10, "mvp": 0.12},
-    # 中路：伤害转化降权（吃资源大核天然转化率低，权重过高对大核不公平），输出/击杀/KDA 提权
-    "中路": {"damage_convert": 0.15, "hurt_rate": 0.22, "kills": 0.17, "kda": 0.17, "participation": 0.15, "mvp": 0.12, "gpm": 0.08},
+    # 中路：伤害转化降权（吃资源大核天然转化率低），输出/击杀/KDA 提权；
+    # v4 加入工具人维度（助攻/承伤）——蓝领工具人中单参团高、承伤多，不再只看输出
+    "中路": {"damage_convert": 0.15, "hurt_rate": 0.18, "kills": 0.15, "kda": 0.15, "participation": 0.15, "assists": 0.10, "be_hurt_rate": 0.05, "mvp": 0.12, "gpm": 0.05},
     "发育路": {"gold_rate": 0.25, "hurt_rate": 0.25, "kills": 0.20, "kda": 0.15, "participation": 0.15, "mvp": 0.08},
     "游走": {"participation": 0.35, "be_hurt_rate": 0.25, "assists": 0.20, "kda": 0.15, "towers": 0.05, "mvp": 0.08},
 }
@@ -369,6 +370,16 @@ def main() -> None:
         s["rating"] = round(50 + 49 * score * factor, 1)
         s["rating_components"] = {"metrics": comps, "sample": round(factor, 2)}
 
+    # 人气/荣誉战力校准：评分后应用 overrides.ratings（明星高光版本上调、数据虚高版本回调）
+    rating_overrides = overrides.get("ratings", {})
+    r_applied = 0
+    for s in stats:
+        v = rating_overrides.get(s["player_id"], {}).get(s["season_id"])
+        if v is not None:
+            s["rating"] = float(v)
+            r_applied += 1
+    if r_applied:
+        print(f"rating overrides applied: {r_applied} 条战力校准")
 
     def dump(name: str, obj) -> None:
         (OUT / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")

@@ -34,6 +34,7 @@
 - 文件：player_flavor（66 人彩蛋）、team_flavor（外号）、templates、rivalry_flavor（9 组恩怨局，55% 触发）。
 - **叙事素材 v2 + 战队口号**（2026-08-17）：templates 各池大幅扩充（openings 23 / events 20 / endings 12 / bp 10 / comebacks 10 / meme 18 / upsets 8 等），融入李九冠军诗、瓶子/居居/英凯/潇洒解说金句与官方主持句式（让我们恭喜/金色雨/捧杯）；round_tags/final_lines/eliminations 等轮级池只被 CLI narrative 消费，前端不渲染，新增条目须避免占位符；comebacks 遵循 engine 过滤（末局禁"巅峰对决"、非末局禁"让二追三/让三追三"）。team_flavor 新增 slogans（13 队官方口号，KSG/Hero 多条随机），data.js 载入 DATA.teamSlogans，ui.js 夺冠"捧杯时刻"与战绩卡冠军横幅按队伍一一对应喊口号；player_flavor 补 信/无言/小屿。改模板后需 build_web 重打包 base.json；sim_engine.py openings 已补 player_a/player_b 格式化参数。
 - **叙事素材 v3 + 总决赛停留修复**（2026-08-18）：templates 再扩充（openings 33 / events 32 / endings 20 / bp 15 / comebacks 15 / meme 34，新增李九/瓶子/居居/英凯/潇洒解说金句与赛事诗词风格条目）；总决赛文字"秒跳战绩卡"修复——pumpReveal 赛季结束时先滚动到最后一场文字并停留 2.5 秒再跳 #/result（引擎层确认总决赛 games 5-9 局均正常生成，原因为跳转过快而非缺文字）。
+- **评分 v4 + 人气校准 + 巅峰对决 + 赛制标注修复**（2026-08-19）：① 中路权重加入工具人维度（assists/be_hurt_rate），向鱼等蓝领中单不再只看输出；② overrides 新增 ratings 校准表（72 条，clean_kpl 评分后应用）：Fly 95/一诺 93/老帅 88/梦泪 88/钟意 93/清融 93/久诚 94/暖阳 92/坦然 91-92/Cat 86-87，回调虚高（梓墨 94→88、道崽 93→87、过儿 92.6→84、梦岚 92→86、小麦 87.7→84）；③ BO7/BO9 打满时末局 BP 固定"巅峰对决！双方盲选当前版本最强阵容"（engine.js narrateSeries 加 bo 参数 isPeak，sim_engine.py 同步）；④ placeText 修复：胜者组/败者组不再硬标 8 强（那是挑战者杯映射），改标"季后赛"，避免联赛败者组一轮游显示"止步8强"。
 - 已删：弹幕玩法（统一"评论区"）、土狗/王八/棺材/勾兑/紧崽（改 32/懦崽）、假赛类。
 - AG 偷家彩蛋：`steal_lines`，AG 胜局 12% 触发"请神梦老师"。
 

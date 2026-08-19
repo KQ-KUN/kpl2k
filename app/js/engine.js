@@ -328,7 +328,7 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -344,12 +344,18 @@
     }
     var systemA = rng.choice(tpl.systems);
     var systemB = rng.choice(tpl.systems);
-    var bpTpl = rng.choice(tpl.bp_lines || ['BP 结束，{team_a} 对阵 {team_b}']);
-    var bp = bpTpl
-      .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
-      .replace(/\{hero_a1\}/g, pickHero()).replace(/\{hero_a2\}/g, pickHero())
-      .replace(/\{hero_b1\}/g, pickHero()).replace(/\{hero_b2\}/g, pickHero())
-      .replace(/\{system_a\}/g, systemA).replace(/\{system_b\}/g, systemB);
+    var bp;
+    if (isPeak) {
+      // 巅峰对决：双方盲选当前版本最强阵容，英雄完全相同，没有 BP 博弈
+      bp = '巅峰对决！双方盲选当前版本最强阵容，英雄完全相同，拼的就是硬实力';
+    } else {
+      var bpTpl = rng.choice(tpl.bp_lines || ['BP 结束，{team_a} 对阵 {team_b}']);
+      bp = bpTpl
+        .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
+        .replace(/\{hero_a1\}/g, pickHero()).replace(/\{hero_a2\}/g, pickHero())
+        .replace(/\{hero_b1\}/g, pickHero()).replace(/\{hero_b2\}/g, pickHero())
+        .replace(/\{system_a\}/g, systemA).replace(/\{system_b\}/g, systemB);
+    }
     var heroB = rng.choice((tpl.heroes && tpl.heroes['发育路']) || ['戈娅']);
     var loser = winner === teamA ? teamB : teamA;
     var opening = rng.choice(tpl.openings)
@@ -410,7 +416,7 @@
     return line;
   }
 
-  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames) {
+  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames, bo) {
     var lines = [];
     var namesA = uniqNames(rosterA, pnames);
     var namesB = uniqNames(rosterB, pnames);
@@ -427,8 +433,9 @@
       if ((winTeam === na && curA < curB) || (winTeam === nb && curB < curA)) everBehind = true;
       var winScore = winTeam === na ? curA : curB;
       var loseScore = winTeam === na ? curB : curA;
+      var isPeak = bo && results.length >= bo && idx === results.length - 1;
       lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind,
-        idx === results.length - 1));
+        idx === results.length - 1, isPeak));
     }
     return lines;
   }
@@ -573,7 +580,7 @@
           path.push({
             round: rnd.name, opp: oppName, opp_players: oppPlayers,
             score: scoreTrack + ':' + scoreOpp, win: winnerId === track,
-            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames),
+            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames, bo),
             results: resultsTrack
           });
         }
@@ -736,7 +743,7 @@
           var na2 = names[e.a] || 'A队', nb2 = names[e.b] || 'B队';
           var rosterA2 = pickStarter(rosters[e.a] || []);
           var rosterB2 = pickStarter(rosters[e.b] || []);
-          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames));
+          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo));
           if (track != null && (track === e.a || track === e.b)) {
             var tIsA = track === e.a;
             var opp2 = tIsA ? e.b : e.a;
@@ -749,7 +756,7 @@
             path.push({
               round: e.round, opp: oppName2, opp_players: oppPlayers2,
               score: st + ':' + so, win: e.w === track,
-              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames),
+              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo),
               results: rt
             });
           }
@@ -877,7 +884,7 @@
                scoreA: scoreA, scoreB: scoreB, results: results };
     }
 
-    function entryFor(m, rndName) {
+    function entryFor(m, rndName, bo) {
       var aId = m.aId, bId = m.bId;
       var na = names[aId] || 'A队', nb = names[bId] || 'B队';
       var rosterA = pickStarter(rosters[aId] || []), rosterB = pickStarter(rosters[bId] || []);
@@ -891,7 +898,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
-        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames),
+        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo),
         results: resultsTrack,
         stats: simMatchStats(rng, rosterA, rosterB, m.results)
       };
@@ -972,7 +979,7 @@
           entries.push(entryFor({
             aId: pair[0], bId: pair[1], winnerId: r.winnerId,
             scoreA: r.scoreA, scoreB: r.scoreB, results: r.results
-          }, tag));
+          }, tag, pair[2]));
         }
       }
       return { winners: winners, entries: entries };
@@ -1020,7 +1027,7 @@
           var r1 = runMatch(d.w[0], d.l[0], finalBo, false);
           champion = r1.winnerId;
           var en1 = (track != null && (track === d.w[0] || track === d.l[0]))
-            ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r1.winnerId, scoreA: r1.scoreA, scoreB: r1.scoreB, results: r1.results }, '总决赛')] : [];
+            ? [entryFor({ aId: d.w[0], bId: d.l[0], winnerId: r1.winnerId, scoreA: r1.scoreA, scoreB: r1.scoreB, results: r1.results }, '总决赛', finalBo)] : [];
           return { title: '总决赛', entries: en1 };
         }
       }
@@ -1042,7 +1049,7 @@
             return { kind: 'regular_round', title: q.rnd.name, entries: [entryFor({
               aId: q.m.a_id, bId: q.m.b_id, winnerId: r.winnerId,
               scoreA: r.scoreA, scoreB: r.scoreB, results: r.results
-            }, q.rnd.name)] };
+            }, q.rnd.name, q.rnd.bo || 5)] };
           }
         }
         while (playInQueue.length) {
@@ -1052,7 +1059,7 @@
             return { kind: 'play_in', title: qp.rnd.name, entries: [entryFor({
               aId: qp.m.a_id, bId: qp.m.b_id, winnerId: rp.winnerId,
               scoreA: rp.scoreA, scoreB: rp.scoreB, results: rp.results
-            }, qp.rnd.name)] };
+            }, qp.rnd.name, qp.rnd.bo || 7)] };
           }
         }
         if (wildcardNote) {
