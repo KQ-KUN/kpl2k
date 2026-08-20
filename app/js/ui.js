@@ -190,13 +190,13 @@
       ],
       battleDefault: 0,
       champion: {
-        default: 'assets/audio/淬炼小孩.m4a',
+        default: 'assets/audio/无双的王者.m4a',
         byTeam: {
           '成都AG超玩会': 'assets/audio/红小孩.m4a',
           '重庆狼队': 'assets/audio/狼小孩.m4a',
           '武汉eStarPro': 'assets/audio/星小孩.m4a',
           '广州TTG': 'assets/audio/TT小孩.m4a',
-          '苏州KSG': 'assets/audio/KSG小孩.m4a',
+          '苏州KSG': 'assets/audio/淬炼小孩.m4a',
           '南通Hero久竞': 'assets/audio/HERO小孩.m4a',
           '深圳DYG': 'assets/audio/DYG小孩.m4a',
           '长沙TES.A': 'assets/audio/突然的陀螺小孩.m4a'
@@ -205,17 +205,19 @@
     });
     document.addEventListener('click', function once() {
       BGM.unlock();
+      var hint = $('music-hint');
+      if (hint) hint.style.display = 'none';
       document.removeEventListener('click', once);
     }, { capture: true });
   }
 
   function championTrack(teamName) {
-    var cfg = { default: 'assets/audio/淬炼小孩.m4a', byTeam: {
+    var cfg = { default: 'assets/audio/无双的王者.m4a', byTeam: {
       '成都AG超玩会': 'assets/audio/红小孩.m4a',
       '重庆狼队': 'assets/audio/狼小孩.m4a',
       '武汉eStarPro': 'assets/audio/星小孩.m4a',
       '广州TTG': 'assets/audio/TT小孩.m4a',
-      '苏州KSG': 'assets/audio/KSG小孩.m4a',
+      '苏州KSG': 'assets/audio/淬炼小孩.m4a',
       '南通Hero久竞': 'assets/audio/HERO小孩.m4a',
       '深圳DYG': 'assets/audio/DYG小孩.m4a',
       '长沙TES.A': 'assets/audio/突然的陀螺小孩.m4a'
@@ -1277,7 +1279,11 @@
       $('cf-cancel').addEventListener('click', closeConfirm);
       $('confirm-mask').addEventListener('click', closeConfirm);
       $('sim-sub').addEventListener('click', showPosPicker);
-      $('sim-goon').addEventListener('click', function () { SIM.jump = true; advance(); });
+      $('sim-goon').addEventListener('click', function () {
+        SIM.jump = true;
+        BGM.play('battle');  // 幂等恢复：防止阶段切换/浏览器策略导致对局音乐中断
+        advance();
+      });
       $('sim-next').addEventListener('click', function () {
         var champ = SIM.session && SIM.session.getChampion ? SIM.session.getChampion() : null;
         finishSim(champ);
@@ -1311,6 +1317,13 @@
       $('bgm-toggle').addEventListener('click', function () {
         BGM.setMuted(!BGM.isMuted());
         $('bgm-toggle').textContent = BGM.isMuted() ? '🔇' : '🔊';
+      });
+      var homeToggle = $('bgm-toggle-home');
+      if (homeToggle) homeToggle.addEventListener('click', function () {
+        BGM.setMuted(!BGM.isMuted());
+        homeToggle.textContent = BGM.isMuted() ? '🔇' : '🔊';
+        var hint = $('music-hint');
+        if (hint) hint.style.display = 'none';
       });
       $('sim-prev').addEventListener('click', function () {
         BGM.prevTrack();

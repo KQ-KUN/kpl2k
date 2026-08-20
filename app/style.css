@@ -112,6 +112,7 @@ img{display:block}
 .his-sub{font-size:11px;color:var(--mut);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .footnote{margin-top:auto;padding-top:40px;font-size:11px;color:#dbeafe}
 .footnote a{color:#fcd34d;text-decoration:underline}
+.home-bgm-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;font-size:12px;color:var(--mut)}
 
 /* ---- 组队 ---- */
 .dyn-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -14px 2px;padding-left:14px;padding-right:14px;scrollbar-width:none}

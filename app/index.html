@@ -16,7 +16,6 @@
     <div class="logo">KPL 2K</div>
     <div class="tagline">组一支你心中的阵容，改写 KPL 历史</div>
     <div class="stat-line" id="stat-line"></div>
-    <div class="mut" style="font-size:12px;margin-top:12px;display:none" id="music-hint">🔊 点一下屏幕，音乐就响</div>
   </div>
   <div class="mode-cards">
     <button class="mode-card" id="btn-classic">
@@ -41,6 +40,10 @@
     <span class="he-arrow">›</span>
   </button>
   <div class="footnote">民间算法 · 平行时空 · 非官方 · 制作者：B站 <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener">几几华华里</a></div>
+  <div class="home-bgm-row">
+    <span class="mut" id="music-hint">🔊 点一下屏幕，音乐就响</span>
+    <button id="bgm-toggle-home" style="font-size:16px;background:none;border:none;cursor:pointer" title="开关音乐">🔊</button>
+  </div>
   <button class="link-mut" id="btn-disclaimer" style="margin-top:6px;background:none;border:none;color:var(--mut);font-size:11px;text-decoration:underline;cursor:pointer">玩家须知</button>
 </div>
 
@@ -113,7 +116,7 @@
 <!-- ================= 模拟 ================= -->
 <div id="sim" class="page">
   <button class="back sim-back" id="sim-back">‹ 返回</button>
-  <div class="sim-top" style="display:none" id="sim-music-bar">
+  <div class="sim-top" id="sim-music-bar">
     <button id="sim-prev">‹ 上一首</button>
     <button class="track-name" id="sim-track-btn" title="选择对局音乐">🎵 王者冰刃</button>
     <button id="sim-bgm-toggle">🔊</button>
@@ -137,7 +140,7 @@
   <div class="topbar">
     <button class="back" onclick="location.hash='#/'">‹</button>
     <h1>KPL 2K · 战绩卡</h1>
-    <button id="bgm-toggle" style="font-size:18px;display:none">🔊</button>
+    <button id="bgm-toggle" style="font-size:18px">🔊</button>
   </div>
   <div class="sub mut" id="result-sub" style="font-size:12px;margin-bottom:12px"></div>
   <div class="res-banner" id="result-banner"></div>
