@@ -70,7 +70,7 @@
   }
   function go(hash) { location.hash = hash; }
 
-  /* ---------------- 免责声明（未同意前全屏遮罩） ---------------- */
+  /* ---------------- 玩家须知（未同意前全屏遮罩） ---------------- */
   function initDisclaimer() {
     var mask = $('disclaimer');
     if (!mask) return;

@@ -111,6 +111,7 @@ img{display:block}
 .his-banner.elim{background:rgba(248,81,73,.16);color:#f85149}
 .his-sub{font-size:11px;color:var(--mut);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .footnote{margin-top:auto;padding-top:40px;font-size:11px;color:#dbeafe}
+.footnote a{color:#fcd34d;text-decoration:underline}
 
 /* ---- 组队 ---- */
 .dyn-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -14px 2px;padding-left:14px;padding-right:14px;scrollbar-width:none}
@@ -311,7 +312,7 @@ td.tag{text-align:center}
 .share-modal.show{display:block}
 .share-modal img{width:100%;border-radius:10px;border:1px solid var(--line)}
 
-/* 免责声明全屏遮罩 */
+/* 玩家须知全屏遮罩 */
 .disclaimer-mask{position:fixed;inset:0;background:rgba(4,12,24,.88);z-index:80;display:none;align-items:center;justify-content:center;padding:18px}
 .disclaimer-card{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:520px;width:100%;max-height:82vh;overflow:auto;padding:22px 20px}
 .disclaimer-card .dc-title{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:12px;text-align:center}

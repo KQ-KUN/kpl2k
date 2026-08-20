@@ -166,7 +166,7 @@ function render(){
   });
   const groups={};
   for(const p of list)(groups[p.team]=groups[p.team]||[]).push(p);
-  $('#meta').textContent=`${DATA.players.length} 位选手 · 共 ${DATA.players.reduce((s,p)=>s+p.version_count,0)} 个版本 · 民间算法 · 平行时空`;
+  $('#meta').innerHTML=`${DATA.players.length} 位选手 · 共 ${DATA.players.reduce((s,p)=>s+p.version_count,0)} 个版本 · 民间算法 · 平行时空 · 制作者：B站 <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener" style="color:#fcd34d">几几华华里</a>`;
   const teams=Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length||a.localeCompare(b,'zh'));
   $('#list').innerHTML=list.length?teams.map(t=>`<div class="team"><h2>${esc(t)}<span>${groups[t].length} 人</span></h2><div class="cards">${groups[t].map(card).join('')}</div></div>`).join(''):'<div class="empty">没有匹配的选手</div>';
 }
