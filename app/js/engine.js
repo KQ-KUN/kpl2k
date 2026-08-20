@@ -499,10 +499,11 @@
     (results || []).forEach(function (g) {
       var winnerR = g === 'A' ? rosterA : rosterB;
       var loserR = g === 'A' ? rosterB : rosterA;
-      var wk = rng.randint(9, 22);
-      var lk = rng.randint(3, 12);
-      var wK = dist(winnerR, wk, K_W), wA = dist(winnerR, Math.round(wk * 1.1), A_W);
-      var lK = dist(loserR, lk, K_W), lA = dist(loserR, Math.round(lk * 0.9), A_W);
+      // KPL 常见数据：胜方单队击杀 12-18、败方 7-12；每击杀约 1.6-2.2 助攻
+      var wk = rng.randint(12, 18);
+      var lk = rng.randint(7, 12);
+      var wK = dist(winnerR, wk, K_W), wA = dist(winnerR, Math.round(wk * (1.8 + rng.random() * 0.4)), A_W);
+      var lK = dist(loserR, lk, K_W), lA = dist(loserR, Math.round(lk * (1.6 + rng.random() * 0.4)), A_W);
       var wD = dist(winnerR, rng.randint(1, 4), D_W);
       var lD = dist(loserR, rng.randint(8, 16), D_W);
       winnerR.concat(loserR).forEach(function (r) {
@@ -512,9 +513,13 @@
         s.a += (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
         s.d += (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
       });
+      // MVP：KPL 每局 MVP 给胜方，队内按本局数据评分
       var best = null, bestScore = -1;
       winnerR.forEach(function (r) {
-        var sc = (wK[r.player_id] || 0) + (wA[r.player_id] || 0) * 0.6 - (wD[r.player_id] || 0) * 0.7 + rng.random() * 3.0;
+        var k = (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
+        var a = (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
+        var d = (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
+        var sc = k + a * 0.8 - d * 0.6 + rng.random() * 2.0;
         if (sc > bestScore) { bestScore = sc; best = r.player_id; }
       });
       if (best) ensure(best).mvp++;
@@ -1953,7 +1958,7 @@
     buildChem: buildChem, lineupStrength: lineupStrength,
     seriesWinProb: seriesWinProb, playSeries: playSeries, playMatch: playMatch,
     dynamicSingleElim: dynamicSingleElim, dynamicDoubleElim: dynamicDoubleElim,
-    gameNarration: gameNarration, narrateSeries: narrateSeries,
+    gameNarration: gameNarration, narrateSeries: narrateSeries, simMatchStats: simMatchStats,
     franchiseNames: franchiseNames, simulateSeason: simulateSeason, createSession: createSession
   };
 })(typeof window !== 'undefined' ? window : globalThis);
