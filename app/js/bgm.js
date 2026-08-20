@@ -1,30 +1,20 @@
 /**
- * KPL 2K BGM manager v1
+ * KPL 2K BGM manager v2
  *
- * Scene -> audio file mapping (audio files are user-provided; missing files
- * are skipped silently so the game never breaks):
- *   intro    -> 巅峰对决 (home page, single track)
- *   battle   -> 王者大厅 BGM (season simulation / match reports)
- *               multiple tracks with names; player can pick by name
- *   champion -> 战歌 (championship celebration; per-team tracks supported)
+ * 重写依据（社区/浏览器最佳实践）：
+ *  1. 全局只保留一个 <audio> 单例；SPA 内部导航（首页→选手→战场）只换视图，
+ *     绝不重建、绝不重播。同场景重复 play() 一律 no-op。
+ *  2. 切歌 = pause() → 改 src → load() → play()；play() 返回的 Promise 必须
+ *     catch（快速连切时旧请求会被 AbortError 打断，忽略即可，不能影响后续）。
+ *  3. 用单调递增的 seq 标记“最新请求”：过期请求的 then / 淡入定时器全部作废，
+ *     防止旧歌回调清掉当前歌曲的淡入导致“切一次后无声”。
+ *  4. 静音 ≠ 暂停：用 volume=0 继续播放，取消静音立即有声，永不卡在 pending。
  *
- * Usage:
- *   BGM.init({
- *     intro: 'assets/audio/intro.m4a',
- *     battle: [{ name: '云梦谣', src: 'assets/audio/云梦谣.m4a' }, ...],
- *     champion: { default: 'assets/audio/champion.m4a', byTeam: { '成都AG超玩会': 'assets/audio/champion_ag.m4a' } }
- *   });
- *   BGM.play('intro');      // switch to a scene, stops the previous one
- *   BGM.play('champion', '成都AG超玩会');  // per-team champion anthem
- *   BGM.nextTrack();         // battle scene only: switch to next BGM
- *   BGM.playTrack(i);        // battle scene only: play a specific track by index
- *   BGM.getTrackIndex();
- *   BGM.getTrackName();
- *   BGM.stop();
- *   BGM.setMuted(true);     // persist via localStorage
- *
- * Mobile autoplay: browsers block audio until a user gesture. Call BGM.unlock()
- * from the first tap/click handler; any pending play() is resumed there.
+ * 用法（与 ui.js 保持一致）：
+ *   BGM.init({ intro, battle, battleDefault, champion })
+ *   BGM.play('intro' | 'battle' | 'champion', team?)
+ *   BGM.nextTrack() / BGM.prevTrack() / BGM.playTrack(i)
+ *   BGM.setMuted(bool) / BGM.setVolume(0..1) / BGM.unlock()
  */
 (function (global) {
   'use strict';
@@ -37,30 +27,21 @@
 
   var scenes = {
     intro: { src: [], loop: true },
-    battle: { tracks: [], loop: true },  // [{ name, src }]
+    battle: { tracks: [], loop: true }, // [{ name, src }]
     champion: { src: [], teamTracks: {}, loop: false }
   };
 
-  var audio = null;        // single shared <audio>, one scene at a time
-  var current = null;      // active scene key
-  var activeTeam = null;   // team key for the active champion track
-  var pending = null;      // { key, team } requested before user gesture
-  var lastRequested = null; // most recent scene request, for unlock fallback
-  var trackIndex = 0;      // active battle BGM index
+  var audio = null;      // 唯一共享 audio 元素（单例）
+  var current = null;    // 当前场景 key
+  var activeTeam = null; // champion 场景对应的战队
+  var pending = null;    // 解锁前挂起的请求 { key, team }
+  var trackIndex = 0;    // 当前对局曲目下标
   var muted = false;
   var volume = DEFAULT_VOLUME;
   var unlocked = false;
-  var fading = false;
-  var fadeInTimer = null;
-  var switchSeq = 0;       // monotonically increasing switch id; stale fades abort
-  var startCount = 0;      // debug: 音频重建次数（同场景重复 play 不应增加）
-
-  function makeAudio() {
-    var el = new Audio();
-    el.preload = 'auto';
-    el.volume = muted ? 0 : volume;
-    return el;
-  }
+  var seq = 0;           // 请求序号：每次切歌 +1，旧回调一律作废
+  var fadeTimer = null;  // 当前淡入定时器（全局只有一个）
+  var startCount = 0;    // 调试：真正重建/切换音源的次数
 
   function baseName(p) {
     return String(p).split('/').pop().replace(/\.[^.]+$/, '');
@@ -80,8 +61,8 @@
     if (!cfg) return [];
     if (sceneKey === 'battle') {
       if (!cfg.tracks.length) return ['assets/audio/battle1.m4a'];
-      var t = ((trackIndex % cfg.tracks.length) + cfg.tracks.length) % cfg.tracks.length;
-      return [cfg.tracks[t].src];
+      var i = ((trackIndex % cfg.tracks.length) + cfg.tracks.length) % cfg.tracks.length;
+      return [cfg.tracks[i].src];
     }
     if (sceneKey === 'champion') {
       var teamSrcs = activeTeam && cfg.teamTracks[activeTeam];
@@ -89,119 +70,100 @@
       if (!out.length) out.push('assets/audio/champion.m4a');
       return out;
     }
-    var out = (cfg.src || []).slice();
-    // Fall back to a well-known default path if the scene was configured
-    // without explicit src.
-    if (!out.length) out.push('assets/audio/' + sceneKey + '.m4a');
-    return out;
+    var list = (cfg.src || []).slice();
+    if (!list.length) list.push('assets/audio/' + sceneKey + '.m4a');
+    return list;
   }
 
-  function fadeOut(cb) {
-    var mySeq = ++switchSeq;
-    var done = function () {
-      if (mySeq !== switchSeq) return; // a newer switch won
-      cb();
+  function makeAudio() {
+    var el = new Audio();
+    el.preload = 'auto';
+    return el;
+  }
+
+  function stopFade() {
+    if (fadeTimer) { clearInterval(fadeTimer); fadeTimer = null; }
+  }
+
+  /**
+   * 切歌统一入口（同步生效，不依赖异步淡出链）：
+   * pause → 改 src → load → play；play 挂起时被 pause 打断会以 AbortError
+   * reject，这是正常的，catch 忽略即可。
+   */
+  function switchTo(sceneKey, team) {
+    seq += 1;               // 作废所有旧请求的异步回调
+    var my = seq;
+    startCount += 1;
+    activeTeam = (sceneKey === 'champion') ? (team || null) : null;
+    stopFade();
+
+    var srcList = candidates(sceneKey);
+    if (!srcList.length) { current = sceneKey; return; }
+
+    if (!audio) audio = makeAudio();
+    var el = audio;
+    el.pause();
+    var idx = 0;
+    el.onerror = function () {
+      if (my !== seq) return; // 旧请求的加载结果作废
+      idx += 1;
+      if (idx >= srcList.length) return;
+      el.src = srcList[idx];
+      el.load();
+      if (unlocked) startPlayback(el, my);
     };
-    if (!audio || audio.paused) { done(); return; }
-    if (fading) { done(); return; }
-    fading = true;
-    if (fadeInTimer) { clearInterval(fadeInTimer); fadeInTimer = null; }
-    var a = audio;
-    var step = a.volume / (FADE_MS / 30);
-    var timer = setInterval(function () {
-      if (a.volume - step <= 0) {
-        clearInterval(timer);
-        a.pause();
-        a.currentTime = 0;
-        fading = false;
-        done();
+    el.loop = !!scenes[sceneKey].loop;
+    el.src = srcList[0];
+    el.load();
+    current = sceneKey;
+
+    if (!unlocked) {
+      pending = { key: sceneKey, team: team };
+      return;
+    }
+    startPlayback(el, my);
+  }
+
+  /** 真正触发 play()；必须 catch，否则快速连切会抛未捕获的 AbortError。 */
+  function startPlayback(el, my) {
+    if (my !== seq || audio !== el) return; // 已被更新的请求覆盖
+    var p = el.play();
+    if (p && typeof p.then === 'function') {
+      p.then(function () { fadeIn(el, my); });
+      p.catch(function () {
+        // AbortError：play() 被 pause()/换源打断，属正常；忽略即可
+        // NotAllowedError：浏览器自动播放限制，等用户手势后由 unlock 重试
+      });
+    } else {
+      fadeIn(el, my);
+    }
+  }
+
+  /** 淡入到目标音量；seq 变了说明已切歌，立即停表。 */
+  function fadeIn(el, my) {
+    if (my !== seq || audio !== el) return;
+    if (muted) { el.volume = 0; return; } // 静音时保持无声播放
+    stopFade();
+    el.volume = 0;
+    var step = volume / (FADE_MS / 30);
+    fadeTimer = setInterval(function () {
+      if (my !== seq || audio !== el) { stopFade(); return; }
+      if (el.volume + step >= volume) {
+        stopFade();
+        el.volume = volume;
       } else {
-        a.volume = Math.max(0, a.volume - step);
+        el.volume += step;
       }
     }, 30);
   }
 
-  function safePlay(a) {
-    var p = a.play();
-    if (p && typeof p.catch === 'function') {
-      p.catch(function () { /* autoplay blocked */ });
-    }
-  }
-
-  function fadeIn(a, seq) {
-    a.volume = 0;
-    var p = a.play();
-    var onStarted = function () {
-      // 场景已切换：过期的 play() 回调绝不能操作当前淡入（否则会清掉新歌的定时器导致无声）
-      if (seq !== switchSeq) return;
-      if (muted) return;
-      if (fadeInTimer) clearInterval(fadeInTimer);
-      var step = volume / (FADE_MS / 30);
-      fadeInTimer = setInterval(function () {
-        if (audio !== a) { clearInterval(fadeInTimer); fadeInTimer = null; return; }
-        if (a.volume + step >= volume) {
-          clearInterval(fadeInTimer);
-          fadeInTimer = null;
-          a.volume = volume;
-        } else {
-          a.volume += step;
-        }
-      }, 30);
-    };
-    if (p && typeof p.then === 'function') {
-      p.then(onStarted).catch(function () { /* autoplay blocked: wait for unlock */ });
-    } else {
-      onStarted();
-    }
-  }
-
-  function startScene(sceneKey, team) {
-    // 注意：切歌（switchTrack/playTrack）也需要走这里重建音源，因此不能在此处挡同场景。
-    // 同场景防重播由 play() 的 sameScene 分支保证。
-    startCount += 1;
-    switchSeq += 1;
-    activeTeam = (sceneKey === 'champion') ? (team || null) : null;
-    if (fadeInTimer) { clearInterval(fadeInTimer); fadeInTimer = null; }
-    var srcList = candidates(sceneKey);
-    if (!srcList.length) return;
-    if (audio) { audio.pause(); audio.src = ''; }
-    audio = makeAudio();
-    audio.loop = !!scenes[sceneKey].loop;
-
-    // Try candidates in order; first one that can load wins.
-    var idx = 0;
-    audio.addEventListener('error', function () {
-      idx += 1;
-      // 候选全失败时保持场景标记，避免下次 play() 把"同场景"误判为切换而重建音频
-      if (idx >= srcList.length) { return; }
-      audio.src = srcList[idx];
-      audio.load();
-    });
-    audio.src = srcList[0];
-    audio.load();
-    current = sceneKey;
-
-    if (unlocked) {
-      if (muted) {
-        // 静音时也保持"无声播放"，取消静音后立即有声（不依赖 pending，避免永久卡静音）
-        audio.volume = 0;
-        safePlay(audio);
-      } else {
-        fadeIn(audio, switchSeq);
-      }
-    } else {
-      pending = { key: sceneKey, team: team };
-    }
-  }
-
   var BGM = {
     /**
-     * Configure scene -> audio mapping.
      * @param {Object} opts {
-     *   intro: 'path',
-     *   battle: ['path1', 'path2'],
-     *   battleDefault: 3,  // optional: default battle track index (0-based)
-     *   champion: 'path' | { default: 'path', byTeam: { '成都AG超玩会': 'path' } }
+     *   intro: path|array,
+     *   battle: [{name,src}...],
+     *   battleDefault: number,
+     *   champion: { default, byTeam }
      * }
      */
     init: function (opts) {
@@ -222,106 +184,74 @@
         var savedVol = parseFloat(localStorage.getItem(VOLUME_KEY));
         if (!isNaN(savedVol) && savedVol >= 0 && savedVol <= 1) volume = savedVol;
         var saved = parseInt(localStorage.getItem(TRACK_KEY), 10);
-        if (!isNaN(saved) && saved >= 0) {
-          trackIndex = saved;
-        } else if (typeof opts.battleDefault === 'number' && opts.battleDefault >= 0) {
-          trackIndex = opts.battleDefault;
-        }
-      } catch (e) { /* localStorage unavailable */ }
+        if (!isNaN(saved) && saved >= 0) trackIndex = saved;
+        else if (typeof opts.battleDefault === 'number' && opts.battleDefault >= 0) trackIndex = opts.battleDefault;
+      } catch (e) { /* localStorage 不可用时用默认值 */ }
     },
 
     /**
-     * Play (or switch to) a scene. Stops the previous scene first.
-     * For the champion scene, pass the winning team key to pick its anthem.
+     * 切到某个场景。同一场景重复调用完全 no-op（SPA 导航不重播不中断）；
+     * 仅当音频异常暂停时静默续播（不从头播）。
      */
     play: function (sceneKey, team) {
       if (!scenes[sceneKey]) return;
-      lastRequested = { key: sceneKey, team: team || null };
-      // 同一场景重复请求不重建音频（避免"继续征战"等操作把音乐重头播放）：
-      // 仅在暂停时尝试恢复，不切换音源。
-      var sameScene = current === sceneKey && audio && (sceneKey !== 'champion' || activeTeam === team);
+      team = team || null;
+      var sameScene = current === sceneKey && audio &&
+        (sceneKey !== 'champion' || activeTeam === team);
       if (sameScene) {
         pending = null;
-        // 同场景重复请求不重建；仅当音频意外暂停时静默恢复（不会重播）
-        if (unlocked && !muted && audio.paused) safePlay(audio);
+        if (unlocked && !muted && audio.paused) startPlayback(audio, seq);
         return;
       }
-      var doPlay = function () {
-        fadeOut(function () { startScene(sceneKey, team); });
-      };
-      if (unlocked) doPlay();
-      else pending = { key: sceneKey, team: team }; // resume on first user gesture
+      if (unlocked) {
+        switchTo(sceneKey, team);
+      } else {
+        pending = { key: sceneKey, team: team }; // 首次用户手势后恢复
+      }
     },
 
-    /**
-     * Stop everything.
-     */
+    /** 首个用户手势调用；只解锁一次，之后任意点击都不得再触碰音频。 */
+    unlock: function () {
+      if (unlocked) return;
+      unlocked = true;
+      if (pending) {
+        var key = pending.key;
+        var team = pending.team;
+        pending = null;
+        switchTo(key, team);
+      } else if (current && audio && audio.paused && !muted) {
+        startPlayback(audio, seq);
+      }
+    },
+
     stop: function () {
       pending = null;
+      stopFade();
       if (audio) { audio.pause(); audio.currentTime = 0; }
       current = null;
       activeTeam = null;
     },
 
-    /**
-     * Call from the first user gesture (tap/click) to satisfy mobile
-     * autoplay policies. Resumes any pending scene.
-     */
-    unlock: function () {
-      // 只解锁一次：之后任何点击都不得再触碰音频（否则会反复 play() 导致重播/卡顿）
-      if (unlocked) return;
-      unlocked = true;
-      if (muted) return;
-      if (pending) {
-        var key = pending.key;
-        var team = pending.team;
-        pending = null;
-        startScene(key, team);
-      } else if (current && audio && audio.paused) {
-        safePlay(audio);
-      }
-    },
-
     setMuted: function (m) {
       muted = !!m;
-      try { localStorage.setItem(STORAGE_KEY, muted ? '1' : '0'); } catch (e) {}
-      if (!audio) return;
-      if (muted) {
-        audio.volume = 0;   // 不暂停，仅静音；取消后立即恢复
-      } else {
-        audio.volume = volume;
-        if (unlocked && audio.paused) safePlay(audio);
-      }
+      try { localStorage.setItem(STORAGE_KEY, muted ? '1' : '0'); } catch (e) { /* ignore */ }
+      if (audio) audio.volume = muted ? 0 : volume;
     },
 
     isMuted: function () { return muted; },
 
     setVolume: function (v) {
       volume = Math.min(1, Math.max(0, v));
-      try { localStorage.setItem(VOLUME_KEY, String(volume)); } catch (e) {}
+      try { localStorage.setItem(VOLUME_KEY, String(volume)); } catch (e) { /* ignore */ }
       if (audio && !muted) audio.volume = volume;
     },
 
     getVolume: function () { return volume; },
-
     getScene: function () { return current; },
-
     getTeam: function () { return activeTeam; },
 
-    /**
-     * Battle scene only: switch to the next BGM track. If battle music is
-     * currently playing, restarts playback with the new track.
-     */
-    nextTrack: function () {
-      return switchTrack(1);
-    },
-
-    /**
-     * Battle scene only: switch to the previous BGM track.
-     */
-    prevTrack: function () {
-      return switchTrack(-1);
-    },
+    nextTrack: function () { return switchTrack(1); },
+    prevTrack: function () { return switchTrack(-1); },
 
     getTrackIndex: function () {
       var n = scenes.battle.tracks.length;
@@ -332,23 +262,29 @@
       return scenes.battle.tracks.length;
     },
 
-    /**
-     * Battle scene only: current track name (for UI display).
-     */
     getTrackName: function () {
-      var t = this.getTrackIndex();
-      if (t < 0) return null;
-      return scenes.battle.tracks[t].name;
+      var i = this.getTrackIndex();
+      if (i < 0) return null;
+      return scenes.battle.tracks[i].name;
     },
 
-    /**
-     * Battle scene only: all track names, in play order.
-     */
     getTrackNames: function () {
       return scenes.battle.tracks.map(function (t) { return t.name; });
     },
 
-    /** 只读调试状态（生产无害） */
+    /** 切到指定对局曲目（0 起）；在任意时刻都可切，每次都会真正生效。 */
+    playTrack: function (i) {
+      var n = scenes.battle.tracks.length;
+      if (!n) return -1;
+      i = ((i % n) + n) % n;
+      trackIndex = i;
+      try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) { /* ignore */ }
+      if (unlocked) switchTo('battle');
+      else pending = { key: 'battle', team: null };
+      return trackIndex;
+    },
+
+    /** 只读调试状态（生产无害）。 */
     _debug: function () {
       return {
         current: current,
@@ -357,21 +293,6 @@
         trackIndex: trackIndex,
         unlocked: unlocked
       };
-    },
-
-    /**
-     * Battle scene only: play a specific track by index (0-based).
-     */
-    playTrack: function (i) {
-      var n = scenes.battle.tracks.length;
-      if (!n) return -1;
-      i = ((i % n) + n) % n;
-      trackIndex = i;
-      try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) {}
-      if (current === 'battle' && unlocked) {
-        startScene('battle');  // 同步重建立即换歌（同 switchTrack）
-      }
-      return trackIndex;
     }
   };
 
@@ -379,11 +300,9 @@
     var n = scenes.battle.tracks.length;
     if (!n) return -1;
     trackIndex = ((trackIndex + delta) % n + n) % n;
-    try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) {}
-    if (current === 'battle' && unlocked) {
-      // 同步重建立即换歌（不走 fadeOut 异步链：fading 标志会拒绝新歌淡入，导致切一次后无声）
-      startScene('battle');
-    }
+    try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) { /* ignore */ }
+    if (unlocked) switchTo('battle');
+    else pending = { key: 'battle', team: null };
     return trackIndex;
   }
 
