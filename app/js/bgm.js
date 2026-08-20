@@ -153,7 +153,8 @@
   }
 
   function startScene(sceneKey, team) {
-    if (sceneKey === current && audio) return;  // 防御：同场景绝不重建音频对象
+    // 注意：切歌（switchTrack/playTrack）也需要走这里重建音源，因此不能在此处挡同场景。
+    // 同场景防重播由 play() 的 sameScene 分支保证。
     startCount += 1;
     switchSeq += 1;
     activeTeam = (sceneKey === 'champion') ? (team || null) : null;
