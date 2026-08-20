@@ -190,7 +190,7 @@
       ],
       battleDefault: 0,
       champion: {
-        default: 'assets/audio/无双的王者.m4a',
+        default: 'assets/audio/淬炼小孩.m4a',
         byTeam: {
           '成都AG超玩会': 'assets/audio/红小孩.m4a',
           '重庆狼队': 'assets/audio/狼小孩.m4a',
@@ -210,7 +210,7 @@
   }
 
   function championTrack(teamName) {
-    var cfg = { default: 'assets/audio/无双的王者.m4a', byTeam: {
+    var cfg = { default: 'assets/audio/淬炼小孩.m4a', byTeam: {
       '成都AG超玩会': 'assets/audio/红小孩.m4a',
       '重庆狼队': 'assets/audio/狼小孩.m4a',
       '武汉eStarPro': 'assets/audio/星小孩.m4a',
