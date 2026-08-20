@@ -196,6 +196,9 @@
       if (!el) return;
       el.innerHTML = bgmIconHtml(muted);
       el.title = muted ? '开启音乐' : '关闭音乐';
+      var wrap = el.parentNode;
+      var volEl = wrap && wrap.querySelector('.bgm-vol');
+      if (volEl) volEl.value = Math.round(BGM.getVolume() * 100);
     });
   }
 
@@ -234,7 +237,8 @@
       BGM.unlock();
       var hint = $('music-hint');
       if (hint) hint.style.display = 'none';
-      document.removeEventListener('click', once);
+      // capture 标志必须与 addEventListener 一致，否则监听器永远不会被移除
+      document.removeEventListener('click', once, true);
     }, { capture: true });
   }
 
@@ -1347,6 +1351,13 @@
         toggleBgm();
         var hint = $('music-hint');
         if (hint) hint.style.display = 'none';
+      });
+      // 音量滑条（三处联动）
+      document.querySelectorAll('.bgm-vol').forEach(function (r) {
+        r.addEventListener('input', function () {
+          BGM.setVolume(parseInt(r.value, 10) / 100);
+          syncBgmToggles();
+        });
       });
       $('sim-prev').addEventListener('click', function () {
         BGM.prevTrack();

@@ -31,6 +31,7 @@
 
   var STORAGE_KEY = 'kpl2k_bgm_muted';
   var TRACK_KEY = 'kpl2k_bgm_track';
+  var VOLUME_KEY = 'kpl2k_bgm_volume';
   var DEFAULT_VOLUME = 0.6;
   var FADE_MS = 300;
 
@@ -208,6 +209,8 @@
       }
       try {
         muted = localStorage.getItem(STORAGE_KEY) === '1';
+        var savedVol = parseFloat(localStorage.getItem(VOLUME_KEY));
+        if (!isNaN(savedVol) && savedVol >= 0 && savedVol <= 1) volume = savedVol;
         var saved = parseInt(localStorage.getItem(TRACK_KEY), 10);
         if (!isNaN(saved) && saved >= 0) {
           trackIndex = saved;
@@ -254,18 +257,16 @@
      * autoplay policies. Resumes any pending scene.
      */
     unlock: function () {
+      // 只解锁一次：之后任何点击都不得再触碰音频（否则会反复 play() 导致重播/卡顿）
+      if (unlocked) return;
       unlocked = true;
       if (muted) return;
       if (pending) {
         var key = pending.key;
         var team = pending.team;
         pending = null;
-        if (!current || current !== key || (key === 'champion' && activeTeam !== team)) startScene(key, team);
-        else if (audio && audio.paused) safePlay(audio);
-      } else if (lastRequested && !current) {
-        // 首次请求发生在解锁前且未被 pending 捕获：恢复最近一次请求
-        startScene(lastRequested.key, lastRequested.team);
-      } else if (current && audio && audio.paused && !muted) {
+        startScene(key, team);
+      } else if (current && audio && audio.paused) {
         safePlay(audio);
       }
     },
@@ -283,6 +284,7 @@
 
     setVolume: function (v) {
       volume = Math.min(1, Math.max(0, v));
+      try { localStorage.setItem(VOLUME_KEY, String(volume)); } catch (e) {}
       if (audio && !muted) audio.volume = volume;
     },
 

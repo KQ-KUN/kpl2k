@@ -117,6 +117,11 @@ img{display:block}
 .home-bgm-row{position:fixed;top:12px;right:14px;z-index:60;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mut)}
 .bgm-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;cursor:pointer;padding:0;flex:none}
 .bgm-btn:hover{background:rgba(255,255,255,.16)}
+.bgm-wrap{position:relative;display:inline-flex;align-items:center}
+.bgm-vol{position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 8px);width:110px;height:4px;appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.22);border-radius:2px;outline:none;cursor:pointer;display:none;z-index:70;padding:0}
+.bgm-wrap:hover .bgm-vol,.bgm-vol:hover{display:block}
+.bgm-vol::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#fcd34d;border:none}
+.bgm-vol::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fcd34d;border:none}
 
 /* ---- 组队 ---- */
 .dyn-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -14px 2px;padding-left:14px;padding-right:14px;scrollbar-width:none}
