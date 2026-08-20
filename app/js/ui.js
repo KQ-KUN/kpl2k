@@ -2,17 +2,6 @@
 (function (global) {
   'use strict';
 
-  /* 音乐功能已下线（跨浏览器兼容问题），BGM 置为 no-op，调用保留但不播放 */
-  if (typeof BGM !== 'undefined') {
-    ['init', 'play', 'unlock', 'stop', 'setMuted', 'setVolume', 'getVolume', 'getScene',
-     'getTeam', 'nextTrack', 'prevTrack', 'playTrack', 'getTrackIndex', 'getTrackCount'].forEach(function (m) {
-      BGM[m] = function () { return undefined; };
-    });
-    BGM.isMuted = function () { return false; };
-    BGM.getTrackName = function () { return ''; };
-    BGM.getTrackNames = function () { return []; };
-  }
-
   var E = KPL_ENGINE, N = KPL_NARRATIVE, D = KPL_DATA, DATA = D.DATA;
   var STATE_KEY = 'kpl2k_state_v1';
   var DISCLAIMER_KEY = 'kpl2k_disclaimer_v1';
