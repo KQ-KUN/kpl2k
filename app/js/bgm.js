@@ -177,8 +177,14 @@
     audio.load();
     current = sceneKey;
 
-    if (unlocked && !muted) {
-      fadeIn(audio);
+    if (unlocked) {
+      if (muted) {
+        // 静音时也保持"无声播放"，取消静音后立即有声（不依赖 pending，避免永久卡静音）
+        audio.volume = 0;
+        safePlay(audio);
+      } else {
+        fadeIn(audio);
+      }
     } else {
       pending = { key: sceneKey, team: team };
     }
@@ -232,7 +238,8 @@
       var sameScene = current === sceneKey && audio && (sceneKey !== 'champion' || activeTeam === team);
       if (sameScene) {
         pending = null;
-        // 同场景重复请求绝对不动音频（不恢复、不重建），避免"继续征战"等操作打断/重播音乐
+        // 同场景重复请求不重建；仅当音频意外暂停时静默恢复（不会重播）
+        if (unlocked && !muted && audio.paused) safePlay(audio);
         return;
       }
       var doPlay = function () {
@@ -274,9 +281,12 @@
     setMuted: function (m) {
       muted = !!m;
       try { localStorage.setItem(STORAGE_KEY, muted ? '1' : '0'); } catch (e) {}
-      if (audio) {
-        if (muted) audio.pause();
-        else if (current && unlocked) safePlay(audio);
+      if (!audio) return;
+      if (muted) {
+        audio.volume = 0;   // 不暂停，仅静音；取消后立即恢复
+      } else {
+        audio.volume = volume;
+        if (unlocked && audio.paused) safePlay(audio);
       }
     },
 

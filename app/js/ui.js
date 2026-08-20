@@ -196,6 +196,7 @@
       if (!el) return;
       el.innerHTML = bgmIconHtml(muted);
       el.title = muted ? '开启音乐' : '关闭音乐';
+      el.classList.toggle('muted', muted);
       var wrap = el.parentNode;
       var volEl = wrap && wrap.querySelector('.bgm-vol');
       if (volEl) volEl.value = Math.round(BGM.getVolume() * 100);
