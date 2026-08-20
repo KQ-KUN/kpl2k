@@ -128,14 +128,17 @@
     }
   }
 
-  function fadeIn(a) {
+  function fadeIn(a, seq) {
     a.volume = 0;
     var p = a.play();
     var onStarted = function () {
-      if (fading || muted) return;
+      // 场景已切换：过期的 play() 回调绝不能操作当前淡入（否则会清掉新歌的定时器导致无声）
+      if (seq !== switchSeq) return;
+      if (muted) return;
       if (fadeInTimer) clearInterval(fadeInTimer);
       var step = volume / (FADE_MS / 30);
       fadeInTimer = setInterval(function () {
+        if (audio !== a) { clearInterval(fadeInTimer); fadeInTimer = null; return; }
         if (a.volume + step >= volume) {
           clearInterval(fadeInTimer);
           fadeInTimer = null;
@@ -184,7 +187,7 @@
         audio.volume = 0;
         safePlay(audio);
       } else {
-        fadeIn(audio);
+        fadeIn(audio, switchSeq);
       }
     } else {
       pending = { key: sceneKey, team: team };
@@ -365,8 +368,8 @@
       i = ((i % n) + n) % n;
       trackIndex = i;
       try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) {}
-      if (unlocked) {
-        fadeOut(function () { startScene('battle'); });
+      if (current === 'battle' && unlocked) {
+        startScene('battle');  // 同步重建立即换歌（同 switchTrack）
       }
       return trackIndex;
     }
@@ -378,7 +381,8 @@
     trackIndex = ((trackIndex + delta) % n + n) % n;
     try { localStorage.setItem(TRACK_KEY, String(trackIndex)); } catch (e) {}
     if (current === 'battle' && unlocked) {
-      fadeOut(function () { startScene('battle'); });
+      // 同步重建立即换歌（不走 fadeOut 异步链：fading 标志会拒绝新歌淡入，导致切一次后无声）
+      startScene('battle');
     }
     return trackIndex;
   }
