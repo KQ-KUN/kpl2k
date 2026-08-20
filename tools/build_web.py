@@ -25,7 +25,7 @@ OUT = ROOT / "app" / "data"
 # 王朝战队预设：真实历史主力五人组；版本取王朝年代赛季（若该赛季无记录则就近回退），
 # 该选手当年战力差的部分由该赛季真实同场默契 + 组合胜率化学补偿
 DYNASTIES = [
-    {"id": "2019qg", "label": "19QG 王朝", "team_fid": "10001", "desc": "2019 秋冠，Fly 时代起点",
+    {"id": "2019qg", "label": "19QG 巅峰", "team_fid": "10001", "desc": "2019 秋冠，Fly 时代起点",
      "season": "L20190004", "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
     {"id": "2019estar", "label": "19eStar 五虎", "team_fid": "10006", "desc": "2019 双冠，诺言花海 Cat",
      "season": "L20190003", "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
@@ -37,7 +37,7 @@ DYNASTIES = [
      "season": "KPL2021S2", "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
     {"id": "2022estar", "label": "22eStar 王朝", "team_fid": "10006", "desc": "21-22 六连决赛五夺冠",
      "season": "KPL2022S1", "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
-    {"id": "2023wolf", "label": "23狼队王朝", "team_fid": "10001", "desc": "2023 春+世冠，胖鱼刀帆",
+    {"id": "2023wolf", "label": "23狼队双冠", "team_fid": "10001", "desc": "2023 春季赛+挑战者杯冠军，胖鱼刀帆",
      "season": "KPL2023S1", "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
     {"id": "2024ag", "label": "24-25AG 红色王朝", "team_fid": "10027", "desc": "九连决赛 · 六连冠",
      "season": "KPL2024S1", "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},

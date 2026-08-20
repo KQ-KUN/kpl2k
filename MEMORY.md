@@ -88,3 +88,4 @@
   - `swiss`（2023 挑杯）：官方瑞士轮赛程全跑，按总排名前 8 出线（近似）。
   - 外卡机制保留：主队不在赛事名单时顶替最弱参赛队（动态管线内 first stage 处理）；阶段说明卡（分组/卡位赛/B 组淘汰）用 regular_recap 展示；止步即显示"结束征战"。
   - `build_kpl_maps.py` 新增 `REGULAR_RULES` 表输出 `regular_format` 到 formats.json；`build_web.py` 赛季分片保留 `a_group/b_group` 与 `regular_format`。JS `simulateSeason` 与 Python CLI `simulate_kpl3_season` 同步接入（CLI 其他赛制类型仍以网页引擎为准）。
+- **王朝文案 + 局内文本准确性 + 玩家胜率**（2026-08-20）：① 王朝预设 19QG 改"19QG 巅峰"、23狼队改"23狼队双冠"（2023 春季赛+挑战者杯冠军，不再叫王朝）；② `gameNarration` 实现系列赛全局 BP——`narrateSeries` 维护 usedHeroes，已出现英雄不再复用（池耗尽回退，JS+CLI 同步）；风暴龙王只在 ≥20 分钟出现（pickObjective 按分钟过滤）；templates.json 中立化 12 条位置暗示表述（一箭定乾坤/惩击/反野/游走带节奏/连续收割/控五等）；③ 玩家队隐蔽加成 `PLAYER_BOOST=+5`（createSession/createDynamicSession/simulateSeason 三处，不上榜不显示）、`STRENGTH_NOISE` 4.0→3.4（强队更稳）；25 年总 AG 夺冠率实测 42%→75%，弱队仍会止步；补一诺/轩染 KPL2025S3 战力 override（88/86，此前被低估到 73）。

@@ -275,17 +275,21 @@ def dynamic_double_elim(
     return champion, rounds_out
 
 
-def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False, year: int | None = None) -> str:
+def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False, year: int | None = None, used_heroes: dict | None = None) -> str:
     year_pool = (tpl.get("heroes_pool") or {}).get(str(year)) if year else None
     hero_source = year_pool or tpl["heroes"]
     roles = list(hero_source.keys())
+    used = used_heroes if used_heroes is not None else {}
 
     def pick_hero() -> str:
         role = rng.choice(roles)
         pool = hero_source.get(role)
         if not isinstance(pool, list) or not pool:
             pool = tpl["heroes"].get(role) or []
-        return rng.choice(pool) if pool else "不知火舞"
+        pool = [h for h in pool if h not in used] or pool  # 全局 BP：已用英雄不再复用
+        hero = rng.choice(pool) if pool else "不知火舞"
+        used[hero] = 1
+        return hero
 
     system_a = rng.choice(tpl["systems"])
     system_b = rng.choice(tpl["systems"])
@@ -302,20 +306,28 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
         system_a=system_a,
         system_b=system_b,
         )
-    hero_b_pool = hero_source.get("发育路") or tpl["heroes"].get("发育路") or ["戈娅"]
+    hero_b_pool = [h for h in (hero_source.get("发育路") or tpl["heroes"].get("发育路") or ["戈娅"]) if h not in used]
+    if not hero_b_pool:
+        hero_b_pool = hero_source.get("发育路") or tpl["heroes"].get("发育路") or ["戈娅"]
     hero_b = rng.choice(hero_b_pool)
-    obj = rng.choice(OBJECTIVES)
+    used[hero_b] = 1
     loser = team_a if winner == team_b else team_b
     opening = rng.choice(tpl["openings"]).format(
         team_a=team_a, team_b=team_b, system=system_a, hero_b=hero_b,
         player_a=player, player_b=player,
     )
     events = rng.sample(tpl["events"], 2)
+    def pick_objective(minute: int) -> str:
+        pool = [o for o in OBJECTIVES if o != "风暴龙王" or minute >= 20]
+        return rng.choice(pool)
+
+    m1 = rng.randint(7, 12)
+    m2 = rng.randint(13, 19)
     mid1 = events[0].format(
-        team=winner, player=player, opp=loser, minute=rng.randint(7, 12), objective=rng.choice(OBJECTIVES),
+        team=winner, player=player, opp=loser, minute=m1, objective=pick_objective(m1),
     )
     mid2 = events[1].format(
-        team=winner, player=player, opp=loser, minute=rng.randint(13, 19), objective=rng.choice(OBJECTIVES),
+        team=winner, player=player, opp=loser, minute=m2, objective=pick_objective(m2),
     )
     if comeback:
         ending = rng.choice(tpl["comebacks"]).format(team_a=winner)
@@ -513,6 +525,7 @@ def build_custom_roster(specs: list[tuple[str, str]]) -> list[dict]:
 
 def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: list[str], roster_a: list[dict], roster_b: list[dict], pnames: dict[str, str], bo: int | None = None, year: int | None = None) -> list[str]:
     lines: list[str] = []
+    used_heroes: dict[str, int] = {}
     cur_a = cur_b = 0
     ever_behind = False
     for idx, g in enumerate(results, start=1):
@@ -527,7 +540,7 @@ def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: lis
         pname = pnames.get(win_roster[(idx - 1) % len(win_roster)]["player_id"], "选手") if win_roster else "选手"
         win_score, lose_score = (cur_a, cur_b) if win_team == na else (cur_b, cur_a)
         is_peak = bo and len(results) >= bo and idx == len(results)
-        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak, year))
+        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak, year, used_heroes))
     return lines
 
 

@@ -11,13 +11,15 @@
   var CARRY_POSITIONS = ['发育路', '中路', '打野'];
   var OBJECTIVES = ['暴君', '主宰', '风暴龙王', '暗影暴君', '先知主宰'];
   var K = 0.08;
-  var STRENGTH_NOISE = 4.0;
+  var STRENGTH_NOISE = 3.4;
   var COMPRESS = 1.0;
   var SYNERGY_CAP = 4.0;
   var SYNERGY_SCALE = 0.8;
   var PAIR_WIN_MIN = 10;
   var PAIR_WIN_WEIGHT = 6.0;
   var STYLE_PENALTY = 1.5;
+  // 玩家队隐蔽加成：模拟的是"玩家亲手操盘"的平行时空，给主队一点正向偏移（不上榜、不显示）
+  var PLAYER_BOOST = 5.0;
 
   /* ---------------- RNG (mulberry32) ---------------- */
   function makeRng(seed) {
@@ -328,10 +330,11 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak, year) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak, year, usedHeroes) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
+    var used = usedHeroes || {};
     // 每个小局可带 2-3 名高光选手：中期一、中期二各一人，结尾/梗再随机补人
     var p1 = rng.choice(winPool);
     var pRest = winPool.filter(function (n) { return n !== p1; });
@@ -349,8 +352,12 @@
       return (Array.isArray(fb) && fb.length) ? fb : [];
     }
     function pickHero() {
-      var list = listFor(rng.choice(roles));
-      return list.length ? rng.choice(list) : '不知火舞';
+      var role = rng.choice(roles);
+      var list = listFor(role).filter(function (h) { return !used[h]; });
+      if (!list.length) list = listFor(role);  // 全局 BP 池耗尽时回退（极端情况不崩）
+      var hero = list.length ? rng.choice(list) : '不知火舞';
+      if (hero) used[hero] = 1;
+      return hero;
     }
     var systemA = rng.choice(tpl.systems);
     var systemB = rng.choice(tpl.systems);
@@ -366,19 +373,26 @@
         .replace(/\{hero_b1\}/g, pickHero()).replace(/\{hero_b2\}/g, pickHero())
         .replace(/\{system_a\}/g, systemA).replace(/\{system_b\}/g, systemB);
     }
-    var devPool = listFor('发育路');
+    var devPool = listFor('发育路').filter(function (h) { return !used[h]; });
+    if (!devPool.length) devPool = listFor('发育路');
     var heroB = rng.choice(devPool.length ? devPool : ['戈娅']);
+    if (heroB) used[heroB] = 1;
     var loser = winner === teamA ? teamB : teamA;
     var opening = rng.choice(tpl.openings)
       .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
       .replace(/\{system\}/g, systemA).replace(/\{hero_b\}/g, heroB)
       .replace(/\{player_a\}/g, pa).replace(/\{player_b\}/g, pb);
     var events = rng.sample(tpl.events, 2);
+    function pickObjective(minute) {
+      // 风暴龙王 20 分钟才刷新，10 分钟龙团/中前期不能出现
+      var pool = OBJECTIVES.filter(function (o) { return o !== '风暴龙王' || minute >= 20; });
+      return rng.choice(pool.length ? pool : ['暴君']);
+    }
     function fmtEvent(tmpl, minute, player) {
       return tmpl
         .replace(/\{team\}/g, winner).replace(/\{player\}/g, player)
         .replace(/\{opp\}/g, loser).replace(/\{minute\}/g, minute)
-        .replace(/\{objective\}/g, rng.choice(OBJECTIVES));
+        .replace(/\{objective\}/g, pickObjective(minute));
     }
     var mid1 = fmtEvent(events[0], rng.randint(7, 12), p1);
     var mid2 = fmtEvent(events[1], rng.randint(13, 19), p2);
@@ -431,6 +445,7 @@
     var lines = [];
     var namesA = uniqNames(rosterA, pnames);
     var namesB = uniqNames(rosterB, pnames);
+    var usedHeroes = {};  // 全局 BP：整个系列赛内已出现的英雄不再复用
     var curA = 0, curB = 0;
     var everBehind = false;
     for (var idx = 0; idx < results.length; idx++) {
@@ -446,7 +461,7 @@
       var loseScore = winTeam === na ? curB : curA;
       var isPeak = bo && results.length >= bo && idx === results.length - 1;
       lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind,
-        idx === results.length - 1, isPeak, year));
+        idx === results.length - 1, isPeak, year, usedHeroes));
     }
     return lines;
   }
@@ -702,6 +717,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
+    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
     var narrations = [];
     var path = [];
     var champion = null;
@@ -969,6 +985,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
+    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
     var phaseIdx = 0, curDef = null;
@@ -1376,6 +1393,13 @@
           return ls3.entries.length ? { card: { kind: 'regular_round', title: '败者组第三轮', entries: ls3.entries } } : null;
         }
         if (p10Step === 5) {
+          if (p10.mode === 'legacy') {
+            // legacy：败者组第四轮（2 队）→ 败者组冠军，之后直接总决赛
+            var lfL = runPairs([[p10.l4[0], p10.l4[1]]], '败者组第四轮', def.bo || 7);
+            p10.lChamp = lfL.winners[0];
+            p10Step = 7;
+            return lfL.entries.length ? { card: { kind: 'regular_round', title: '败者组第四轮', entries: lfL.entries } } : null;
+          }
           // 败者组第四轮：R3 胜者(2) + 胜者组决赛败者(1) = 3 队，轮空 R3 第 2 名，打 1 场
           var pairs4 = [[p10.l4[0], p10.wLoser]];
           var ls4 = runPairs(pairs4, '败者组第四轮', def.bo || 7);
@@ -1384,6 +1408,7 @@
           return ls4.entries.length ? { card: { kind: 'regular_round', title: '败者组第四轮', entries: ls4.entries } } : null;
         }
         if (p10Step === 6) {
+          if (p10.mode === 'legacy') return null;
           var lf = runPairs([[p10.l5[0], p10.l5[1]]], '败者组第五轮', def.bo || 7);
           p10.lChamp = lf.winners[0]; p10Step = 7;
           return lf.entries.length ? { card: { kind: 'regular_round', title: '败者组第五轮', entries: lf.entries } } : null;
@@ -1602,6 +1627,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
+    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
 
