@@ -152,6 +152,7 @@
   }
 
   function startScene(sceneKey, team) {
+    if (sceneKey === current && audio) return;  // 防御：同场景绝不重建音频对象
     startCount += 1;
     switchSeq += 1;
     activeTeam = (sceneKey === 'champion') ? (team || null) : null;
@@ -228,7 +229,7 @@
       var sameScene = current === sceneKey && audio && (sceneKey !== 'champion' || activeTeam === team);
       if (sameScene) {
         pending = null;
-        if (audio.paused && unlocked && !muted) safePlay(audio);
+        // 同场景重复请求绝对不动音频（不恢复、不重建），避免"继续征战"等操作打断/重播音乐
         return;
       }
       var doPlay = function () {

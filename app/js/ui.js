@@ -1308,8 +1308,8 @@
       $('sim-sub').addEventListener('click', showPosPicker);
       $('sim-goon').addEventListener('click', function () {
         SIM.jump = true;
-        BGM.play('battle');  // 幂等恢复：防止阶段切换/浏览器策略导致对局音乐中断
-        advance();
+        // 延迟到下一帧再跑模拟+渲染，避免点击瞬间主线程阻塞造成音频卡顿
+        setTimeout(function () { advance(); }, 30);
       });
       $('sim-next').addEventListener('click', function () {
         var champ = SIM.session && SIM.session.getChampion ? SIM.session.getChampion() : null;
