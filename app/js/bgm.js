@@ -52,6 +52,7 @@
   var fading = false;
   var fadeInTimer = null;
   var switchSeq = 0;       // monotonically increasing switch id; stale fades abort
+  var startCount = 0;      // debug: 音频重建次数（同场景重复 play 不应增加）
 
   function makeAudio() {
     var el = new Audio();
@@ -151,6 +152,7 @@
   }
 
   function startScene(sceneKey, team) {
+    startCount += 1;
     switchSeq += 1;
     activeTeam = (sceneKey === 'champion') ? (team || null) : null;
     if (fadeInTimer) { clearInterval(fadeInTimer); fadeInTimer = null; }
@@ -164,7 +166,8 @@
     var idx = 0;
     audio.addEventListener('error', function () {
       idx += 1;
-      if (idx >= srcList.length) { current = null; return; }
+      // 候选全失败时保持场景标记，避免下次 play() 把"同场景"误判为切换而重建音频
+      if (idx >= srcList.length) { return; }
       audio.src = srcList[idx];
       audio.load();
     });
@@ -220,10 +223,12 @@
     play: function (sceneKey, team) {
       if (!scenes[sceneKey]) return;
       lastRequested = { key: sceneKey, team: team || null };
-      var sameTrack = current === sceneKey && audio && !audio.paused &&
-        (sceneKey !== 'champion' || activeTeam === team);
-      if (sameTrack) {
+      // 同一场景重复请求不重建音频（避免"继续征战"等操作把音乐重头播放）：
+      // 仅在暂停时尝试恢复，不切换音源。
+      var sameScene = current === sceneKey && audio && (sceneKey !== 'champion' || activeTeam === team);
+      if (sameScene) {
         pending = null;
+        if (audio.paused && unlocked && !muted) safePlay(audio);
         return;
       }
       var doPlay = function () {
@@ -324,6 +329,17 @@
      */
     getTrackNames: function () {
       return scenes.battle.tracks.map(function (t) { return t.name; });
+    },
+
+    /** 只读调试状态（生产无害） */
+    _debug: function () {
+      return {
+        current: current,
+        startCount: startCount,
+        audioPaused: audio ? audio.paused : null,
+        trackIndex: trackIndex,
+        unlocked: unlocked
+      };
     },
 
     /**

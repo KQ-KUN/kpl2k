@@ -39,10 +39,12 @@
     <span class="he-count" id="history-count">0</span>
     <span class="he-arrow">›</span>
   </button>
-  <div class="footnote">民间算法 · 平行时空 · 非官方 · 制作者：B站 <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener">几几华华里</a></div>
-  <div class="home-bgm-row">
+  <div class="footnote bili-ad">
+    <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener">🎬 B站：几几华华里 ▶ 看视频</a>
+  </div>
+  <div class="home-bgm-row" id="home-bgm-row">
     <span class="mut" id="music-hint">🔊 点一下屏幕，音乐就响</span>
-    <button id="bgm-toggle-home" style="font-size:16px;background:none;border:none;cursor:pointer" title="开关音乐">🔊</button>
+    <button id="bgm-toggle-home" class="bgm-btn" title="开关音乐"></button>
   </div>
   <button class="link-mut" id="btn-disclaimer" style="margin-top:6px;background:none;border:none;color:var(--mut);font-size:11px;text-decoration:underline;cursor:pointer">玩家须知</button>
 </div>
@@ -119,7 +121,7 @@
   <div class="sim-top" id="sim-music-bar">
     <button id="sim-prev">‹ 上一首</button>
     <button class="track-name" id="sim-track-btn" title="选择对局音乐">🎵 王者冰刃</button>
-    <button id="sim-bgm-toggle">🔊</button>
+    <button id="sim-bgm-toggle" class="bgm-btn" title="开关音乐"></button>
     <button id="sim-next-track">下一首 ›</button>
   </div>
   <div class="sim-progress"><div class="fill" id="sim-progress-fill"></div></div>
@@ -140,7 +142,7 @@
   <div class="topbar">
     <button class="back" onclick="location.hash='#/'">‹</button>
     <h1>KPL 2K · 战绩卡</h1>
-    <button id="bgm-toggle" style="font-size:18px">🔊</button>
+    <button id="bgm-toggle" class="bgm-btn" title="开关音乐"></button>
   </div>
   <div class="sub mut" id="result-sub" style="font-size:12px;margin-bottom:12px"></div>
   <div class="res-banner" id="result-banner"></div>

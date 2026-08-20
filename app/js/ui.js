@@ -178,6 +178,32 @@
   }
 
   /* ---------------- BGM ---------------- */
+  function bgmIconHtml(muted) {
+    var waves = muted ? '' :
+      '<path d="M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>' +
+      '<path d="M18 6a9 9 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>';
+    var slash = muted ?
+      '<path d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>' : '';
+    return '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" aria-hidden="true">' +
+      '<path d="M3 10v4h4l5 4V6L7 10H3z" fill="currentColor"/>' + waves + slash + '</svg>';
+  }
+
+  // 三处音量键联动：任意一个开关，其它同步
+  function syncBgmToggles() {
+    var muted = BGM.isMuted();
+    ['bgm-toggle-home', 'sim-bgm-toggle', 'bgm-toggle'].forEach(function (id) {
+      var el = $(id);
+      if (!el) return;
+      el.innerHTML = bgmIconHtml(muted);
+      el.title = muted ? '开启音乐' : '关闭音乐';
+    });
+  }
+
+  function toggleBgm() {
+    BGM.setMuted(!BGM.isMuted());
+    syncBgmToggles();
+  }
+
   function initBGM() {
     BGM.init({
       intro: ['assets/audio/首页.m4a'],
@@ -203,6 +229,7 @@
         }
       }
     });
+    syncBgmToggles();
     document.addEventListener('click', function once() {
       BGM.unlock();
       var hint = $('music-hint');
@@ -1314,14 +1341,10 @@
         renderPool(POS_ORDER[picker.slot]);
       });
       // BGM 控制
-      $('bgm-toggle').addEventListener('click', function () {
-        BGM.setMuted(!BGM.isMuted());
-        $('bgm-toggle').textContent = BGM.isMuted() ? '🔇' : '🔊';
-      });
+      $('bgm-toggle').addEventListener('click', toggleBgm);
       var homeToggle = $('bgm-toggle-home');
       if (homeToggle) homeToggle.addEventListener('click', function () {
-        BGM.setMuted(!BGM.isMuted());
-        homeToggle.textContent = BGM.isMuted() ? '🔇' : '🔊';
+        toggleBgm();
         var hint = $('music-hint');
         if (hint) hint.style.display = 'none';
       });
@@ -1334,10 +1357,7 @@
         $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
       });
       $('sim-track-btn').addEventListener('click', showTrackPicker);
-      $('sim-bgm-toggle').addEventListener('click', function () {
-        BGM.setMuted(!BGM.isMuted());
-        $('sim-bgm-toggle').textContent = BGM.isMuted() ? '🔇' : '🔊';
-      });
+      $('sim-bgm-toggle').addEventListener('click', toggleBgm);
       router();
     });
   });
