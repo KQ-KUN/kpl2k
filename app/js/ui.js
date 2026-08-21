@@ -226,7 +226,7 @@
           '重庆狼队': 'assets/audio/狼小孩.m4a',
           '武汉eStarPro': 'assets/audio/星小孩.m4a',
           '广州TTG': 'assets/audio/TT小孩.m4a',
-          '苏州KSG': 'assets/audio/淬炼小孩.m4a',
+          'KSG': 'assets/audio/KSG小孩.m4a',
           '南通Hero久竞': 'assets/audio/HERO小孩.m4a',
           '深圳DYG': 'assets/audio/DYG小孩.m4a',
           '长沙TES.A': 'assets/audio/突然的陀螺小孩.m4a'
@@ -249,7 +249,7 @@
       '重庆狼队': 'assets/audio/狼小孩.m4a',
       '武汉eStarPro': 'assets/audio/星小孩.m4a',
       '广州TTG': 'assets/audio/TT小孩.m4a',
-      '苏州KSG': 'assets/audio/淬炼小孩.m4a',
+      'KSG': 'assets/audio/KSG小孩.m4a',
       '南通Hero久竞': 'assets/audio/HERO小孩.m4a',
       '深圳DYG': 'assets/audio/DYG小孩.m4a',
       '长沙TES.A': 'assets/audio/突然的陀螺小孩.m4a'
