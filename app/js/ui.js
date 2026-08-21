@@ -199,7 +199,11 @@
       el.classList.toggle('muted', muted);
       var wrap = el.parentNode;
       var volEl = wrap && wrap.querySelector('.bgm-vol');
-      if (volEl) volEl.value = Math.round(BGM.getVolume() * 100);
+      if (volEl) {
+        var pct = Math.round(BGM.getVolume() * 100);
+        volEl.value = pct;
+        if (wrap) wrap.style.setProperty('--vol', pct + '%');
+      }
     });
   }
 
@@ -234,13 +238,19 @@
       }
     });
     syncBgmToggles();
-    document.addEventListener('click', function once() {
+    var once = function () {
       BGM.unlock();
       var hint = $('music-hint');
       if (hint) hint.style.display = 'none';
       // capture 标志必须与 addEventListener 一致，否则监听器永远不会被移除
       document.removeEventListener('click', once, true);
-    }, { capture: true });
+      document.removeEventListener('touchstart', once, true);
+      document.removeEventListener('pointerdown', once, true);
+    };
+    // 手机端首次触摸（touchstart）即解锁，避免 click 被手势吞掉导致无声
+    ['click', 'touchstart', 'pointerdown'].forEach(function (type) {
+      document.addEventListener(type, once, { capture: true });
+    });
   }
 
   function championTrack(teamName) {

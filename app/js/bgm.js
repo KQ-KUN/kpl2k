@@ -42,6 +42,7 @@
   var seq = 0;           // 请求序号：每次切歌 +1，旧回调一律作废
   var fadeTimer = null;  // 当前淡入定时器（全局只有一个）
   var startCount = 0;    // 调试：真正重建/切换音源的次数
+  var blockedByPolicy = false; // play() 被浏览器自动播放策略拒绝，等下次手势重试
 
   function baseName(p) {
     return String(p).split('/').pop().replace(/\.[^.]+$/, '');
@@ -75,9 +76,25 @@
     return list;
   }
 
-  function makeAudio() {
-    var el = new Audio();
+  /**
+   * 单例 audio 元素：必须挂在 DOM 里（iOS/安卓 webview 对脱离 DOM 的
+   * new Audio() 有已知播放问题），并带 playsinline。
+   */
+  function ensureAudio() {
+    if (audio) return audio;
+    var el = global.document && global.document.getElementById('kpl2k-bgm');
+    if (el && el.tagName === 'AUDIO') { audio = el; return el; }
+    el = new Audio();
+    el.id = 'kpl2k-bgm';
+    if (typeof el.setAttribute === 'function') {
+      el.setAttribute('playsinline', '');
+      el.setAttribute('webkit-playsinline', '');
+    }
     el.preload = 'auto';
+    if (global.document && global.document.body && !el.parentNode) {
+      try { global.document.body.appendChild(el); } catch (e) { /* 测试 mock 无 DOM 节点能力 */ }
+    }
+    audio = el;
     return el;
   }
 
@@ -100,8 +117,7 @@
     var srcList = candidates(sceneKey);
     if (!srcList.length) { current = sceneKey; return; }
 
-    if (!audio) audio = makeAudio();
-    var el = audio;
+    var el = ensureAudio();
     el.pause();
     var idx = 0;
     el.onerror = function () {
@@ -114,6 +130,7 @@
     };
     el.loop = !!scenes[sceneKey].loop;
     el.src = srcList[0];
+    el._kplRetried = false; // 每次换源后允许重新走 canplay 重试
     el.load();
     current = sceneKey;
 
@@ -130,13 +147,42 @@
     var p = el.play();
     if (p && typeof p.then === 'function') {
       p.then(function () { fadeIn(el, my); });
-      p.catch(function () {
-        // AbortError：play() 被 pause()/换源打断，属正常；忽略即可
-        // NotAllowedError：浏览器自动播放限制，等用户手势后由 unlock 重试
+      p.catch(function (err) {
+        if (my !== seq || audio !== el) return; // 过期请求，忽略
+        if (err && err.name === 'NotAllowedError') {
+          // 自动播放被拦（手机端常见）：记下状态，下一次手势时重试
+          blockedByPolicy = true;
+          return;
+        }
+        // AbortError（被打断）忽略；NotSupportedError（资源还没就绪）：
+        // 等 canplay 后再试一次，慢网/手机网络下稳一点
+        if (!el._kplRetried) {
+          el._kplRetried = true;
+          el.addEventListener('canplay', function h() {
+            el.removeEventListener('canplay', h);
+            startPlayback(el, my);
+          }, { once: true });
+          setTimeout(function () {
+            if (my === seq && audio === el && el.paused) startPlayback(el, my);
+          }, 5000);
+        }
       });
     } else {
       fadeIn(el, my);
     }
+  }
+
+  // 手机端：touchstart/click 手势到达时，若上次 play() 被自动播放策略拦下，
+  // 趁这次手势重试一次（绝不重建音源，也绝不重播）。
+  function onGestureRetry() {
+    if (!unlocked || muted || !blockedByPolicy) return;
+    if (!audio || audio.paused === false) { blockedByPolicy = false; return; }
+    blockedByPolicy = false;
+    startPlayback(audio, seq);
+  }
+  if (global.document && global.document.addEventListener) {
+    global.document.addEventListener('touchstart', onGestureRetry, true);
+    global.document.addEventListener('click', onGestureRetry, true);
   }
 
   /** 淡入到目标音量；seq 变了说明已切歌，立即停表。 */
@@ -214,6 +260,7 @@
     unlock: function () {
       if (unlocked) return;
       unlocked = true;
+      blockedByPolicy = false;
       if (pending) {
         var key = pending.key;
         var team = pending.team;
@@ -235,7 +282,14 @@
     setMuted: function (m) {
       muted = !!m;
       try { localStorage.setItem(STORAGE_KEY, muted ? '1' : '0'); } catch (e) { /* ignore */ }
-      if (audio) audio.volume = muted ? 0 : volume;
+      if (audio) {
+        audio.volume = muted ? 0 : volume;
+        // 取消静音时若上次被自动播放拦下/意外暂停，借本次手势恢复播放
+        if (!muted && unlocked && audio.paused && current) {
+          blockedByPolicy = false;
+          startPlayback(audio, seq);
+        }
+      }
     },
 
     isMuted: function () { return muted; },
