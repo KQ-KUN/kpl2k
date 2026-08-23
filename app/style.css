@@ -301,13 +301,13 @@ img{display:block}
 .bk-loser .bk-match{background:rgba(139,148,158,.07)}
 .bk-round-label{position:absolute;font-size:10px;color:var(--mut);letter-spacing:1px;white-space:nowrap}
 .bk-match{position:absolute;width:158px;height:30px;box-sizing:border-box;border:1px solid var(--line2);border-radius:7px;display:flex;align-items:center;padding:0 8px;font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.25);z-index:1}
-.bk-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
-.bk-score{flex:none;margin-left:6px;font-size:11px;font-weight:800;color:var(--mut)}
-.bk-win .bk-name{color:var(--green);font-weight:800}
+.bk-team{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg);text-align:center;font-weight:600}
+.bk-team.bk-win{color:var(--green);font-weight:800}
+.bk-score{flex:none;margin:0 4px;font-size:11px;font-weight:800;color:var(--gold)}
 .bk-self{background:rgba(240,185,11,.14) !important;border-color:rgba(240,185,11,.55);box-shadow:0 0 10px rgba(240,185,11,.22)}
-.bk-self .bk-name{color:var(--gold)}
+.bk-self .bk-team{color:var(--gold)}
 .bk-loss{border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.08) !important}
-.bk-loss .bk-name{color:var(--red)}
+.bk-loss .bk-team{color:var(--red)}
 .g-txt{flex:1}
 .g-quote{font-size:13px;color:var(--purple);margin:5px 0 3px;padding:3px 10px;border-left:2px solid rgba(188,140,255,.45);background:rgba(188,140,255,.05);border-radius:0 8px 8px 0}
 .hl{color:var(--gold);font-weight:700}

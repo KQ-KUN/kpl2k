@@ -943,6 +943,17 @@
   }
 
   function renderTreeCard(tree, title) {
+    var old = $('sim-tree-card');
+    if (old) old.remove();
+    var el = document.createElement('div');
+    el.className = 'card tree-card';
+    el.id = 'sim-tree-card';
+    el.innerHTML = treeCardHtml(tree, title, false, true);
+    $('sim-events').appendChild(el);
+  }
+
+  /* 树卡内容（模拟页/战绩卡共用；compact 为缩小版） */
+  function treeCardHtml(tree, title, compact, showHead) {
     var groups = [];
     var seen = {};
     (tree || []).forEach(function (m) {
@@ -968,21 +979,17 @@
       main = ko.filter(function (g) { return !/败者组/.test(g.round); });
       loser = ko.filter(function (g) { return /败者组/.test(g.round); });
     }
-    var html = '<div class="card tree-card" id="sim-tree-card">' +
-      '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>';
+    var html = showHead
+      ? '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>'
+      : '';
     if (!main.length) {
-      html += '<div class="tc-tip">尚未开战，等待第一场对决…</div></div>';
+      html += '<div class="tc-tip">尚未开战，等待第一场对决…</div>';
     } else {
-      html += bracketColumns(main, 'bk-main');
-      if (loser.length) html += bracketColumns(loser, 'bk-loser');
+      html += bracketColumns(main, 'bk-main', compact);
+      if (loser.length) html += bracketColumns(loser, 'bk-loser', compact);
       html += treeStatusLine(tree);
     }
-    html += '</div>';
-    var old = $('sim-tree-card');
-    if (old) old.remove();
-    var el = document.createElement('div');
-    el.innerHTML = html;
-    $('sim-events').appendChild(el.firstChild);
+    return html;
   }
 
   /* 各淘汰赛轮次的期望框数（用于补"待定"空位，凑出完整树） */
@@ -1012,9 +1019,12 @@
     '胜者组半决赛': ['败者组第一轮', '败者组第二轮', '败者组第三轮', '败者组半决赛', '败者组决赛']
   };
 
-  /* 画一列组的标准淘汰树（首列在右侧，胜者向左衍生；连线 floor(i/2)） */
-  function bracketColumns(cols, cls) {
-    var COL_W = 158, GAP = 34, BOX_H = 30, ROW_H = 34;
+  /* 画一列组的标准淘汰树（首列在最左，胜者向右衍生；连线 floor(i/2)） */
+  function bracketColumns(cols, cls, compact) {
+    var COL_W = compact ? 96 : 158;
+    var GAP = compact ? 12 : 34;
+    var BOX_H = compact ? 21 : 30;
+    var ROW_H = compact ? 23 : 34;
     var firstN = cols.length ? Math.max(cols[0].matches.length, BRACKET_EXPECT[cols[0].round] || cols[0].matches.length) : 1;
     var H = Math.max(200, firstN * ROW_H);
     var totalW = cols.length * (COL_W + GAP) + 10;
@@ -1028,26 +1038,25 @@
         var m = g.matches[i];
         var y = (i + 0.5) * (H / n) - BOX_H / 2;
         var clsB = 'bk-match';
-        var name, score, isSelf = false, won = false, lost = false;
+        var inner, isSelf = false, won = false, lost = false;
         if (m) {
           var na = teamName(m.a), nb = teamName(m.b);
+          var ab = abbrOf(m.a), bb = abbrOf(m.b);
           var winnerIsA = m.w === m.a;
-          var wn = winnerIsA ? na : nb;
-          var ws = winnerIsA ? m.sa : m.sb;
-          name = wn;
-          score = ws + ':' + (winnerIsA ? m.sb : m.sa);
+          var score = m.sa + ':' + m.sb;
+          // 对阵双方 + 中间比分：胜者绿加粗、败者灰，主队所在框金色
+          inner = '<span class="bk-team' + (winnerIsA ? ' bk-win' : '') + '" title="' + esc(na) + '">' + esc(ab) + '</span>' +
+            '<span class="bk-score">' + esc(score) + '</span>' +
+            '<span class="bk-team' + (!winnerIsA ? ' bk-win' : '') + '" title="' + esc(nb) + '">' + esc(bb) + '</span>';
           isSelf = m.w === STATE.team;
           lost = !isSelf && (m.a === STATE.team || m.b === STATE.team);
           won = isSelf;
         } else {
-          name = '待定';
-          score = '';
+          inner = '<span class="bk-team">待定</span>';
         }
         if (won) clsB += ' bk-win bk-self';
         else if (lost) clsB += ' bk-loss';
-        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px">' +
-          '<span class="bk-name">' + esc(name) + '</span>' +
-          (score ? '<span class="bk-score">' + esc(score) + '</span>' : '') + '</div>';
+        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px">' + inner + '</div>';
         // 连线：本场胜者 → 下一列 floor(i/2)
         if (c + 1 < cols.length) {
           var nextN = Math.max(cols[c + 1].matches.length, BRACKET_EXPECT[cols[c + 1].round] || cols[c + 1].matches.length);
@@ -1252,6 +1261,7 @@
     STATE.lastRun = {
       champion: championId, team: STATE.team, season: STATE.season, seed: STATE.seed,
       path: SIM.path, regular: SIM.session ? SIM.session.getRegular() : {},
+      tree: SIM.session && SIM.session.getTree ? SIM.session.getTree() : [],
       rosterNames: STATE.roster.map(function (s) { return playerName(s.pid); }),
       records: recordsForRoster(STATE.roster), seasonName: SIM.seasonName,
       runStats: runStats
@@ -1364,6 +1374,11 @@
       return '<tr class="' + (p.win ? 'w' : 'l') + '"><td>' + esc(p.round) + '</td><td>' + esc(p.opp) + '</td>' +
         '<td>' + esc(p.score) + '</td><td class="tag">' + (p.win ? '胜' : '负') + '</td></tr>';
     }).join('');
+
+    // 缩小版淘汰树（战绩卡）
+    $('result-tree').innerHTML = (run.tree && run.tree.length)
+      ? treeCardHtml(run.tree, '', true, false)
+      : '<div class="tc-tip">本场征战无淘汰赛数据</div>';
 
     $('result-stats').innerHTML = recs.map(function (r) {
       var rs = (run.runStats || {})[r.player_id];
