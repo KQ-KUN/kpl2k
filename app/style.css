@@ -280,6 +280,25 @@ img{display:block}
 .g-row.mvp .g-tag{background:rgba(240,185,11,.3);color:#ffd76a}
 .g-row.mvp .g-txt{color:#ffd76a;font-weight:700}
 .pool-item.sel .pname{color:var(--gold)}
+
+/* ---- 赛程图 ---- */
+.tree-card{background:linear-gradient(160deg,rgba(240,185,11,.06),rgba(88,166,255,.05)),var(--card);border-color:rgba(240,185,11,.25)}
+.tc-head{font-weight:800;font-size:13px;color:var(--gold);letter-spacing:1px;margin-bottom:8px}
+.tc-round{font-size:11px;color:var(--mut);font-weight:700;margin:8px 0 4px;letter-spacing:1px}
+.tc-match{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.04);margin-bottom:4px;font-size:12px}
+.tc-team{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
+.tc-team.tc-win{color:var(--green);font-weight:700}
+.tc-team.tc-self{color:var(--gold);font-weight:800}
+.tc-score{flex:none;color:var(--mut);font-size:11px;font-weight:700}
+.tc-match.tc-track{border:1px solid rgba(240,185,11,.35);background:rgba(240,185,11,.07)}
+.tc-match.tc-loss{border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.07)}
+.tc-status{font-size:12px;font-weight:700;margin-top:8px;text-align:center}
+.tc-status.ok{color:var(--green)}
+.tc-status.bad{color:var(--red)}
+.tc-teams{display:flex;flex-wrap:wrap;gap:6px}
+.tc-team-chip{font-size:11px;padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--mut)}
+.tc-team-chip.sel{background:rgba(240,185,11,.16);color:var(--gold);font-weight:700}
+.tc-more,.tc-tip{font-size:11px;color:var(--mut);margin-top:6px;text-align:center}
 .g-txt{flex:1}
 .g-quote{font-size:13px;color:var(--purple);margin:5px 0 3px;padding:3px 10px;border-left:2px solid rgba(188,140,255,.45);background:rgba(188,140,255,.05);border-radius:0 8px 8px 0}
 .hl{color:var(--gold);font-weight:700}

@@ -779,7 +779,7 @@
 
   /* ================= 模拟 ================= */
   /* 分阶段模拟：逐局 reveal，每轮后可换人 */
-  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false };
+  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false, tree: [] };
 
   function showSim() {
     showPage('sim');
@@ -794,6 +794,7 @@
     $('sim-done-tip').style.display = 'none';
     SIM.queue = [];
     if (SIM.timer) { clearInterval(SIM.timer); SIM.timer = null; }
+    SIM.tree = [];
     startSimulation();
   }
 
@@ -833,6 +834,7 @@
       SIM.seasonName = battle.name;
       var loading = $('sim-loading');
       if (loading) loading.remove();
+      renderOpeningTree();
       advance();
     }).catch(function (e) {
       $('sim-events').innerHTML = '<div class="card red">模拟失败：' + esc(e.message) + '</div>';
@@ -856,6 +858,8 @@
     stage.entries.forEach(function (entry) {
       appendEntryCard(entry, stage.title);
     });
+    // 每场结束后更新赛程图（谁干掉了谁、主队走到哪）
+    if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
     // reveal 期间隐藏轮间按钮，避免在文字播放中误点"继续征战"
     $('sim-goon').style.display = 'none';
     $('sim-sub').style.display = 'none';
@@ -891,6 +895,99 @@
       if (gi === 0) fn();
       else SIM.queue.push(fn);
     });
+  }
+
+  /* ---------- 赛程图：谁干掉了谁、主队走到哪 ---------- */
+  function renderOpeningTree() {
+    var battle = DATA.seasonCache[STATE.season];
+    if (!battle) return;
+    // 找第一个有官方对阵的轮次（小组赛/首轮/32强等）做开局图
+    var firstRound = null;
+    (battle.rounds || []).forEach(function (r) {
+      if (!firstRound && r.matches && r.matches.length) firstRound = r;
+    });
+    var title = firstRound ? (firstRound.name || '首轮对阵') : '参赛队伍';
+    var html = '<div class="card tree-card" id="sim-tree-card">' +
+      '<div class="tc-head">🗺️ ' + esc(battle.name || STATE.season) + ' · ' + esc(title) + '</div>';
+    if (firstRound) {
+      html += '<div class="tc-round">揭幕对阵</div>';
+      var shown = 0;
+      (firstRound.matches || []).forEach(function (m) {
+        if (!m.a_id || !m.b_id) return;
+        var selfA = m.a_id === STATE.team, selfB = m.b_id === STATE.team;
+        if (!selfA && !selfB && shown >= 16) return; // 非主队对阵最多展示 16 场
+        shown++;
+        var aCls = selfA ? ' tc-self' : '';
+        var bCls = selfB ? ' tc-self' : '';
+        html += '<div class="tc-match"><span class="tc-team' + aCls + '">' + esc(teamName(m.a_id)) + '</span>' +
+          '<span class="tc-score">vs</span>' +
+          '<span class="tc-team' + bCls + '">' + esc(teamName(m.b_id)) + '</span></div>';
+      });
+      if (firstRound.matches.length > shown) html += '<div class="tc-more">… 其余对阵开赛后揭晓</div>';
+    } else {
+      var seenTeams = {};
+      (DATA.seasonCache[STATE.season].rosters || []).forEach(function (r) {
+        if (r.team_franchise) seenTeams[r.team_franchise] = true;
+      });
+      var uniq = Object.keys(seenTeams);
+      html += '<div class="tc-teams">' + uniq.map(function (fid) {
+        return '<span class="tc-team-chip' + (fid === STATE.team ? ' sel' : '') + '">' + esc(teamName(fid)) + '</span>';
+      }).join('') + '</div>';
+    }
+    html += '<div class="tc-tip">你的战队已就位，赛程图将随每一战更新</div></div>';
+    var old = $('sim-tree-card');
+    if (old) old.remove();
+    var el = document.createElement('div');
+    el.innerHTML = html;
+    $('sim-events').appendChild(el.firstChild);
+  }
+
+  function renderTreeCard(tree, title) {
+    var groups = [];
+    var seen = {};
+    (tree || []).forEach(function (m) {
+      var key = m.round || '对局';
+      if (!seen[key]) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
+      groups[seen[key]].matches.push(m);
+    });
+    var html = '<div class="card tree-card" id="sim-tree-card">' +
+      '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>';
+    if (!groups.length) {
+      html += '<div class="tc-tip">尚未开战，等待第一场对决…</div></div>';
+    } else {
+      groups.forEach(function (g) {
+        html += '<div class="tc-round">' + esc(g.round) + '</div>';
+        g.matches.forEach(function (m) {
+          var na = teamName(m.a), nb = teamName(m.b);
+          var winnerIsA = m.w === m.a;
+          var trackIn = m.a === STATE.team || m.b === STATE.team;
+          var trackWon = m.w === STATE.team;
+          var cls = trackIn ? (trackWon ? ' tc-track tc-win' : ' tc-track tc-loss') : '';
+          var aCls = (m.a === STATE.team ? ' tc-self' : (winnerIsA ? ' tc-win' : ''));
+          var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
+          html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' + esc(na) + '</span>' +
+            '<span class="tc-score">' + m.sa + ' : ' + m.sb + '</span>' +
+            '<span class="tc-team' + bCls + '">' + esc(nb) + '</span></div>';
+        });
+      });
+      // 主队状态
+      var lastTrack = null;
+      for (var i = (tree || []).length - 1; i >= 0; i--) {
+        var mm = tree[i];
+        if (mm.a === STATE.team || mm.b === STATE.team) { lastTrack = mm; break; }
+      }
+      if (lastTrack) {
+        html += lastTrack.w === STATE.team
+          ? '<div class="tc-status ok">✅ ' + esc(teamName(STATE.team)) + ' 晋级下一轮</div>'
+          : '<div class="tc-status bad">❌ ' + esc(teamName(STATE.team)) + ' 止步' + esc(lastTrack.round) + '</div>';
+      }
+    }
+    html += '</div>';
+    var old = $('sim-tree-card');
+    if (old) old.remove();
+    var el = document.createElement('div');
+    el.innerHTML = html;
+    $('sim-events').appendChild(el.firstChild);
   }
 
   function appendCard(ev) {

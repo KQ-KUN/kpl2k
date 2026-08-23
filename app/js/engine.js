@@ -1059,6 +1059,8 @@
     var elimPool = null, elimBo = 7, elimFinalBo = 7;
     var done = false, champion = null, trackStopped = false;
     var regularInfo = {}, regularRank = {}, seedNotes = {}, recapDone = false;
+    var tree = [];             // 全量对阵记录（赛程图数据）：谁干掉谁
+    var currentRoundTag = '';  // 当前阶段的轮次标题（记录进 tree）
 
     function recordMatch(aId, bId, r) {
       losses[r.loserId] = (losses[r.loserId] || 0) + 1;
@@ -1079,6 +1081,8 @@
       var r = playMatch(rng, strengths, aId, bId, bo);
       var out = { aId: aId, bId: bId, winnerId: r[0], loserId: r[0] === aId ? bId : aId,
                   scoreA: r[1], scoreB: r[2], results: r[3] };
+      tree.push({ round: currentRoundTag || '对局', a: aId, b: bId, w: r[0],
+                  sa: r[1], sb: r[2], done: true });
       if (record) recordMatch(aId, bId, out);
       return out;
     }
@@ -1577,6 +1581,7 @@
 
     function runPairs(pairs, title, bo) {
       var winners = [], losers = [], entries = [];
+      currentRoundTag = title;
       pairs.forEach(function (p) {
         if (!p[0] || !p[1]) return;
         var r = runMatch(p[0], p[1], bo, true);
@@ -1627,6 +1632,7 @@
           // 1) 跑当前阶段对阵
           if (curDef && stageQueue.length) {
             var q = stageQueue.shift();
+            currentRoundTag = q.title;
             var r = runMatch(q.aId, q.bId, q.bo, true);
             if (track != null && (track === q.aId || track === q.bId)) {
               return { kind: 'regular_round', title: q.title, entries: [entryFor({ aId: q.aId, bId: q.bId, winnerId: r.winnerId, scoreA: r.scoreA, scoreB: r.scoreB, results: r.results }, q.title, q.bo)] };
@@ -1685,6 +1691,7 @@
         computeRegular();
         return { standings: regularInfo, track: track != null ? (regularInfo[track] || null) : null, seed_notes: seedNotes[track] || [] };
       },
+      getTree: function () { return tree; },
       isDone: function () { return done; },
       getChampion: function () { return champion; }
     };
@@ -1778,6 +1785,8 @@
     var d = null;          // 双败状态
     var done = false;
     var finalBo = 7;
+    var tree = [];
+    var currentRoundTag = '';
     if (multiRounds.length) {
       finalBo = multiRounds[0].bo || 7;
       var finalR = multiRounds.filter(function (r) { return r.type === 'final'; });
@@ -1788,6 +1797,8 @@
       var r = playMatch(rng, strengths, aId, bId, bo);
       var winnerId = r[0], scoreA = r[1], scoreB = r[2], results = r[3];
       var loserId = winnerId === aId ? bId : aId;
+      tree.push({ round: currentRoundTag || '对局', a: aId, b: bId, w: winnerId,
+                  sa: scoreA, sb: scoreB, done: true });
       if (record) {
         losses[loserId] = (losses[loserId] || 0) + 1;
         regularWins[winnerId] = (regularWins[winnerId] || 0) + 1;
@@ -1888,6 +1899,7 @@
 
     function pairEntries(pairs, tag) {
       var winners = [], entries = [];
+      currentRoundTag = tag;
       for (var i = 0; i < pairs.length; i++) {
         var pair = pairs[i];
         var r = runMatch(pair[0], pair[1], pair[2], false);
@@ -1961,6 +1973,7 @@
         // 常规赛队列（跑到主队场次为止）
         while (regularQueue.length) {
           var q = regularQueue.shift();
+          currentRoundTag = q.rnd.name;
           var r = runMatch(q.m.a_id, q.m.b_id, q.rnd.bo || 5, true);
           if (track != null && (track === q.m.a_id || track === q.m.b_id)) {
             return { kind: 'regular_round', title: q.rnd.name, entries: [entryFor({
@@ -1971,6 +1984,7 @@
         }
         while (playInQueue.length) {
           var qp = playInQueue.shift();
+          currentRoundTag = qp.rnd.name;
           var rp = runMatch(qp.m.a_id, qp.m.b_id, qp.rnd.bo || 7, true);
           if (track != null && (track === qp.m.a_id || track === qp.m.b_id)) {
             return { kind: 'play_in', title: qp.rnd.name, entries: [entryFor({
@@ -2028,7 +2042,8 @@
       },
       getChampion: function () {
         return champion;
-      }
+      },
+      getTree: function () { return tree; }
     };
   }
 
