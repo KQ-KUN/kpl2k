@@ -126,16 +126,6 @@ img{display:block}
 .bgm-btn:active{transform:scale(.92)}
 .bgm-btn.muted{color:#fca5a5;border-color:rgba(248,113,113,.55);background:linear-gradient(135deg,rgba(248,113,113,.18),rgba(248,113,113,.08)),rgba(255,255,255,.05);box-shadow:0 2px 10px rgba(0,0,0,.2)}
 .bgm-wrap{position:relative;display:inline-flex;align-items:center}
-.bgm-vol{
-  position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 10px);
-  width:108px;height:6px;appearance:none;-webkit-appearance:none;
-  background:linear-gradient(to right,#fcd34d var(--vol,60%),rgba(255,255,255,.18) var(--vol,60%));
-  border-radius:999px;outline:none;cursor:pointer;display:block;z-index:70;padding:0;
-  box-shadow:0 2px 8px rgba(0,0,0,.35);transition:filter .12s ease
-}
-.bgm-vol:hover{filter:brightness(1.15)}
-.bgm-vol::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe08a,#fbbf24);border:2px solid rgba(255,255,255,.85);box-shadow:0 1px 6px rgba(240,185,11,.6)}
-.bgm-vol::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe08a,#fbbf24);border:2px solid rgba(255,255,255,.85);box-shadow:0 1px 6px rgba(240,185,11,.6)}
 
 /* ---- 组队 ---- */
 .dyn-strip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 -14px 2px;padding-left:14px;padding-right:14px;scrollbar-width:none}

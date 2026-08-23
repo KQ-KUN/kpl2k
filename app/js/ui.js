@@ -222,13 +222,6 @@
       el.innerHTML = bgmIconHtml(muted);
       el.title = muted ? '开启音乐' : '关闭音乐';
       el.classList.toggle('muted', muted);
-      var wrap = el.parentNode;
-      var volEl = wrap && wrap.querySelector('.bgm-vol');
-      if (volEl) {
-        var pct = Math.round(BGM.getVolume() * 100);
-        volEl.value = pct;
-        if (wrap) wrap.style.setProperty('--vol', pct + '%');
-      }
     });
   }
 
@@ -851,6 +844,8 @@
     }
     if (stage.kind === 'regular_recap') {
       appendCard({ title: stage.title, lines: stage.lines, cls: 'reg' });
+      // 说明卡（如"32强战罢"）也同步赛程图：内部消化的场次一次性补齐
+      if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
       showStageButtons();
       return;  // 保留 SIM.jump，继续征战能跳到真正的赛程
     }
@@ -1620,13 +1615,6 @@
         toggleBgm();
         var hint = $('music-hint');
         if (hint) hint.style.display = 'none';
-      });
-      // 音量滑条（三处联动）
-      document.querySelectorAll('.bgm-vol').forEach(function (r) {
-        r.addEventListener('input', function () {
-          BGM.setVolume(parseInt(r.value, 10) / 100);
-          syncBgmToggles();
-        });
       });
       $('sim-prev').addEventListener('click', function () {
         BGM.prevTrack();
