@@ -161,6 +161,15 @@
       'onerror="this.style.display=&#39;none&#39;;this.nextElementSibling.style.display=&#39;inline-flex&#39;">' +
       '<span class="bk-ava-fb" style="display:none">' + ch + '</span></span>';
   }
+  /* 通用战队徽章（选人界面/战队条用），图片失败回退首字 */
+  function teamBadgeHtml(fid, name) {
+    var icon = teamIcon(fid);
+    var ch = esc(String(name || abbrOf(fid) || '?').slice(0, 1));
+    if (!icon) return '<span class="team-ava fb">' + ch + '</span>';
+    return '<span class="team-ava box"><img src="' + esc(icon) + '" alt="" loading="lazy" referrerpolicy="no-referrer" ' +
+      'onerror="this.style.display=&#39;none&#39;;this.nextElementSibling.style.display=&#39;inline-flex&#39;">' +
+      '<span class="team-ava fb" style="display:none">' + ch + '</span></span>';
+  }
 
   function playerName(pid) { return (DATA.players[pid] && DATA.players[pid].name) || pid; }
   function playerIcon(pid) { return (DATA.players[pid] && DATA.players[pid].icon) || ''; }
@@ -412,7 +421,7 @@
   function renderTeamStrip() {
     var html = DATA.manifest.teams2026.map(function (t) {
       return '<button class="team-chip' + (t.id === STATE.team ? ' sel' : '') + '" data-fid="' + t.id + '">' +
-        '<div class="tc-abbr">' + esc(t.abbr || t.name.slice(0, 2)) + '</div>' +
+        teamBadgeHtml(t.id, t.abbr || t.name) +
         '<div class="tc-name">' + esc(t.name) + '</div></button>';
     }).join('');
     $('team-strip').innerHTML = html;
@@ -563,7 +572,7 @@
     $('picker-back').style.display = 'none';
     $('picker-confirm').style.display = '';
     $('picker-title').textContent = pos + ' · 换人';
-    $('picker-sub').textContent = teamName(STATE.team) + ' 历届' + pos;
+    $('picker-sub').innerHTML = teamBadgeHtml(STATE.team) + ' <span>' + esc(teamName(STATE.team)) + ' 历届' + esc(pos) + '</span>';
     var candidates = currentTeamData.players.filter(function (p) {
       return p.versions.some(function (v) { return v.position === pos; });
     }).sort(function (a, b) {
@@ -690,7 +699,7 @@
   /* 模拟中"更换阵容"：先选要换的位置 */
   function showPosPicker() {
     $('picker-title').textContent = '更换阵容 · 选择位置';
-    $('picker-sub').textContent = teamName(STATE.team);
+    $('picker-sub').innerHTML = teamBadgeHtml(STATE.team) + ' <span>' + esc(teamName(STATE.team)) + '</span>';
     $('picker-ver').innerHTML = '';
     $('picker-pool').innerHTML = POS_ORDER.map(function (pos, i) {
       var slot = STATE.roster[i];
@@ -857,6 +866,8 @@
       appendCard({ title: stage.title, lines: stage.lines, cls: 'reg' });
       // 说明卡（如"32强战罢"）也同步赛程图：内部消化的场次一次性补齐
       if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
+      // 赛程动态/阶段总结出现时回到顶部，让玩家先看到阶段结论
+      window.scrollTo(0, 0);
       showStageButtons();
       return;  // 保留 SIM.jump，继续征战能跳到真正的赛程
     }

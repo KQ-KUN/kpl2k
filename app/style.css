@@ -149,6 +149,11 @@ img{display:block}
 }
 .team-chip:active{transform:scale(.96)}
 .team-chip.sel{border-color:var(--gold);background:linear-gradient(180deg,rgba(240,185,11,.16),rgba(240,185,11,.04)),#132947;box-shadow:0 0 14px rgba(240,185,11,.18)}
+.team-chip .team-ava.box,.team-chip .team-ava img{width:26px;height:26px}
+.team-chip .team-ava.fb{width:26px;height:26px;font-size:11px}
+.team-ava.box{display:inline-flex;width:20px;height:20px;flex:none;vertical-align:middle}
+.team-ava.box img{width:20px;height:20px;border-radius:50%;object-fit:cover;background:rgba(255,255,255,.1)}
+.team-ava.fb{width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);font-size:10px;color:var(--mut);flex:none;vertical-align:middle}
 .team-chip .tc-abbr{font-size:15px;font-weight:800;color:var(--gold);height:34px;display:flex;align-items:center;justify-content:center}
 .team-chip .tc-name{font-size:10px;color:var(--mut);line-height:1.2;margin-top:2px;word-break:break-all}
 
