@@ -947,40 +947,35 @@
     var seen = {};
     (tree || []).forEach(function (m) {
       var key = m.round || '对局';
-      if (!seen[key]) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
+      // 注意：第一个分组的索引是 0，不能用 !seen[key] 判断（0 为 falsy）
+      if (seen[key] === undefined) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
       groups[seen[key]].matches.push(m);
     });
+    // 只保留淘汰赛轮次（常规赛/卡位赛不进树）
+    var ko = groups.filter(function (g) { return BRACKET_EXPECT[g.round]; });
+    var first = ko.length ? ko[0] : null;
+    var chain = first ? MAIN_CHAINS[first.round] : null;
+    var main, loser;
+    if (chain) {
+      main = chain.map(function (r) {
+        return ko.find(function (g) { return g.round === r; }) || { round: r, matches: [] };
+      });
+      var lc = LOSER_CHAINS[first.round];
+      loser = lc ? lc.map(function (r) {
+        return ko.find(function (g) { return g.round === r; }) || { round: r, matches: [] };
+      }) : ko.filter(function (g) { return /败者组/.test(g.round); });
+    } else {
+      main = ko.filter(function (g) { return !/败者组/.test(g.round); });
+      loser = ko.filter(function (g) { return /败者组/.test(g.round); });
+    }
     var html = '<div class="card tree-card" id="sim-tree-card">' +
       '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>';
-    if (!groups.length) {
+    if (!main.length) {
       html += '<div class="tc-tip">尚未开战，等待第一场对决…</div></div>';
     } else {
-      groups.forEach(function (g) {
-        html += '<div class="tc-round">' + esc(g.round) + '</div>';
-        g.matches.forEach(function (m) {
-          var na = teamName(m.a), nb = teamName(m.b);
-          var winnerIsA = m.w === m.a;
-          var trackIn = m.a === STATE.team || m.b === STATE.team;
-          var trackWon = m.w === STATE.team;
-          var cls = trackIn ? (trackWon ? ' tc-track tc-win' : ' tc-track tc-loss') : '';
-          var aCls = (m.a === STATE.team ? ' tc-self' : (winnerIsA ? ' tc-win' : ''));
-          var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
-          html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' + esc(na) + '</span>' +
-            '<span class="tc-score">' + m.sa + ' : ' + m.sb + '</span>' +
-            '<span class="tc-team' + bCls + '">' + esc(nb) + '</span></div>';
-        });
-      });
-      // 主队状态
-      var lastTrack = null;
-      for (var i = (tree || []).length - 1; i >= 0; i--) {
-        var mm = tree[i];
-        if (mm.a === STATE.team || mm.b === STATE.team) { lastTrack = mm; break; }
-      }
-      if (lastTrack) {
-        html += lastTrack.w === STATE.team
-          ? '<div class="tc-status ok">✅ ' + esc(teamName(STATE.team)) + ' 晋级下一轮</div>'
-          : '<div class="tc-status bad">❌ ' + esc(teamName(STATE.team)) + ' 止步' + esc(lastTrack.round) + '</div>';
-      }
+      html += bracketColumns(main, 'bk-main');
+      if (loser.length) html += bracketColumns(loser, 'bk-loser');
+      html += treeStatusLine(tree);
     }
     html += '</div>';
     var old = $('sim-tree-card');
@@ -988,6 +983,99 @@
     var el = document.createElement('div');
     el.innerHTML = html;
     $('sim-events').appendChild(el.firstChild);
+  }
+
+  /* 各淘汰赛轮次的期望框数（用于补"待定"空位，凑出完整树） */
+  var BRACKET_EXPECT = {
+    '32强': 16, '16强': 8, '8强': 4, '4强': 2, '半决赛': 2, '总决赛': 1,
+    '胜者组第1轮': 4, '胜者组第2轮': 2, '胜者组半决赛': 2, '胜者组决赛': 1,
+    '败者组第1轮': 2, '败者组第2轮': 2, '败者组第3轮': 1, '败者组第4轮': 1,
+    '败者组第5轮': 1, '败者组半决赛': 1, '败者组决赛': 1,
+    '败者组第一轮': 2, '败者组第二轮': 2, '败者组第三轮': 2,
+    '败者组第四轮': 1, '败者组第五轮': 1
+  };
+
+  /* 各赛制的主链/败者组链（按首轮名匹配，用于补全未打轮次的空框） */
+  var MAIN_CHAINS = {
+    '32强': ['32强', '16强', '胜者组第1轮', '胜者组第2轮', '胜者组决赛', '总决赛'],
+    '16强': ['16强', '胜者组第1轮', '胜者组第2轮', '胜者组决赛', '总决赛'],
+    '胜者组第1轮': ['胜者组第1轮', '胜者组第2轮', '胜者组决赛', '总决赛'],
+    '胜者组半决赛': ['胜者组半决赛', '胜者组决赛', '总决赛'],
+    '8强': ['8强', '半决赛', '总决赛'],
+    '半决赛': ['半决赛', '总决赛'],
+    '胜者组决赛': ['胜者组决赛', '总决赛']
+  };
+  var LOSER_CHAINS = {
+    '32强': ['败者组第1轮', '败者组第2轮', '败者组第3轮', '败者组决赛'],
+    '16强': ['败者组第1轮', '败者组第2轮', '败者组第3轮', '败者组决赛'],
+    '胜者组第1轮': ['败者组第1轮', '败者组第2轮', '败者组第3轮', '败者组决赛'],
+    '胜者组半决赛': ['败者组第一轮', '败者组第二轮', '败者组第三轮', '败者组半决赛', '败者组决赛']
+  };
+
+  /* 画一列组的标准淘汰树（首列在右侧，胜者向左衍生；连线 floor(i/2)） */
+  function bracketColumns(cols, cls) {
+    var COL_W = 158, GAP = 34, BOX_H = 30, ROW_H = 34;
+    var firstN = cols.length ? Math.max(cols[0].matches.length, BRACKET_EXPECT[cols[0].round] || cols[0].matches.length) : 1;
+    var H = Math.max(200, firstN * ROW_H);
+    var totalW = cols.length * (COL_W + GAP) + 10;
+    var lines = [];
+    var boxes = '';
+    cols.forEach(function (g, c) {
+      var n = Math.max(g.matches.length, BRACKET_EXPECT[g.round] || g.matches.length);
+      var x = (cols.length - 1 - c) * (COL_W + GAP); // 首列在最右
+      boxes += '<div class="bk-round-label" style="left:' + x + 'px;top:-20px">' + esc(g.round) + '</div>';
+      for (var i = 0; i < n; i++) {
+        var m = g.matches[i];
+        var y = (i + 0.5) * (H / n) - BOX_H / 2;
+        var clsB = 'bk-match';
+        var name, score, isSelf = false, won = false, lost = false;
+        if (m) {
+          var na = teamName(m.a), nb = teamName(m.b);
+          var winnerIsA = m.w === m.a;
+          var wn = winnerIsA ? na : nb;
+          var ws = winnerIsA ? m.sa : m.sb;
+          name = wn;
+          score = ws + ':' + (winnerIsA ? m.sb : m.sa);
+          isSelf = m.w === STATE.team;
+          lost = !isSelf && (m.a === STATE.team || m.b === STATE.team);
+          won = isSelf;
+        } else {
+          name = '待定';
+          score = '';
+        }
+        if (won) clsB += ' bk-win bk-self';
+        else if (lost) clsB += ' bk-loss';
+        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px">' +
+          '<span class="bk-name">' + esc(name) + '</span>' +
+          (score ? '<span class="bk-score">' + esc(score) + '</span>' : '') + '</div>';
+        // 连线：本场胜者 → 下一列 floor(i/2)
+        if (c + 1 < cols.length) {
+          var nextN = Math.max(cols[c + 1].matches.length, BRACKET_EXPECT[cols[c + 1].round] || cols[c + 1].matches.length);
+          var j = Math.min(Math.floor(i / 2), nextN - 1);
+          var x1 = x + COL_W;
+          var y1 = y + BOX_H / 2;
+          var x2 = x - GAP;
+          var y2 = (j + 0.5) * (H / nextN);
+          var midX = x - GAP / 2;
+          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.4"/>');
+        }
+      }
+    });
+    return '<div class="bk-wrap"><div class="bk-inner ' + cls + '" style="width:' + totalW + 'px;height:' + H + 'px">' +
+      '<svg class="bk-lines" width="' + totalW + '" height="' + H + '" style="position:absolute;left:0;top:0">' +
+      lines.join('') + '</svg>' + boxes + '</div></div>';
+  }
+
+  function treeStatusLine(tree) {
+    var lastTrack = null;
+    for (var i = (tree || []).length - 1; i >= 0; i--) {
+      var mm = tree[i];
+      if (mm.a === STATE.team || mm.b === STATE.team) { lastTrack = mm; break; }
+    }
+    if (!lastTrack) return '';
+    return lastTrack.w === STATE.team
+      ? '<div class="tc-status ok">✅ ' + esc(teamName(STATE.team)) + ' 晋级下一轮</div>'
+      : '<div class="tc-status bad">❌ ' + esc(teamName(STATE.team)) + ' 止步' + esc(lastTrack.round) + '</div>';
   }
 
   function appendCard(ev) {

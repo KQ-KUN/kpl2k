@@ -1262,13 +1262,19 @@
         // 关键：L3（败者组 2 队互打）在胜者组决赛之前；胜者组决赛败者
         // 直接进入败者组决赛（只打一场），而不是再打两轮。
         var w = d8.w.slice(), l = [];
+        var wR = 0, lR = 0;
         while (w.length > 2) {
-          d8.queue.push({ tag: '胜者组', kind: 'w' });
+          wR += 1;
+          d8.queue.push({ tag: '胜者组第' + wR + '轮', kind: 'w' });
           l = l.concat(new Array(Math.floor(w.length / 2)));
-          if (l.length >= 2) d8.queue.push({ tag: '败者组', kind: 'l' });
+          if (l.length >= 2) {
+            lR += 1;
+            d8.queue.push({ tag: '败者组第' + lR + '轮', kind: 'l' });
+          }
           w = new Array(Math.ceil(w.length / 2));
         }
-        d8.queue.push({ tag: '败者组', kind: 'l' });       // L3：2 队
+        lR += 1;
+        d8.queue.push({ tag: '败者组第' + lR + '轮', kind: 'l' }); // L3：2 队
         d8.queue.push({ tag: '胜者组决赛', kind: 'w' });    // 胜决
         d8.queue.push({ tag: '败者组决赛', kind: 'lf' });   // L3 胜者 vs 胜决败者
         d8.queue.push({ tag: '总决赛', kind: 'final1' });
