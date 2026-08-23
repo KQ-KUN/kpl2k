@@ -458,7 +458,7 @@
     return line;
   }
 
-  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames, bo, year) {
+  function narrateSeries(rng, tpl, na, nb, results, rosterA, rosterB, pnames, bo, year, teamNames) {
     var lines = [];
     var namesA = uniqNames(rosterA, pnames);
     var namesB = uniqNames(rosterB, pnames);
@@ -472,7 +472,7 @@
           (r.avg_death_num || 0) * 0.6 + rng.random() * 2.0;
         if (sc > bs) { bs = sc; best = r; }
       });
-      return best ? (pnames[best.player_id] || best.player_id) : null;
+      return best;
     }
     for (var idx = 0; idx < results.length; idx++) {
       var g = results[idx];
@@ -494,9 +494,13 @@
       var isPeak = bo && results.length >= bo && idx === results.length - 1;
       var line = gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, comeback,
         maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, year, usedHeroes);
-      // 每局 MVP：功臣一目了然
-      var mvpName = seriesMvp(winRoster);
-      if (mvpName) line += '\n本局MVP：' + mvpName;
+      // 每局 MVP：标注选手 + 所属战队，功臣一目了然
+      var mvpRec = seriesMvp(winRoster);
+      if (mvpRec) {
+        var mvpName = pnames[mvpRec.player_id] || mvpRec.player_id;
+        var mvpTeam = (teamNames || {})[mvpRec.team_franchise] || '';
+        line += '\n本局MVP：' + (mvpTeam ? mvpTeam + ' · ' : '') + mvpName;
+      }
       lines.push(line);
       // 每局结束后更新双方最大落后（下一局翻盘措辞的依据）
       maxDefA = Math.max(maxDefA, curB - curA);
@@ -828,7 +832,7 @@
           path.push({
             round: rnd.name, opp: oppName, opp_players: oppPlayers,
             score: scoreTrack + ':' + scoreOpp, win: winnerId === track,
-            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames, bo, year),
+            games: narrateSeries(rng, tpl, na, nb, gameResults, rosterA, rosterB, pnames, bo, year, names),
             results: resultsTrack
           });
         }
@@ -991,7 +995,7 @@
           var na2 = names[e.a] || 'A队', nb2 = names[e.b] || 'B队';
           var rosterA2 = pickStarter(rosters[e.a] || []);
           var rosterB2 = pickStarter(rosters[e.b] || []);
-          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year));
+          narrations = narrations.concat(narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year, names));
           if (track != null && (track === e.a || track === e.b)) {
             var tIsA = track === e.a;
             var opp2 = tIsA ? e.b : e.a;
@@ -1004,7 +1008,7 @@
             path.push({
               round: e.round, opp: oppName2, opp_players: oppPlayers2,
               score: st + ':' + so, win: e.w === track,
-              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year),
+              games: narrateSeries(rng, tpl, na2, nb2, e.results, rosterA2, rosterB2, pnames, bo, year, names),
               results: rt
             });
           }
@@ -1107,7 +1111,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
-        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year),
+        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year, names),
         results: resultsTrack,
         stats: trackStats
       };
@@ -1832,7 +1836,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
-        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year),
+        games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year, names),
         results: resultsTrack,
         stats: simMatchStats(rng, rosterA, rosterB, m.results)
       };

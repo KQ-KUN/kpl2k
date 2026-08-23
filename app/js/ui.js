@@ -978,12 +978,44 @@
       ? '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>'
       : '';
     if (!main.length) {
-      html += '<div class="tc-tip">尚未开战，等待第一场对决…</div>';
+      // 常规赛/小组赛阶段没有淘汰树，改显示已打场次列表
+      var regHtml = regularListHtml(tree);
+      html += regHtml || '<div class="tc-tip">尚未开战，等待第一场对决…</div>';
     } else {
       html += bracketColumns(main, 'bk-main', compact);
       if (loser.length) html += bracketColumns(loser, 'bk-loser', compact);
       html += treeStatusLine(tree);
     }
+    return html;
+  }
+
+  /* 常规赛/小组赛：逐轮列出已打对阵（谁赢谁一目了然） */
+  function regularListHtml(tree) {
+    var groups = [];
+    var seen = {};
+    (tree || []).forEach(function (m) {
+      var key = m.round || '';
+      if (!/常规赛|小组赛|卡位/.test(key)) return;
+      if (seen[key] === undefined) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
+      groups[seen[key]].matches.push(m);
+    });
+    if (!groups.length) return '';
+    var html = '';
+    groups.forEach(function (g) {
+      html += '<div class="tc-round">' + esc(g.round) + '</div>';
+      g.matches.forEach(function (m) {
+        var na = teamName(m.a), nb = teamName(m.b);
+        var winnerIsA = m.w === m.a;
+        var trackIn = m.a === STATE.team || m.b === STATE.team;
+        var trackWon = m.w === STATE.team;
+        var cls = trackIn ? (trackWon ? ' tc-track tc-win' : ' tc-track tc-loss') : '';
+        var aCls = (m.a === STATE.team ? ' tc-self' : (winnerIsA ? ' tc-win' : ''));
+        var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
+        html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' + esc(na) + '</span>' +
+          '<span class="tc-score">' + m.sa + ' : ' + m.sb + '</span>' +
+          '<span class="tc-team' + bCls + '">' + esc(nb) + '</span></div>';
+      });
+    });
     return html;
   }
 
