@@ -23,6 +23,7 @@ STEPS = [
     ("build_kpl_maps.py", "改名映射+赛制"),
     ("build_player_library.py", "选手库"),
     ("validate_ratings.py", "评分验证"),
+    ("build_team_icons.py", "战队头像"),
     ("build_web.py", "Web 分片"),
 ]
 

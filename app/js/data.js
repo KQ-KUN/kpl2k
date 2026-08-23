@@ -13,6 +13,7 @@
     teamFlavor: {},
     rivalries: [],
     dynasties: [],
+    teamIcons: {},    // fid -> 队标 URL
     teamsCache: {},   // fid -> teams/{fid}.json
     seasonCache: {}   // sid -> seasons/{sid}.json
   };
@@ -27,10 +28,12 @@
   function loadBase() {
     return Promise.all([
       fetchJson('data/manifest.json'),
-      fetchJson('data/base.json')
+      fetchJson('data/base.json'),
+      fetchJson('data/team_icons.json')
     ]).then(function (res) {
       DATA.manifest = res[0];
       DATA.base = res[1];
+      DATA.teamIcons = (res[2] && res[2].icons) || {};
       DATA.players = res[1].players;
       DATA.franchises = res[1].franchises;
       DATA.tpl = res[1].narrative.templates;

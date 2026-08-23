@@ -150,6 +150,16 @@
     var f = D.franchise(fid);
     return (f && f.abbr) || teamName(fid).slice(0, 2);
   }
+  function teamIcon(fid) { return (DATA.teamIcons || {})[fid] || ''; }
+  function teamAvaHtml(fid, name) {
+    var icon = teamIcon(fid);
+    var ch = esc(String(name || '?').slice(0, 1));
+    if (!icon) return '<span class="bk-ava-fb">' + ch + '</span>';
+    // img 加载失败时隐藏自身并显示首字兜底，避免在 onerror 里拼 HTML 导致转义错乱
+    return '<span class="bk-ava-box"><img class="bk-ava" src="' + esc(icon) + '" alt="" loading="lazy" ' +
+      'onerror="this.style.display=&#39;none&#39;;this.nextElementSibling.style.display=&#39;inline-flex&#39;">' +
+      '<span class="bk-ava-fb" style="display:none">' + ch + '</span></span>';
+  }
 
   function playerName(pid) { return (DATA.players[pid] && DATA.players[pid].name) || pid; }
   function playerIcon(pid) { return (DATA.players[pid] && DATA.players[pid].icon) || ''; }
@@ -1011,9 +1021,11 @@
         var cls = trackIn ? (trackWon ? ' tc-track tc-win' : ' tc-track tc-loss') : '';
         var aCls = (m.a === STATE.team ? ' tc-self' : (winnerIsA ? ' tc-win' : ''));
         var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
-        html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' + esc(na) + '</span>' +
+        html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' +
+          teamAvaHtml(m.a, abbrOf(m.a)) + '<span class="tc-tn">' + esc(na) + '</span></span>' +
           '<span class="tc-score">' + m.sa + ' : ' + m.sb + '</span>' +
-          '<span class="tc-team' + bCls + '">' + esc(nb) + '</span></div>';
+          '<span class="tc-team' + bCls + '">' +
+          teamAvaHtml(m.b, abbrOf(m.b)) + '<span class="tc-tn">' + esc(nb) + '</span></span></div>';
       });
     });
     return html;
@@ -1048,10 +1060,10 @@
 
   /* 画一列组的标准淘汰树（首列在最左，胜者向右衍生；连线 floor(i/2)） */
   function bracketColumns(cols, cls, compact) {
-    var COL_W = compact ? 96 : 158;
+    var COL_W = compact ? 110 : 176;
     var GAP = compact ? 12 : 34;
-    var BOX_H = compact ? 21 : 30;
-    var ROW_H = compact ? 23 : 34;
+    var BOX_H = compact ? 38 : 50;
+    var ROW_H = compact ? 41 : 55;
     var firstN = cols.length ? Math.max(cols[0].matches.length, BRACKET_EXPECT[cols[0].round] || cols[0].matches.length) : 1;
     var H = Math.max(200, firstN * ROW_H);
     var totalW = cols.length * (COL_W + GAP) + 10;
@@ -1071,19 +1083,23 @@
           var ab = abbrOf(m.a), bb = abbrOf(m.b);
           var winnerIsA = m.w === m.a;
           var score = m.sa + ':' + m.sb;
-          // 对阵双方 + 中间比分：胜者绿加粗、败者灰，主队所在框金色
-          inner = '<span class="bk-team' + (winnerIsA ? ' bk-win' : '') + '" title="' + esc(na) + '">' + esc(ab) + '</span>' +
-            '<span class="bk-score">' + esc(score) + '</span>' +
-            '<span class="bk-team' + (!winnerIsA ? ' bk-win' : '') + '" title="' + esc(nb) + '">' + esc(bb) + '</span>';
+          // 左侧两队（带对标，上下排列），右侧比分：胜者绿加粗、败者灰，主队所在框金色
+          inner = '<div class="bk-teams">' +
+            '<div class="bk-row' + (winnerIsA ? ' bk-win' : '') + '" title="' + esc(na) + '">' +
+              teamAvaHtml(m.a, ab) + '<span class="bk-tname">' + esc(ab) + '</span></div>' +
+            '<div class="bk-row' + (!winnerIsA ? ' bk-win' : '') + '" title="' + esc(nb) + '">' +
+              teamAvaHtml(m.b, bb) + '<span class="bk-tname">' + esc(bb) + '</span></div>' +
+            '</div><div class="bk-score">' + esc(score) + '</div>';
           isSelf = m.w === STATE.team;
           lost = !isSelf && (m.a === STATE.team || m.b === STATE.team);
           won = isSelf;
         } else {
-          inner = '<span class="bk-team">待定</span>';
+          inner = '<div class="bk-teams"><div class="bk-row"><span class="bk-tname mut">待定</span></div></div>' +
+            '<div class="bk-score"></div>';
         }
         if (won) clsB += ' bk-win bk-self';
         else if (lost) clsB += ' bk-loss';
-        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px">' + inner + '</div>';
+        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px;width:' + COL_W + 'px;height:' + BOX_H + 'px">' + inner + '</div>';
         // 连线：本场胜者 → 下一列 floor(i/2)
         if (c + 1 < cols.length) {
           var nextN = Math.max(cols[c + 1].matches.length, BRACKET_EXPECT[cols[c + 1].round] || cols[c + 1].matches.length);
@@ -1097,7 +1113,7 @@
         }
       }
     });
-    return '<div class="bk-wrap"><div class="bk-inner ' + cls + '" style="width:' + totalW + 'px;height:' + H + 'px">' +
+    return '<div class="bk-wrap' + (compact ? ' bk-sm' : '') + '"><div class="bk-inner ' + cls + '" style="width:' + totalW + 'px;height:' + H + 'px">' +
       '<svg class="bk-lines" width="' + totalW + '" height="' + H + '" style="position:absolute;left:0;top:0">' +
       lines.join('') + '</svg>' + boxes + '</div></div>';
   }
