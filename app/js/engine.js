@@ -330,7 +330,7 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, isLast, isPeak, year, usedHeroes) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, maxDeficit, tiedNow, aheadNow, isLast, isPeak, year, usedHeroes) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -382,7 +382,7 @@
       .replace(/\{team_a\}/g, teamA).replace(/\{team_b\}/g, teamB)
       .replace(/\{system\}/g, systemA).replace(/\{hero_b\}/g, heroB)
       .replace(/\{player_a\}/g, pa).replace(/\{player_b\}/g, pb);
-    var events = rng.sample(tpl.events, 2);
+    var events = rng.sample(tpl.events, 3);
     function pickObjective(minute) {
       // 风暴龙王 20 分钟才刷新，10 分钟龙团/中前期不能出现
       var pool = OBJECTIVES.filter(function (o) { return o !== '风暴龙王' || minute >= 20; });
@@ -396,18 +396,34 @@
     }
     var mid1 = fmtEvent(events[0], rng.randint(7, 12), p1);
     var mid2 = fmtEvent(events[1], rng.randint(13, 19), p2);
+    var mid3 = fmtEvent(events[2], rng.randint(20, 26), rng.choice(winPool));
     var ending;
+    // 普通结束语先算好：最后一场不能出现"目前比分 X:Y"，非最后一场不能提前"终结比赛"
+    var endPool = tpl.endings.filter(function (e) {
+      return isLast ? (e.indexOf('目前比分') < 0 && e.indexOf('比分来到') < 0) : (e.indexOf('终结比赛') < 0);
+    });
     if (comeback) {
-      // 拖进巅峰对决/让二追三等措辞取决于是否已是系列赛最后一场
+      // 翻盘措辞必须与实际比分线匹配：让二追三=曾落后2局且本局赢后反超；
+      // 拖进巅峰对决=追平且非最后一场；绝不允许 3:1 出现"让2追3成功"
       var cbPool = tpl.comebacks.filter(function (c) {
-        if (isLast) return c.indexOf('巅峰对决') < 0;      // 最后一场不能再"拖入"
-        return c.indexOf('让二追三') < 0 && c.indexOf('让三追三') < 0;  // 未结束不能提前宣布翻盘完成
+        if (c.indexOf('巅峰对决') >= 0) return tiedNow && !isLast;
+        if (c.indexOf('让二追三') >= 0 || c.indexOf('让2追3') >= 0) return isLast && aheadNow && maxDeficit === 2;
+        if (c.indexOf('让三追三') >= 0 || c.indexOf('让3追3') >= 0) return isLast && aheadNow && maxDeficit === 3;
+        if (c.indexOf('连扳三局') >= 0) return aheadNow && maxDeficit >= 3;
+        if (c.indexOf('连扳两局') >= 0 || c.indexOf('连扳两城') >= 0) return aheadNow && maxDeficit >= 2;
+        if (c.indexOf('悬崖边上') >= 0) return maxDeficit >= 2;
+        if (c.indexOf('同一起跑线') >= 0 || c.indexOf('悬念重新拉回') >= 0) return tiedNow;
+        return true; // 通用逆转文案（反打/拉回/绝地反击等）
       });
-      ending = rng.choice(cbPool.length ? cbPool : tpl.comebacks).replace(/\{team_a\}/g, winner);
+      if (cbPool.length) {
+        ending = rng.choice(cbPool).replace(/\{team_a\}/g, winner);
+      } else {
+        // 翻盘但无匹配模板 → 退回普通结束语，绝不 fallback 到全量 comebacks
+        ending = rng.choice(endPool.length ? endPool : tpl.endings)
+          .replace(/\{team_a\}/g, winner).replace(/\{team_b\}/g, loser)
+          .replace(/\{score_a\}/g, scoreA).replace(/\{score_b\}/g, scoreB);
+      }
     } else {
-      var endPool = tpl.endings.filter(function (e) {
-        return isLast ? (e.indexOf('目前比分') < 0 && e.indexOf('比分来到') < 0) : (e.indexOf('终结比赛') < 0);
-      });
       ending = rng.choice(endPool.length ? endPool : tpl.endings)
         .replace(/\{team_a\}/g, winner).replace(/\{team_b\}/g, loser)
         .replace(/\{score_a\}/g, scoreA).replace(/\{score_b\}/g, scoreB);
@@ -418,7 +434,8 @@
       ending = rng.choice(stealPool.length ? stealPool : stealLines)
         .replace(/\{team_a\}/g, winner).replace(/\{player\}/g, rng.choice(winPool));
     }
-    var line = '第' + gameNo + '局\nBP：' + bp + '\n开局：' + opening + '\n中期：' + mid1 + '；' + mid2 + '\n结束：' + ending;
+    var line = '第' + gameNo + '局\nBP：' + bp + '\n开局：' + opening +
+      '\n中期：' + mid1 + '；' + mid2 + '；' + mid3 + '\n结束：' + ending;
     if (tpl.meme_quotes && tpl.meme_quotes.length && rng.random() < 0.15) {
       // "打野的尽头是一片海" 只在本场有花海时出现
       var hasHai = poolA.indexOf('花海') >= 0 || poolB.indexOf('花海') >= 0;
@@ -447,21 +464,43 @@
     var namesB = uniqNames(rosterB, pnames);
     var usedHeroes = {};  // 全局 BP：整个系列赛内已出现的英雄不再复用
     var curA = 0, curB = 0;
-    var everBehind = false;
+    var maxDefA = 0, maxDefB = 0; // 双方历史最大落后局数（用于"让二追三"类措辞）
+    function seriesMvp(winRoster) {
+      var best = null, bs = -1;
+      (winRoster || []).forEach(function (r) {
+        var sc = (r.avg_kill_num || 0) + (r.avg_assist_num || 0) * 0.8 -
+          (r.avg_death_num || 0) * 0.6 + rng.random() * 2.0;
+        if (sc > bs) { bs = sc; best = r; }
+      });
+      return best ? (pnames[best.player_id] || best.player_id) : null;
+    }
     for (var idx = 0; idx < results.length; idx++) {
       var g = results[idx];
       var winTeam, winRoster, loseTeam;
+      var beforeA = curA, beforeB = curB;
       if (g === 'A') {
         curA += 1; winTeam = na; winRoster = rosterA; loseTeam = nb;
       } else {
         curB += 1; winTeam = nb; winRoster = rosterB; loseTeam = na;
       }
-      if ((winTeam === na && curA < curB) || (winTeam === nb && curB < curA)) everBehind = true;
+      var afterA = curA, afterB = curB;
+      var winA = g === 'A';
+      var tiedNow = afterA === afterB;
+      var aheadNow = winA ? afterA > afterB : afterB > afterA;
+      var maxDeficit = winA ? maxDefA : maxDefB;
+      var comeback = maxDeficit > 0 && (tiedNow || aheadNow);
       var winScore = winTeam === na ? curA : curB;
       var loseScore = winTeam === na ? curB : curA;
       var isPeak = bo && results.length >= bo && idx === results.length - 1;
-      lines.push(gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, everBehind,
-        idx === results.length - 1, isPeak, year, usedHeroes));
+      var line = gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, comeback,
+        maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, year, usedHeroes);
+      // 每局 MVP：功臣一目了然
+      var mvpName = seriesMvp(winRoster);
+      if (mvpName) line += '\n本局MVP：' + mvpName;
+      lines.push(line);
+      // 每局结束后更新双方最大落后（下一局翻盘措辞的依据）
+      maxDefA = Math.max(maxDefA, curB - curA);
+      maxDefB = Math.max(maxDefB, curA - curB);
     }
     return lines;
   }
@@ -473,6 +512,8 @@
       if (!agg[pid]) agg[pid] = { games: 0, k: 0, d: 0, a: 0, mvp: 0 };
       return agg[pid];
     }
+    // 同一选手可能出现在双方阵容（平行时空转会），key 带队伍区分，防止数据互相污染
+    function keyOf(r) { return r.player_id + '|' + (r.team_franchise || '?'); }
     var K_W = { '对抗路': 0.8, '打野': 1.4, '中路': 1.1, '发育路': 1.5, '游走': 0.3 };
     var A_W = { '对抗路': 0.9, '打野': 1.0, '中路': 1.1, '发育路': 0.8, '游走': 1.8 };
     var D_W = { '对抗路': 1.1, '打野': 1.0, '中路': 1.2, '发育路': 1.4, '游走': 0.9 };
@@ -507,11 +548,16 @@
       var wD = dist(winnerR, rng.randint(1, 4), D_W);
       var lD = dist(loserR, rng.randint(8, 16), D_W);
       winnerR.concat(loserR).forEach(function (r) {
-        var s = ensure(r.player_id);
+        var s = ensure(keyOf(r));
         s.games++;
-        s.k += (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
-        s.a += (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
-        s.d += (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
+        var kk = (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
+        var aa = (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
+        var dd = (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
+        // k/d/a 按选手本身归属的一方计算（胜方击杀、败方死亡分开），
+        // 同一 pid 在双方时各自只累加自己队伍的数据
+        var side = winnerR.indexOf(r) >= 0 ? 'W' : 'L';
+        if (side === 'W') { s.k += wK[r.player_id] || 0; s.a += wA[r.player_id] || 0; s.d += wD[r.player_id] || 0; }
+        else { s.k += lK[r.player_id] || 0; s.a += lA[r.player_id] || 0; s.d += lD[r.player_id] || 0; }
       });
       // MVP：KPL 每局 MVP 给胜方，队内按本局数据评分
       var best = null, bestScore = -1;
@@ -519,10 +565,16 @@
         var k = (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
         var a = (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
         var d = (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
-        var sc = k + a * 0.8 - d * 0.6 + rng.random() * 2.0;
+        // 已拿 MVP 越多惩罚越大 + 随机扰动，避免同一人（通常是打野）垄断全部 MVP
+        var prior = ensure(keyOf(r)).mvp || 0;
+        var sc = k + a * 0.8 - d * 0.6 + rng.random() * 4.0 - prior * 1.2;
         if (sc > bestScore) { bestScore = sc; best = r.player_id; }
       });
-      if (best) ensure(best).mvp++;
+      if (best) {
+        var bRec = null;
+        winnerR.forEach(function (r) { if (r.player_id === best) bRec = r; });
+        if (bRec) ensure(keyOf(bRec)).mvp++;
+      }
     });
     return agg;
   }
@@ -632,7 +684,12 @@
     function copyMatches(ms) {
       return (ms || []).map(function (m) { return Object.assign({}, m); });
     }
-    var rr = fmt.rounds.filter(function (r) { return r.type === 'round_robin'; });
+    // 部分赛季（如 2019/2020 世冠）官方爬虫把"小组赛"标成 type=other，
+    // 不兼容的话阶段定义为空，赛季直接"刷新不出来"
+    var rr = fmt.rounds.filter(function (r) {
+      return r.type === 'round_robin' ||
+        (r.type === 'other' && String(r.name || '').indexOf('小组赛') >= 0);
+    });
     var pi = fmt.rounds.filter(function (r) { return r.type === 'play_in'; });
     var tree = fmt.rounds.filter(function (r) {
       return ['single_elim', 'double_elim', 'playoffs', 'final'].indexOf(r.type) >= 0;
@@ -1036,12 +1093,19 @@
       var resultsTrack = trackIsA ? m.results : m.results.map(function (g) { return g === 'A' ? 'B' : 'A'; });
       var oppRoster = trackIsA ? rosterB : rosterA;
       var oppPlayers = oppRoster.map(function (x) { return pnames[x.player_id] || x.player_id; });
+      // 同一选手可能同时出现在双方数据里（如玩家把帆帆放狼队、赛季数据里帆帆在 TTG），
+      // 统计必须按队区分，战绩只展示主队数据，否则会出现"单赛季 33 MVP"之类的翻倍
+      var allStats = simMatchStats(rng, rosterA, rosterB, m.results);
+      var trackStats = {};
+      Object.keys(allStats).forEach(function (k) {
+        if (String(k.split('|')[1]) === String(track)) trackStats[k.split('|')[0]] = allStats[k];
+      });
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
         games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year),
         results: resultsTrack,
-        stats: simMatchStats(rng, rosterA, rosterB, m.results)
+        stats: trackStats
       };
     }
 
@@ -1190,14 +1254,19 @@
         elimBo = def.bo || 7;
         elimFinalBo = def.finalBo || elimBo;
         d8 = { w: elimPool.slice(), l: [], queue: [] };
+        // 官方 8 强双败轮次：W1、L1、W2、L2、L3(2队)、胜决、败决、总决赛。
+        // 关键：L3（败者组 2 队互打）在胜者组决赛之前；胜者组决赛败者
+        // 直接进入败者组决赛（只打一场），而不是再打两轮。
         var w = d8.w.slice(), l = [];
-        while (w.length > 1) {
+        while (w.length > 2) {
           d8.queue.push({ tag: '胜者组', kind: 'w' });
           l = l.concat(new Array(Math.floor(w.length / 2)));
           if (l.length >= 2) d8.queue.push({ tag: '败者组', kind: 'l' });
           w = new Array(Math.ceil(w.length / 2));
         }
-        while (l.length > 1) { d8.queue.push({ tag: '败者组', kind: 'l' }); l = new Array(Math.ceil(l.length / 2)); }
+        d8.queue.push({ tag: '败者组', kind: 'l' });       // L3：2 队
+        d8.queue.push({ tag: '胜者组决赛', kind: 'w' });    // 胜决
+        d8.queue.push({ tag: '败者组决赛', kind: 'lf' });   // L3 胜者 vs 胜决败者
         d8.queue.push({ tag: '总决赛', kind: 'final1' });
         if (track != null && !trackIn(elimPool)) stopTrack((def.title || '淘汰赛') + '开赛，' + (names[track] || '本队') + '未能晋级');
       }
@@ -1386,10 +1455,12 @@
         }
         if (p10Step === 4) {
           if (p10.mode === 'legacy') {
-            // 败者组第三轮：3 队 + 胜者组决赛败者 = 4 队，2 场
-            var pairsL3 = [[p10.l3[0], p10.l3[1]], [p10.l3[2], p10.wLoser]];
+            // 败者组第三轮：L2 的 3 队打 1 场 + 轮空 → 2 队（半决赛席位）
+            // 胜者组决赛败者不在这里入场，留到败者组决赛（只打一场）
+            var pairsL3 = [[p10.l3[0], p10.l3[1]]];
             var ls3l = runPairs(pairsL3, '败者组第三轮', def.bo || 7);
-            p10.l4 = ls3l.winners; p10Step = 5;
+            p10.l4 = ls3l.winners.concat(p10.l3[2]);
+            p10Step = 5;
             return ls3l.entries.length ? { card: { kind: 'regular_round', title: '败者组第三轮', entries: ls3l.entries } } : null;
           }
           var pairs3 = [[p10.l3[0], p10.wLosers[0]], [p10.l3[1], p10.wLosers[1]]];
@@ -1398,25 +1469,18 @@
           return ls3.entries.length ? { card: { kind: 'regular_round', title: '败者组第三轮', entries: ls3.entries } } : null;
         }
         if (p10Step === 5) {
-          if (p10.mode === 'legacy') {
-            // legacy：败者组第四轮（2 队）→ 败者组冠军，之后直接总决赛
-            var lfL = runPairs([[p10.l4[0], p10.l4[1]]], '败者组第四轮', def.bo || 7);
-            p10.lChamp = lfL.winners[0];
-            p10Step = 7;
-            return lfL.entries.length ? { card: { kind: 'regular_round', title: '败者组第四轮', entries: lfL.entries } } : null;
-          }
-          // 败者组第四轮：R3 胜者(2) + 胜者组决赛败者(1) = 3 队，轮空 R3 第 2 名，打 1 场
-          var pairs4 = [[p10.l4[0], p10.wLoser]];
-          var ls4 = runPairs(pairs4, '败者组第四轮', def.bo || 7);
-          p10.l5 = ls4.winners.concat(p10.l4[1]);
+          // 败者组半决赛：2 队 1 场，胜者获得败者组决赛资格
+          var pairsSemis = [[p10.l4[0], p10.l4[1]]];
+          var lsSemis = runPairs(pairsSemis, '败者组半决赛', def.bo || 7);
+          p10.l5 = lsSemis.winners;
           p10Step = 6;
-          return ls4.entries.length ? { card: { kind: 'regular_round', title: '败者组第四轮', entries: ls4.entries } } : null;
+          return lsSemis.entries.length ? { card: { kind: 'regular_round', title: '败者组半决赛', entries: lsSemis.entries } } : null;
         }
         if (p10Step === 6) {
-          if (p10.mode === 'legacy') return null;
-          var lf = runPairs([[p10.l5[0], p10.l5[1]]], '败者组第五轮', def.bo || 7);
+          // 败者组决赛：半决赛胜者 vs 胜者组决赛败者，一场定生死
+          var lf = runPairs([[p10.l5[0], p10.wLoser]], '败者组决赛', def.bo || 7);
           p10.lChamp = lf.winners[0]; p10Step = 7;
-          return lf.entries.length ? { card: { kind: 'regular_round', title: '败者组第五轮', entries: lf.entries } } : null;
+          return lf.entries.length ? { card: { kind: 'regular_round', title: '败者组决赛', entries: lf.entries } } : null;
         }
         if (p10Step === 7) {
           var fin = runPairs([[p10.wChamp, p10.lChamp]], '总决赛', def.bo || 7);
@@ -1444,6 +1508,22 @@
             var resL = runPairs(pairsL, '败者组', elimBo);
             d8.l = resL.winners.concat(d8.l.length % 2 ? [d8.l[d8.l.length - 1]] : []);
             if (resL.entries.length) return { card: { kind: 'regular_round', title: '败者组', entries: resL.entries } };
+            continue;
+          }
+          if (s.kind === 'lf') {
+            // 败者组决赛：L3 胜者 vs 胜者组决赛败者（各输一场的 2 队），一场定生死
+            while (d8.l.length > 2) {
+              var pairsPre = [];
+              for (var mp = 0; mp + 1 < d8.l.length; mp += 2) pairsPre.push([d8.l[mp], d8.l[mp + 1]]);
+              var resPre = runPairs(pairsPre, '败者组', elimBo);
+              d8.l = resPre.winners.concat(d8.l.length % 2 ? [d8.l[d8.l.length - 1]] : []);
+              if (resPre.entries.length) return { card: { kind: 'regular_round', title: '败者组', entries: resPre.entries } };
+            }
+            var pairsLF = [];
+            for (var m = 0; m + 1 < d8.l.length; m += 2) pairsLF.push([d8.l[m], d8.l[m + 1]]);
+            var resLF = runPairs(pairsLF, '败者组决赛', elimBo);
+            d8.l = resLF.winners;
+            if (resLF.entries.length) return { card: { kind: 'regular_round', title: '败者组决赛', entries: resLF.entries } };
             continue;
           }
           if (s.kind === 'final1') {

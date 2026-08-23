@@ -165,9 +165,34 @@
           return r.player_id === slot.pid && r.season_id === slot.sid;
         });
       }
+      if (!rec) rec = versionRecordFor(slot);
       if (rec) out.push(rec);
     });
     return out;
+  }
+
+  /* 兜底：赛季分片缺该选手记录（数据缺口/换人版本未收录）时，
+     从战队图鉴版本数据构造 record，保证阵容 5 人齐全、战绩卡不丢人 */
+  function versionRecordFor(slot) {
+    var data = currentTeamData || DATA.teamsCache[STATE.team];
+    if (!data || !data.players) return null;
+    var p = data.players.find(function (x) { return x.player_id === slot.pid; });
+    if (!p) return null;
+    var v = (p.versions || []).find(function (x) { return x.season_id === slot.sid; });
+    if (!v) return null;
+    return {
+      player_id: slot.pid,
+      season_id: slot.sid,
+      team_franchise: STATE.team,
+      position: v.position,
+      rating: v.rating || 70,
+      games: v.games || 5,
+      avg_kill_num: 0, avg_assist_num: 0, avg_death_num: 0,
+      avg_participation_rate: 0, avg_hurt_to_hero_total_rate: 0,
+      avg_be_hurt_by_hero_total_rate: 0, avg_gpm: 0,
+      avg_damage_convert_rate: 0, avg_push_tower_num: 0,
+      avg_kda: 0, win_rate: 0, mvp_count: 0
+    };
   }
 
   function strengthOf() {
@@ -543,12 +568,13 @@
     });
     $('picker-pool').innerHTML = candidates.map(function (p) {
       var best = bestVersionFor(p, pos);
+      var inRoster = STATE.roster.some(function (s) { return s && s.pid === p.player_id; });
       var ava = p.icon
         ? '<div class="ava"><img src="' + esc(p.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(p.name[0]) + '&#39;"></div>'
         : '<div class="ava">' + esc(p.name[0]) + '</div>';
-      return '<button class="pool-item" data-pid="' + p.player_id + '">' + ava +
+      return '<button class="pool-item' + (inRoster ? ' sel' : '') + '" data-pid="' + p.player_id + '">' + ava +
         '<div><div class="pname">' + esc(p.name) + '</div>' +
-        '<div class="pver">' + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
+        '<div class="pver">' + (inRoster ? '已在阵容 · ' : '') + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
         '<div class="prate">' + Math.round(best.rating) + '</div></button>';
     }).join('');
     $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
@@ -597,14 +623,29 @@
   function confirmPicker() {
     if (!picker.pid || !picker.sid) { closePicker(); return; }
     var slot = picker.slot;
-    STATE.roster = STATE.roster.slice();
-    while (STATE.roster.length < POS_ORDER.length) STATE.roster.push(null);
-    STATE.roster[slot] = { pid: picker.pid, sid: picker.sid };
-    if (SIM.session) SIM.session.setRoster(STATE.team, recordsForRoster(STATE.roster));
-    saveState();
-    renderSlots();
-    renderStrength();
-    closePicker();
+    // 同一选手不能同时上场（转分路选手在不同位置也禁止重复，避免"两个无畏/两个妖刀"）
+    var dupIdx = -1;
+    STATE.roster.forEach(function (s, i) {
+      if (i !== slot && s && s.pid === picker.pid) dupIdx = i;
+    });
+    if (dupIdx >= 0) {
+      openConfirm('已在阵容中', '该选手已在阵容中，同一选手不能同时上场。请先更换原位置的选手。', null, '知道了');
+      return;
+    }
+    // 换人后战绩卡按赛季记录渲染，新选手的版本赛季必须先加载，否则结果页会缺人
+    var need = [picker.sid].filter(function (s) { return s && !DATA.seasonCache[s]; });
+    var apply = function () {
+      STATE.roster = STATE.roster.slice();
+      while (STATE.roster.length < POS_ORDER.length) STATE.roster.push(null);
+      STATE.roster[slot] = { pid: picker.pid, sid: picker.sid };
+      if (SIM.session) SIM.session.setRoster(STATE.team, recordsForRoster(STATE.roster));
+      saveState();
+      renderSlots();
+      renderStrength();
+      closePicker();
+    };
+    if (need.length) D.loadSeasons(need).then(apply).catch(apply);
+    else apply();
   }
   function closePicker() {
     picker.open = false;
@@ -916,13 +957,13 @@
         return;
       }
       var tag = null;
-      ['BP', '开局', '中期', '结束'].forEach(function (t) {
+      ['BP', '开局', '中期', '结束', '本局MVP'].forEach(function (t) {
         if (tag === null && line.indexOf(t + '：') === 0) tag = t;
       });
       if (tag) {
         var txt = line.slice(tag.length + 1);
         var segs = txt.split('；').filter(function (s) { return s.trim(); });
-        var cls = tag === 'BP' ? 'bp' : (tag === '开局' ? 'open' : (tag === '中期' ? 'mid' : 'end'));
+        var cls = tag === 'BP' ? 'bp' : (tag === '开局' ? 'open' : (tag === '中期' ? 'mid' : (tag === '结束' ? 'end' : 'mvp')));
         segs.forEach(function (s) {
           parts.push('<div class="g-row ' + cls + '"><span class="g-tag">' + tag + '</span>' +
             '<span class="g-txt">' + hlText(s.trim(), names) + '</span></div>');
@@ -1012,6 +1053,17 @@
       s.participation = teamKills ? (s.k + s.a) / teamKills : 0;
       s.winRate = runMatches ? runWins / runMatches : 0;
     });
+    // MVP 保底：胜利场次足够时，全程 0 MVP 的选手按胜场规模补 1-3 次，
+    // 避免"打得不错但一次 MVP 都没有"；胜场太少不补
+    if (runWins >= 3) {
+      var bonus = runWins >= 12 ? 3 : (runWins >= 8 ? 2 : 1);
+      Object.keys(runStats).forEach(function (pid) {
+        var s = runStats[pid];
+        if (s.mvp === 0 && s.games >= Math.max(3, Math.round(runMatches * 0.4))) {
+          s.mvp = Math.min(bonus, Math.max(1, Math.round(runWins / 3)));
+        }
+      });
+    }
     STATE.lastRun = {
       champion: championId, team: STATE.team, season: STATE.season, seed: STATE.seed,
       path: SIM.path, regular: SIM.session ? SIM.session.getRegular() : {},
@@ -1100,7 +1152,13 @@
       $('result-slogan').style.display = 'none';
     }
 
-    $('result-roster').innerHTML = run.records.map(function (r) {
+    // 旧历史数据可能存在同一选手重复记录（转分路/转会），按 pid 去重兜底
+    var recs = [];
+    var seenPid = {};
+    (run.records || []).forEach(function (r) {
+      if (r && r.player_id && !seenPid[r.player_id]) { seenPid[r.player_id] = true; recs.push(r); }
+    });
+    $('result-roster').innerHTML = recs.map(function (r) {
       var name = playerName(r.player_id);
       var icon = playerIcon(r.player_id);
       var rs = (run.runStats || {})[r.player_id];
@@ -1122,7 +1180,7 @@
         '<td>' + esc(p.score) + '</td><td class="tag">' + (p.win ? '胜' : '负') + '</td></tr>';
     }).join('');
 
-    $('result-stats').innerHTML = run.records.map(function (r) {
+    $('result-stats').innerHTML = recs.map(function (r) {
       var rs = (run.runStats || {})[r.player_id];
       var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
       var avgK = rs ? f1(rs.avgK) : f1(r.avg_kill_num);

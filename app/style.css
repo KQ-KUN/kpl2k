@@ -277,6 +277,9 @@ img{display:block}
 .g-row.open .g-tag{background:rgba(139,148,158,.18);color:var(--mut)}
 .g-row.mid .g-tag{background:rgba(240,185,11,.16);color:var(--gold)}
 .g-row.end .g-tag{background:rgba(188,140,255,.18);color:var(--purple)}
+.g-row.mvp .g-tag{background:rgba(240,185,11,.3);color:#ffd76a}
+.g-row.mvp .g-txt{color:#ffd76a;font-weight:700}
+.pool-item.sel .pname{color:var(--gold)}
 .g-txt{flex:1}
 .g-quote{font-size:13px;color:var(--purple);margin:5px 0 3px;padding:3px 10px;border-left:2px solid rgba(188,140,255,.45);background:rgba(188,140,255,.05);border-radius:0 8px 8px 0}
 .hl{color:var(--gold);font-weight:700}
