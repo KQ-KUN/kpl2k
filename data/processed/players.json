@@ -10165,52 +10165,16 @@
    "player_icon": "https://smobatv-pic.tga.qq.com/c06cef6f8977eb12322b5dd707fbeba6.png"
   },
   {
-   "player_id": "43FFE9422EA14E8AF81FD4CC5B52B883",
-   "name": "绝境",
+   "player_id": "BBAE3DDECDF178F25F69E79771223842",
+   "name": "潇寒",
    "real_name": "",
    "positions": [
     "对抗路"
    ],
    "teams": {
-    "KPL2026S2": "10005"
+    "KPL2026S2": "10031"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/13c50a9c367348cea9a434f03f5b9231.png"
-  },
-  {
-   "player_id": "2717190792464AB65B080157669ACBA3",
-   "name": "方羽",
-   "real_name": "",
-   "positions": [
-    "打野"
-   ],
-   "teams": {
-    "KPL2026S2": "10008"
-   },
-   "player_icon": "https://smobatv-pic.tga.qq.com/6bb6db55ae956ed052e07a9343911f6d.png"
-  },
-  {
-   "player_id": "3E8F5B6D38D52D2C15135768D2D7980F",
-   "name": "千云",
-   "real_name": "",
-   "positions": [
-    "对抗路"
-   ],
-   "teams": {
-    "KPL2026S2": "10010"
-   },
-   "player_icon": "https://smobatv-pic.tga.qq.com/71afe29882919b25e6db11709515ea02.png"
-  },
-  {
-   "player_id": "C30EF66010B3BA2D6811BDDB006D3FF2",
-   "name": "叶凡",
-   "real_name": "",
-   "positions": [
-    "游走"
-   ],
-   "teams": {
-    "KPL2026S2": "10008"
-   },
-   "player_icon": "https://smobatv-pic.tga.qq.com/704ad0e408cfc7aaf69cdd94f88607f6.png"
+   "player_icon": "https://smobatv-pic.tga.qq.com/f04a5ca07d8ff32544c2603bb9267db0.png"
   },
   {
    "player_id": "B50BAFF5CE725B1A5A1A2E4BD7D2CEC8",
@@ -10225,6 +10189,18 @@
    "player_icon": "https://smobatv-pic.tga.qq.com/3f6e36ca0f761cbbbbb55d3a92aba8d7.png"
   },
   {
+   "player_id": "E8DD02C39F017E2AF855E5619C5CBDAB",
+   "name": "断雨",
+   "real_name": "",
+   "positions": [
+    "打野"
+   ],
+   "teams": {
+    "KPL2026S2": "10031"
+   },
+   "player_icon": "https://smobatv-pic.tga.qq.com/675903f8c3b99de6c2b32a04fb1bba67.png"
+  },
+  {
    "player_id": "6C3384DBE69AE4B0D5B6584991EC0F6B",
    "name": "小果汁",
    "real_name": "",
@@ -10235,6 +10211,42 @@
     "KPL2026S2": "12202"
    },
    "player_icon": "https://smobatv-pic.tga.qq.com/97f879f029d7837f5f0488364e55ab1a.png"
+  },
+  {
+   "player_id": "C30EF66010B3BA2D6811BDDB006D3FF2",
+   "name": "叶凡",
+   "real_name": "",
+   "positions": [
+    "游走"
+   ],
+   "teams": {
+    "KPL2026S2": "10008"
+   },
+   "player_icon": "https://smobatv-pic.tga.qq.com/704ad0e408cfc7aaf69cdd94f88607f6.png"
+  },
+  {
+   "player_id": "43FFE9422EA14E8AF81FD4CC5B52B883",
+   "name": "绝境",
+   "real_name": "",
+   "positions": [
+    "对抗路"
+   ],
+   "teams": {
+    "KPL2026S2": "10005"
+   },
+   "player_icon": "https://smobatv-pic.tga.qq.com/13c50a9c367348cea9a434f03f5b9231.png"
+  },
+  {
+   "player_id": "3E8F5B6D38D52D2C15135768D2D7980F",
+   "name": "千云",
+   "real_name": "",
+   "positions": [
+    "对抗路"
+   ],
+   "teams": {
+    "KPL2026S2": "10010"
+   },
+   "player_icon": "https://smobatv-pic.tga.qq.com/71afe29882919b25e6db11709515ea02.png"
   },
   {
    "player_id": "01700A32CDBF44C30561F99600469BE4",
@@ -10249,16 +10261,16 @@
    "player_icon": "https://smobatv-pic.tga.qq.com/89d2085dbaa494a1792cb9619f71bde1.png"
   },
   {
-   "player_id": "E8DD02C39F017E2AF855E5619C5CBDAB",
-   "name": "断雨",
+   "player_id": "2717190792464AB65B080157669ACBA3",
+   "name": "方羽",
    "real_name": "",
    "positions": [
     "打野"
    ],
    "teams": {
-    "KPL2026S2": "10031"
+    "KPL2026S2": "10008"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/675903f8c3b99de6c2b32a04fb1bba67.png"
+   "player_icon": "https://smobatv-pic.tga.qq.com/6bb6db55ae956ed052e07a9343911f6d.png"
   },
   {
    "player_id": "BTL994",
