@@ -866,8 +866,11 @@
       appendCard({ title: stage.title, lines: stage.lines, cls: 'reg' });
       // 说明卡（如"32强战罢"）也同步赛程图：内部消化的场次一次性补齐
       if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
-      // 赛程动态/阶段总结出现时回到顶部，让玩家先看到阶段结论
-      window.scrollTo(0, 0);
+      // 由"继续征战"触发的说明卡：滚动到新卡顶部（绝不回到页面最顶端）
+      if (SIM.jump) {
+        SIM.jump = false;
+        scrollToLatestCard();
+      }
       showStageButtons();
       return;  // 保留 SIM.jump，继续征战能跳到真正的赛程
     }
@@ -883,14 +886,17 @@
     pumpReveal();
     if (SIM.jump) {
       SIM.jump = false;
-      setTimeout(function () {
-        var cards = $('sim-events').querySelectorAll('.story-event');
-        if (cards.length) {
-          var el = cards[cards.length - 1];
-          var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
-          window.scrollTo({ top: top, behavior: 'smooth' });
-        }
-      }, 30);
+      setTimeout(scrollToLatestCard, 30);
+    }
+  }
+
+  /* 滚动到最新一张比赛/说明卡的顶部（继续征战后的目标位置） */
+  function scrollToLatestCard() {
+    var cards = $('sim-events').querySelectorAll('.story-event');
+    if (cards.length) {
+      var el = cards[cards.length - 1];
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
+      window.scrollTo({ top: top, behavior: 'smooth' });
     }
   }
 
