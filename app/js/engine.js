@@ -681,6 +681,13 @@
     return pairs;
   }
 
+  // 相邻配对：M1 vs M2、M3 vs M4…（官方已排好首轮对阵的赛制）
+  function adjacentPairs(seeded) {
+    var pairs = [];
+    for (var i = 0; i + 1 < seeded.length; i += 2) pairs.push([seeded[i], seeded[i + 1]]);
+    return pairs;
+  }
+
   // 按赛制类型构建阶段定义（2026-08-19：动态晋级，不再照官方固定赛程跑完全部轮次）
   function buildPhaseDefs(fmt) {
     var regFmt = fmt.regular_format || {};
@@ -1565,7 +1572,9 @@
         }
         var isFinal = se.pool.length <= 2;
         var bo = isFinal ? se.finalBo : se.bo;
-        var pairs = se.pairs || bracketPair(se.pool);
+        // 32 强官方对阵已排好，16 强胜者按相邻配对晋级（M1胜 vs M2胜…）；
+        // 小组赛出线（after_groups）保持首尾交叉配对（A1 vs B组尾号）
+        var pairs = se.pairs || (kind === 'bracket_r16' ? adjacentPairs(se.pool) : bracketPair(se.pool));
         var roundName = isFinal ? '总决赛' : (se.pool.length >= 16 ? '16强' : se.pool.length === 8 ? '8强' : se.pool.length === 4 ? '半决赛' : '淘汰赛·第' + se.round + '轮');
         var res = runPairs(pairs, roundName, bo);
         se.pool = res.winners;

@@ -157,6 +157,7 @@
     if (!icon) return '<span class="bk-ava-fb">' + ch + '</span>';
     // img 加载失败时隐藏自身并显示首字兜底，避免在 onerror 里拼 HTML 导致转义错乱
     return '<span class="bk-ava-box"><img class="bk-ava" src="' + esc(icon) + '" alt="" loading="lazy" ' +
+      'referrerpolicy="no-referrer" ' +
       'onerror="this.style.display=&#39;none&#39;;this.nextElementSibling.style.display=&#39;inline-flex&#39;">' +
       '<span class="bk-ava-fb" style="display:none">' + ch + '</span></span>';
   }
