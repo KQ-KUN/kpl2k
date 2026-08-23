@@ -1506,18 +1506,18 @@
           if (s.kind === 'w') {
             var pairsW = [];
             for (var i = 0; i + 1 < d8.w.length; i += 2) pairsW.push([d8.w[i], d8.w[i + 1]]);
-            var resW = runPairs(pairsW, '胜者组', elimBo);
+            var resW = runPairs(pairsW, s.tag || '胜者组', elimBo);
             d8.l = d8.l.concat(resW.losers);
             d8.w = resW.winners.concat(d8.w.length % 2 ? [d8.w[d8.w.length - 1]] : []);
-            if (resW.entries.length) return { card: { kind: 'regular_round', title: '胜者组', entries: resW.entries } };
+            if (resW.entries.length) return { card: { kind: 'regular_round', title: s.tag || '胜者组', entries: resW.entries } };
             continue;
           }
           if (s.kind === 'l') {
             var pairsL = [];
             for (var k = 0; k + 1 < d8.l.length; k += 2) pairsL.push([d8.l[k], d8.l[k + 1]]);
-            var resL = runPairs(pairsL, '败者组', elimBo);
+            var resL = runPairs(pairsL, s.tag || '败者组', elimBo);
             d8.l = resL.winners.concat(d8.l.length % 2 ? [d8.l[d8.l.length - 1]] : []);
-            if (resL.entries.length) return { card: { kind: 'regular_round', title: '败者组', entries: resL.entries } };
+            if (resL.entries.length) return { card: { kind: 'regular_round', title: s.tag || '败者组', entries: resL.entries } };
             continue;
           }
           if (s.kind === 'lf') {
@@ -1525,9 +1525,9 @@
             while (d8.l.length > 2) {
               var pairsPre = [];
               for (var mp = 0; mp + 1 < d8.l.length; mp += 2) pairsPre.push([d8.l[mp], d8.l[mp + 1]]);
-              var resPre = runPairs(pairsPre, '败者组', elimBo);
+              var resPre = runPairs(pairsPre, s.tag || '败者组', elimBo);
               d8.l = resPre.winners.concat(d8.l.length % 2 ? [d8.l[d8.l.length - 1]] : []);
-              if (resPre.entries.length) return { card: { kind: 'regular_round', title: '败者组', entries: resPre.entries } };
+              if (resPre.entries.length) return { card: { kind: 'regular_round', title: s.tag || '败者组', entries: resPre.entries } };
             }
             var pairsLF = [];
             for (var m = 0; m + 1 < d8.l.length; m += 2) pairsLF.push([d8.l[m], d8.l[m + 1]]);

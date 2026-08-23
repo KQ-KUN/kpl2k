@@ -1022,7 +1022,7 @@
     var boxes = '';
     cols.forEach(function (g, c) {
       var n = Math.max(g.matches.length, BRACKET_EXPECT[g.round] || g.matches.length);
-      var x = (cols.length - 1 - c) * (COL_W + GAP); // 首列在最右
+      var x = c * (COL_W + GAP); // 首列在最左，胜者向右衍生
       boxes += '<div class="bk-round-label" style="left:' + x + 'px;top:-20px">' + esc(g.round) + '</div>';
       for (var i = 0; i < n; i++) {
         var m = g.matches[i];
@@ -1054,10 +1054,10 @@
           var j = Math.min(Math.floor(i / 2), nextN - 1);
           var x1 = x + COL_W;
           var y1 = y + BOX_H / 2;
-          var x2 = x - GAP;
+          var x2 = x + COL_W + GAP;
           var y2 = (j + 0.5) * (H / nextN);
-          var midX = x - GAP / 2;
-          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.4"/>');
+          var midX = x + COL_W + GAP / 2;
+          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.4"/>');
         }
       }
     });

@@ -295,11 +295,12 @@ img{display:block}
 /* ---- 淘汰赛 bracket 树 ---- */
 .bk-wrap{overflow-x:auto;margin:6px -4px 4px;padding:20px 4px 6px;-webkit-overflow-scrolling:touch}
 .bk-inner{position:relative}
+.bk-lines{z-index:0;pointer-events:none}
 .bk-main .bk-match{background:rgba(255,255,255,.045)}
 .bk-loser{margin-top:18px}
 .bk-loser .bk-match{background:rgba(139,148,158,.07)}
 .bk-round-label{position:absolute;font-size:10px;color:var(--mut);letter-spacing:1px;white-space:nowrap}
-.bk-match{position:absolute;width:158px;height:30px;box-sizing:border-box;border:1px solid var(--line2);border-radius:7px;display:flex;align-items:center;padding:0 8px;font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.bk-match{position:absolute;width:158px;height:30px;box-sizing:border-box;border:1px solid var(--line2);border-radius:7px;display:flex;align-items:center;padding:0 8px;font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.25);z-index:1}
 .bk-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg)}
 .bk-score{flex:none;margin-left:6px;font-size:11px;font-weight:800;color:var(--mut)}
 .bk-win .bk-name{color:var(--green);font-weight:800}
