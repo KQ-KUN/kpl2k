@@ -282,6 +282,8 @@ img{display:block}
 .tc-team-chip.sel{background:rgba(240,185,11,.16);color:var(--gold);font-weight:700}
 .tc-more,.tc-tip{font-size:11px;color:var(--mut);margin-top:6px;text-align:center}
 .tc-round{font-size:11px;color:var(--mut);font-weight:700;margin:8px 0 4px;letter-spacing:1px}
+.tc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+@media (max-width:420px){.tc-grid{grid-template-columns:1fr}}
 .tc-match{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.04);margin-bottom:4px;font-size:12px}
 .tc-team{flex:1;min-width:0;display:inline-flex;align-items:center;gap:6px;color:var(--fg)}
 .tc-tn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

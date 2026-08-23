@@ -21,10 +21,9 @@ for f in sorted(glob.glob("data/raw/league_*.json")):
             c = m.get(camp) or {}
             tid = c.get("team_id")
             icon = c.get("team_icon")
-            if tid and icon and not icon.startswith("http"):
-                icon = "https:" + icon
             if tid and icon and tid not in icons:
-                icons[tid] = icon
+                # 头像已下载到 app/assets/team_icons/{fid}.png，映射为本地相对路径
+                icons[tid] = "assets/team_icons/" + tid + ".png"
 
 out = {"schema_version": "0.1", "data_version": "2026-08-23", "icons": icons}
 os.makedirs("app/data", exist_ok=True)

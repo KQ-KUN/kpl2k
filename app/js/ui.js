@@ -1014,6 +1014,7 @@
     var html = '';
     groups.forEach(function (g) {
       html += '<div class="tc-round">' + esc(g.round) + '</div>';
+      html += '<div class="tc-grid">';
       g.matches.forEach(function (m) {
         var na = teamName(m.a), nb = teamName(m.b);
         var winnerIsA = m.w === m.a;
@@ -1028,6 +1029,7 @@
           '<span class="tc-team' + bCls + '">' +
           teamAvaHtml(m.b, abbrOf(m.b)) + '<span class="tc-tn">' + esc(nb) + '</span></span></div>';
       });
+      html += '</div>';
     });
     return html;
   }
@@ -1061,10 +1063,10 @@
 
   /* 画一列组的标准淘汰树（首列在最左，胜者向右衍生；连线 floor(i/2)） */
   function bracketColumns(cols, cls, compact) {
-    var COL_W = compact ? 110 : 176;
-    var GAP = compact ? 12 : 34;
-    var BOX_H = compact ? 38 : 50;
-    var ROW_H = compact ? 41 : 55;
+    var COL_W = compact ? 150 : 176;
+    var GAP = compact ? 18 : 34;
+    var BOX_H = compact ? 46 : 50;
+    var ROW_H = compact ? 50 : 55;
     var firstN = cols.length ? Math.max(cols[0].matches.length, BRACKET_EXPECT[cols[0].round] || cols[0].matches.length) : 1;
     var H = Math.max(200, firstN * ROW_H);
     var totalW = cols.length * (COL_W + GAP) + 10;
