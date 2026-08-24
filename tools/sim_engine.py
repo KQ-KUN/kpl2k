@@ -275,7 +275,16 @@ def dynamic_double_elim(
     return champion, rounds_out
 
 
-def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, is_peak: bool = False, year: int | None = None, used_heroes: dict | None = None) -> str:
+def series_pace_text(rng: random.Random, score_a: int, score_b: int) -> str:
+    winner, loser = max(score_a, score_b), min(score_a, score_b)
+    if loser == 0:
+        return rng.choice(["零封过关", "直落数局", "没有让对手拿到一分"])
+    if winner - loser == 1:
+        return rng.choice(["鏖战至决胜局", "把悬念留到最后一局", "险胜过关"])
+    return rng.choice(["稳稳过关", "掌控系列赛节奏", "带着两局以上优势晋级"])
+
+
+def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winner: str, score_a: int, score_b: int, game_no: int, player: str, comeback: bool, max_deficit: int = 0, tied_now: bool = False, ahead_now: bool = False, is_last: bool = False, is_peak: bool = False, peak_score: int = 3, year: int | None = None, used_heroes: dict | None = None) -> str:
     year_pool = (tpl.get("heroes_pool") or {}).get(str(year)) if year else None
     hero_source = year_pool or tpl["heroes"]
     roles = list(hero_source.keys())
@@ -316,30 +325,53 @@ def game_narration(rng: random.Random, tpl: dict, team_a: str, team_b: str, winn
         team_a=team_a, team_b=team_b, system=system_a, hero_b=hero_b,
         player_a=player, player_b=player,
     )
-    events = rng.sample(tpl["events"], 2)
+    events = rng.sample(tpl["events"], 3)
     def pick_objective(minute: int) -> str:
         pool = [o for o in OBJECTIVES if o != "风暴龙王" or minute >= 20]
         return rng.choice(pool)
 
     m1 = rng.randint(7, 12)
     m2 = rng.randint(13, 19)
+    m3 = rng.randint(20, 26)
     mid1 = events[0].format(
         team=winner, player=player, opp=loser, minute=m1, objective=pick_objective(m1),
     )
     mid2 = events[1].format(
         team=winner, player=player, opp=loser, minute=m2, objective=pick_objective(m2),
     )
+    mid3 = events[2].format(
+        team=winner, player=player, opp=loser, minute=m3, objective=pick_objective(m3),
+    )
+    end_pool = [e for e in tpl["endings"] if (
+        (not is_last or ("目前比分" not in e and "比分来到" not in e))
+        and (is_last or "终结比赛" not in e)
+    )]
     if comeback:
-        ending = rng.choice(tpl["comebacks"]).format(team_a=winner)
+        comeback_pool = [c for c in tpl["comebacks"] if (
+            ("巅峰对决" not in c or (peak_score >= 3 and tied_now and not is_last and score_a == peak_score))
+            and (not any(x in c for x in ("让二追三", "让2追3")) or (is_last and ahead_now and max_deficit == 2))
+            and (not any(x in c for x in ("让三追三", "让3追3")) or (tied_now and not is_last and max_deficit == 3))
+            and ("连扳三局" not in c or ((tied_now or ahead_now) and max_deficit >= 3))
+            and (not any(x in c for x in ("连扳两局", "连扳两城")) or ((tied_now or ahead_now) and max_deficit >= 2))
+            and ("悬崖边上" not in c or max_deficit >= 2)
+            and (not any(x in c for x in ("同一起跑线", "悬念重新拉回")) or tied_now)
+        )]
+        if comeback_pool:
+            ending = rng.choice(comeback_pool).format(team_a=winner)
+        else:
+            ending = rng.choice(end_pool or tpl["endings"]).format(
+                team_a=winner, team_b=loser, score_a=score_a, score_b=score_b,
+            )
     else:
-        ending = rng.choice(tpl["endings"]).format(
+        ending = rng.choice(end_pool or tpl["endings"]).format(
             team_a=winner, team_b=loser, score_a=score_a, score_b=score_b,
         )
     # AG 彩蛋：请神梦老师，低概率偷家收尾
     steal_lines = tpl.get("steal_lines") or ["请神梦老师，{player}成功偷家"]
     if "AG" in winner and rng.random() < 0.12:
-        ending = rng.choice(steal_lines).format(team_a=winner, player=player)
-    line = f"第{game_no}局\nBP：{bp}\n开局：{opening}\n中期：{mid1}；{mid2}\n结束：{ending}"
+        steal_pool = steal_lines if is_last else [s for s in steal_lines if "终结比赛" not in s]
+        ending = rng.choice(steal_pool or steal_lines).format(team_a=winner, player=player)
+    line = f"第{game_no}局\nBP：{bp}\n开局：{opening}\n中期：{mid1}；{mid2}；{mid3}\n结束：{ending}"
     if tpl["meme_quotes"] and rng.random() < 0.15:
         meme = rng.choice(tpl["meme_quotes"]).format(team=winner, player=player)
         leads = tpl.get("scene_leads", {}).get("名场面", [""])
@@ -527,20 +559,28 @@ def narrate_series(rng: random.Random, tpl: dict, na: str, nb: str, results: lis
     lines: list[str] = []
     used_heroes: dict[str, int] = {}
     cur_a = cur_b = 0
-    ever_behind = False
+    max_def_a = max_def_b = 0
     for idx, g in enumerate(results, start=1):
+        before_a, before_b = cur_a, cur_b
         if g == "A":
             cur_a += 1
             win_team, win_roster, lose_team = na, roster_a, nb
         else:
             cur_b += 1
             win_team, win_roster, lose_team = nb, roster_b, na
-        if (win_team == na and cur_a < cur_b) or (win_team == nb and cur_b < cur_a):
-            ever_behind = True
         pname = pnames.get(win_roster[(idx - 1) % len(win_roster)]["player_id"], "选手") if win_roster else "选手"
         win_score, lose_score = (cur_a, cur_b) if win_team == na else (cur_b, cur_a)
-        is_peak = bo and len(results) >= bo and idx == len(results)
-        lines.append(game_narration(rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname, ever_behind, is_peak, year, used_heroes))
+        tied_now = cur_a == cur_b
+        ahead_now = (cur_a > cur_b) if g == "A" else (cur_b > cur_a)
+        max_deficit = max_def_a if g == "A" else max_def_b
+        comeback = max_deficit > 0 and (tied_now or ahead_now)
+        is_peak = bool(bo and bo >= 7 and len(results) >= bo and idx == len(results))
+        lines.append(game_narration(
+            rng, tpl, win_team, lose_team, win_team, win_score, lose_score, idx, pname,
+            comeback, max_deficit, tied_now, ahead_now, idx == len(results), is_peak, (bo or 7) // 2, year, used_heroes,
+        ))
+        max_def_a = max(max_def_a, max(0, before_b - before_a), max(0, cur_b - cur_a))
+        max_def_b = max(max_def_b, max(0, before_a - before_b), max(0, cur_a - cur_b))
     return lines
 
 
@@ -817,7 +857,7 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
                 system = rng.choice(SYSTEMS)
                 hero_b = rng.choice(HERO_POOL.get("中路", ["王昭君"]))
                 narrations.append(
-                    f"{na} {score_a}:{score_b} {nb}——{na}用{system}克制{nb}的{hero_b}，{rng.choice(['一路碾压', '惊险过关', '让二追三'])}。"
+                    f"{na} {score_a}:{score_b} {nb}——{na}用{system}克制{nb}的{hero_b}，{series_pace_text(rng, score_a, score_b)}。"
                 )
             if track and track in (a_id, b_id):
                 track_is_a = track == a_id
@@ -890,7 +930,7 @@ def simulate_season(season_id: str, formats: dict, rosters: dict[str, list[dict]
                 nb = names.get(b_id) or "B队"
                 roster_a = pick_starter(rosters.get(a_id, []))
                 roster_b = pick_starter(rosters.get(b_id, []))
-                narrations.append(f"{na} {score_a}:{score_b} {nb}——{rng.choice(['鏖战五局', '轻松过关'])}。")
+                narrations.append(f"{na} {score_a}:{score_b} {nb}——{series_pace_text(rng, score_a, score_b)}。")
         first_round = tree_rounds[0]
         teams = []
         for m in first_round["matches"]:

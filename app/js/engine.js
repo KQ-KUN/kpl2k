@@ -330,7 +330,14 @@
     return out;
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, maxDeficit, tiedNow, aheadNow, isLast, isPeak, year, usedHeroes) {
+  function seriesPaceText(rng, scoreA, scoreB) {
+    var winner = Math.max(scoreA, scoreB), loser = Math.min(scoreA, scoreB);
+    if (loser === 0) return rng.choice(['零封过关', '直落数局', '没有让对手拿到一分']);
+    if (winner - loser === 1) return rng.choice(['鏖战至决胜局', '把悬念留到最后一局', '险胜过关']);
+    return rng.choice(['稳稳过关', '掌控系列赛节奏', '带着两局以上优势晋级']);
+  }
+
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, maxDeficit, tiedNow, aheadNow, isLast, isPeak, peakScore, year, usedHeroes) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -406,11 +413,11 @@
       // 翻盘措辞必须与实际比分线匹配：让二追三=曾落后2局且本局赢后反超；
       // 拖进巅峰对决=追平且非最后一场；绝不允许 3:1 出现"让2追3成功"
       var cbPool = tpl.comebacks.filter(function (c) {
-        if (c.indexOf('巅峰对决') >= 0) return tiedNow && !isLast;
+        if (c.indexOf('巅峰对决') >= 0) return peakScore >= 3 && tiedNow && !isLast && scoreA === peakScore;
         if (c.indexOf('让二追三') >= 0 || c.indexOf('让2追3') >= 0) return isLast && aheadNow && maxDeficit === 2;
-        if (c.indexOf('让三追三') >= 0 || c.indexOf('让3追3') >= 0) return isLast && aheadNow && maxDeficit === 3;
-        if (c.indexOf('连扳三局') >= 0) return aheadNow && maxDeficit >= 3;
-        if (c.indexOf('连扳两局') >= 0 || c.indexOf('连扳两城') >= 0) return aheadNow && maxDeficit >= 2;
+        if (c.indexOf('让三追三') >= 0 || c.indexOf('让3追3') >= 0) return tiedNow && !isLast && maxDeficit === 3;
+        if (c.indexOf('连扳三局') >= 0) return (tiedNow || aheadNow) && maxDeficit >= 3;
+        if (c.indexOf('连扳两局') >= 0 || c.indexOf('连扳两城') >= 0) return (tiedNow || aheadNow) && maxDeficit >= 2;
         if (c.indexOf('悬崖边上') >= 0) return maxDeficit >= 2;
         if (c.indexOf('同一起跑线') >= 0 || c.indexOf('悬念重新拉回') >= 0) return tiedNow;
         return true; // 通用逆转文案（反打/拉回/绝地反击等）
@@ -491,9 +498,9 @@
       var comeback = maxDeficit > 0 && (tiedNow || aheadNow);
       var winScore = winTeam === na ? curA : curB;
       var loseScore = winTeam === na ? curB : curA;
-      var isPeak = bo && results.length >= bo && idx === results.length - 1;
+      var isPeak = bo >= 7 && results.length >= bo && idx === results.length - 1;
       var line = gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, comeback,
-        maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, year, usedHeroes);
+        maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, Math.floor((bo || 7) / 2), year, usedHeroes);
       // 每局 MVP：标注选手 + 所属战队，功臣一目了然
       var mvpRec = seriesMvp(winRoster);
       if (mvpRec) {
@@ -889,7 +896,7 @@
           var loserId = r[0] === m.a_id ? m.b_id : m.a_id;
           losses[loserId] = (losses[loserId] || 0) + 1;
           var na = names[m.a_id] || 'A队', nb = names[m.b_id] || 'B队';
-          narrations.push(na + ' ' + r[1] + ':' + r[2] + ' ' + nb + '——' + rng.choice(['鏖战五局', '轻松过关']) + '。');
+          narrations.push(na + ' ' + r[1] + ':' + r[2] + ' ' + nb + '——' + seriesPaceText(rng, r[1], r[2]) + '。');
         });
       });
 

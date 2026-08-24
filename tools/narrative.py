@@ -87,7 +87,7 @@ def round_tag(rng: random.Random, tpl: dict, score: str, results: list[str], win
         key = "comeback"
     elif sa == 0 or sb == 0:
         key = "sweep"
-    elif sa + sb >= 6 and max(sa, sb) - min(sa, sb) == 1:
+    elif max(sa, sb) - min(sa, sb) == 1:
         key = "close"
     elif max(sa, sb) - min(sa, sb) >= 2:
         key = "dominant"
@@ -228,7 +228,7 @@ def build_story(rng: random.Random, tpl: dict, flavor: dict[str, list[str]], ctx
         if ctx["champion"] == ctx["team"]:
             fl, fname = flavor_take("夺冠")
             story = f"这一次，{fname}没有让机会溜走。" if fname else "这一次，他们没有让机会溜走。"
-            final_lines.append(pick(rng, tpl["champion_lines"]).format(team=team, story=story))
+            final_lines.append(pick(rng, tpl["champion_lines"]).format(team=team, season=season, story=story))
             if fl:
                 final_lines.append(scene_line(rng, tpl, "夺冠", fl))
         else:

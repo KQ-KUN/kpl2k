@@ -43,7 +43,7 @@
       key = 'comeback';
     } else if (sa === 0 || sb === 0) {
       key = 'sweep';
-    } else if (sa + sb >= 6 && Math.max(sa, sb) - Math.min(sa, sb) === 1) {
+    } else if (Math.max(sa, sb) - Math.min(sa, sb) === 1) {
       key = 'close';
     } else if (Math.max(sa, sb) - Math.min(sa, sb) >= 2) {
       key = 'dominant';
@@ -192,7 +192,7 @@
       if (ctx.champion === ctx.team) {
         var flC = flavorTake('夺冠');
         var story = flC ? ('这一次，' + flC[1] + '没有让机会溜走。') : '这一次，他们没有让机会溜走。';
-        finalLines.push(fmt(pick(rng, tpl.champion_lines), { team: team, story: story }));
+        finalLines.push(fmt(pick(rng, tpl.champion_lines), { team: team, season: season, story: story }));
         if (flC) finalLines.push(sceneLine(rng, tpl, '夺冠', flC[0]));
       } else {
         finalLines.push(fmt(pick(rng, tpl.runnerup_lines), { team: team }));
