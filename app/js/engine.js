@@ -1650,12 +1650,18 @@
           if (done) return { kind: 'done', title: '赛季收官', champion: champion };
           // 1) 跑当前阶段对阵
           if (curDef && stageQueue.length) {
-            var q = stageQueue.shift();
-            currentRoundTag = q.title;
-            var r = runMatch(q.aId, q.bId, q.bo, true);
-            if (track != null && (track === q.aId || track === q.bId)) {
-              return { kind: 'regular_round', title: q.title, entries: [entryFor({ aId: q.aId, bId: q.bId, winnerId: r.winnerId, scoreA: r.scoreA, scoreB: r.scoreB, results: r.results }, q.title, q.bo)] };
+            // 32 强是同一淘汰轮，首次展示时写入完整对阵，避免赛程树补出 8 个“待定”。
+            // 其他阶段仍逐场推进，保留轮间换人与暂停节奏。
+            var collected = [], runCount = curDef.bracket ? stageQueue.length : 1;
+            while (stageQueue.length && runCount-- > 0) {
+              var q = stageQueue.shift();
+              currentRoundTag = q.title;
+              var r = runMatch(q.aId, q.bId, q.bo, true);
+              if (track != null && (track === q.aId || track === q.bId)) {
+                collected.push(entryFor({ aId: q.aId, bId: q.bId, winnerId: r.winnerId, scoreA: r.scoreA, scoreB: r.scoreB, results: r.results }, q.title, q.bo));
+              }
             }
+            if (collected.length) return { kind: 'regular_round', title: collected[0].round, entries: collected };
             continue;
           }
           // 2) 当前阶段完成 → 收尾
