@@ -890,8 +890,8 @@
     $('picker-confirm').style.display = 'none';
     $('picker-pool').innerHTML = '<div class="custom-form"><div class="custom-note">自定义选手只替换姓名和头像，位置、战力与比赛数据继承所选职业版本。头像仅保存在当前设备。</div>' +
       '<label>选手姓名<input id="custom-name" maxlength="12" placeholder="输入你的名字"></label>' +
-      '<label>默认头像</label><div class="default-avatars"><button class="default-avatar sel" data-src="assets/custom-avatar-male.webp"><img src="assets/custom-avatar-male.webp" alt="">男版源流之子</button>' +
-      '<button class="default-avatar" data-src="assets/custom-avatar-female.webp"><img src="assets/custom-avatar-female.webp" alt="">女版源流之子</button></div>' +
+      '<label>默认头像</label><div class="default-avatars"><button class="default-avatar sel" data-src="assets/custom-avatar-male.webp" aria-label="选择默认头像一"><img src="assets/custom-avatar-male.webp" alt=""></button>' +
+      '<button class="default-avatar" data-src="assets/custom-avatar-female.webp" aria-label="选择默认头像二"><img src="assets/custom-avatar-female.webp" alt=""></button></div>' +
       '<label>或上传头像<input id="custom-avatar" type="file" accept="image/*"></label>' +
       '<div class="avatar-editor"><canvas class="avatar-crop" id="avatar-crop" width="384" height="384"></canvas>' +
       '<div class="zoom-control"><span>缩小</span><input id="avatar-zoom" type="range" min="1" max="3" step="0.01" value="1"><span>放大</span></div>' +

@@ -224,7 +224,7 @@ img{display:block}
 .custom-preview{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg);border-radius:12px}
 .custom-note{font-size:11px;line-height:1.6;color:var(--mut);padding:9px 10px;border-radius:10px;background:rgba(88,166,255,.08);border:1px solid rgba(88,166,255,.2)}
 .default-avatars{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.default-avatar{display:flex;align-items:center;gap:9px;padding:8px;border:1.5px solid var(--line2);border-radius:12px;background:var(--bg);color:var(--fg);font-size:12px;font-weight:700}
+.default-avatar{display:flex;align-items:center;justify-content:center;padding:8px;border:1.5px solid var(--line2);border-radius:12px;background:var(--bg);color:var(--fg)}
 .default-avatar.sel{border-color:var(--gold);color:var(--gold);background:rgba(240,185,11,.08)}
 .default-avatar img{width:44px;height:44px;border-radius:50%;object-fit:cover}
 .avatar-editor{display:flex;flex-direction:column;align-items:center;gap:9px;padding:12px;background:var(--bg);border-radius:14px}
