@@ -787,13 +787,6 @@
     }).filter(Boolean);
   }
 
-  function allStarStrength(side) {
-    var roster = STATE.allStar[side + 'Roster'] || [];
-    var recs = allStarRecords(side, true);
-    var chem = D.buildChemFor(roster.map(function (s) { return s.sid; }));
-    return recs.length === 5 ? E.lineupStrength(recs, chem, E.COMPRESS)[1].raw : null;
-  }
-
   function renderAllStar() {
     ['a', 'b'].forEach(function (side) {
       var roster = STATE.allStar[side + 'Roster'] || [];
@@ -802,16 +795,15 @@
         if (slot) {
           var v = allStarVersion(slot), name = playerName(slot.pid), icon = playerIcon(slot.pid);
           var ava = icon ? '<div class="ava"><img src="' + esc(icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(name[0]) + '&#39;"></div>' : '<div class="ava">' + esc(name[0]) + '</div>';
-          inner = ava + '<div class="info"><div class="pname">' + esc(name) + (slot.templatePid ? ' <span class="mut">自定义</span>' : '') + '</div>' +
-            '<div class="pmeta">' + esc((v && v.label) || slot.sid) + ' · ' + esc((v && v.team_name) || '') + '</div></div>' +
+          inner = ava + '<div class="info"><div class="pname">' + esc(name) + '</div>' +
+            '<div class="pmeta">' + esc((v && v.label) || slot.sid) + ' · ' + esc((v && v.team_name) || '') +
+            (slot.templatePid ? '<span class="custom-slot-hint">自定义选手 · 能力继承自 ' + esc(playerName(slot.templatePid)) + '</span>' : '') + '</div></div>' +
             '<div class="rating">' + (v ? Math.round(v.rating) : '-') + '</div><div class="arrow">›</div>';
         } else {
           inner = '<div class="info pname mut">点击补位</div><div class="arrow">›</div>';
         }
         return '<button class="slot" data-side="' + side + '" data-i="' + i + '"><div class="pos p' + i + '">' + esc(pos) + '</div>' + inner + '</button>';
       }).join('');
-      var strength = allStarStrength(side);
-      $('allstar-' + side + '-strength').textContent = strength == null ? '-' : ('战力 ' + strength.toFixed(1));
       $('allstar-' + side + '-slots').querySelectorAll('.slot').forEach(function (el) {
         el.addEventListener('click', function () { openAllStarPicker(side, parseInt(el.getAttribute('data-i'), 10)); });
       });
@@ -896,41 +888,86 @@
     $('picker-ver').innerHTML = '';
     $('picker-pool').style.display = '';
     $('picker-confirm').style.display = 'none';
-    $('picker-pool').innerHTML = '<div class="custom-form"><label>选手姓名<input id="custom-name" maxlength="12" placeholder="输入你的名字"></label>' +
-      '<label>选手头像<input id="custom-avatar" type="file" accept="image/*"></label><div class="custom-preview"><div class="ava" id="custom-preview">你</div><span class="mut">头像仅保存在当前设备</span></div>' +
+    $('picker-pool').innerHTML = '<div class="custom-form"><div class="custom-note">自定义选手只替换姓名和头像，位置、战力与比赛数据继承所选职业版本。头像仅保存在当前设备。</div>' +
+      '<label>选手姓名<input id="custom-name" maxlength="12" placeholder="输入你的名字"></label>' +
+      '<label>默认头像</label><div class="default-avatars"><button class="default-avatar sel" data-src="assets/custom-avatar-male.webp"><img src="assets/custom-avatar-male.webp" alt="">男版源流之子</button>' +
+      '<button class="default-avatar" data-src="assets/custom-avatar-female.webp"><img src="assets/custom-avatar-female.webp" alt="">女版源流之子</button></div>' +
+      '<label>或上传头像<input id="custom-avatar" type="file" accept="image/*"></label>' +
+      '<div class="avatar-editor"><canvas class="avatar-crop" id="avatar-crop" width="384" height="384"></canvas>' +
+      '<div class="zoom-control"><span>缩小</span><input id="avatar-zoom" type="range" min="1" max="3" step="0.01" value="1"><span>放大</span></div>' +
+      '<span class="mut" style="font-size:11px">拖动头像调整裁剪位置</span></div>' +
       '<button class="btn gold" id="custom-create">创建并上场</button></div>';
-    var avatarData = '';
+    var editor = setupAvatarEditor('assets/custom-avatar-male.webp');
+    $('picker-pool').querySelectorAll('.default-avatar').forEach(function (el) {
+      el.addEventListener('click', function () {
+        $('picker-pool').querySelectorAll('.default-avatar').forEach(function (b) { b.classList.toggle('sel', b === el); });
+        editor.load(el.getAttribute('data-src'));
+      });
+    });
     $('custom-avatar').addEventListener('change', function () {
       var file = this.files && this.files[0]; if (!file) return;
-      resizeAvatar(file).then(function (data) {
-        avatarData = data; $('custom-preview').innerHTML = '<img src="' + esc(data) + '" alt="">';
+      readImageFile(file).then(function (data) {
+        $('picker-pool').querySelectorAll('.default-avatar').forEach(function (b) { b.classList.remove('sel'); });
+        editor.load(data);
       }).catch(function () { openConfirm('头像读取失败', '请选择常见的 JPG、PNG 或 WebP 图片。', null, '知道了'); });
     });
     $('custom-create').addEventListener('click', function () {
       var name = $('custom-name').value.trim();
-      if (!name || !avatarData) { openConfirm('资料未完成', '请输入姓名并上传头像。', null, '知道了'); return; }
+      var avatarData = editor.output();
+      if (!name || !avatarData) { openConfirm('资料未完成', '请输入姓名并选择或上传头像。', null, '知道了'); return; }
       var id = 'custom_' + Date.now().toString(36) + '_' + Math.floor(Math.random() * 10000);
       STATE.allStar.customs.push({ id: id, name: name, icon: avatarData, templatePid: picker.pid });
       applyAllStarSlot({ pid: id, templatePid: picker.pid, sid: picker.sid, teamFid: picker.teamFid });
     });
   }
 
-  function resizeAvatar(file) {
+  function readImageFile(file) {
     return new Promise(function (resolve, reject) {
       var reader = new FileReader();
       reader.onerror = reject;
-      reader.onload = function () {
-        var img = new Image(); img.onerror = reject;
-        img.onload = function () {
-          var size = 192, cv = document.createElement('canvas'); cv.width = size; cv.height = size;
-          var ctx = cv.getContext('2d'), side = Math.min(img.width, img.height);
-          ctx.drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
-          resolve(cv.toDataURL('image/jpeg', .82));
-        };
-        img.src = reader.result;
-      };
+      reader.onload = function () { resolve(reader.result); };
       reader.readAsDataURL(file);
     });
+  }
+
+  function setupAvatarEditor(initialSrc) {
+    var canvas = $('avatar-crop'), ctx = canvas.getContext('2d'), zoom = $('avatar-zoom');
+    var image = new Image(), baseScale = 1, scale = 1, x = 0, y = 0, dragging = false, lastX = 0, lastY = 0;
+    function clamp() {
+      var w = image.width * scale, h = image.height * scale;
+      x = Math.min(0, Math.max(canvas.width - w, x));
+      y = Math.min(0, Math.max(canvas.height - h, y));
+    }
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (image.complete && image.naturalWidth) ctx.drawImage(image, x, y, image.width * scale, image.height * scale);
+    }
+    function load(src) {
+      image = new Image();
+      image.onload = function () {
+        baseScale = Math.max(canvas.width / image.width, canvas.height / image.height);
+        scale = baseScale; zoom.value = '1';
+        x = (canvas.width - image.width * scale) / 2; y = (canvas.height - image.height * scale) / 2;
+        draw();
+      };
+      image.src = src;
+    }
+    zoom.addEventListener('input', function () {
+      var cx = (canvas.width / 2 - x) / scale, cy = (canvas.height / 2 - y) / scale;
+      scale = baseScale * parseFloat(zoom.value);
+      x = canvas.width / 2 - cx * scale; y = canvas.height / 2 - cy * scale; clamp(); draw();
+    });
+    canvas.addEventListener('pointerdown', function (e) { dragging = true; lastX = e.clientX; lastY = e.clientY; canvas.setPointerCapture(e.pointerId); });
+    canvas.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var ratio = canvas.width / canvas.getBoundingClientRect().width;
+      x += (e.clientX - lastX) * ratio; y += (e.clientY - lastY) * ratio;
+      lastX = e.clientX; lastY = e.clientY; clamp(); draw();
+    });
+    canvas.addEventListener('pointerup', function () { dragging = false; });
+    canvas.addEventListener('pointercancel', function () { dragging = false; });
+    load(initialSrc);
+    return { load: load, output: function () { return image.complete && image.naturalWidth ? canvas.toDataURL('image/jpeg', .84) : ''; } };
   }
 
   function applyAllStarSlot(slot) {

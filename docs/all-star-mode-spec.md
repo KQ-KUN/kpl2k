@@ -9,7 +9,7 @@ Add a direct exhibition mode where the player builds two five-player lineups fro
 1. Enter from the existing All-Star Mode card on the home page.
 2. Pick a default franchise for the red side and blue side. Each choice immediately fills the five position slots with that franchise's current preset lineup.
 3. Replace any slot with any matching-position player and historical version from the existing player database.
-4. Optionally create a custom identity by entering a name, uploading an avatar, and selecting an existing professional version as the ability template.
+4. Optionally create a custom identity by entering a name, choosing a male/female Origin Child default portrait or uploading and cropping an avatar, and selecting an existing professional version as the ability template.
 5. Select BO3, BO5, or BO7 and start the match.
 6. Read the same game-by-game narration used by Classic Mode, then view the result using the existing result-card visual language and player-stat table.
 
@@ -18,7 +18,8 @@ Add a direct exhibition mode where the player builds two five-player lineups fro
 - Professional slots reuse existing `player_id`, representative `season_id`, position, rating, statistics, avatar, and franchise data.
 - The web build creates one global All-Star index by merging the existing team shards; it does not create or recalculate player ratings.
 - A custom slot receives a unique local ID. Its simulation record is cloned from the selected professional version, while only its displayed name and avatar are replaced.
-- Uploaded avatars are resized in the browser and stored locally. They are never uploaded to a server.
+- Uploaded avatars can be dragged, zoomed, and cropped in a native canvas editor, then are resized in the browser and stored locally. They are never uploaded to a server.
+- Team strength remains part of match simulation but is intentionally hidden from the All-Star setup UI.
 
 ## Scope
 
