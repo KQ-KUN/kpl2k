@@ -195,10 +195,15 @@ def main() -> None:
                 "games": v["games"],
                 "kda": v.get("kda"),
                 "kills": v.get("kills"),
+                "deaths": v.get("deaths"),
                 "assists": v.get("assists"),
+                "win_rate": v.get("win_rate"),
+                "gpm": v.get("gpm"),
                 "participation": v.get("participation"),
                 "hurt_rate": v.get("hurt_rate"),
                 "be_hurt_rate": v.get("be_hurt_rate"),
+                "damage_convert": v.get("damage_convert"),
+                "towers": v.get("towers"),
                 "mvp_count": v.get("mvp_count"),
                 "heroes": v.get("heroes") or [],
             })
@@ -218,6 +223,20 @@ def main() -> None:
         })
     for fid, data in by_team.items():
         dump(data, OUT / "teams" / f"{fid}.json")
+
+    # All-Star picker index: merge the existing team cards by player id while
+    # keeping each historical version's source franchise. Ratings stay untouched.
+    all_star_players: dict[str, dict] = {}
+    for fid, data in by_team.items():
+        for p in data["players"]:
+            item = all_star_players.setdefault(p["player_id"], {
+                "player_id": p["player_id"], "name": p["name"], "icon": p.get("icon", ""),
+                "positions": [], "versions": [],
+            })
+            item["positions"] = sorted(set(item["positions"] + p.get("positions", [])))
+            for version in p.get("versions", []):
+                item["versions"].append({**version, "team_fid": fid, "team_name": data["name"]})
+    dump({"players": list(all_star_players.values())}, OUT / "all_star.json")
 
     # ---- 4. manifest.json ----
     seasons = []

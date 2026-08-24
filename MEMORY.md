@@ -52,6 +52,7 @@
 - 每次 story 模拟生成 `app/result_card.html`：结果横幅（冠军/亚军/止步·N强）、阵容卡（头像/KDA/参团/MVP）、赛程表、选手数据表；小数统一 1 位，可截图传播。
 
 ## Web 前端（2026-08-16 起）
+- **全明星模式（2026-08-24）**：首页原“全明星模式”卡已启用，路由 `#/allstar`。红蓝双方各选一支 2026 默认战队一键填满五位置，再从原有 20 个战队版本卡合并生成的 `app/data/all_star.json` 中跨队、跨年份换人；支持 BO3/BO5/BO7 单场系列赛，复用经典模式的强度、逐局叙事、MVP 与战绩表。自定义选手先选职业版本作为能力模板，只覆盖姓名/头像；头像浏览器压缩为 192px JPEG 后仅存 localStorage，因此全明星自定义阵容不生成跨设备分享链接。构建逻辑在 `tools/build_web.py`，产品/验收规格见 `docs/all-star-mode-spec.md`。
 - **纯前端 SPA**：`app/index.html` + `js/{engine,narrative,data,ui,bgm}.js`，hash 路由：`#/` 首页、`#/team` 组队、`#/season` 战场、`#/sim` 模拟、`#/result` 结算；分享链接 `#/s?t=&s=&r=pid@sid,...&seed=` 可还原阵容与结果。
 - **引擎 JS 化**：engine.js 与 tools/sim_engine.py 对齐（常规赛排名→官方种子剧情→动态淘汰树），mulberry32 种子可复现；narrative.js 对应 narrative.py。另含 `createSession()` 分阶段模拟：每场/每轮可暂停，轮间换人（setRoster 更新强度，rng 状态延续，已赛内容不变）。
 - **数据分片**：`tools/build_web.py` 生成 `app/data/`：base.json（franchise/选手/叙事/覆盖，137KB）+ manifest.json + seasons/{sid}.json（赛制+当季选手+pair_win）+ teams/{fid}.json（队卡版本，版本补代表 season_id）。已并入 rebuild_all.py。

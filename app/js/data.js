@@ -14,6 +14,7 @@
     rivalries: [],
     dynasties: [],
     teamIcons: {},    // fid -> 队标 URL
+    allStar: null,    // merged global player/version index
     teamsCache: {},   // fid -> teams/{fid}.json
     seasonCache: {}   // sid -> seasons/{sid}.json
   };
@@ -54,6 +55,14 @@
     if (DATA.teamsCache[fid]) return Promise.resolve(DATA.teamsCache[fid]);
     return fetchJson('data/teams/' + fid + '.json').then(function (d) {
       DATA.teamsCache[fid] = d;
+      return d;
+    });
+  }
+
+  function loadAllStar() {
+    if (DATA.allStar) return Promise.resolve(DATA.allStar);
+    return fetchJson('data/all_star.json').then(function (d) {
+      DATA.allStar = d;
       return d;
     });
   }
@@ -113,6 +122,7 @@
     DATA: DATA,
     loadBase: loadBase,
     loadTeam: loadTeam,
+    loadAllStar: loadAllStar,
     loadSeason: loadSeason,
     loadSeasons: loadSeasons,
     seasonRoster: seasonRoster,

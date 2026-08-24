@@ -23,10 +23,10 @@
       <div class="mc-desc">选定一支战队，同队选手可跨版本组队，征战任意赛季</div>
       <div class="mc-tag">推荐</div>
     </button>
-    <button class="mode-card locked">
+    <button class="mode-card" id="btn-allstar">
       <div class="mc-title">全明星模式</div>
       <div class="mc-desc">跨战队自由搭配，任意选手同场竞技</div>
-      <div class="mc-tag">敬请期待</div>
+      <div class="mc-tag">新模式</div>
     </button>
     <a class="mode-card" href="player_library.html" style="text-decoration:none">
       <div class="mc-title">选手图鉴</div>
@@ -103,6 +103,36 @@
   <button class="btn gold" id="btn-confirm-team">确认阵容 · 选择战场</button>
 </div>
 
+<!-- ================= 全明星模式 ================= -->
+<div id="allstar" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/'">‹</button>
+    <h1>全明星模式</h1>
+    <span class="step">自由对决</span>
+  </div>
+  <div class="allstar-intro">先用默认战队一键成队，再按位置自由换人。自定义选手会继承所选职业版本的能力。</div>
+  <div class="bo-picker" id="allstar-bo">
+    <button data-bo="3">BO3</button><button class="sel" data-bo="5">BO5</button><button data-bo="7">BO7</button>
+  </div>
+  <div class="allstar-sides">
+    <section class="allstar-side side-a">
+      <div class="as-head"><div><span class="side-dot"></span><b>红方</b></div><span class="as-strength" id="allstar-a-strength">-</span></div>
+      <label class="team-select-label">默认战队<select id="allstar-a-team"></select></label>
+      <div class="slots" id="allstar-a-slots"></div>
+    </section>
+    <div class="versus-mark">VS</div>
+    <section class="allstar-side side-b">
+      <div class="as-head"><div><span class="side-dot"></span><b>蓝方</b></div><span class="as-strength" id="allstar-b-strength">-</span></div>
+      <label class="team-select-label">默认战队<select id="allstar-b-team"></select></label>
+      <div class="slots" id="allstar-b-slots"></div>
+    </section>
+  </div>
+  <div class="mut allstar-rule">同一名职业选手或自定义身份不能在双方重复上场</div>
+</div>
+<div class="bottom-bar" id="allstar-bar" style="display:none">
+  <button class="btn gold" id="allstar-start" disabled>阵容未完成</button>
+</div>
+
 <!-- ================= 战场 ================= -->
 <div id="season" class="page">
   <div class="topbar">
@@ -153,13 +183,13 @@
   <div class="sub mut" id="result-sub" style="font-size:12px;margin-bottom:12px"></div>
   <div class="res-banner" id="result-banner"></div>
   <div id="result-slogan" style="display:none;text-align:center;font-size:15px;font-weight:700;color:var(--gold);margin:6px 0 12px"></div>
-  <div class="card"><h2>阵容</h2><div id="result-roster"></div></div>
-  <div class="card"><h2>赛程</h2>
+  <div class="card"><h2 id="result-roster-title">阵容</h2><div id="result-roster"></div></div>
+  <div class="card"><h2 id="result-path-title">赛程</h2>
     <table><tr><td><b>轮次</b></td><td><b>对手</b></td><td><b>比分</b></td><td><b>结果</b></td></tr>
     <tbody id="result-path"></tbody></table>
   </div>
-  <div class="card"><h2>淘汰赛进程</h2><div id="result-tree"></div></div>
-  <div class="card"><h2>选手数据</h2>
+  <div class="card" id="result-tree-card"><h2>淘汰赛进程</h2><div id="result-tree"></div></div>
+  <div class="card"><h2 id="result-stats-title">选手数据</h2>
     <div class="table-scroll">
       <table class="stats-table">
         <thead><tr><th>选手</th><th>KDA</th><th>击杀/死/助</th><th>参团</th><th>输出</th><th>承伤</th><th>分均经济</th><th>伤害转化</th><th>场均推塔</th><th>胜率</th><th>场次</th><th>MVP</th></tr></thead>
