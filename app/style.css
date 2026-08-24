@@ -111,9 +111,12 @@ img{display:block}
 .his-banner.elim{background:rgba(248,81,73,.16);color:#f85149}
 .his-sub{font-size:11px;color:var(--mut);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .footnote{margin-top:auto;padding-top:40px;font-size:11px;color:#dbeafe}
-.bili-ad{text-align:center}
-.bili-ad a{display:inline-block;padding:11px 24px;border:1px solid #fcd34d;border-radius:999px;color:#fcd34d;font-size:14px;font-weight:700;text-decoration:none;background:rgba(252,211,77,.08)}
-.bili-ad a:hover{background:rgba(252,211,77,.18)}
+.social-links{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--mut);font-size:12px}
+.social-links a{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border:1px solid var(--line);border-radius:999px;color:var(--fg);font-size:13px;font-weight:700;text-decoration:none;background:rgba(255,255,255,.04)}
+.social-links a:hover{background:rgba(255,255,255,.1)}
+.platform-icon{width:20px;height:20px;flex:none}
+.bili-icon{fill:none;stroke:#fb7299;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.xhs-icon rect{fill:#ff2442}.xhs-icon text{fill:#fff;font-size:6px;font-weight:700;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
 .home-bgm-row{position:fixed;top:12px;right:26px;z-index:60;display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mut)}
 .bgm-btn{
   display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;
