@@ -20,6 +20,7 @@
   var STYLE_PENALTY = 1.5;
   // 玩家队隐蔽加成：模拟的是"玩家亲手操盘"的平行时空，给主队一点正向偏移（不上榜、不显示）
   var PLAYER_BOOST = 5.0;
+  var TACTIC_NOISE = { stable: 0.65, balanced: 1.0, gamble: 1.55 };
 
   /* ---------------- RNG (mulberry32) ---------------- */
   function makeRng(seed) {
@@ -199,6 +200,19 @@
     return Math.round(v * 10) / 10;
   }
 
+  function placementFromRound(roundName) {
+    var n = String(roundName || '');
+    if (n.indexOf('总决赛') >= 0 || n === '决赛' || /[·：]决赛$/.test(n)) return '亚军';
+    if (n.indexOf('败者组决赛') >= 0) return '季军';
+    if (n.indexOf('半决赛') >= 0) return '4强';
+    if (n.indexOf('8强') >= 0) return '8强';
+    if (n.indexOf('16强') >= 0) return '16强';
+    if (n.indexOf('32强') >= 0) return '32强';
+    if (n.indexOf('胜者组') >= 0 || n.indexOf('败者组') >= 0 || n.indexOf('淘汰') >= 0) return '季后赛';
+    if (n.indexOf('常规赛') >= 0 || n.indexOf('小组赛') >= 0 || n.indexOf('卡位赛') >= 0 || n.indexOf('突围赛') >= 0) return '常规赛';
+    return '淘汰赛';
+  }
+
   /* ---------------- 阵容 ---------------- */
   function pickStarter(roster) {
     var byPos = {};
@@ -241,9 +255,10 @@
     return [a, b, results];
   }
 
-  function playMatch(rng, strengths, aId, bId, bo) {
-    var sa = (strengths[aId] == null ? 50.0 : strengths[aId]) + rng.gauss(0, STRENGTH_NOISE);
-    var sb = (strengths[bId] == null ? 50.0 : strengths[bId]) + rng.gauss(0, STRENGTH_NOISE);
+  function playMatch(rng, strengths, aId, bId, bo, tactic) {
+    var noise = STRENGTH_NOISE * (TACTIC_NOISE[tactic] || TACTIC_NOISE.balanced);
+    var sa = (strengths[aId] == null ? 50.0 : strengths[aId]) + rng.gauss(0, noise);
+    var sb = (strengths[bId] == null ? 50.0 : strengths[bId]) + rng.gauss(0, noise);
     var p = seriesWinProb(sa, sb, K);
     var res = playSeries(rng, p, bo);
     var winner = res[0] > res[1] ? aId : bId;
@@ -251,7 +266,7 @@
   }
 
   /* ---------------- 淘汰树 ---------------- */
-  function dynamicSingleElim(rng, strengths, teams, bo) {
+  function dynamicSingleElim(rng, strengths, teams, bo, tactic) {
     var alive = teams.slice();
     var roundsOut = [];
     var roundNo = 0;
@@ -261,7 +276,7 @@
       var matches = [];
       for (var i = 0; i < alive.length; i += 2) {
         if (i + 1 >= alive.length) { winners.push(alive[i]); continue; }
-        var r = playMatch(rng, strengths, alive[i], alive[i + 1], bo);
+        var r = playMatch(rng, strengths, alive[i], alive[i + 1], bo, tactic);
         winners.push(r[0]);
         matches.push({ a: alive[i], b: alive[i + 1], w: r[0], sa: r[1], sb: r[2], results: r[3] });
       }
@@ -271,7 +286,7 @@
     return [alive[0] || null, roundsOut];
   }
 
-  function dynamicDoubleElim(rng, strengths, teams, bo, finalBo) {
+  function dynamicDoubleElim(rng, strengths, teams, bo, finalBo, tactic) {
     finalBo = finalBo || bo;
     var winnersBracket = teams.slice();
     var losersBracket = [];
@@ -281,7 +296,7 @@
       var winners = [];
       for (var i = 0; i < bracket.length; i += 2) {
         if (i + 1 >= bracket.length) { winners.push(bracket[i]); continue; }
-        var r = playMatch(rng, strengths, bracket[i], bracket[i + 1], bo);
+        var r = playMatch(rng, strengths, bracket[i], bracket[i + 1], bo, tactic);
         winners.push(r[0]);
         var loser = r[0] === bracket[i] ? bracket[i + 1] : bracket[i];
         roundsOut.push({ round: tag, a: bracket[i], b: bracket[i + 1], w: r[0], loser: loser, sa: r[1], sb: r[2], results: r[3] });
@@ -293,7 +308,7 @@
       var winners = [];
       for (var i = 0; i < bracket.length; i += 2) {
         if (i + 1 >= bracket.length) { winners.push(bracket[i]); continue; }
-        var r = playMatch(rng, strengths, bracket[i], bracket[i + 1], bo);
+        var r = playMatch(rng, strengths, bracket[i], bracket[i + 1], bo, tactic);
         winners.push(r[0]);
         var loser = r[0] === bracket[i] ? bracket[i + 1] : bracket[i];
         roundsOut.push({ round: tag, a: bracket[i], b: bracket[i + 1], w: r[0], loser: loser, sa: r[1], sb: r[2], results: r[3] });
@@ -315,7 +330,7 @@
     var wgChamp = winnersBracket[0];
     var lgChamp = losersBracket[0] || null;
     if (lgChamp == null) return [wgChamp, roundsOut];
-    var r1 = playMatch(rng, strengths, wgChamp, lgChamp, finalBo);
+    var r1 = playMatch(rng, strengths, wgChamp, lgChamp, finalBo, tactic);
     roundsOut.push({ round: '总决赛', a: wgChamp, b: lgChamp, w: r1[0], loser: r1[0] === wgChamp ? lgChamp : wgChamp, sa: r1[1], sb: r1[2], results: r1[3] });
     return [r1[0], roundsOut];
   }
@@ -337,7 +352,7 @@
     return rng.choice(['稳稳过关', '掌控系列赛节奏', '带着两局以上优势晋级']);
   }
 
-  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, maxDeficit, tiedNow, aheadNow, isLast, isPeak, peakScore, year, usedHeroes) {
+  function gameNarration(rng, tpl, teamA, teamB, winner, scoreA, scoreB, gameNo, namesA, namesB, comeback, maxDeficit, tiedNow, aheadNow, isLast, isPeak, peakScore, year, usedHeroes, roleByName) {
     var poolA = (namesA && namesA.length) ? namesA.slice() : ['选手'];
     var poolB = (namesB && namesB.length) ? namesB.slice() : ['选手'];
     var winPool = winner === teamA ? poolA : poolB;
@@ -390,6 +405,11 @@
       .replace(/\{system\}/g, systemA).replace(/\{hero_b\}/g, heroB)
       .replace(/\{player_a\}/g, pa).replace(/\{player_b\}/g, pb);
     var events = rng.sample(tpl.events, 3);
+    function roleEvent(player, fallback) {
+      var role = roleByName && roleByName[player];
+      var pool = role && tpl.role_events && tpl.role_events[role];
+      return pool && pool.length ? rng.choice(pool) : fallback;
+    }
     function pickObjective(minute) {
       // 风暴龙王 20 分钟才刷新，10 分钟龙团/中前期不能出现
       var pool = OBJECTIVES.filter(function (o) { return o !== '风暴龙王' || minute >= 20; });
@@ -401,8 +421,8 @@
         .replace(/\{opp\}/g, loser).replace(/\{minute\}/g, minute)
         .replace(/\{objective\}/g, pickObjective(minute));
     }
-    var mid1 = fmtEvent(events[0], rng.randint(7, 12), p1);
-    var mid2 = fmtEvent(events[1], rng.randint(13, 19), p2);
+    var mid1 = fmtEvent(roleEvent(p1, events[0]), rng.randint(7, 12), p1);
+    var mid2 = fmtEvent(roleEvent(p2, events[1]), rng.randint(13, 19), p2);
     var mid3 = fmtEvent(events[2], rng.randint(20, 26), rng.choice(winPool));
     var ending;
     // 普通结束语先算好：最后一场不能出现"目前比分 X:Y"，非最后一场不能提前"终结比赛"
@@ -443,7 +463,8 @@
     }
     var line = '第' + gameNo + '局\nBP：' + bp + '\n开局：' + opening +
       '\n中期：' + mid1 + '；' + mid2 + '；' + mid3 + '\n结束：' + ending;
-    if (tpl.meme_quotes && tpl.meme_quotes.length && rng.random() < 0.15) {
+    var quoteChance = isPeak ? 0.65 : (comeback ? 0.4 : (isLast ? 0.22 : 0.05));
+    if (tpl.meme_quotes && tpl.meme_quotes.length && rng.random() < quoteChance) {
       // "打野的尽头是一片海" 只在本场有花海时出现
       var hasHai = poolA.indexOf('花海') >= 0 || poolB.indexOf('花海') >= 0;
       var quotePool = tpl.meme_quotes.filter(function (m) {
@@ -469,6 +490,10 @@
     var lines = [];
     var namesA = uniqNames(rosterA, pnames);
     var namesB = uniqNames(rosterB, pnames);
+    var roleByName = {};
+    (rosterA || []).concat(rosterB || []).forEach(function (record) {
+      roleByName[pnames[record.player_id] || record.player_id] = record.position;
+    });
     var usedHeroes = {};  // 全局 BP：整个系列赛内已出现的英雄不再复用
     var curA = 0, curB = 0;
     var maxDefA = 0, maxDefB = 0; // 双方历史最大落后局数（用于"让二追三"类措辞）
@@ -500,7 +525,7 @@
       var loseScore = winTeam === na ? curB : curA;
       var isPeak = bo >= 7 && results.length >= bo && idx === results.length - 1;
       var line = gameNarration(rng, tpl, na, nb, winTeam, winScore, loseScore, idx + 1, namesA, namesB, comeback,
-        maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, Math.floor((bo || 7) / 2), year, usedHeroes);
+        maxDeficit, tiedNow, aheadNow, idx === results.length - 1, isPeak, Math.floor((bo || 7) / 2), year, usedHeroes, roleByName);
       // 每局 MVP：标注选手 + 所属战队，功臣一目了然
       var mvpRec = seriesMvp(winRoster);
       if (mvpRec) {
@@ -788,6 +813,7 @@
     var fmt = opts.formats[opts.season_id];
     if (!fmt) return { champion: null, narrations: [], path: [], losses: {}, regular: {} };
     var rng = opts.rng;
+    var tactic = opts.tactic || 'balanced';
     var names = opts.names;
     var tpl = opts.tpl;
     var year = seasonYear(opts.season_id);
@@ -820,7 +846,7 @@
       (rnd.matches || []).forEach(function (m) {
         var aId = m.a_id, bId = m.b_id;
         var bo = rnd.bo || (['playoffs', 'play_in', 'final', 'single_elim', 'double_elim'].indexOf(rtype) >= 0 ? 7 : 5);
-        var r = playMatch(rng, strengths, aId, bId, bo);
+        var r = playMatch(rng, strengths, aId, bId, bo, tactic);
         var winnerId = r[0], scoreA = r[1], scoreB = r[2], gameResults = r[3];
         var loserId = winnerId === aId ? bId : aId;
         losses[loserId] = (losses[loserId] || 0) + 1;
@@ -884,7 +910,7 @@
     if (!treeRounds.length) {
       elimRounds.forEach(function (rnd) {
         (rnd.matches || []).forEach(function (m) {
-          var r = playMatch(rng, strengths, m.a_id, m.b_id, rnd.bo || 7);
+          var r = playMatch(rng, strengths, m.a_id, m.b_id, rnd.bo || 7, tactic);
           narrations.push((names[r[0]] || '?') + ' ' + r[1] + ':' + r[2] + ' ' + (names[r[0] === m.a_id ? m.b_id : m.a_id] || '?'));
         });
       });
@@ -892,7 +918,7 @@
       elimRounds.forEach(function (rnd) {
         if (rnd.type !== 'play_in') return;
         (rnd.matches || []).forEach(function (m) {
-          var r = playMatch(rng, strengths, m.a_id, m.b_id, rnd.bo || 7);
+          var r = playMatch(rng, strengths, m.a_id, m.b_id, rnd.bo || 7, tactic);
           var loserId = r[0] === m.a_id ? m.b_id : m.a_id;
           losses[loserId] = (losses[loserId] || 0) + 1;
           var na = names[m.a_id] || 'A队', nb = names[m.b_id] || 'B队';
@@ -985,7 +1011,7 @@
         var winners = [];
         for (var i = 0; i < current.length; i += 2) {
           if (i + 1 >= current.length) { winners.push(current[i]); continue; }
-          var r = playMatch(rng, strengths, current[i], current[i + 1], bo);
+          var r = playMatch(rng, strengths, current[i], current[i + 1], bo, tactic);
           winners.push(r[0]);
           elimLog.push({ round: rnd.name, a: current[i], b: current[i + 1], w: r[0], loser: r[0] === current[i] ? current[i + 1] : current[i], sa: r[1], sb: r[2], results: r[3] });
         }
@@ -997,7 +1023,7 @@
         var boM = multiRounds[0].bo || 7;
         var finalR = multiRounds.filter(function (r) { return r.type === 'final'; });
         var finalBo = (finalR.length ? finalR[0].bo : null) || boM;
-        var de = dynamicDoubleElim(rng, strengths, current, boM, finalBo);
+        var de = dynamicDoubleElim(rng, strengths, current, boM, finalBo, tactic);
         elimLog = elimLog.concat(de[1]);
         current = [de[0]];
       }
@@ -1053,6 +1079,7 @@
     if (!fmt) return null;
     var rng = opts.rng;
     var names = opts.names, tpl = opts.tpl, track = opts.track || null;
+    var tactic = opts.tactic || 'balanced';
     var year = seasonYear(opts.season_id);
     var pnames = {};
     if (opts.players) {
@@ -1096,11 +1123,11 @@
     }
 
     function runMatch(aId, bId, bo, record) {
-      var r = playMatch(rng, strengths, aId, bId, bo);
+      var r = playMatch(rng, strengths, aId, bId, bo, tactic);
       var out = { aId: aId, bId: bId, winnerId: r[0], loserId: r[0] === aId ? bId : aId,
                   scoreA: r[1], scoreB: r[2], results: r[3] };
       tree.push({ round: currentRoundTag || '对局', a: aId, b: bId, w: r[0],
-                  sa: r[1], sb: r[2], done: true });
+                  sa: r[1], sb: r[2], bo: bo, done: true });
       if (record) recordMatch(aId, bId, out);
       return out;
     }
@@ -1125,6 +1152,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
+        placement: m.winnerId === track ? null : placementFromRound(rndName),
         games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year, names),
         results: resultsTrack,
         stats: trackStats
@@ -1741,6 +1769,7 @@
     if (!fmt) return null;
     var rng = opts.rng;
     var names = opts.names, tpl = opts.tpl, track = opts.track || null;
+    var tactic = opts.tactic || 'balanced';
     var year = seasonYear(opts.season_id);
     var pnames = {};
     if (opts.players) {
@@ -1826,11 +1855,11 @@
     }
 
     function runMatch(aId, bId, bo, record) {
-      var r = playMatch(rng, strengths, aId, bId, bo);
+      var r = playMatch(rng, strengths, aId, bId, bo, tactic);
       var winnerId = r[0], scoreA = r[1], scoreB = r[2], results = r[3];
       var loserId = winnerId === aId ? bId : aId;
       tree.push({ round: currentRoundTag || '对局', a: aId, b: bId, w: winnerId,
-                  sa: scoreA, sb: scoreB, done: true });
+                  sa: scoreA, sb: scoreB, bo: bo, done: true });
       if (record) {
         losses[loserId] = (losses[loserId] || 0) + 1;
         regularWins[winnerId] = (regularWins[winnerId] || 0) + 1;
@@ -1858,6 +1887,7 @@
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
+        placement: m.winnerId === track ? null : placementFromRound(rndName),
         games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year, names),
         results: resultsTrack,
         stats: simMatchStats(rng, rosterA, rosterB, m.results)
@@ -2080,10 +2110,10 @@
   }
 
   global.KPL_ENGINE = {
-    POSITIONS: POSITIONS, K: K, STRENGTH_NOISE: STRENGTH_NOISE, COMPRESS: COMPRESS,
+    POSITIONS: POSITIONS, K: K, STRENGTH_NOISE: STRENGTH_NOISE, TACTIC_NOISE: TACTIC_NOISE, COMPRESS: COMPRESS,
     makeRng: makeRng, pickStarter: pickStarter, teamStrength: teamStrength,
     buildChem: buildChem, lineupStrength: lineupStrength,
-    seriesWinProb: seriesWinProb, playSeries: playSeries, playMatch: playMatch,
+    seriesWinProb: seriesWinProb, playSeries: playSeries, playMatch: playMatch, placementFromRound: placementFromRound,
     dynamicSingleElim: dynamicSingleElim, dynamicDoubleElim: dynamicDoubleElim,
     gameNarration: gameNarration, narrateSeries: narrateSeries, simMatchStats: simMatchStats,
     franchiseNames: franchiseNames, simulateSeason: simulateSeason, createSession: createSession

@@ -21,6 +21,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
 NARR = ROOT / "data" / "narrative"
 OUT = ROOT / "app" / "data"
+BUILD_VERSION = "2026.08.25.1"
 
 # 王朝战队预设：真实历史主力五人组；版本取王朝年代赛季（若该赛季无记录则就近回退），
 # 该选手当年战力差的部分由该赛季真实同场默契 + 组合胜率化学补偿
@@ -266,7 +267,8 @@ def main() -> None:
             })
 
     manifest = {
-        "generated": "2026-08-16",
+        "generated": "2026-08-25",
+        "build_version": BUILD_VERSION,
         "seasons": seasons,
         "teams2026": teams2026,
     }

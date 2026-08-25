@@ -15,10 +15,10 @@
 
 ## 接入方式
 
-页面引入 `app/bgm.js`：
+页面引入 `app/js/bgm.js`：
 
 ```html
-<script src="bgm.js"></script>
+<script src="js/bgm.js"></script>
 ```
 
 初始化并切换场景：

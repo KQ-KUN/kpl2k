@@ -15,7 +15,12 @@ import narrative
 ROOT = Path(__file__).resolve().parents[1]
 NARRATIVE = ROOT / "data" / "narrative"
 PLACEHOLDER = re.compile(r"\{[a-z_]+\}")
-BANNED = ("假赛", "逃兵", "羊叫病", "软脚虾", "懦崽")
+BANNED = (
+    "假赛", "逃兵", "羊叫病", "软脚虾", "懦崽", "肥牛", "奴鱼", "美妆",
+    "羊叫", "下饭", "摆兽", "小摆熊", "麦乐送", "四饱", "菜卷", "送岚",
+    "躺然", "易蒸发", "水酷", "出笙", "呜鸣", "雪亡", "变刘明",
+    "1200万欢乐豆", "一诺行为", "保KDA", "黑蛋", "背锅侠", "小菜", "彷徨",
+)
 
 
 def load_json(path: Path) -> dict:
@@ -58,8 +63,12 @@ def main() -> None:
     files = tuple(NARRATIVE.glob("*.json"))
     docs = {path.name: load_json(path) for path in files}
     strings = list(all_strings(docs))
+    strings.append((ROOT / "docs" / "narrative_text.txt").read_text(encoding="utf-8"))
     for word in BANNED:
         assert not any(word in line for line in strings), f"发现禁用文本：{word}"
+    role_events = docs["templates.json"].get("role_events", {})
+    for role in ("对抗路", "打野", "中路", "发育路", "游走"):
+        assert len(role_events.get(role, [])) >= 3, f"{role}专属事件不足"
 
     cases = {
         "bo3_sweep": (["A", "A"], 3),

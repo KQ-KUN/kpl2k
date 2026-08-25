@@ -1,7 +1,7 @@
 {
  "schema_version": "0.1",
- "data_version": "2026-08-24",
- "note": "KPL 小局战报素材库 v4：补充技术解说、比分语义与原创诗性收束；真实金句仅保留经核实的短句回声，不为原创内容虚构署名。",
+ "data_version": "2026-08-25",
+ "note": "KPL 小局战报素材库 v5：加入五位置专属事件、赛段语境与克制使用的原创诗性收束；真实金句仅保留经核实的短句回声，不为原创内容虚构署名。",
  "systems": [
   "盾曹体系",
   "马核体系",
@@ -137,7 +137,7 @@
    "战鼓未响，兵线先行；{team_a}与{team_b}都在等对方露出第一处破绽"
  ],
  "events": [
-  "{minute}分钟龙团，{team}.{player}抢到{objective}，不再彷徨",
+  "{minute}分钟龙团，{team}.{player}抢到{objective}，野区节奏彻底点亮",
   "{minute}分钟河道爆发团战，{team}.{player}果断开团，打出零换三",
   "{team}.{player}关键时机打出致命节奏，团战瞬间失去悬念",
   "{team}.{player}一夫当关守高地，硬生生把比赛拖住",
@@ -182,6 +182,33 @@
    "{minute}分钟，经济面板仍然接近，{team}却用更快的落位把胜负提前写进龙坑",
    "{minute}分钟，{team}.{player}从侧翼点亮战场；刀锋所向，正是{opp}阵型最薄的一页"
  ],
+ "role_events": {
+  "对抗路": [
+   "{minute}分钟，{team}.{player}把边线压力推到二塔，随后绕后切断{opp}退路",
+   "{minute}分钟正面接团，{team}.{player}先吃第一轮技能，再从侧翼重新进场",
+   "{team}.{player}守住边线兵潮，让队伍获得转向{objective}的时间窗口"
+  ],
+  "打野": [
+   "{minute}分钟，{team}.{player}提前落位龙坑，逼退{opp}后稳稳控下{objective}",
+   "{team}.{player}连续入侵两片野区，把资源差转化为整张地图的主动权",
+   "{minute}分钟惩击博弈，{team}.{player}压到最后一刻收下{objective}"
+  ],
+  "中路": [
+   "{minute}分钟，{team}.{player}先清中线再游走边路，第一轮控制直接撕开缺口",
+   "{team}.{player}守住中轴线权，让上下两片野区都能先一步落位",
+   "{minute}分钟河道拉扯，{team}.{player}用技能封住入口，{opp}只能绕路接团"
+  ],
+  "发育路": [
+   "{minute}分钟团战，{team}.{player}把输出位置留到最后，连续收下关键击杀",
+   "{team}.{player}接管中路兵线，团战胜利后把优势兑现成两座防御塔",
+   "{minute}分钟高地攻防，{team}.{player}在前排身后持续输出，逼退{opp}"
+  ],
+  "游走": [
+   "{minute}分钟，{team}.{player}先铺视野再开团，第一轮控制正中{opp}核心",
+   "{team}.{player}反手拆掉对方强开，保护后排完成整齐反打",
+   "{minute}分钟龙坑前，{team}.{player}用一次探草换出关键信息，队伍随即收下{objective}"
+  ]
+ },
  "endings": [
   "{team_a}平推水晶，目前比分改写为{score_a}:{score_b}",
   "{team_a}一波团灭后点掉水晶，比分来到{score_a}:{score_b}",

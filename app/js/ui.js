@@ -15,6 +15,7 @@
     roster: [],          // [{pid, sid}] 5 槽
     season: null,
     seed: 0,
+    tactic: 'balanced',
     dynasty: null,
     lastRun: null,       // {champion, path, regular, events, rosterNames, records}
     allStar: {
@@ -23,16 +24,60 @@
   };
 
   var picker = { open: false, slot: 0, pid: null, sid: null };
+  var storageWarningTimer = null;
+  var shareVersionNotice = '';
 
   /* ---------------- 状态持久化 ---------------- */
+  function showStorageWarning(message) {
+    var el = $('storage-warning');
+    if (!el) return;
+    el.textContent = message;
+    el.classList.add('show');
+    if (storageWarningTimer) clearTimeout(storageWarningTimer);
+    storageWarningTimer = setTimeout(function () { el.classList.remove('show'); }, 5000);
+  }
+
+  function mergeCustomPlayers(base, extra) {
+    var out = [], seen = {};
+    (base || []).concat(extra || []).forEach(function (p) {
+      if (!p || !p.id || seen[p.id]) return;
+      seen[p.id] = true;
+      out.push(p);
+    });
+    return out;
+  }
+
+  function compactAllStarState(allStar) {
+    return {
+      aTeam: allStar.aTeam, bTeam: allStar.bTeam,
+      aRoster: (allStar.aRoster || []).slice(), bRoster: (allStar.bRoster || []).slice(),
+      bo: allStar.bo || 5
+    };
+  }
+
   function saveState() {
+    var payload = JSON.stringify({
+      mode: STATE.mode, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed, tactic: STATE.tactic,
+      dynasty: STATE.dynasty,
+      lastRun: STATE.lastRun, allStar: STATE.allStar
+    });
     try {
-      localStorage.setItem(STATE_KEY, JSON.stringify({
-        mode: STATE.mode, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed,
-        dynasty: STATE.dynasty,
-        lastRun: STATE.lastRun, allStar: STATE.allStar
-      }));
-    } catch (e) { /* ignore */ }
+      localStorage.setItem(STATE_KEY, payload);
+      return true;
+    } catch (e) {
+      var storageHistory = loadHistory();
+      while (storageHistory.length) {
+        storageHistory.pop();
+        try {
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(storageHistory));
+          localStorage.setItem(STATE_KEY, payload);
+          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
+          return true;
+        } catch (retryError) { /* keep pruning oldest history */ }
+      }
+    }
+    showStorageWarning('本地存储空间不足，本次设置可能无法保留。请清理浏览器存储后重试。');
+    return false;
   }
   function loadState() {
     try {
@@ -44,6 +89,7 @@
       STATE.roster = s.roster || [];
       STATE.season = s.season || null;
       STATE.seed = s.seed || 0;
+      STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(s.tactic) >= 0 ? s.tactic : 'balanced';
       STATE.dynasty = s.dynasty || null;
       STATE.lastRun = s.lastRun || null;
       STATE.allStar = s.allStar || STATE.allStar;
@@ -64,6 +110,15 @@
     return (Math.round(x * 10) / 10) + '%';
   }
   function go(hash) { location.hash = hash; }
+  function buildVersion() { return (DATA.manifest && DATA.manifest.build_version) || 'legacy'; }
+  function tacticName(value) {
+    return { stable: '稳健运营', balanced: '均衡应对', gamble: '放手一搏' }[value] || '均衡应对';
+  }
+  function renderTacticPickers() {
+    document.querySelectorAll('.tactic-picker button').forEach(function (button) {
+      button.classList.toggle('sel', button.getAttribute('data-tactic') === STATE.tactic);
+    });
+  }
 
   /* ---------------- 玩家须知（未同意前全屏遮罩） ---------------- */
   function initDisclaimer() {
@@ -91,7 +146,26 @@
     try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
   }
   function saveHistory(h) {
-    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(h.slice(0, 20))); } catch (e) { /* ignore */ }
+    var out = h.slice(0, 20).map(function (item) {
+      if (!item || item.mode !== 'allstar' || !item.allStar) return item;
+      var copy = Object.assign({}, item);
+      copy.allStar = compactAllStarState(item.allStar);
+      return copy;
+    });
+    while (out.length) {
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(out));
+        if (out.length < Math.min(h.length, 20)) {
+          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
+        }
+        return true;
+      } catch (e) {
+        out.pop();
+      }
+    }
+    try { localStorage.setItem(HISTORY_KEY, '[]'); } catch (e2) { /* storage unavailable */ }
+    showStorageWarning('历史战绩保存失败：浏览器本地存储空间不足。');
+    return false;
   }
   function fmtTime(ts) {
     var d = new Date(ts);
@@ -143,8 +217,11 @@
     if (!r || !r.lastRun) return;
     if (r.mode === 'allstar') {
       STATE.mode = 'allstar';
-      STATE.allStar = r.allStar || STATE.allStar;
+      var savedAllStar = r.allStar || {};
+      var customs = mergeCustomPlayers(STATE.allStar.customs, savedAllStar.customs);
+      STATE.allStar = Object.assign({}, STATE.allStar, savedAllStar, { customs: customs });
       STATE.seed = r.seed || 0;
+      STATE.tactic = (r.lastRun && r.lastRun.tactic) || 'balanced';
       STATE.lastRun = r.lastRun;
       saveState(); go('#/result'); return;
     }
@@ -153,6 +230,7 @@
     STATE.roster = r.roster || [];
     STATE.season = r.season;
     STATE.seed = r.seed;
+    STATE.tactic = (r.lastRun && r.lastRun.tactic) || 'balanced';
     STATE.dynasty = null;
     STATE.lastRun = r.lastRun;
     saveState();
@@ -337,6 +415,8 @@
     var hash = location.hash || '#/';
     var m = hash.match(/^#\/s\?(.*)$/);
     if (m) { applyShare(m[1]); return; }
+    var a = hash.match(/^#\/a\?(.*)$/);
+    if (a) { applyAllStarShare(a[1]); return; }
     if (hash.indexOf('#/team') === 0) showTeam();
     else if (hash.indexOf('#/allstar') === 0) showAllStar();
     else if (hash.indexOf('#/season') === 0) showSeason();
@@ -349,25 +429,70 @@
   function applyShare(qs) {
     var params = new URLSearchParams(qs);
     var t = params.get('t'), s = params.get('s'), r = params.get('r'), seed = params.get('seed');
+    var sharedVersion = params.get('v');
+    var versionMismatch = !sharedVersion || sharedVersion !== buildVersion();
     var roster = [];
     (r || '').split(',').forEach(function (pair) {
       var parts = pair.split('@');
       if (parts.length === 2) roster.push({ pid: parts[0], sid: parts[1] });
     });
-    if (t && roster.length) {
+    if (t && roster.length === 5) {
+      STATE.mode = 'classic';
       STATE.team = t;
       STATE.roster = roster;
       STATE.season = s || null;
       STATE.seed = parseInt(seed || '0', 10) || 0;
+      STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(params.get('tc')) >= 0 ? params.get('tc') : 'balanced';
       saveState();
       var cached = null;
       try { cached = JSON.parse(localStorage.getItem(STATE_KEY) || 'null'); } catch (e) { /* ignore */ }
+      var requestedRoster = roster.map(function (slot) { return slot.pid + '@' + slot.sid; }).join(',');
+      var cachedRoster = cached && cached.lastRun && (cached.lastRun.records || []).map(function (record) {
+        return record.player_id + '@' + record.season_id;
+      }).join(',');
       var hit = cached && cached.lastRun &&
-        cached.lastRun.team === t && cached.lastRun.seed === STATE.seed && cached.lastRun.season === STATE.season;
+        !versionMismatch && cached.lastRun.version === buildVersion() &&
+        cached.lastRun.team === t && cached.lastRun.seed === STATE.seed && cached.lastRun.season === STATE.season &&
+        (cached.lastRun.tactic || 'balanced') === STATE.tactic && cachedRoster === requestedRoster;
+      if (versionMismatch) shareVersionNotice = '该分享来自旧版本，已使用当前数据与规则重新模拟，赛果可能与原分享不同。';
       location.hash = hit ? '#/result' : '#/sim';
     } else {
       location.hash = '#/';
     }
+  }
+
+  function unpackAllStarSlots(value) {
+    var out = [];
+    (value || '').split(',').forEach(function (item) {
+      var parts = item.split('@');
+      if (parts.length < 2 || !parts[0] || !parts[1]) return;
+      out.push({ pid: parts[0], sid: parts[1], teamFid: parts[2] || null });
+    });
+    return out;
+  }
+
+  function applyAllStarShare(qs) {
+    var params = new URLSearchParams(qs);
+    var aRoster = unpackAllStarSlots(params.get('ar'));
+    var bRoster = unpackAllStarSlots(params.get('br'));
+    var bo = parseInt(params.get('bo') || '5', 10);
+    if (aRoster.length !== 5 || bRoster.length !== 5 || [3, 5, 7].indexOf(bo) < 0) {
+      location.hash = '#/';
+      return;
+    }
+    STATE.mode = 'allstar';
+    STATE.allStar = Object.assign({}, STATE.allStar, {
+      aTeam: params.get('at') || STATE.allStar.aTeam,
+      bTeam: params.get('bt') || STATE.allStar.bTeam,
+      aRoster: aRoster, bRoster: bRoster, bo: bo
+    });
+    STATE.seed = parseInt(params.get('seed') || '0', 10) || Math.floor(Math.random() * 100000);
+    STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(params.get('tc')) >= 0 ? params.get('tc') : 'balanced';
+    if (params.get('v') !== buildVersion()) {
+      shareVersionNotice = '该全明星分享来自旧版本，已使用当前数据与规则重新模拟。';
+    }
+    saveState();
+    location.hash = '#/sim';
   }
 
   /* ---------------- 视图切换 ---------------- */
@@ -390,11 +515,43 @@
   function showHome() {
     showPage('home');
     BGM.play('intro');
+    var quick = $('btn-quick');
+    if (quick) {
+      quick.disabled = false;
+      quick.querySelector('b').textContent = '30秒快速开赛';
+    }
     if (DATA.manifest) {
       $('stat-line').innerHTML = '<b>' + DATA.manifest.teams2026.length + '</b> 支战队 · <b>' +
         DATA.manifest.seasons.length + '</b> 个赛季 · <b>' + Object.keys(DATA.players).length + '</b> 名选手';
     }
     renderHomeHistory();
+  }
+
+  function startQuickMatch() {
+    var button = $('btn-quick');
+    var featuredTeam = DATA.manifest.teams2026.some(function (t) { return t.id === '10001'; })
+      ? '10001' : DATA.manifest.teams2026[0].id;
+    var featuredSeason = DATA.manifest.seasons.some(function (s) { return s.season_id === 'KCC2026'; })
+      ? 'KCC2026' : DATA.manifest.seasons[DATA.manifest.seasons.length - 1].season_id;
+    button.disabled = true;
+    button.querySelector('b').textContent = '正在载入推荐对局…';
+    Promise.all([D.loadTeam(featuredTeam)].concat(D.loadSeasons([featuredSeason].concat(PRESET_SEASONS)))).then(function (res) {
+      currentTeamData = res[0];
+      STATE.mode = 'classic';
+      STATE.team = featuredTeam;
+      STATE.season = featuredSeason;
+      STATE.dynasty = null;
+      STATE.tactic = 'balanced';
+      STATE.roster = presetRoster(featuredTeam);
+      STATE.seed = Math.floor(Math.random() * 100000);
+      saveState();
+      if (STATE.roster.length === 5) go('#/sim');
+      else go('#/team');
+    }).catch(function () {
+      showStorageWarning('快速开赛载入失败，请检查网络后重试。');
+      button.disabled = false;
+      button.querySelector('b').textContent = '30秒快速开赛';
+    });
   }
 
   /* ================= 组队 ================= */
@@ -676,7 +833,10 @@
       STATE.roster = STATE.roster.slice();
       while (STATE.roster.length < POS_ORDER.length) STATE.roster.push(null);
       STATE.roster[slot] = { pid: picker.pid, sid: picker.sid };
-      if (SIM.session) SIM.session.setRoster(STATE.team, recordsForRoster(STATE.roster));
+      if (SIM.session) {
+        SIM.session.setRoster(STATE.team, recordsForRoster(STATE.roster));
+        SIM.rosterChanged = true;
+      }
       saveState();
       renderSlots();
       renderStrength();
@@ -703,6 +863,7 @@
     if (!STATE.allStar.aTeam && teams.length) STATE.allStar.aTeam = teams[0].id;
     if (!STATE.allStar.bTeam && teams.length) STATE.allStar.bTeam = (teams[1] || teams[0]).id;
     renderAllStarTeamSelects();
+    renderTacticPickers();
     $('allstar-a-slots').innerHTML = $('allstar-b-slots').innerHTML = '<div class="mut" style="padding:18px;text-align:center">正在加载全明星选手库…</div>';
     Promise.all([
       D.loadAllStar(), D.loadTeam(STATE.allStar.aTeam), D.loadTeam(STATE.allStar.bTeam)
@@ -1045,6 +1206,7 @@
     $('season-team-name').textContent = STATE.team
       ? (teamName(STATE.team) + ' · ' + STATE.roster.map(function (s) { return playerName(s.pid); }).join('、'))
       : '未组队';
+    renderTacticPickers();
     renderSeasonList();
   }
 
@@ -1110,7 +1272,7 @@
 
   /* ================= 模拟 ================= */
   /* 分阶段模拟：逐局 reveal，每轮后可换人 */
-  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false, tree: [] };
+  var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false, tree: [], rosterChanged: false };
 
   function showSim() {
     showPage('sim');
@@ -1126,6 +1288,7 @@
     SIM.queue = [];
     if (SIM.timer) { clearInterval(SIM.timer); SIM.timer = null; }
     SIM.tree = [];
+    SIM.rosterChanged = false;
     if (STATE.mode === 'allstar') startAllStarSimulation();
     else startSimulation();
   }
@@ -1159,13 +1322,17 @@
       SIM.session = E.createSession({
         season_id: battleSid, formats: formats, rosters: rosters, rng: E.makeRng(STATE.seed),
         names: DATA.names, tpl: DATA.tpl, chem: D.buildChemFor(sids),
-        override_rosters: override, track: STATE.team, players: DATA.players
+        override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic
       });
       SIM.stageNo = 0;
       SIM.path = [];
       SIM.seasonName = battle.name;
       var loading = $('sim-loading');
       if (loading) loading.remove();
+      if (shareVersionNotice) {
+        appendCard({ title: '版本提示', lines: [shareVersionNotice], cls: 'reg' });
+        shareVersionNotice = '';
+      }
       renderOpeningTree();
       advance();
     }).catch(function (e) {
@@ -1190,7 +1357,7 @@
         ALLSTAR_B: E.lineupStrength(bSource, chem, E.COMPRESS)[0]
       };
       var aRecords = allStarRecords('a', false), bRecords = allStarRecords('b', false);
-      var result = E.playMatch(rng, strengths, 'ALLSTAR_A', 'ALLSTAR_B', STATE.allStar.bo);
+      var result = E.playMatch(rng, strengths, 'ALLSTAR_A', 'ALLSTAR_B', STATE.allStar.bo, STATE.tactic);
       var aName = teamName(STATE.allStar.aTeam) + '联队';
       var bName = teamName(STATE.allStar.bTeam) + '联队';
       var pnames = {};
@@ -1198,13 +1365,14 @@
       var teamNames = { ALLSTAR_A: aName, ALLSTAR_B: bName };
       var games = E.narrateSeries(rng, DATA.tpl, aName, bName, result[3], aRecords, bRecords, pnames, STATE.allStar.bo, 2026, teamNames);
       var rawStats = E.simMatchStats(rng, aRecords, bRecords, result[3]);
-      var runStats = allStarRunStats(rawStats, aRecords, bRecords, result[0]);
+      var runStats = allStarRunStats(rawStats, aRecords, bRecords, result[3]);
       var entry = {
         round: '全明星对决', opp: bName, score: result[1] + ':' + result[2], win: result[0] === 'ALLSTAR_A',
         games: games, results: result[3], stats: runStats
       };
       STATE.lastRun = {
         mode: 'allstar', champion: result[0], team: 'ALLSTAR_A', season: null, seed: STATE.seed,
+        version: buildVersion(), tactic: STATE.tactic,
         seasonName: 'BO' + STATE.allStar.bo + ' 全明星对决', score: result[1] + ':' + result[2],
         aName: aName, bName: bName, aTeam: STATE.allStar.aTeam, bTeam: STATE.allStar.bTeam,
         aRoster: aSlots.slice(), bRoster: bSlots.slice(), aRecords: aRecords, bRecords: bRecords,
@@ -1215,6 +1383,10 @@
       SIM.path = [];
       SIM.seasonName = STATE.lastRun.seasonName;
       var loading = $('sim-loading'); if (loading) loading.remove();
+      if (shareVersionNotice) {
+        appendCard({ title: '版本提示', lines: [shareVersionNotice], cls: 'reg' });
+        shareVersionNotice = '';
+      }
       appendEntryCard(entry, '全明星对决');
       $('sim-progress-fill').style.width = '100%';
       pumpReveal();
@@ -1223,8 +1395,13 @@
     });
   }
 
-  function allStarRunStats(raw, aRecords, bRecords, winner) {
+  function allStarRunStats(raw, aRecords, bRecords, results) {
     var out = {};
+    var gameCount = (results || []).length;
+    var sideWins = {
+      ALLSTAR_A: (results || []).filter(function (winner) { return winner === 'A'; }).length,
+      ALLSTAR_B: (results || []).filter(function (winner) { return winner === 'B'; }).length
+    };
     [['ALLSTAR_A', aRecords], ['ALLSTAR_B', bRecords]].forEach(function (side) {
       var teamKills = 0;
       side[1].forEach(function (r) { teamKills += (raw[r.player_id + '|' + side[0]] || {}).k || 0; });
@@ -1236,7 +1413,7 @@
           avgK: s.games ? s.k / s.games : 0, avgD: s.games ? s.d / s.games : 0,
           avgA: s.games ? s.a / s.games : 0,
           participation: teamKills ? (s.k + s.a) / teamKills : 0,
-          winRate: winner === side[0] ? 1 : 0
+          winRate: gameCount ? sideWins[side[0]] / gameCount : 0
         };
       });
     });
@@ -1245,14 +1422,14 @@
 
   function saveAllStarHistory() {
     var run = JSON.parse(JSON.stringify(STATE.lastRun));
-    run.path = run.path.map(function (p) { return { round: p.round, opp: p.opp, score: p.score, win: p.win, results: p.results }; });
+    run.path = run.path.map(function (p) { return { round: p.round, opp: p.opp, score: p.score, win: p.win, placement: p.placement, results: p.results }; });
     var hist = loadHistory();
     hist.unshift({
       mode: 'allstar', teamName: STATE.lastRun.aName + ' vs ' + STATE.lastRun.bName,
       seasonName: STATE.lastRun.seasonName, savedAt: Date.now(),
       champ: true, banner: STATE.lastRun.score,
       rosterNames: STATE.lastRun.records.map(function (r) { return playerName(r.player_id); }),
-      allStar: JSON.parse(JSON.stringify(STATE.allStar)), seed: STATE.seed, lastRun: run
+      allStar: compactAllStarState(STATE.allStar), seed: STATE.seed, lastRun: run
     });
     saveHistory(hist);
   }
@@ -1303,12 +1480,31 @@
     }
   }
 
+  function seriesContext(stageTitle) {
+    var lines = ['经理指令：' + tacticName(STATE.tactic) + '。' +
+      ({ stable: '先稳住阵型与资源交换，把胜负交给纸面实力。', balanced: '按标准节奏寻找机会，临场应变优先。', gamble: '主动提速争抢前期窗口，接受更高的赛果波动。' }[STATE.tactic] || '')];
+    var title = String(stageTitle || '');
+    if (title.indexOf('总决赛') >= 0 || title === '决赛') lines.push('所有悬念都收敛到这一场，下一座水晶决定奖杯归属。');
+    else if (title.indexOf('败者组') >= 0) lines.push('败者组没有回头路，任何一次失误都可能让整个赛季停在这里。');
+    else if (title.indexOf('半决赛') >= 0 || title.indexOf('淘汰') >= 0) lines.push('比赛进入淘汰区间，阵容上限之外，更考验谁先顶住压力。');
+    var streak = 0;
+    for (var i = SIM.path.length - 1; i >= 0 && SIM.path[i].win; i--) streak++;
+    if (streak >= 2) lines.push('此前已经连胜' + streak + '轮，气势正在成为第六名队员。');
+    if (SIM.rosterChanged) {
+      lines.push('阵容刚刚完成调整，新五人组能否立刻形成默契，是这一轮最大的变量。');
+      SIM.rosterChanged = false;
+    }
+    return lines.join('<br>');
+  }
+
   function appendEntryCard(entry, stageTitle) {
+    var context = seriesContext(stageTitle);
     SIM.path.push(entry);
     var el = document.createElement('div');
     el.className = 'story-event';
     el.innerHTML = '<div class="se-title">' + stageIcon(stageTitle) + ' ' + esc(stageTitle) + ' · vs ' + esc(entry.opp) +
-      ' <span class="score-pill ' + (entry.win ? 'win' : 'lose') + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>';
+      ' <span class="score-pill ' + (entry.win ? 'win' : 'lose') + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>' +
+      '<div class="se-context">' + context + '</div>';
     $('sim-events').appendChild(el);
     requestAnimationFrame(function () { el.classList.add('show'); });
     entry.games.forEach(function (g, gi) {
@@ -1730,6 +1926,7 @@
     }
     STATE.lastRun = {
       champion: championId, team: STATE.team, season: STATE.season, seed: STATE.seed,
+      version: buildVersion(), tactic: STATE.tactic,
       path: SIM.path, regular: SIM.session ? SIM.session.getRegular() : {},
       tree: SIM.session && SIM.session.getTree ? SIM.session.getTree() : [],
       rosterNames: STATE.roster.map(function (s) { return playerName(s.pid); }),
@@ -1740,11 +1937,11 @@
     // 写入首页历史战绩（精简 path 体积，只保留战绩卡需要的字段）
     var runForHistory = JSON.parse(JSON.stringify(STATE.lastRun));
     runForHistory.path = (runForHistory.path || []).map(function (p) {
-      return { round: p.round, opp: p.opp, score: p.score, win: p.win, results: p.results };
+      return { round: p.round, opp: p.opp, score: p.score, win: p.win, placement: p.placement, results: p.results };
     });
     var hBanner = isChamp ? '🏆 冠军'
       : (SIM.path.length && String(SIM.path[SIM.path.length - 1].round).indexOf('决赛') >= 0 ? '亚军'
-        : '止步·' + placeText(SIM.path.length ? SIM.path[SIM.path.length - 1].round : ''));
+        : '止步·' + runPlacement({ path: SIM.path }));
     var hist = loadHistory();
     hist.unshift({
       team: STATE.team, teamName: teamName(STATE.team), season: STATE.season, seasonName: SIM.seasonName,
@@ -1785,6 +1982,57 @@
     return '淘汰赛';
   }
 
+  function runPlacement(run) {
+    var last = run && run.path && run.path.length ? run.path[run.path.length - 1] : null;
+    return (last && last.placement) || placeText(last ? last.round : '');
+  }
+
+  function scoreParts(score) {
+    var parts = String(score || '').split(':').map(Number);
+    return parts.length === 2 && parts.every(function (n) { return Number.isFinite(n); }) ? parts : [0, 0];
+  }
+
+  function comebackTag(results, winnerToken) {
+    var a = 0, b = 0, maxDeficit = 0;
+    (results || []).forEach(function (token) {
+      if (token === 'A') a++; else b++;
+      maxDeficit = Math.max(maxDeficit, winnerToken === 'A' ? b - a : a - b);
+    });
+    var winnerScore = winnerToken === 'A' ? a : b;
+    var loserScore = winnerToken === 'A' ? b : a;
+    if (winnerScore === 3 && loserScore === 2 && maxDeficit >= 2) return '让二追三';
+    if (winnerScore === 4 && loserScore === 3 && maxDeficit >= 3) return '让三追四';
+    return maxDeficit >= 2 ? '逆风翻盘' : '';
+  }
+
+  function achievementTags(run) {
+    var tags = [], path = run.path || [], isAllStar = run.mode === 'allstar';
+    function add(tag) { if (tag && tags.indexOf(tag) < 0) tags.push(tag); }
+    path.forEach(function (entry) {
+      var score = scoreParts(entry.score);
+      var winnerToken = isAllStar
+        ? (run.champion === 'ALLSTAR_A' ? 'A' : 'B')
+        : (entry.win ? 'A' : 'B');
+      if ((isAllStar && Math.min(score[0], score[1]) === 0) || (!isAllStar && entry.win && score[1] === 0)) {
+        add(isAllStar ? '零封胜出' : '零封晋级');
+      }
+      if (Math.abs(score[0] - score[1]) === 1 && Math.min(score[0], score[1]) >= 1) add('决胜局绝杀');
+      add(comebackTag(entry.results, winnerToken));
+    });
+    if (!isAllStar && run.champion && teamName(run.champion) === teamName(run.team)) {
+      if (path.length && path.every(function (entry) { return entry.win; })) add('全胜夺冠');
+      var loserWins = path.filter(function (entry) { return entry.win && String(entry.round).indexOf('败者组') >= 0; }).length;
+      if (loserWins >= 2) add('败者组一穿' + loserWins);
+    }
+    return tags.slice(0, 4);
+  }
+
+  function renderAchievements(run) {
+    $('result-achievements').innerHTML = achievementTags(run).map(function (tag) {
+      return '<span class="achievement-tag">' + esc(tag) + '</span>';
+    }).join('');
+  }
+
   function showResult() {
     showPage('result');
     var run = STATE.lastRun;
@@ -1810,12 +2058,13 @@
     } else if (run.path.length && String(run.path[run.path.length - 1].round).indexOf('决赛') >= 0) {
       banner = '亚军'; cls = 'runner';
     } else {
-      banner = '赛季止步 · ' + placeText(run.path.length ? run.path[run.path.length - 1].round : '');
+      banner = '赛季止步 · ' + runPlacement(run);
       cls = 'elim';
     }
     $('result-banner').className = 'res-banner ' + cls;
     $('result-banner').textContent = banner;
-    $('result-sub').textContent = run.seasonName + ' · ' + team + ' · 种子 ' + run.seed;
+    renderAchievements(run);
+    $('result-sub').textContent = run.seasonName + ' · ' + team + ' · ' + tacticName(run.tactic) + ' · 种子 ' + run.seed;
     if (run.champion && teamName(run.champion) === team) {
       var slogan = teamSlogan(team);
       $('result-slogan').style.display = slogan ? '' : 'none';
@@ -1888,14 +2137,17 @@
     BGM.play('champion', winnerName);
     $('result-banner').className = 'res-banner champ';
     $('result-banner').textContent = '🏆 ' + winnerName + ' 获胜 · ' + run.score;
-    $('result-sub').textContent = run.seasonName + ' · 种子 ' + run.seed;
+    renderAchievements(run);
+    $('result-sub').textContent = run.seasonName + ' · ' + tacticName(run.tactic) + ' · 种子 ' + run.seed;
     $('result-slogan').style.display = 'none';
     $('result-roster-title').textContent = '双方阵容';
     $('result-path-title').textContent = '对局';
     $('result-stats-title').textContent = '双方选手数据';
     $('result-tree-card').style.display = 'none';
-    $('result-share').style.display = 'none';
-    $('share-tip').textContent = '自定义头像仅保存在当前设备，本场暂不生成分享链接';
+    $('result-share').style.display = '';
+    $('share-tip').textContent = allStarHasCustom(run)
+      ? '可生成并下载战绩图 · 自定义选手仅保存在当前设备，无法生成还原链接'
+      : '可下载战绩图 · 分享链接可还原双方阵容与本场种子';
 
     function rosterHtml(title, records) {
       return '<div class="allstar-result-side"><h3>' + esc(title) + '</h3>' + records.map(function (r) {
@@ -1918,13 +2170,35 @@
     requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
 
+  function allStarHasCustom(run) {
+    return ((run.aRoster || []).concat(run.bRoster || [])).some(function (slot) {
+      return !!(slot && (slot.templatePid || String(slot.pid || '').indexOf('custom_') === 0));
+    });
+  }
+
+  function packAllStarSlots(slots) {
+    return (slots || []).map(function (slot) {
+      return [slot.pid, slot.sid, slot.teamFid || ''].map(encodeURIComponent).join('@');
+    }).join(',');
+  }
+
   function shareLink() {
+    var run = STATE.lastRun || {};
+    if (run.mode === 'allstar') {
+      if (allStarHasCustom(run)) return '';
+      return location.href.split('#')[0] + '#/a?' +
+        'at=' + encodeURIComponent(run.aTeam) + '&bt=' + encodeURIComponent(run.bTeam) +
+        '&bo=' + encodeURIComponent(STATE.allStar.bo || 5) +
+        '&ar=' + packAllStarSlots(run.aRoster) + '&br=' + packAllStarSlots(run.bRoster) +
+        '&seed=' + encodeURIComponent(run.seed) + '&tc=' + encodeURIComponent(run.tactic || STATE.tactic) + '&v=' + encodeURIComponent(buildVersion());
+    }
     var rosterStr = STATE.roster.map(function (s) { return s.pid + '@' + s.sid; }).join(',');
     var url = location.href.split('#')[0] + '#/s?' +
       't=' + encodeURIComponent(STATE.team) +
       '&s=' + encodeURIComponent(STATE.season) +
       '&r=' + encodeURIComponent(rosterStr) +
-      '&seed=' + STATE.seed;
+      '&seed=' + STATE.seed + '&tc=' + encodeURIComponent(run.tactic || STATE.tactic) +
+      '&v=' + encodeURIComponent(buildVersion());
     return url;
   }
 
@@ -1977,22 +2251,26 @@
     x.strokeStyle = '#f0b90b'; x.lineWidth = 6;
     x.strokeRect(26, 26, W - 52, H - 52);
 
-    var team = teamName(run.team);
+    var isAllStar = run.mode === 'allstar';
+    var team = isAllStar ? (run.aName + ' vs ' + run.bName) : teamName(run.team);
     x.textAlign = 'center';
     x.fillStyle = '#f0b90b';
     x.font = '900 58px sans-serif';
     x.fillText('KPL 2K · 战绩卡', W / 2, 122);
     x.fillStyle = '#8fa8cc';
     x.font = '30px sans-serif';
-    x.fillText(run.seasonName + ' · ' + team + ' · 种子 ' + run.seed, W / 2, 178);
+    x.fillText(run.seasonName + ' · ' + team + ' · ' + tacticName(run.tactic) + ' · 种子 ' + run.seed, W / 2, 178);
 
     var banner, color, bg;
-    if (run.champion && teamName(run.champion) === team) {
+    if (isAllStar) {
+      var allStarWinner = run.champion === 'ALLSTAR_A' ? run.aName : run.bName;
+      banner = '🏆 ' + allStarWinner + '获胜 · ' + run.score; color = '#3fb950'; bg = 'rgba(63,185,80,.16)';
+    } else if (run.champion && teamName(run.champion) === team) {
       banner = '🏆 冠军'; color = '#3fb950'; bg = 'rgba(63,185,80,.16)';
     } else if (run.path.length && String(run.path[run.path.length - 1].round).indexOf('决赛') >= 0) {
       banner = '亚军'; color = '#8fa8cc'; bg = 'rgba(143,168,204,.16)';
     } else {
-      banner = '赛季止步 · ' + placeText(run.path.length ? run.path[run.path.length - 1].round : '');
+      banner = '赛季止步 · ' + runPlacement(run);
       color = '#f85149'; bg = 'rgba(248,81,73,.16)';
     }
     roundRectPath(x, W / 2 - 270, 216, 540, 96, 18);
@@ -2001,16 +2279,23 @@
     x.fillStyle = color; x.font = '700 42px sans-serif';
     x.fillText(banner, W / 2, 278);
 
+    var achievementText = achievementTags(run).join(' · ');
+    if (achievementText) {
+      x.fillStyle = '#ffe08a'; x.font = '700 25px sans-serif';
+      x.fillText(achievementText, W / 2, 352);
+    }
+
     var y = 400;
     x.textAlign = 'left';
     x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
-    x.fillText('阵容', P, y); y += 18;
+    x.fillText(isAllStar ? '双方阵容' : '阵容', P, y); y += 18;
     run.records.forEach(function (r) {
       y += 90;
       x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
       x.fillText(playerName(r.player_id), P, y);
       x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
-      x.fillText(r.position, P + 330, y);
+      var sideLabel = isAllStar ? (r.team_franchise === 'ALLSTAR_A' ? run.aName : run.bName) + ' · ' : '';
+      x.fillText(sideLabel + r.position, P + 330, y);
       var rs = (run.runStats || {})[r.player_id];
       var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
       var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
@@ -2039,6 +2324,12 @@
     x.fillText('民间算法 · 平行时空 · KPL 2K', W / 2, H - 66);
 
     $('share-img').src = cv.toDataURL('image/png');
+    var canCopy = !!shareLink();
+    $('share-copy').style.display = canCopy ? '' : 'none';
+    $('share-copy').textContent = '复制链接';
+    $('share-modal').querySelector('.sm-head').textContent = canCopy
+      ? '长按图片保存，或下载后发到社群'
+      : '自定义选手仅保存在当前设备，可下载本场战绩图';
     $('share-modal').classList.add('show');
     $('share-mask').classList.add('show');
   }
@@ -2071,6 +2362,9 @@
         STATE.mode = 'classic';
         go('#/team');
       });
+      $('btn-quick').addEventListener('click', function () {
+        BGM.unlock(); BGM.play('intro'); startQuickMatch();
+      });
       $('btn-allstar').addEventListener('click', function () {
         BGM.unlock(); BGM.play('intro'); STATE.mode = 'allstar'; saveState(); go('#/allstar');
       });
@@ -2079,6 +2373,12 @@
       $('allstar-bo').querySelectorAll('button').forEach(function (el) {
         el.addEventListener('click', function () {
           STATE.allStar.bo = parseInt(el.getAttribute('data-bo'), 10); saveState(); renderAllStar();
+        });
+      });
+      document.querySelectorAll('.tactic-picker button').forEach(function (el) {
+        el.addEventListener('click', function () {
+          STATE.tactic = el.getAttribute('data-tactic');
+          saveState(); renderTacticPickers();
         });
       });
       $('allstar-start').addEventListener('click', function () {

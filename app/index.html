@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="storage-warning" id="storage-warning" role="status" aria-live="polite"></div>
 
 <!-- ================= 首页 ================= -->
 <div id="home" class="page">
@@ -17,6 +18,11 @@
     <div class="tagline">组一支你心中的阵容，改写 KPL 历史</div>
     <div class="stat-line" id="stat-line"></div>
   </div>
+  <button class="quick-start" id="btn-quick">
+    <span class="qs-icon">⚡</span>
+    <span><b>30秒快速开赛</b><small>载入推荐阵容与战场，立即生成一条平行时间线</small></span>
+    <span class="qs-arrow">›</span>
+  </button>
   <div class="mode-cards">
     <button class="mode-card" id="btn-classic">
       <div class="mc-title">经典模式</div>
@@ -122,6 +128,14 @@
   <div class="bo-picker" id="allstar-bo">
     <button data-bo="3">BO3</button><button class="sel" data-bo="5">BO5</button><button data-bo="7">BO7</button>
   </div>
+  <div class="tactic-panel">
+    <div class="tactic-title">赛前策略 <span>只改变赛果波动，不改变纸面战力</span></div>
+    <div class="tactic-picker">
+      <button data-tactic="stable"><b>稳健运营</b><small>降低波动，强队更稳</small></button>
+      <button data-tactic="balanced"><b>均衡应对</b><small>标准比赛节奏</small></button>
+      <button data-tactic="gamble"><b>放手一搏</b><small>提高波动，更易爆冷</small></button>
+    </div>
+  </div>
   <div class="allstar-sides">
     <section class="allstar-side side-a">
       <div class="as-head"><div><span class="side-dot"></span><b>红方</b></div></div>
@@ -149,6 +163,14 @@
     <span class="step">2 / 2</span>
   </div>
   <div class="mut" style="font-size:12px;margin-bottom:10px">当前阵容：<span id="season-team-name"></span></div>
+  <div class="tactic-panel">
+    <div class="tactic-title">赛前策略 <span>根据阵容强弱决定要稳住，还是赌一次上限</span></div>
+    <div class="tactic-picker">
+      <button data-tactic="stable"><b>稳健运营</b><small>降低波动，强队更稳</small></button>
+      <button data-tactic="balanced"><b>均衡应对</b><small>标准比赛节奏</small></button>
+      <button data-tactic="gamble"><b>放手一搏</b><small>提高波动，更易爆冷</small></button>
+    </div>
+  </div>
   <div id="season-list"></div>
 </div>
 <div class="bottom-bar" id="season-bar" style="display:none">
@@ -190,6 +212,7 @@
   </div>
   <div class="sub mut" id="result-sub" style="font-size:12px;margin-bottom:12px"></div>
   <div class="res-banner" id="result-banner"></div>
+  <div class="achievement-list" id="result-achievements" aria-label="本场成就"></div>
   <div id="result-slogan" style="display:none;text-align:center;font-size:15px;font-weight:700;color:var(--gold);margin:6px 0 12px"></div>
   <div class="card"><h2 id="result-roster-title">阵容</h2><div id="result-roster"></div></div>
   <div class="card"><h2 id="result-path-title">赛程</h2>

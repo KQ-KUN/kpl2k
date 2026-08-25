@@ -10,7 +10,7 @@ Add a direct exhibition mode where the player builds two five-player lineups fro
 2. Pick a default franchise for the red side and blue side. Each choice immediately fills the five position slots with that franchise's current preset lineup.
 3. Replace any slot with any matching-position player and historical version from the existing player database.
 4. Optionally create a custom identity by entering a name, choosing a male/female Origin Child default portrait or uploading and cropping an avatar, and selecting an existing professional version as the ability template.
-5. Select BO3, BO5, or BO7 and start the match.
+5. Select BO3, BO5, or BO7, choose Stable, Balanced, or Gamble strategy, and start the match.
 6. Read the same game-by-game narration used by Classic Mode, then view the result using the existing result-card visual language and player-stat table.
 
 ## Data contract
@@ -27,7 +27,7 @@ Add a direct exhibition mode where the player builds two five-player lineups fro
 - Default side names are derived from the selected franchises.
 - A professional player or custom identity cannot occupy more than one of the ten active slots.
 - Chemistry continues to use the existing engine. Cross-era records without shared history naturally receive no teammate chemistry bonus.
-- All-Star results are saved locally and can be replayed with a new random seed. Link sharing is excluded because local avatar data cannot be reconstructed on another device.
+- All-Star results are saved locally and can be replayed with a new random seed. Professional-only lineups can be restored from a versioned link. Custom-player matches can export an image, but link copying is disabled because local avatar data cannot be reconstructed on another device.
 - Classic Mode routes, season simulation, history restoration, and share links remain unchanged.
 
 ## Acceptance criteria
@@ -40,5 +40,7 @@ Add a direct exhibition mode where the player builds two five-player lineups fro
 - BO3 ends at two wins, BO5 at three wins, and BO7 at four wins.
 - The simulation page renders the existing narration format, including game MVP lines and peak-match wording where applicable.
 - The result page shows the winner, score, both lineups, and ten-player match statistics with the existing card/table styling.
+- Strategy changes deterministic match variance without changing displayed lineup strength, and result cards show earned achievement tags.
+- New history entries never duplicate custom avatar data URLs; old history remains readable.
 - A mobile viewport fits without horizontal page overflow; the player-stat table may scroll inside its existing container.
 - Existing Classic Mode smoke checks still pass.

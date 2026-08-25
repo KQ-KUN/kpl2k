@@ -6,6 +6,8 @@
   --radius:14px;
   --safe-bottom:env(safe-area-inset-bottom,0px);
 }
+.storage-warning{position:fixed;left:50%;top:18px;z-index:1200;max-width:min(520px,calc(100vw - 32px));padding:10px 14px;border:1px solid rgba(248,81,73,.7);border-radius:10px;background:#25151a;color:#ffd9d6;font-size:13px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.35);opacity:0;pointer-events:none;transform:translate(-50%,-12px);transition:.2s ease}
+.storage-warning.show{opacity:1;transform:translate(-50%,0)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{
@@ -22,6 +24,27 @@ img{display:block}
 .page{display:none;padding:14px 14px calc(var(--safe-bottom) + 96px)}
 .page.active{display:block;animation:fadeIn .22s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.quick-start{width:100%;display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:13px 15px;border:1px solid rgba(240,185,11,.65);border-radius:var(--radius);background:linear-gradient(110deg,rgba(240,185,11,.18),rgba(93,168,255,.12));text-align:left;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.quick-start:active{transform:scale(.99)}
+.quick-start:disabled{opacity:.65;cursor:wait}
+.qs-icon{font-size:24px;line-height:1}
+.quick-start b{display:block;color:var(--gold);font-size:16px}
+.quick-start small{display:block;margin-top:1px;color:var(--mut);font-size:11px;line-height:1.4}
+.qs-arrow{margin-left:auto;color:var(--gold);font-size:26px}
+.tactic-panel{margin:12px 0;padding:12px;border:1px solid var(--line2);border-radius:var(--radius);background:rgba(18,36,63,.82)}
+.tactic-title{margin-bottom:8px;font-weight:750;color:var(--fg)}
+.tactic-title span{margin-left:6px;color:var(--mut);font-size:10px;font-weight:400}
+.tactic-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.tactic-picker button{min-width:0;padding:9px 6px;border:1px solid var(--line2);border-radius:10px;background:rgba(11,26,46,.65)}
+.tactic-picker button.sel{border-color:var(--gold);background:rgba(240,185,11,.14);box-shadow:inset 0 0 0 1px rgba(240,185,11,.2)}
+.tactic-picker b,.tactic-picker small{display:block}
+.tactic-picker b{font-size:12px;white-space:nowrap}
+.tactic-picker small{margin-top:2px;color:var(--mut);font-size:9px;line-height:1.3}
+.se-context{margin-top:8px;padding:8px 10px;border-left:2px solid var(--gold);background:rgba(240,185,11,.06);color:#c8d7ea;font-size:12px;line-height:1.5}
+.achievement-list{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:9px 0 12px}
+.achievement-list:empty{display:none}
+.achievement-tag{padding:4px 9px;border:1px solid rgba(240,185,11,.48);border-radius:999px;background:rgba(240,185,11,.1);color:#ffe08a;font-size:11px;font-weight:700}
 
 /* ---- 通用组件 ---- */
 .topbar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
