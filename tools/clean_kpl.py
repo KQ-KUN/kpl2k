@@ -397,6 +397,27 @@ def main() -> None:
     if c_applied:
         print(f"champion bonus applied: {c_applied} 条冠军赛季补偿")
 
+    # A player has one public gameplay rating per calendar year. Calculate it
+    # once from official battlefield seasons, then reuse it in every event.
+    season_year = {s["season_id"]: s.get("year") for s in seasons}
+    battlefield_seasons = {s["season_id"] for s in seasons if s.get("is_battlefield")}
+    annual_peak = {
+        (s["player_id"], int(season_year[s["season_id"]])): 50.0
+        for s in stats
+        if season_year.get(s["season_id"]) is not None
+    }
+    for s in stats:
+        year = season_year.get(s["season_id"])
+        if year is None or s["season_id"] not in battlefield_seasons:
+            continue
+        key = (s["player_id"], int(year))
+        annual_peak[key] = max(annual_peak[key], float(s.get("rating") or 50))
+    for s in stats:
+        year = season_year.get(s["season_id"])
+        if year is not None and (s["player_id"], int(year)) in annual_peak:
+            s["rating"] = annual_peak[(s["player_id"], int(year))]
+    print(f"annual ratings reused: {len(annual_peak)} player-year versions")
+
     def dump(name: str, obj) -> None:
         (OUT / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
 

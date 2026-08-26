@@ -39,6 +39,7 @@ def main() -> None:
     run("schedule audit", [python, "tools/audit_schedule.py"])
     run("rating validation", [python, "tools/validate_ratings.py"])
     run("player version validation", [python, "tools/validate_player_versions.py"])
+    run("build consistency", [python, "tools/validate_build_consistency.py"])
     run("narrative validation", [python, "tools/validate_narrative.py"])
     for script in ("engine.js", "ui.js", "data.js", "narrative.js", "bgm.js"):
         run(f"syntax: {script}", ["node", "--check", f"app/js/{script}"])
