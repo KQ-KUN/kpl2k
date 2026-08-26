@@ -38,6 +38,7 @@ def main() -> None:
     python = sys.executable
     run("schedule audit", [python, "tools/audit_schedule.py"])
     run("rating validation", [python, "tools/validate_ratings.py"])
+    run("player version validation", [python, "tools/validate_player_versions.py"])
     run("narrative validation", [python, "tools/validate_narrative.py"])
     for script in ("engine.js", "ui.js", "data.js", "narrative.js", "bgm.js"):
         run(f"syntax: {script}", ["node", "--check", f"app/js/{script}"])

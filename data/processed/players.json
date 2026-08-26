@@ -7,6 +7,7 @@
    "name": "花海",
    "real_name": "",
    "positions": [
+    "发育路",
     "打野"
    ],
    "teams": {
@@ -1062,6 +1063,7 @@
    "name": "Cat",
    "real_name": "",
    "positions": [
+    "中路",
     "游走"
    ],
    "teams": {
@@ -1401,6 +1403,7 @@
    "name": "Alan",
    "real_name": "",
    "positions": [
+    "打野",
     "游走"
    ],
    "teams": {
@@ -1547,7 +1550,8 @@
    "name": "Giao",
    "real_name": "",
    "positions": [
-    "对抗路"
+    "对抗路",
+    "打野"
    ],
    "teams": {
     "L20190001": "10902",
@@ -1568,6 +1572,7 @@
    "name": "易峥",
    "real_name": "",
    "positions": [
+    "发育路",
     "游走"
    ],
    "teams": {
@@ -2052,6 +2057,7 @@
    "name": "久酷",
    "real_name": "",
    "positions": [
+    "发育路",
     "游走"
    ],
    "teams": {
@@ -2085,7 +2091,7 @@
    "name": "蓝柚",
    "real_name": "",
    "positions": [
-    "发育路"
+    "打野"
    ],
    "teams": {
     "L20190004": "10002",
@@ -2844,6 +2850,7 @@
    "name": "无畏",
    "real_name": "",
    "positions": [
+    "打野",
     "游走"
    ],
    "teams": {
@@ -2902,6 +2909,7 @@
    "name": "啊泽",
    "real_name": "",
    "positions": [
+    "对抗路",
     "游走"
    ],
    "teams": {
@@ -10271,6 +10279,21 @@
     "KPL2026S2": "10008"
    },
    "player_icon": "https://smobatv-pic.tga.qq.com/6bb6db55ae956ed052e07a9343911f6d.png"
+  },
+  {
+   "player_id": "BTL六点六",
+   "name": "六点六",
+   "real_name": "",
+   "positions": [
+    "对抗路"
+   ],
+   "teams": {
+    "KPL2020S2": "10027",
+    "L20190004": "10027",
+    "L20200001": "10027",
+    "L20200003": "10027"
+   },
+   "player_icon": ""
   },
   {
    "player_id": "BTL994",

@@ -394,8 +394,15 @@ def main() -> None:
     def dump(name: str, obj) -> None:
         (OUT / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    for pl in players.values():
-        pl["positions"] = sorted(pl["positions"])
+    # The raw player profile exposes only the latest/retirement position. Use
+    # the corrected season records as the source of truth so role switchers
+    # remain selectable at every position they actually played.
+    final_positions: dict[str, set[str]] = {}
+    for s in stats:
+        if s.get("position") in POS_WEIGHTS:
+            final_positions.setdefault(s["player_id"], set()).add(s["position"])
+    for pid, pl in players.items():
+        pl["positions"] = sorted(final_positions.get(pid, pl["positions"]))
     for f in franchises.values():
         f["names"] = sorted(f["names"])
         f["abbreviations"] = sorted(f["abbreviations"])

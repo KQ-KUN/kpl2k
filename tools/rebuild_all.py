@@ -1,6 +1,6 @@
 """KPL 2K 数据一键重建
 
-按依赖顺序执行：赛程审计 → 归属构建 → 清洗评分 → 关联表 → 选手库 → 评分验证
+按依赖顺序执行：赛程审计 → 归属构建 → 清洗评分 → 关联表 → 选手库 → Web 分片 → 验证
 
 用法：
   python tools/rebuild_all.py
@@ -25,6 +25,7 @@ STEPS = [
     ("validate_ratings.py", "评分验证"),
     ("build_team_icons.py", "战队头像"),
     ("build_web.py", "Web 分片"),
+    ("validate_player_versions.py", "历史位置+现役战力验证"),
 ]
 
 

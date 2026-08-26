@@ -22,6 +22,16 @@ RAW = ROOT / "data" / "raw"
 PROC = ROOT / "data" / "processed"
 BATTLE_DIR = RAW / "battles"
 
+# The official battle feed leaves this player's name and position blank in
+# every AG game from his tenure. The remaining row (team, hero and stats) is
+# complete, so recover the identity at the narrowest reliable boundary.
+MISSING_PLAYER_BY_SEASON_TEAM = {
+    ("L20190004", "10027"): ("六点六", "对抗路"),
+    ("L20200001", "10027"): ("六点六", "对抗路"),
+    ("L20200003", "10027"): ("六点六", "对抗路"),
+    ("KPL2020S2", "10027"): ("六点六", "对抗路"),
+}
+
 
 def load(name: str) -> dict:
     return json.loads((PROC / name).read_text(encoding="utf-8"))
@@ -52,14 +62,18 @@ def main() -> None:
         seen_in_battle: set[str] = set()
         for p in data.get("battle_player_list") or []:
             name = p.get("player_name")
+            recovered = MISSING_PLAYER_BY_SEASON_TEAM.get((season_id, p.get("team_id")))
+            if not name and recovered:
+                name = recovered[0]
             if not name:
                 continue
             seen_in_battle.add(name)
             key = (season_id, name)
             if p.get("team_id"):
                 votes[key]["team"] = p["team_id"]
-            if p.get("position_desc"):
-                votes[key]["position"] = p["position_desc"]
+            position = p.get("position_desc") or (recovered[1] if recovered else None)
+            if position:
+                votes[key]["position"] = position
             if p.get("hero_name"):
                 heroes[key].add(p["hero_name"])
             for field in ("kill_num", "death_num", "assist_num", "gold", "hurt_to_hero_total",

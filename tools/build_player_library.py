@@ -211,7 +211,7 @@ def main() -> None:
             "name": p["name"],
             "real_name": p.get("real_name", ""),
             "icon": icon_by_pid.get(pid, ""),
-            "positions": p.get("positions", []),
+            "positions": sorted({v["position"] for v in versions}),
             "legend": is_legend,
             "peak_rating": peak,
             "version_count": len(versions),
