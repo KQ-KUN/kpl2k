@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-PY = sys.executable
+VENV_PY = ROOT.parent / ".venv" / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+PY = str(VENV_PY) if VENV_PY.exists() else sys.executable
 
 STEPS = [
     ("audit_schedule.py", "赛程审计"),

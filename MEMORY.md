@@ -9,6 +9,7 @@
 战队经理式 KPL 赛季模拟网页游戏（手机优先、无后端、静态包 + COS/CDN）。抽象层级=比赛，不做局内操作/BP/账号/排行榜。数据范围 2019 起。
 
 ## 数据管线
+- Python依赖记录在`requirements.txt`；项目本地环境为D盘仓库内的`.venv`，`rebuild_all.py`存在该环境时会自动使用它，保证Pillow头像步骤可运行。
 - 源：kpl.qq.com（赛程/战队）+ prod.comp.smoba.qq.com（选手/逐局 MVP）。
 - 一键重建 `python tools/rebuild_all.py`：审计→归属→组合胜率→清洗评分→映射→选手库→校验。
 - formats.json 由 build_kpl_maps.py 生成，勿手改；改赛制改脚本。

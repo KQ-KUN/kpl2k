@@ -23,5 +23,6 @@ hok_leagues.json
 shot_library.*
 
 # 本地环境
+.venv/
 .env
 *.log
