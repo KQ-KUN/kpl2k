@@ -24,6 +24,30 @@ ROLE_METRICS = {
     "游走": {"participation", "be_hurt_rate", "assists", "kda", "towers", "mvp"},
 }
 
+HONOR_RATING_FLOORS = {
+    ("KPL2026S1", "轩染"): 85.0,
+    ("KPL2026S1", "无言"): 90.0,
+    ("KPL2026S1", "句号"): 90.0,
+    ("KPL2026S1", "流浪"): 90.0,
+    ("KPL2026S1", "道崽"): 92.0,
+    ("KPL2026S1", "一笙"): 90.0,
+    ("KPL2026S1", "清清"): 87.0,
+    ("KPL2026S1", "暖阳"): 87.0,
+    ("KPL2026S1", "清融"): 87.0,
+    ("KPL2026S1", "小屿"): 87.0,
+    ("KPL2026S1", "信"): 87.0,
+    ("KPL2026S2", "轩染"): 84.0,
+    ("KPL2026S2", "道崽"): 92.0,
+    ("KPL2026S2", "清清"): 89.0,
+    ("KPL2026S2", "小雪"): 91.0,
+    ("KPL2026S2", "无言"): 83.0,
+    ("KPL2026S2", "流浪"): 83.0,
+    ("KPL2026S2", "紫幻"): 83.0,
+    ("KPL2026S2", "小崽"): 83.0,
+    ("KPL2026S2", "大帅"): 83.0,
+    ("KPL2026S2", "信"): 83.0,
+}
+
 
 def load(name: str) -> dict:
     return json.loads((PROC / name).read_text(encoding="utf-8"))
@@ -59,6 +83,18 @@ def main() -> None:
         (r["season_id"], players.get(r["player_id"], "")): r
         for r in stats if r["rating"] is not None
     }
+    honor_failures = []
+    for key, floor in HONOR_RATING_FLOORS.items():
+        rating = stat_by_key.get(key, {}).get("rating")
+        if rating is None or rating < floor:
+            honor_failures.append((key[0], key[1], rating, floor))
+    if honor_failures:
+        detail = ", ".join(
+            f"{season}/{name}={rating}<{floor}"
+            for season, name, rating, floor in honor_failures
+        )
+        raise SystemExit(f"[FAIL] honor rating floors: {detail}")
+    print(f"官方荣誉战力门槛验证：{len(HONOR_RATING_FLOORS)}/{len(HONOR_RATING_FLOORS)} 通过")
     franchises = {f["franchise_id"]: f for f in load("franchises.json")["franchises"]}
 
     def team_name(fid: str) -> str:
