@@ -518,7 +518,7 @@
     var quick = $('btn-quick');
     if (quick) {
       quick.disabled = false;
-      quick.querySelector('b').textContent = '30秒快速开赛';
+      quick.querySelector('b').textContent = '快速开赛';
     }
     if (DATA.manifest) {
       $('stat-line').innerHTML = '<b>' + DATA.manifest.teams2026.length + '</b> 支战队 · <b>' +
@@ -550,7 +550,7 @@
     }).catch(function () {
       showStorageWarning('快速开赛载入失败，请检查网络后重试。');
       button.disabled = false;
-      button.querySelector('b').textContent = '30秒快速开赛';
+      button.querySelector('b').textContent = '快速开赛';
     });
   }
 

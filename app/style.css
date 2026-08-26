@@ -25,7 +25,7 @@ img{display:block}
 .page.active{display:block;animation:fadeIn .22s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.quick-start{width:100%;display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:13px 15px;border:1px solid rgba(240,185,11,.65);border-radius:var(--radius);background:linear-gradient(110deg,rgba(240,185,11,.18),rgba(93,168,255,.12));text-align:left;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.quick-start{width:100%;display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:13px 15px;border:1px solid rgba(240,185,11,.78);border-radius:var(--radius);background:rgba(8,18,38,.9);text-align:left;box-shadow:0 8px 24px rgba(0,0,0,.34);backdrop-filter:blur(8px)}
 .quick-start:active{transform:scale(.99)}
 .quick-start:disabled{opacity:.65;cursor:wait}
 .qs-icon{font-size:24px;line-height:1}
