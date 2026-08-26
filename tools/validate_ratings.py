@@ -16,6 +16,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
 
+ROLE_METRICS = {
+    "对抗路": {"kills", "hurt_rate", "kda", "towers", "mvp", "be_hurt_rate"},
+    "打野": {"kills", "participation", "kda", "gold_rate", "hurt_rate", "towers", "mvp"},
+    "中路": {"damage_convert", "hurt_rate", "kills", "kda", "participation", "assists", "be_hurt_rate", "mvp", "gpm"},
+    "发育路": {"gold_rate", "hurt_rate", "kills", "kda", "participation", "mvp"},
+    "游走": {"participation", "be_hurt_rate", "assists", "kda", "towers", "mvp"},
+}
+
 
 def load(name: str) -> dict:
     return json.loads((PROC / name).read_text(encoding="utf-8"))
@@ -28,6 +36,13 @@ def main() -> None:
 
     seasons = load("seasons.json")["seasons"]
     stats = load("player_season_stats.json")["records"]
+    incomplete = [
+        r for r in stats
+        if r.get("rating_components", {}).get("metrics")
+        and set(r["rating_components"]["metrics"]) != ROLE_METRICS.get(r["position"], set())
+    ]
+    if incomplete:
+        raise SystemExit(f"[FAIL] {len(incomplete)} rated records have incomplete metric contributions")
     players = {p["player_id"]: p["name"] for p in load("players.json")["players"]}
     attr = load("player_attribution.json").get("records", [])
     covered = {r["season_id"] for r in attr}

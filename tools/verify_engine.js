@@ -25,6 +25,17 @@ function fail(message) {
   throw new Error(message);
 }
 
+const pairProbe = [
+  { player_id: 'Z', season_id: 'PAIR_TEST', team_franchise: 'T', position: '对抗路', games: 30, rating: 80 },
+  { player_id: 'A', season_id: 'PAIR_TEST', team_franchise: 'T', position: '打野', games: 30, rating: 80 }
+];
+const pairChem = E.buildChem(pairProbe, {}, {});
+const pairForward = E.lineupStrength(pairProbe, pairChem, E.COMPRESS)[1].synergy;
+const pairReverse = E.lineupStrength(pairProbe.slice().reverse(), pairChem, E.COMPRESS)[1].synergy;
+if (pairForward !== 0.8 || pairReverse !== pairForward) {
+  fail(`teammate synergy key is order-dependent: forward=${pairForward}, reverse=${pairReverse}`);
+}
+
 function validateTree(sid, seed, tree, champion) {
   if (!champion) fail(`${sid} seed ${seed}: missing champion`);
   let finals = 0;

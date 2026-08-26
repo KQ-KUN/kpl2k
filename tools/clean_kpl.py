@@ -358,12 +358,18 @@ def main() -> None:
             s["rating"] = 50.0
             s["rating_components"] = {}
             continue
-        wsum = sum(w for _, w, _, _ in available)
+        available_by_metric = {m: (val, pool_vals) for m, _, val, pool_vals in available}
+        wsum = sum(POS_WEIGHTS[pos].values())
         score = 0.0
         comps: dict[str, float] = {}
-        for m, w, val, pool_vals in available:
-            vals = sorted(pool_vals)
-            pct = bisect.bisect_right(vals, val) / len(vals)
+        for m, w in POS_WEIGHTS[pos].items():
+            metric = available_by_metric.get(m)
+            if metric:
+                val, pool_vals = metric
+                vals = sorted(pool_vals)
+                pct = bisect.bisect_right(vals, val) / len(vals)
+            else:
+                pct = 0.5  # Missing data is neutral; it must not amplify the remaining metrics.
             score += w * pct / wsum
             comps[m] = round(w * pct * 100, 1)
         factor = min(1.0, math.log(1 + s["games"]) / math.log(21))  # 5场≈0.59，20场≈1.0 封顶

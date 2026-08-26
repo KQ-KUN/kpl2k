@@ -118281,12 +118281,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0476,
-   "rating": 67.2,
+   "rating": 68.3,
    "rating_components": {
     "metrics": {
      "kills": 5.9,
      "hurt_rate": 2.2,
      "kda": 7.2,
+     "towers": 7.5,
      "mvp": 8.2,
      "be_hurt_rate": 6.3
     },
@@ -118318,13 +118319,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 6,
    "mvp_per_game": 0.0909,
-   "rating": 87.3,
+   "rating": 86.7,
    "rating_components": {
     "metrics": {
      "participation": 26.8,
      "be_hurt_rate": 17.5,
      "assists": 19.0,
      "kda": 9.2,
+     "towers": 2.5,
      "mvp": 5.9
     },
     "sample": 1.0
@@ -118355,12 +118357,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0541,
-   "rating": 80.0,
+   "rating": 79.2,
    "rating_components": {
     "metrics": {
      "kills": 20.0,
      "hurt_rate": 20.8,
      "kda": 2.6,
+     "towers": 7.5,
      "mvp": 6.8,
      "be_hurt_rate": 1.8
     },
@@ -118392,13 +118395,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1053,
-   "rating": 70.3,
+   "rating": 71.1,
    "rating_components": {
     "metrics": {
      "kills": 0.6,
      "participation": 20.0,
      "kda": 7.7,
+     "gold_rate": 7.5,
      "hurt_rate": 0.3,
+     "towers": 5.0,
      "mvp": 8.1
     },
     "sample": 0.98
@@ -118429,9 +118434,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 10,
    "mvp_per_game": 0.1538,
-   "rating": 65.3,
+   "rating": 66.5,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 2.5,
      "kills": 4.9,
      "kda": 3.2,
@@ -118469,9 +118475,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.0455,
-   "rating": 60.8,
+   "rating": 64.0,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 5.1,
      "kills": 3.6,
      "kda": 3.7,
@@ -118506,13 +118513,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 56.7,
+   "rating": 57.4,
    "rating_components": {
     "metrics": {
      "participation": 0.7,
      "be_hurt_rate": 12.9,
      "assists": 1.1,
      "kda": 0.9,
+     "towers": 2.5,
      "mvp": 1.2
     },
     "sample": 0.84
@@ -118543,13 +118551,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 76.5,
+   "rating": 76.4,
    "rating_components": {
     "metrics": {
      "participation": 29.0,
      "be_hurt_rate": 7.3,
      "assists": 14.5,
      "kda": 4.8,
+     "towers": 2.5,
      "mvp": 1.2
     },
     "sample": 0.98
@@ -118580,13 +118589,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.7,
+   "rating": 61.5,
    "rating_components": {
     "metrics": {
      "kills": 4.4,
      "participation": 0.2,
      "kda": 0.1,
+     "gold_rate": 7.5,
      "hurt_rate": 8.1,
+     "towers": 5.0,
      "mvp": 0.8
     },
     "sample": 1.0
@@ -118617,12 +118628,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 68.7,
+   "rating": 69.2,
    "rating_components": {
     "metrics": {
      "kills": 10.1,
      "hurt_rate": 19.1,
      "kda": 1.4,
+     "towers": 7.5,
      "mvp": 1.3,
      "be_hurt_rate": 4.5
     },
@@ -118654,9 +118666,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 55.0,
+   "rating": 58.8,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 5.0,
      "kills": 2.1,
      "kda": 0.5,
@@ -118691,13 +118704,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 7,
    "mvp_per_game": 0.1944,
-   "rating": 84.8,
+   "rating": 84.3,
    "rating_components": {
     "metrics": {
      "participation": 33.5,
      "be_hurt_rate": 6.1,
      "assists": 18.3,
      "kda": 7.7,
+     "towers": 2.5,
      "mvp": 7.5
     },
     "sample": 1.0
@@ -118728,12 +118742,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0476,
-   "rating": 68.8,
+   "rating": 69.7,
    "rating_components": {
     "metrics": {
      "kills": 10.7,
      "hurt_rate": 9.3,
      "kda": 4.3,
+     "towers": 7.5,
      "mvp": 5.4,
      "be_hurt_rate": 3.1
     },
@@ -118765,9 +118780,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 6,
    "mvp_per_game": 0.1132,
-   "rating": 61.0,
+   "rating": 62.8,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 4.0,
      "kills": 0.9,
      "kda": 3.2,
@@ -118805,13 +118821,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0769,
-   "rating": 58.8,
+   "rating": 62.1,
    "rating_components": {
     "metrics": {
      "kills": 3.5,
      "participation": 1.8,
      "kda": 0.5,
+     "gold_rate": 7.5,
      "hurt_rate": 0.7,
+     "towers": 5.0,
      "mvp": 6.3
     },
     "sample": 0.87
@@ -118842,9 +118860,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 4,
    "mvp_per_game": 0.0833,
-   "rating": 67.6,
+   "rating": 68.6,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 12.6,
      "kills": 1.1,
      "kda": 6.3,
@@ -118882,12 +118901,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.0536,
-   "rating": 68.1,
+   "rating": 69.1,
    "rating_components": {
     "metrics": {
      "kills": 8.4,
      "hurt_rate": 8.8,
      "kda": 0.7,
+     "towers": 7.5,
      "mvp": 6.8,
      "be_hurt_rate": 6.7
     },
@@ -118919,13 +118939,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 4,
    "mvp_per_game": 0.125,
-   "rating": 76.7,
+   "rating": 76.6,
    "rating_components": {
     "metrics": {
      "participation": 16.2,
      "be_hurt_rate": 24.1,
      "assists": 7.1,
      "kda": 2.0,
+     "towers": 2.5,
      "mvp": 6.8
     },
     "sample": 1.0
@@ -118956,12 +118977,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 61.5,
+   "rating": 63.4,
    "rating_components": {
     "metrics": {
      "kills": 2.6,
      "hurt_rate": 9.1,
      "kda": 0.6,
+     "towers": 7.5,
      "mvp": 1.3,
      "be_hurt_rate": 6.3
     },
@@ -118993,9 +119015,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 12,
    "mvp_per_game": 0.2353,
-   "rating": 78.7,
+   "rating": 78.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 11.3,
      "kills": 13.5,
      "kda": 1.6,
@@ -119033,13 +119056,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0357,
-   "rating": 65.3,
+   "rating": 67.3,
    "rating_components": {
     "metrics": {
      "kills": 3.4,
      "participation": 14.7,
      "kda": 3.3,
+     "gold_rate": 7.5,
      "hurt_rate": 2.5,
+     "towers": 5.0,
      "mvp": 3.2
     },
     "sample": 1.0
@@ -119070,13 +119095,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 64.0,
+   "rating": 64.4,
    "rating_components": {
     "metrics": {
      "participation": 4.6,
      "be_hurt_rate": 20.7,
      "assists": 4.5,
      "kda": 1.5,
+     "towers": 2.5,
      "mvp": 1.2
     },
     "sample": 0.91
@@ -119107,13 +119133,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 71.2,
+   "rating": 71.3,
    "rating_components": {
     "metrics": {
      "participation": 18.0,
      "be_hurt_rate": 23.7,
      "assists": 3.7,
      "kda": 1.3,
+     "towers": 2.5,
      "mvp": 1.2
     },
     "sample": 0.93
@@ -119144,9 +119171,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.1064,
-   "rating": 63.8,
+   "rating": 65.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 2.0,
      "kills": 5.0,
      "kda": 2.6,
@@ -119184,13 +119212,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0192,
-   "rating": 60.0,
+   "rating": 63.3,
    "rating_components": {
     "metrics": {
      "kills": 5.4,
      "participation": 5.4,
      "kda": 2.6,
+     "gold_rate": 7.5,
      "hurt_rate": 2.5,
+     "towers": 5.0,
      "mvp": 1.9
     },
     "sample": 1.0
@@ -119221,13 +119251,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 68.7,
+   "rating": 68.9,
    "rating_components": {
     "metrics": {
      "participation": 24.9,
      "be_hurt_rate": 9.1,
      "assists": 3.2,
      "kda": 0.9,
+     "towers": 2.5,
      "mvp": 1.2
     },
     "sample": 1.0
@@ -119258,13 +119289,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.0685,
-   "rating": 83.7,
+   "rating": 83.3,
    "rating_components": {
     "metrics": {
      "participation": 19.6,
      "be_hurt_rate": 21.9,
      "assists": 17.4,
      "kda": 6.9,
+     "towers": 2.5,
      "mvp": 5.0
     },
     "sample": 1.0
@@ -119295,13 +119327,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.0811,
-   "rating": 72.9,
+   "rating": 73.0,
    "rating_components": {
     "metrics": {
      "participation": 12.5,
      "be_hurt_rate": 11.6,
      "assists": 14.6,
      "kda": 4.0,
+     "towers": 2.5,
      "mvp": 5.5
     },
     "sample": 1.0
@@ -119339,6 +119372,7 @@
      "be_hurt_rate": 22.0,
      "assists": 13.3,
      "kda": 1.7,
+     "towers": 2.5,
      "mvp": 5.7
     },
     "sample": 1.0
@@ -119369,13 +119403,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 4,
    "mvp_per_game": 0.0702,
-   "rating": 76.4,
+   "rating": 76.3,
    "rating_components": {
     "metrics": {
      "participation": 20.3,
      "be_hurt_rate": 19.1,
      "assists": 8.0,
      "kda": 3.0,
+     "towers": 2.5,
      "mvp": 5.1
     },
     "sample": 1.0
@@ -119406,12 +119441,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 71.3,
+   "rating": 71.0,
    "rating_components": {
     "metrics": {
      "kills": 22.9,
      "hurt_rate": 18.3,
      "kda": 2.0,
+     "towers": 7.5,
      "mvp": 1.3,
      "be_hurt_rate": 2.4
     },
@@ -119443,9 +119479,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.1,
+   "rating": 61.1,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 5.7,
      "kills": 2.3,
      "kda": 0.7,
@@ -119480,13 +119517,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0833,
-   "rating": 76.9,
+   "rating": 76.4,
    "rating_components": {
     "metrics": {
      "kills": 16.8,
      "participation": 16.2,
      "kda": 1.7,
+     "gold_rate": 7.5,
      "hurt_rate": 6.2,
+     "towers": 5.0,
      "mvp": 6.9
     },
     "sample": 1.0
@@ -119517,9 +119556,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0426,
-   "rating": 61.6,
+   "rating": 64.6,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 4.7,
      "kills": 4.9,
      "kda": 2.1,
@@ -119554,9 +119594,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.2727,
-   "rating": 76.0,
+   "rating": 75.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 17.9,
      "kills": 14.9,
      "kda": 0.9,
@@ -119594,13 +119635,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1538,
-   "rating": 78.7,
+   "rating": 77.0,
    "rating_components": {
     "metrics": {
      "kills": 27.5,
      "participation": 11.5,
      "kda": 1.3,
+     "gold_rate": 7.5,
      "hurt_rate": 9.3,
+     "towers": 5.0,
      "mvp": 9.2
     },
     "sample": 0.87
@@ -119631,13 +119674,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 61.4,
+   "rating": 61.8,
    "rating_components": {
     "metrics": {
      "participation": 4.9,
      "be_hurt_rate": 18.4,
      "assists": 3.3,
      "kda": 0.2,
+     "towers": 2.5,
      "mvp": 2.4
     },
     "sample": 0.82
@@ -119668,13 +119712,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 66.6,
+   "rating": 67.3,
    "rating_components": {
     "metrics": {
      "kills": 9.0,
      "participation": 16.0,
      "kda": 0.8,
+     "gold_rate": 7.5,
      "hurt_rate": 8.9,
+     "towers": 5.0,
      "mvp": 1.3
     },
     "sample": 0.82
@@ -119733,13 +119779,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 85.1,
+   "rating": 84.7,
    "rating_components": {
     "metrics": {
      "participation": 24.5,
      "be_hurt_rate": 13.0,
      "assists": 19.5,
      "kda": 7.0,
+     "towers": 2.5,
      "mvp": 6.9
     },
     "sample": 0.97
@@ -119770,9 +119817,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.1667,
-   "rating": 83.4,
+   "rating": 82.4,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 16.2,
      "kills": 15.0,
      "kda": 2.9,
@@ -119838,13 +119886,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0588,
-   "rating": 70.8,
+   "rating": 70.9,
    "rating_components": {
     "metrics": {
      "participation": 19.7,
      "be_hurt_rate": 17.1,
      "assists": 1.6,
      "kda": 2.2,
+     "towers": 2.5,
      "mvp": 5.3
     },
     "sample": 0.95
@@ -119875,13 +119924,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.2632,
-   "rating": 87.0,
+   "rating": 84.1,
    "rating_components": {
     "metrics": {
      "kills": 28.2,
      "participation": 15.9,
      "kda": 1.4,
+     "gold_rate": 7.5,
      "hurt_rate": 9.7,
+     "towers": 5.0,
      "mvp": 11.6
     },
     "sample": 0.98
@@ -119940,9 +119991,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 58.8,
+   "rating": 60.9,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 0.2,
      "kills": 3.8,
      "kda": 1.9,
@@ -119980,13 +120032,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 83.2,
+   "rating": 82.8,
    "rating_components": {
     "metrics": {
      "participation": 31.8,
      "be_hurt_rate": 24.3,
      "assists": 11.9,
      "kda": 3.4,
+     "towers": 2.5,
      "mvp": 0.9
     },
     "sample": 0.97
@@ -120017,9 +120070,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0588,
-   "rating": 68.5,
+   "rating": 69.1,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 12.3,
      "kills": 4.5,
      "kda": 2.0,
@@ -120057,13 +120111,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1176,
-   "rating": 73.9,
+   "rating": 73.7,
    "rating_components": {
     "metrics": {
      "kills": 21.9,
      "participation": 5.2,
      "kda": 0.7,
+     "gold_rate": 7.5,
      "hurt_rate": 9.4,
+     "towers": 5.0,
      "mvp": 7.5
     },
     "sample": 0.95
@@ -120094,13 +120150,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 69.3,
+   "rating": 69.5,
    "rating_components": {
     "metrics": {
      "participation": 27.1,
      "be_hurt_rate": 9.4,
      "assists": 3.3,
      "kda": 2.0,
+     "towers": 2.5,
      "mvp": 0.9
     },
     "sample": 0.95
@@ -120131,9 +120188,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0625,
-   "rating": 65.6,
+   "rating": 66.5,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 15.8,
      "kills": 2.3,
      "kda": 1.4,
@@ -120171,9 +120229,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1176,
-   "rating": 67.4,
+   "rating": 68.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 9.8,
      "kills": 3.6,
      "kda": 2.8,
@@ -120267,12 +120326,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 56.3,
+   "rating": 58.9,
    "rating_components": {
     "metrics": {
      "kills": 3.7,
      "hurt_rate": 1.7,
      "kda": 0.1,
+     "towers": 7.5,
      "mvp": 3.0,
      "be_hurt_rate": 3.1
     },
@@ -120360,13 +120420,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 65.2,
+   "rating": 65.5,
    "rating_components": {
     "metrics": {
      "participation": 8.4,
      "be_hurt_rate": 22.7,
      "assists": 0.6,
      "kda": 1.7,
+     "towers": 2.5,
      "mvp": 0.9
     },
     "sample": 0.93
@@ -120397,13 +120458,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 63.6,
+   "rating": 65.7,
    "rating_components": {
     "metrics": {
      "kills": 7.8,
      "participation": 7.3,
      "kda": 0.1,
+     "gold_rate": 7.5,
      "hurt_rate": 9.5,
+     "towers": 5.0,
      "mvp": 1.3
     },
     "sample": 0.93
@@ -120434,9 +120497,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 9,
    "mvp_per_game": 0.36,
-   "rating": 76.4,
+   "rating": 76.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 6.9,
      "kills": 10.4,
      "kda": 7.8,
@@ -120474,13 +120538,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0417,
-   "rating": 80.7,
+   "rating": 80.4,
    "rating_components": {
     "metrics": {
      "participation": 33.0,
      "be_hurt_rate": 12.9,
      "assists": 10.3,
      "kda": 4.0,
+     "towers": 2.5,
      "mvp": 4.3
     },
     "sample": 1.0
@@ -120511,9 +120576,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.2083,
-   "rating": 79.6,
+   "rating": 78.9,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 17.6,
      "kills": 7.8,
      "kda": 3.3,
@@ -120607,13 +120673,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.12,
-   "rating": 78.7,
+   "rating": 78.5,
    "rating_components": {
     "metrics": {
      "participation": 16.0,
      "be_hurt_rate": 15.0,
      "assists": 11.2,
      "kda": 10.9,
+     "towers": 2.5,
      "mvp": 7.2
     },
     "sample": 1.0
@@ -120644,13 +120711,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0435,
-   "rating": 73.2,
+   "rating": 73.3,
    "rating_components": {
     "metrics": {
      "participation": 18.0,
      "be_hurt_rate": 15.8,
      "assists": 6.6,
      "kda": 4.0,
+     "towers": 2.5,
      "mvp": 4.4
     },
     "sample": 1.0
@@ -120681,9 +120749,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 68.5,
+   "rating": 69.6,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 19.9,
      "kills": 2.6,
      "kda": 0.3,
@@ -120718,9 +120787,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 58.2,
+   "rating": 62.0,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 0.2,
      "kills": 10.5,
      "kda": 1.9,
@@ -120755,12 +120825,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.04,
-   "rating": 83.1,
+   "rating": 81.8,
    "rating_components": {
     "metrics": {
      "kills": 14.3,
      "hurt_rate": 19.2,
      "kda": 14.3,
+     "towers": 7.5,
      "mvp": 5.5,
      "be_hurt_rate": 4.1
     },
@@ -120792,9 +120863,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.04,
-   "rating": 68.5,
+   "rating": 69.9,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 6.4,
      "kills": 14.0,
      "kda": 4.2,
@@ -120829,9 +120901,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.25,
-   "rating": 89.1,
+   "rating": 85.7,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 18.5,
      "kills": 17.3,
      "kda": 11.4,
@@ -120866,13 +120939,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0299,
-   "rating": 80.0,
+   "rating": 79.8,
    "rating_components": {
     "metrics": {
      "participation": 18.7,
      "be_hurt_rate": 19.6,
      "assists": 14.3,
      "kda": 5.8,
+     "towers": 2.5,
      "mvp": 4.8
     },
     "sample": 1.0
@@ -120903,9 +120977,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 64.1,
+   "rating": 66.3,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 9.0,
      "kills": 5.1,
      "kda": 2.3,
@@ -120940,13 +121015,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 85.3,
+   "rating": 84.7,
    "rating_components": {
     "metrics": {
      "participation": 34.0,
      "be_hurt_rate": 14.3,
      "assists": 19.5,
      "kda": 11.8,
+     "towers": 2.5,
      "mvp": 2.1
     },
     "sample": 0.84
@@ -120977,9 +121053,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 23,
    "mvp_per_game": 0.3286,
-   "rating": 77.5,
+   "rating": 77.1,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 6.7,
      "kills": 8.9,
      "kda": 7.0,
@@ -121017,9 +121094,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0455,
-   "rating": 59.6,
+   "rating": 63.0,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 4.1,
      "kills": 3.9,
      "kda": 2.4,
@@ -121054,9 +121132,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0263,
-   "rating": 60.3,
+   "rating": 63.6,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 2.4,
      "kills": 3.3,
      "kda": 2.9,
@@ -121091,9 +121170,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.1071,
-   "rating": 69.8,
+   "rating": 70.5,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 5.5,
      "kills": 14.5,
      "kda": 2.3,
@@ -121131,13 +121211,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0769,
-   "rating": 72.7,
+   "rating": 73.1,
    "rating_components": {
     "metrics": {
      "kills": 17.5,
      "participation": 5.8,
      "kda": 0.6,
+     "gold_rate": 7.5,
      "hurt_rate": 8.5,
+     "towers": 5.0,
      "mvp": 7.9
     },
     "sample": 1.0
@@ -121168,13 +121250,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0238,
-   "rating": 66.6,
+   "rating": 66.9,
    "rating_components": {
     "metrics": {
      "participation": 9.8,
      "be_hurt_rate": 11.5,
      "assists": 6.9,
      "kda": 2.3,
+     "towers": 2.5,
      "mvp": 4.3
     },
     "sample": 1.0
@@ -121205,13 +121288,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0244,
-   "rating": 67.8,
+   "rating": 69.3,
    "rating_components": {
     "metrics": {
      "kills": 11.4,
      "participation": 9.7,
      "kda": 2.9,
+     "gold_rate": 7.5,
      "hurt_rate": 3.2,
+     "towers": 5.0,
      "mvp": 4.3
     },
     "sample": 1.0
@@ -121242,12 +121327,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.0926,
-   "rating": 84.7,
+   "rating": 83.2,
    "rating_components": {
     "metrics": {
      "kills": 14.3,
      "hurt_rate": 18.6,
      "kda": 12.0,
+     "towers": 7.5,
      "mvp": 11.1,
      "be_hurt_rate": 4.1
     },
@@ -121279,9 +121365,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 10,
    "mvp_per_game": 0.2041,
-   "rating": 69.2,
+   "rating": 69.9,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 6.3,
      "kills": 8.4,
      "kda": 3.9,
@@ -121319,12 +121406,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 4,
    "mvp_per_game": 0.0494,
-   "rating": 71.9,
+   "rating": 72.6,
    "rating_components": {
     "metrics": {
      "kills": 5.9,
      "hurt_rate": 9.0,
      "kda": 5.6,
+     "towers": 7.5,
      "mvp": 6.3,
      "be_hurt_rate": 6.7
     },
@@ -121356,13 +121444,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.1,
-   "rating": 67.1,
+   "rating": 67.2,
    "rating_components": {
     "metrics": {
      "participation": 15.2,
      "be_hurt_rate": 15.5,
      "assists": 5.5,
      "kda": 2.0,
+     "towers": 2.5,
      "mvp": 7.4
     },
     "sample": 0.79
@@ -121393,9 +121482,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0455,
-   "rating": 67.9,
+   "rating": 69.4,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 6.2,
      "kills": 7.4,
      "kda": 3.3,
@@ -121430,13 +121520,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 56.1,
+   "rating": 59.5,
    "rating_components": {
     "metrics": {
      "kills": 4.1,
      "participation": 1.0,
      "kda": 0.4,
+     "gold_rate": 7.5,
      "hurt_rate": 4.1,
+     "towers": 5.0,
      "mvp": 2.9
     },
     "sample": 0.87
@@ -121467,13 +121559,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 78.1,
+   "rating": 78.0,
    "rating_components": {
     "metrics": {
      "participation": 21.7,
      "be_hurt_rate": 18.1,
      "assists": 14.0,
      "kda": 3.3,
+     "towers": 2.5,
      "mvp": 2.1
     },
     "sample": 1.0
@@ -121504,9 +121597,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 9,
    "mvp_per_game": 0.1607,
-   "rating": 76.2,
+   "rating": 76.0,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 13.2,
      "kills": 10.8,
      "kda": 6.4,
@@ -121544,12 +121638,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 54.7,
+   "rating": 57.4,
    "rating_components": {
     "metrics": {
      "kills": 0.8,
      "hurt_rate": 0.4,
      "kda": 1.6,
+     "towers": 7.5,
      "mvp": 0.2,
      "be_hurt_rate": 5.8
     },
@@ -121581,13 +121676,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 69.1,
+   "rating": 69.3,
    "rating_components": {
     "metrics": {
      "participation": 11.0,
      "be_hurt_rate": 13.6,
      "assists": 14.7,
      "kda": 2.8,
+     "towers": 2.5,
      "mvp": 2.1
     },
     "sample": 0.91
@@ -121618,13 +121714,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 69.6,
+   "rating": 69.8,
    "rating_components": {
     "metrics": {
      "participation": 10.4,
      "be_hurt_rate": 15.6,
      "assists": 10.4,
      "kda": 2.6,
+     "towers": 2.5,
      "mvp": 2.1
     },
     "sample": 1.0
@@ -121655,12 +121752,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0192,
-   "rating": 64.0,
+   "rating": 65.6,
    "rating_components": {
     "metrics": {
      "kills": 1.9,
      "hurt_rate": 11.4,
      "kda": 2.5,
+     "towers": 7.5,
      "mvp": 1.6,
      "be_hurt_rate": 6.8
     },
@@ -121692,9 +121790,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 13,
    "mvp_per_game": 0.2281,
-   "rating": 75.4,
+   "rating": 75.3,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 16.5,
      "kills": 4.6,
      "kda": 1.2,
@@ -121732,9 +121831,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.5,
+   "rating": 61.1,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 3.1,
      "kills": 3.2,
      "kda": 2.8,
@@ -121769,13 +121869,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 61.9,
+   "rating": 64.1,
    "rating_components": {
     "metrics": {
      "kills": 6.7,
      "participation": 8.1,
      "kda": 1.6,
+     "gold_rate": 7.5,
      "hurt_rate": 4.5,
+     "towers": 5.0,
      "mvp": 2.9
     },
     "sample": 0.89
@@ -121806,9 +121908,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 58.5,
+   "rating": 62.2,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 3.0,
      "kills": 3.4,
      "kda": 2.7,
@@ -121843,13 +121946,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 62.1,
+   "rating": 63.7,
    "rating_components": {
     "metrics": {
      "kills": 4.2,
      "participation": 16.8,
      "kda": 0.3,
+     "gold_rate": 7.5,
      "hurt_rate": 3.0,
+     "towers": 5.0,
      "mvp": 2.9
     },
     "sample": 0.79
@@ -121883,6 +121988,7 @@
    "rating": 90.5,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 3.4,
      "kills": 1.9,
      "kda": 13.5,
@@ -121920,13 +122026,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.0392,
-   "rating": 79.8,
+   "rating": 79.6,
    "rating_components": {
     "metrics": {
      "participation": 27.3,
      "be_hurt_rate": 18.2,
      "assists": 8.8,
      "kda": 2.9,
+     "towers": 2.5,
      "mvp": 5.5
     },
     "sample": 1.0
@@ -121957,9 +122064,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 59.7,
+   "rating": 61.1,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 12.2,
      "kills": 0.0,
      "kda": 0.4,
@@ -122004,6 +122112,7 @@
      "be_hurt_rate": 17.9,
      "assists": 11.0,
      "kda": 2.9,
+     "towers": 2.5,
      "mvp": 3.5
     },
     "sample": 1.0
@@ -122034,9 +122143,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1111,
-   "rating": 78.3,
+   "rating": 77.8,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 9.3,
      "kills": 15.4,
      "kda": 13.0,
@@ -122071,13 +122181,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 83.5,
+   "rating": 83.2,
    "rating_components": {
     "metrics": {
      "participation": 16.2,
      "be_hurt_rate": 23.7,
      "assists": 18.9,
      "kda": 6.2,
+     "towers": 2.5,
      "mvp": 2.4
     },
     "sample": 0.97
@@ -122108,9 +122219,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 8,
    "mvp_per_game": 0.4444,
-   "rating": 94.1,
+   "rating": 91.6,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 13.3,
      "kills": 14.6,
      "kda": 13.0,
@@ -122151,6 +122263,7 @@
    "rating": 86.0,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 9.3,
      "kills": 12.7,
      "kda": 8.7,
@@ -122188,13 +122301,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0286,
-   "rating": 86.1,
+   "rating": 85.6,
    "rating_components": {
     "metrics": {
      "participation": 27.7,
      "be_hurt_rate": 18.5,
      "assists": 17.6,
      "kda": 7.8,
+     "towers": 2.5,
      "mvp": 4.2
     },
     "sample": 1.0
@@ -122225,12 +122339,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 60.4,
+   "rating": 62.5,
    "rating_components": {
     "metrics": {
      "kills": 4.6,
      "hurt_rate": 2.6,
      "kda": 2.8,
+     "towers": 7.5,
      "mvp": 0.6,
      "be_hurt_rate": 7.5
     },
@@ -122262,13 +122377,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 71.1,
+   "rating": 71.3,
    "rating_components": {
     "metrics": {
      "participation": 9.4,
      "be_hurt_rate": 18.9,
      "assists": 11.9,
      "kda": 1.1,
+     "towers": 2.5,
      "mvp": 2.9
     },
     "sample": 1.0
@@ -122299,9 +122415,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 52.9,
+   "rating": 57.6,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 0.2,
      "kills": 1.7,
      "kda": 0.2,
@@ -122336,13 +122453,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 60.9,
+   "rating": 64.0,
    "rating_components": {
     "metrics": {
      "kills": 7.4,
      "participation": 6.8,
      "kda": 0.7,
+     "gold_rate": 7.5,
      "hurt_rate": 3.5,
+     "towers": 5.0,
      "mvp": 1.0
     },
     "sample": 1.0
@@ -122380,6 +122499,7 @@
      "be_hurt_rate": 12.0,
      "assists": 13.9,
      "kda": 0.7,
+     "towers": 2.5,
      "mvp": 2.9
     },
     "sample": 1.0
@@ -122410,9 +122530,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 5,
    "mvp_per_game": 0.1562,
-   "rating": 81.4,
+   "rating": 80.5,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 11.8,
      "kills": 9.1,
      "kda": 2.9,
@@ -122450,9 +122571,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0357,
-   "rating": 54.8,
+   "rating": 59.3,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 0.8,
      "kills": 2.5,
      "kda": 0.5,
@@ -122487,13 +122609,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 68.3,
+   "rating": 68.5,
    "rating_components": {
     "metrics": {
      "participation": 8.9,
      "be_hurt_rate": 22.4,
      "assists": 4.1,
      "kda": 0.6,
+     "towers": 2.5,
      "mvp": 2.9
     },
     "sample": 0.98
@@ -122524,12 +122647,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 56.7,
+   "rating": 58.7,
    "rating_components": {
     "metrics": {
      "kills": 2.4,
      "hurt_rate": 9.2,
      "kda": 0.2,
+     "towers": 7.5,
      "mvp": 0.6,
      "be_hurt_rate": 1.7
     },
@@ -122589,13 +122713,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1538,
-   "rating": 69.6,
+   "rating": 70.0,
    "rating_components": {
     "metrics": {
      "kills": 24.4,
      "participation": 1.5,
      "kda": 0.5,
+     "gold_rate": 7.5,
      "hurt_rate": 4.6,
+     "towers": 5.0,
      "mvp": 9.2
     },
     "sample": 0.87
@@ -122626,13 +122752,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 63.1,
+   "rating": 65.0,
    "rating_components": {
     "metrics": {
      "kills": 21.2,
      "participation": 2.0,
      "kda": 0.1,
+     "gold_rate": 7.5,
      "hurt_rate": 1.5,
+     "towers": 5.0,
      "mvp": 1.3
     },
     "sample": 0.89
@@ -122691,12 +122819,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 76.0,
+   "rating": 75.4,
    "rating_components": {
     "metrics": {
      "kills": 19.1,
      "hurt_rate": 20.9,
      "kda": 1.7,
+     "towers": 7.5,
      "mvp": 3.0,
      "be_hurt_rate": 6.0
     },
@@ -122728,13 +122857,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 68.4,
+   "rating": 68.5,
    "rating_components": {
     "metrics": {
      "participation": 14.1,
      "be_hurt_rate": 19.3,
      "assists": 7.6,
      "kda": 0.8,
+     "towers": 2.5,
      "mvp": 4.2
     },
     "sample": 0.84
@@ -122772,6 +122902,7 @@
      "be_hurt_rate": 21.3,
      "assists": 10.3,
      "kda": 1.6,
+     "towers": 2.5,
      "mvp": 4.2
     },
     "sample": 0.87
@@ -122802,9 +122933,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 2,
    "mvp_per_game": 0.1429,
-   "rating": 66.0,
+   "rating": 67.4,
    "rating_components": {
     "metrics": {
+     "gold_rate": 12.5,
      "hurt_rate": 1.8,
      "kills": 13.0,
      "kda": 0.6,
@@ -122839,13 +122971,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 57.8,
+   "rating": 58.3,
    "rating_components": {
     "metrics": {
      "participation": 0.2,
      "be_hurt_rate": 16.6,
      "assists": 1.4,
      "kda": 0.0,
+     "towers": 2.5,
      "mvp": 2.5
     },
     "sample": 0.79
@@ -122904,13 +123037,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 63.2,
+   "rating": 63.5,
    "rating_components": {
     "metrics": {
      "participation": 12.9,
      "be_hurt_rate": 17.6,
      "assists": 2.2,
      "kda": 0.0,
+     "towers": 2.5,
      "mvp": 2.5
     },
     "sample": 0.79
@@ -122969,13 +123103,15 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 67.0,
+   "rating": 68.6,
    "rating_components": {
     "metrics": {
      "kills": 15.1,
      "participation": 6.1,
      "kda": 3.8,
+     "gold_rate": 7.5,
      "hurt_rate": 3.7,
+     "towers": 5.0,
      "mvp": 1.3
     },
     "sample": 1.0
@@ -123006,9 +123142,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 3,
    "mvp_per_game": 0.1304,
-   "rating": 71.7,
+   "rating": 72.1,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 3.3,
      "kills": 8.7,
      "kda": 5.0,
@@ -123046,13 +123183,14 @@
    "avg_push_tower_num": null,
    "mvp_count": 1,
    "mvp_per_game": 0.0435,
-   "rating": 76.2,
+   "rating": 76.1,
    "rating_components": {
     "metrics": {
      "participation": 16.3,
      "be_hurt_rate": 20.4,
      "assists": 13.4,
      "kda": 0.3,
+     "towers": 2.5,
      "mvp": 4.7
     },
     "sample": 1.0
@@ -123083,9 +123221,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 65.6,
+   "rating": 66.1,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 13.0,
      "kills": 2.5,
      "kda": 2.5,
@@ -123151,9 +123290,10 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 66.9,
+   "rating": 67.2,
    "rating_components": {
     "metrics": {
+     "damage_convert": 7.5,
      "hurt_rate": 13.0,
      "kills": 4.8,
      "kda": 2.3,
@@ -123247,12 +123387,13 @@
    "avg_push_tower_num": null,
    "mvp_count": 0,
    "mvp_per_game": 0.0,
-   "rating": 63.2,
+   "rating": 64.9,
    "rating_components": {
     "metrics": {
      "kills": 3.3,
      "hurt_rate": 4.8,
      "kda": 3.0,
+     "towers": 7.5,
      "mvp": 6.3,
      "be_hurt_rate": 5.4
     },

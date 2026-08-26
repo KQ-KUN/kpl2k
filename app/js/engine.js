@@ -114,7 +114,7 @@
       for (var i = 0; i < lst.length; i++) {
         for (var j = i + 1; j < lst.length; j++) {
           var w = Math.min(lst[i].games, lst[j].games) / 30.0;
-          var pairKey = lst[i].player_id + '\u0000' + lst[j].player_id;
+          var pairKey = [lst[i].player_id, lst[j].player_id].sort().join('\u0000');
           if (!(pairKey in pairs) || pairs[pairKey] < w) pairs[pairKey] = w;
         }
       }
