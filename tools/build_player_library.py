@@ -305,9 +305,16 @@ img.ava{object-fit:cover;background:#21262d}
 .rules-box .r{color:var(--mut);font-size:12px;line-height:1.7}
 .rules-box .r b{color:var(--fg)}
 .rules-close{width:100%;margin-top:12px;background:#0d1117;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px;cursor:pointer}
+.achievement-toast{position:fixed;left:20px;bottom:20px;z-index:30;display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center;gap:12px;width:min(360px,calc(100vw - 40px));min-height:68px;padding:11px 16px 11px 12px;border:1px solid rgba(240,185,11,.55);border-radius:8px;background:linear-gradient(105deg,#171b20,#222831);box-shadow:0 14px 42px rgba(0,0,0,.52),inset 3px 0 0 var(--gold);opacity:0;pointer-events:none;transform:translateY(calc(100% + 24px));transition:opacity .16s cubic-bezier(.23,1,.32,1),transform .22s cubic-bezier(.23,1,.32,1)}
+.achievement-toast.show{opacity:1;transform:translateY(0)}
+.achievement-toast-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:6px;background:linear-gradient(145deg,#473b14,#211d0d);font-size:23px}
+.achievement-toast-copy{min-width:0;display:flex;flex-direction:column;line-height:1.25}.achievement-toast-copy small{color:#aeb6c1;font-size:11px;font-weight:700;letter-spacing:.08em}.achievement-toast-copy strong{margin-top:4px;overflow:hidden;color:#ffe08a;font-size:14px;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:600px){.achievement-toast{left:50%;bottom:max(12px,env(safe-area-inset-bottom));width:calc(100vw - 24px);transform:translate(-50%,calc(100% + 24px))}.achievement-toast.show{transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){.achievement-toast{transition:opacity .01ms}}
 </style>
 </head>
 <body>
+<div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true"><span class="achievement-toast-icon" aria-hidden="true">🏆</span><span class="achievement-toast-copy"><small>成就已解锁</small><strong id="achievement-toast-name"></strong></span></div>
 <div class="lib-head">
   <h1>KPL 2K · 选手图鉴</h1>
   <button class="rules-btn" id="rules-btn">战力规则</button>
@@ -342,9 +349,31 @@ img.ava{object-fit:cover;background:#21262d}
 <script>
 const DATA=JSON.parse(document.getElementById('library-data').textContent);
 const $=s=>document.querySelector(s);
+const ACHIEVEMENT_KEY='kpl2k_achievements_v1';
+let achievementToastTimer=null;
 function fmt(v,d=1){return v==null||isNaN(v)?'-':(+v).toFixed(d)}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function hue(s){let h=0;for(const c of String(s))h=(h*31+c.codePointAt(0))>>>0;return h%360}
+function recordLibraryRead(id){
+  try{
+    const progress=JSON.parse(localStorage.getItem(ACHIEVEMENT_KEY)||'{}');
+    if(!progress.libraryPlayers||typeof progress.libraryPlayers!=='object'||Array.isArray(progress.libraryPlayers))progress.libraryPlayers={};
+    if(!progress.unlocked||typeof progress.unlocked!=='object'||Array.isArray(progress.unlocked))progress.unlocked={};
+    const before=Object.keys(progress.libraryPlayers).length;
+    progress.libraryPlayers[id]=true;
+    const count=Object.keys(progress.libraryPlayers).length,names=[];
+    if(before<1&&count>=1&&!progress.unlocked.library_read){progress.unlocked.library_read=Date.now();names.push('初识群星')}
+    if(before<10&&count>=10&&!progress.unlocked.library_ten){progress.unlocked.library_ten=Date.now();names.push('群星观察家')}
+    localStorage.setItem(ACHIEVEMENT_KEY,JSON.stringify(progress));
+    if(names.length){
+      $('#achievement-toast-name').textContent=names.join('、');
+      $('#achievement-toast').classList.add('show');
+      clearTimeout(achievementToastTimer);
+      achievementToastTimer=setTimeout(()=>$('#achievement-toast').classList.remove('show'),6500);
+    }
+  }catch(e){}
+}
+function toggleCard(el,id){const opening=!el.classList.contains('open');el.classList.toggle('open');if(opening)recordLibraryRead(id)}
 const KEY_STATS={
   '对抗路':[['be_hurt_rate','承伤'],['hurt_rate','输出'],['towers','推塔']],
   '打野':[['kills','击杀'],['participation','参团'],['gpm','经济']],
@@ -379,7 +408,7 @@ function card(p){
   const avatar=p.icon
     ? `<img class="ava" src="${esc(p.icon)}" alt="${esc(p.name)}" onerror="this.outerHTML='<div class=\'ava\' style=\'background:hsl(${hue(p.name)},65%,46%)\'>${esc(p.name[0])}</div>'">`
     : `<div class="ava" style="background:hsl(${hue(p.name)},65%,46%)">${esc(p.name[0])}</div>`;
-  return `<div class="card" onclick="this.classList.toggle('open')">
+  return `<div class="card" onclick="toggleCard(this,'${esc(p.id)}')">
     <div class="head">
       ${avatar}
       <div>

@@ -10,6 +10,13 @@
 </head>
 <body>
 <div class="storage-warning" id="storage-warning" role="status" aria-live="polite"></div>
+<div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true">
+  <span class="achievement-toast-icon" aria-hidden="true">🏆</span>
+  <span class="achievement-toast-copy">
+    <small>成就已解锁</small>
+    <strong id="achievement-toast-name"></strong>
+  </span>
+</div>
 
 <!-- ================= 首页 ================= -->
 <div id="home" class="page">
@@ -45,6 +52,11 @@
     <span class="he-count" id="history-count">0</span>
     <span class="he-arrow">›</span>
   </button>
+  <button class="achievement-entry" id="achievement-entry">
+    <span>🏆 成就任务</span>
+    <span class="achievement-count" id="achievement-count">0 / 18</span>
+    <span class="he-arrow">›</span>
+  </button>
   <div class="footnote social-links" aria-label="平台链接">
     <span>链接：</span>
     <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener" aria-label="打开B站">
@@ -75,6 +87,20 @@
   <div class="sub mut" id="history-meta"></div>
   <div id="history-list"></div>
   <div class="empty" id="history-empty" style="display:none;text-align:center;padding:40px 0;color:var(--mut)">还没有征战记录，快去组一支队伍吧</div>
+</div>
+
+<!-- ================= 成就任务页 ================= -->
+<div id="achievements" class="page">
+  <div class="topbar">
+    <button class="back" onclick="location.hash='#/'">‹</button>
+    <h1>成就任务</h1>
+    <span class="step" id="achievement-page-count">0 / 18</span>
+  </div>
+  <div class="card achievement-summary">
+    <div class="achievement-summary-title" id="achievement-summary-title">平行时空经理</div>
+    <div class="mut" id="achievement-summary-text">完成挑战，留下属于你的征战记录。</div>
+  </div>
+  <div class="achievement-grid" id="achievement-grid"></div>
 </div>
 
 <!-- ================= 玩家须知（未同意前全屏遮罩） ================= -->
@@ -108,7 +134,7 @@
   <div class="team-strip" id="team-strip"></div>
   <div class="slots" id="team-slots"></div>
   <div class="card strength-box">
-    <div class="strength-main"><span class="strength-num" id="strength-num">-</span><span class="mut">纸面战力</span></div>
+    <div class="strength-main"><span class="strength-num" id="strength-num">-</span><span class="mut">阵容评分</span></div>
     <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
     <div class="strength-break" id="strength-break"></div>
   </div>
@@ -129,7 +155,7 @@
     <button data-bo="3">BO3</button><button class="sel" data-bo="5">BO5</button><button data-bo="7">BO7</button>
   </div>
   <div class="tactic-panel">
-    <div class="tactic-title">赛前策略 <span>只改变赛果波动，不改变纸面战力</span></div>
+    <div class="tactic-title">赛前策略 <span>只改变赛果波动，不改变选手能力</span></div>
     <div class="tactic-picker">
       <button data-tactic="stable"><b>稳健运营</b><small>降低波动，强队更稳</small></button>
       <button data-tactic="balanced"><b>均衡应对</b><small>标准比赛节奏</small></button>
@@ -192,6 +218,11 @@
   <div id="sim-events"></div>
 </div>
 <div class="bottom-bar" id="sim-bar" style="display:none">
+  <div class="sim-reveal-controls" id="sim-reveal-controls" aria-label="战报播放控制">
+    <button id="sim-pause" aria-pressed="false" disabled>暂停</button>
+    <button id="sim-speed">1× 速度</button>
+    <button id="sim-skip-series" disabled>跳过本轮文字</button>
+  </div>
   <div style="display:flex;gap:10px">
     <button class="btn ghost" id="sim-skip" style="flex:1">一键跳转</button>
     <button class="btn" id="sim-sub" style="display:none;flex:1">更换阵容</button>
@@ -214,6 +245,7 @@
   <div class="res-banner" id="result-banner"></div>
   <div class="achievement-list" id="result-achievements" aria-label="本场成就"></div>
   <div id="result-slogan" style="display:none;text-align:center;font-size:15px;font-weight:700;color:var(--gold);margin:6px 0 12px"></div>
+  <div class="card result-factors-card"><h2>胜负关键</h2><div id="result-factors"></div><div class="factor-note">仅复盘公开阵容与比赛表现，不代表完整概率计算。</div></div>
   <div class="card"><h2 id="result-roster-title">阵容</h2><div id="result-roster"></div></div>
   <div class="card"><h2 id="result-path-title">赛程</h2>
     <table><tr><td><b>轮次</b></td><td><b>对手</b></td><td><b>比分</b></td><td><b>结果</b></td></tr>
@@ -270,6 +302,7 @@
   </div>
   <div class="sub" id="picker-sub"></div>
   <div class="ver-chips" id="picker-ver"></div>
+  <div id="picker-compare"></div>
   <div id="picker-pool"></div>
   <button class="btn gold" id="picker-confirm" style="width:100%;margin-top:12px">确认换人</button>
 </div>
