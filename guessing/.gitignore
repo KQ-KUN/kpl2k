@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.vite/
+*.log
+tmp/
+tmp_*.html
+tmp_*.json
+__pycache__/
+*.pyc

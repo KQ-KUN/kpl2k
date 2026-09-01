@@ -1,0 +1,12 @@
+{
+  "name": "kpl-game-hub",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "guessing"
+  ],
+  "scripts": {
+    "test": "npm --workspace guessing test && node tools/verify_engine.js && node tools/verify_daily_challenge.js && node tools/verify_history_archive.js",
+    "build": "npm --workspace guessing run build && node tools/build_portal.mjs"
+  }
+}

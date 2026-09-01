@@ -1,0 +1,619 @@
+{
+  "schemaVersion": 1,
+  "dataVersion": "2026-08-15",
+  "sourceCommit": "c4ecd2e",
+  "playersHash": "46125a4ac731c6461c85d6cde005a1ea2d6e34baf0dcf2bc9b6761f027548455",
+  "sourcePlayers": 746,
+  "eligiblePlayers": 592,
+  "poolCounts": {
+    "popular": 30,
+    "normal": 119,
+    "hardcore": 592
+  },
+  "eligibleHttpsIcons": 447,
+  "eligibleHttpIcons": 69,
+  "sourceHttpsIcons": 569,
+  "sourceHttpIcons": 78,
+  "duplicateNicknameGroups": [
+    [
+      {
+        "id": "2A5E5F2CCBC300E9EE7466A31B075EBB",
+        "nickname": "九月"
+      },
+      {
+        "id": "55833AAED46B1045AFE756BA8C0B4F07",
+        "nickname": "九月"
+      }
+    ],
+    [
+      {
+        "id": "2FE76F4B0ECB608C366DC62D48652D02",
+        "nickname": "白衣"
+      },
+      {
+        "id": "40169943EB7FB67EB53AE88905CD007F",
+        "nickname": "白衣"
+      }
+    ],
+    [
+      {
+        "id": "4B0976EE5323F2FA514B717A035E3C65",
+        "nickname": "小寒"
+      },
+      {
+        "id": "6677ABCD70AC1CC2D69832F12798F166",
+        "nickname": "小寒"
+      }
+    ],
+    [
+      {
+        "id": "51BDE1F9B7A167221767DDAF9EB4D29D",
+        "nickname": "kk"
+      },
+      {
+        "id": "569DD373CDE41D1F2E4575D370304725",
+        "nickname": "KK"
+      }
+    ],
+    [
+      {
+        "id": "594B7248379B4A6748CE696D506ECC53",
+        "nickname": "小智"
+      },
+      {
+        "id": "F6F7F6E86FF0DF5B9B880A65672E2EC5",
+        "nickname": "小智"
+      }
+    ],
+    [
+      {
+        "id": "BTLQY",
+        "nickname": "QY"
+      },
+      {
+        "id": "D6D4C5BC0F9EA17C73027A40EA70EA47",
+        "nickname": "Qy"
+      }
+    ]
+  ],
+  "attributeCollisionGroups": [
+    [
+      "097CF11B0A4F533BB490394A3275D9E1",
+      "511BC356047AA8FC68562926E41E5D7A"
+    ],
+    [
+      "23A681216737DCB3AFDF9EA80BA2634C",
+      "B092BD533E4E740EF69BA8BF6D78E0C0"
+    ],
+    [
+      "3494283739D62E3DEFBA2B70D8E67939",
+      "DED63B703172A040EE93D55A4185EAC1"
+    ],
+    [
+      "3D0C6EA77EAB209F792CABCCD28704BC",
+      "7882EEA70EFA4E02073D53B53587DF5D",
+      "83C9A146D58BCDA705A7E62DBB5DF896"
+    ],
+    [
+      "441039612876321CD141531974F8D835",
+      "6C3384DBE69AE4B0D5B6584991EC0F6B"
+    ],
+    [
+      "45542A4391B5BE4A0240153385EE51AD",
+      "B856AF18D07A0ABDCA896D7CFFAE20AB"
+    ],
+    [
+      "55833AAED46B1045AFE756BA8C0B4F07",
+      "BTLTop",
+      "BTL洛阳"
+    ],
+    [
+      "576982DDE588DFBF070EE568BC165EE7",
+      "647740157E919B82FBFCBFBB48392E0C"
+    ],
+    [
+      "5C8774784826D1CD7541CB22307F5C02",
+      "7D665A5C5D01E4C1833EAD061CF138F1"
+    ],
+    [
+      "6032526B0E40970311FC5BA4BC1CC987",
+      "F28BE03F74FEBD63DF5EFBD4AE057FDD"
+    ],
+    [
+      "6EF57E102F9A23CC825DDC1ED5D55F3B",
+      "BTL晴一"
+    ],
+    [
+      "7F7B2244B823795821247DD45B7572FD",
+      "DC038568C171B98D6EC9EE60B2F0F657"
+    ],
+    [
+      "90AF1D9D7E35353381E5AF211FDC25C6",
+      "E8DD02C39F017E2AF855E5619C5CBDAB"
+    ],
+    [
+      "961B9E5B6D088EBB6582DF2ED5B5525F",
+      "9AB146D02F421D25EACAEB3227C61F30"
+    ],
+    [
+      "9F5F22A0D3101ED7B3AA6D637D5B4348",
+      "B8982198AC67B048D317C07DE73F4962"
+    ],
+    [
+      "A03302B351AFD826AB3C1CF66754CA58",
+      "AC399A1E51367A603883DBCCD6DB15A9"
+    ],
+    [
+      "A0839A194A21820A146A86755EA79F56",
+      "EE5351359983C6178E4CE5A08A2B75D9"
+    ],
+    [
+      "AABAA95A653AF1F147A43A0627DBAEA6",
+      "F7FB3A63ECC8E9402D7B13C04899B16E"
+    ],
+    [
+      "B55D06F690915809C40AF962152BE477",
+      "BTL六点六"
+    ],
+    [
+      "BD0B47A333879D6785511498DABE8D00",
+      "E3AA3456758EA92C12C2F12B7BF88ACE"
+    ],
+    [
+      "BTL994",
+      "BTL七夏"
+    ],
+    [
+      "BTLEvd",
+      "BTL怼怼"
+    ],
+    [
+      "BTLOvO",
+      "BTL倾城"
+    ],
+    [
+      "BTLZed",
+      "BTL江陵"
+    ],
+    [
+      "BTL南木",
+      "BTL老王"
+    ],
+    [
+      "BTL堪阳",
+      "BTL无痕"
+    ],
+    [
+      "BTL孤意",
+      "BTL空"
+    ],
+    [
+      "D00115DFD7E051B1A5EDF1B7E0170375",
+      "D82DD55010DFADECEEDAE39472FE4030"
+    ]
+  ],
+  "unknownPlayerIds": [],
+  "missingPopularNames": [],
+  "missingFmvpNames": [],
+  "careerHistorySource": {
+    "provider": "Liquipedia Honor of Kings Wiki",
+    "api": "https://liquipedia.net/honorofkings/api.php",
+    "retrievedAt": "2026-08-30T13:17:32+00:00",
+    "license": "CC BY-SA 3.0",
+    "championshipScope": {
+      "includedPatterns": [
+        "King Pro League (?:Spring|Summer|Fall|Autumn) \\d{4}",
+        "King Pro League Grand Finals \\d{4}",
+        "Honor of Kings Challenger Cup \\d{4}",
+        "Honor of Kings International Championship \\d{4}",
+        "Honor of Kings World Champion Cup \\d{4}",
+        "Honor of Kings Champion Cup(?: Winter Season)? \\d{4}"
+      ],
+      "excluded": [
+        "Honor of Kings World Cup ",
+        "Honor of Kings Invitational Midseason "
+      ]
+    }
+  },
+  "careerHistoryOverrides": [
+    {
+      "playerId": "A25A35A18EE5DC93117789871D929E83",
+      "nickname": "Cat",
+      "page": "Cat (Chen Zhengzheng)",
+      "debutYear": 2016,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "81AEA3A32BA205D61F400FA612808490",
+      "nickname": "Fly",
+      "page": "Fly",
+      "debutYear": 2017,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "924F7C93F262FC99443B7C27E9A3D6AA",
+      "nickname": "一诺",
+      "page": "YiNuo",
+      "debutYear": 2018,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "919D5E5E2A9039A5E7393859C9B4E012",
+      "nickname": "久诚",
+      "page": "JiuCheng",
+      "debutYear": 2018,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "173D32D798D7CA169EB60BE1B0D4E4FB",
+      "nickname": "久酷",
+      "page": "JiuKu",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "2D8E2E91721A5FB23C0A3F2542B02650",
+      "nickname": "乔兮",
+      "page": "QiaoXi",
+      "debutYear": 2021,
+      "sourceDebutYear": 2021
+    },
+    {
+      "playerId": "5CAC8191AF8F3503F7D7C9B3A3D5D171",
+      "nickname": "九尾",
+      "page": "JiuWei",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "9D9BA884970D4843EBCBA67AE45DFB47",
+      "nickname": "向鱼",
+      "page": "XiangYu",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "98562D49FEF03808BFF786C0123E84AC",
+      "nickname": "坦然",
+      "page": "TanRan",
+      "debutYear": 2021,
+      "sourceDebutYear": 2021
+    },
+    {
+      "playerId": "2B8B4F16F808BA4F7BB5D862DBB85C89",
+      "nickname": "大帅",
+      "page": "DaShuai",
+      "debutYear": 2024,
+      "sourceDebutYear": 2024
+    },
+    {
+      "playerId": "C9D941685D82271FE93B9D835B50BDBE",
+      "nickname": "妖刀",
+      "page": "1dao",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "6A3F17E8187CCCAB514B6BE9A8F7C209",
+      "nickname": "子阳",
+      "page": "ZiYang",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "32A60408B2D697ABC6F8F84919412C37",
+      "nickname": "小胖",
+      "page": "XiaoPang",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "29F240524C1D1CD365DEF6C5FB3163D0",
+      "nickname": "帆帆",
+      "page": "FanFan",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "F95EE73A43207678BF73129A2717E243",
+      "nickname": "无畏",
+      "page": "NoFear (Yang Tao)",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "8B242820C3F35C0DEFB9F257D4020BC4",
+      "nickname": "星宇",
+      "page": "XingYu",
+      "debutYear": 2018,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "B61E31C87EB42BE852DEADE5273AB0DE",
+      "nickname": "暖阳",
+      "page": "NuanYang",
+      "debutYear": 2018,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "A4F5BBC8EF3DE26F0DB66A63C1DCC954",
+      "nickname": "梓墨",
+      "page": "ZiMo",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "43062C3D029AD48A789256BE11349345",
+      "nickname": "梦泪",
+      "page": "MengLei",
+      "debutYear": 2016,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "7E1379DA0DE522674BE6D3D950792E19",
+      "nickname": "清清",
+      "page": "QingQing",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "B9134A31BCF50E4600D1DEDFB79A2735",
+      "nickname": "清融",
+      "page": "QingRong",
+      "debutYear": 2020,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "51C3A4979ADDE9E23CE73E176DE64319",
+      "nickname": "爱思",
+      "page": "Ice",
+      "debutYear": 2018,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "6D24B00C1B9E76BCA81D5D7A01DEA2FB",
+      "nickname": "笑影",
+      "page": "XiaoYing",
+      "debutYear": 2019,
+      "sourceDebutYear": 2020
+    },
+    {
+      "playerId": "BTL老帅",
+      "nickname": "老帅",
+      "page": "LaoShuai",
+      "debutYear": 2016,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "6317ACA4810A9CE2501FA24B0050C02F",
+      "nickname": "花海",
+      "page": "HuaHai",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "CFD5FB9589587760CD3C44425C336E21",
+      "nickname": "诺言",
+      "page": "NuoYan",
+      "debutYear": 2017,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "8975B3F32EF8B562D51F79CCF10B9237",
+      "nickname": "轩染",
+      "page": "XuanRan",
+      "debutYear": 2023,
+      "sourceDebutYear": 2023
+    },
+    {
+      "playerId": "B85FF8B85DEC3E142B8FD38CF06AE36F",
+      "nickname": "钎城",
+      "page": "QC",
+      "debutYear": 2019,
+      "sourceDebutYear": 2019
+    },
+    {
+      "playerId": "B474B7B36B32E5F99E09D3ADC732F844",
+      "nickname": "钟意",
+      "page": "ZhongYi",
+      "debutYear": 2023,
+      "sourceDebutYear": 2023
+    },
+    {
+      "playerId": "6818B8E83EBAF33F8468BF4347669EA5",
+      "nickname": "长生",
+      "page": "ChangSheng",
+      "debutYear": 2023,
+      "sourceDebutYear": 2022
+    }
+  ],
+  "championshipRosterSource": {
+    "description": "用户提供的 KPL 历届冠军与总决赛首发阵容表，并以 Liquipedia 赛事结果交叉核对",
+    "verifiedAt": "2026-08-30",
+    "countingRule": "只统计总决赛冠军方五人首发；不统计替补、教练、资格赛、KWC 和 KPL 梦之队邀请赛"
+  },
+  "championshipRosterOverrides": [
+    {
+      "playerId": "A25A35A18EE5DC93117789871D929E83",
+      "nickname": "Cat",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "81AEA3A32BA205D61F400FA612808490",
+      "nickname": "Fly",
+      "championshipCount": 8,
+      "sourceChampionshipCount": 4
+    },
+    {
+      "playerId": "924F7C93F262FC99443B7C27E9A3D6AA",
+      "nickname": "一诺",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "919D5E5E2A9039A5E7393859C9B4E012",
+      "nickname": "久诚",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "173D32D798D7CA169EB60BE1B0D4E4FB",
+      "nickname": "久酷",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "2D8E2E91721A5FB23C0A3F2542B02650",
+      "nickname": "乔兮",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "5CAC8191AF8F3503F7D7C9B3A3D5D171",
+      "nickname": "九尾",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "9D9BA884970D4843EBCBA67AE45DFB47",
+      "nickname": "向鱼",
+      "championshipCount": 5,
+      "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "98562D49FEF03808BFF786C0123E84AC",
+      "nickname": "坦然",
+      "championshipCount": 5,
+      "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "2B8B4F16F808BA4F7BB5D862DBB85C89",
+      "nickname": "大帅",
+      "championshipCount": 6,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "C9D941685D82271FE93B9D835B50BDBE",
+      "nickname": "妖刀",
+      "championshipCount": 6,
+      "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "6A3F17E8187CCCAB514B6BE9A8F7C209",
+      "nickname": "子阳",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "32A60408B2D697ABC6F8F84919412C37",
+      "nickname": "小胖",
+      "championshipCount": 6,
+      "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "29F240524C1D1CD365DEF6C5FB3163D0",
+      "nickname": "帆帆",
+      "championshipCount": 4,
+      "sourceChampionshipCount": 4
+    },
+    {
+      "playerId": "F95EE73A43207678BF73129A2717E243",
+      "nickname": "无畏",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "8B242820C3F35C0DEFB9F257D4020BC4",
+      "nickname": "星宇",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "B61E31C87EB42BE852DEADE5273AB0DE",
+      "nickname": "暖阳",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "A4F5BBC8EF3DE26F0DB66A63C1DCC954",
+      "nickname": "梓墨",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "43062C3D029AD48A789256BE11349345",
+      "nickname": "梦泪",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "7E1379DA0DE522674BE6D3D950792E19",
+      "nickname": "清清",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "B9134A31BCF50E4600D1DEDFB79A2735",
+      "nickname": "清融",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "51C3A4979ADDE9E23CE73E176DE64319",
+      "nickname": "爱思",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "6D24B00C1B9E76BCA81D5D7A01DEA2FB",
+      "nickname": "笑影",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "BTL老帅",
+      "nickname": "老帅",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "6317ACA4810A9CE2501FA24B0050C02F",
+      "nickname": "花海",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "CFD5FB9589587760CD3C44425C336E21",
+      "nickname": "诺言",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "8975B3F32EF8B562D51F79CCF10B9237",
+      "nickname": "轩染",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "B85FF8B85DEC3E142B8FD38CF06AE36F",
+      "nickname": "钎城",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "B474B7B36B32E5F99E09D3ADC732F844",
+      "nickname": "钟意",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 7
+    },
+    {
+      "playerId": "6818B8E83EBAF33F8468BF4347669EA5",
+      "nickname": "长生",
+      "championshipCount": 7,
+      "sourceChampionshipCount": 6
+    }
+  ],
+  "localIconCount": 481,
+  "remoteIconCount": 0
+}

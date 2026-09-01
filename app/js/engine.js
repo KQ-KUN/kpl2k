@@ -21,6 +21,12 @@
   // 玩家队隐蔽加成：模拟的是"玩家亲手操盘"的平行时空，给主队一点正向偏移（不上榜、不显示）
   var PLAYER_BOOST = 5.0;
   var TACTIC_NOISE = { stable: 0.65, balanced: 1.0, gamble: 1.55 };
+  // 同一俱乐部在两套赛事数据中的重复 ID，统一到现行入口 ID。
+  var FRANCHISE_ID_ALIAS = { '10019': '10028', '10303': '10601', '10403': '10903' };
+
+  function canonicalFranchiseId(fid) {
+    return FRANCHISE_ID_ALIAS[String(fid)] || String(fid);
+  }
 
   /* ---------------- RNG (mulberry32) ---------------- */
   function makeRng(seed) {
@@ -1088,6 +1094,15 @@
     var regFmt = fmt.regular_format || {};
     var regType = regFmt.type || 'official';
     var phaseDefs = buildPhaseDefs(fmt);
+    // 玩家用现行 ID 进入旧赛季时，接管同俱乐部的历史席位，不能再作为外卡重复入场。
+    if (track != null) {
+      phaseDefs.forEach(function (def) {
+        (def.matches || []).forEach(function (m) {
+          if (canonicalFranchiseId(m.a_id) === canonicalFranchiseId(track)) m.a_id = track;
+          if (canonicalFranchiseId(m.b_id) === canonicalFranchiseId(track)) m.b_id = track;
+        });
+      });
+    }
     var strengths = {};
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);

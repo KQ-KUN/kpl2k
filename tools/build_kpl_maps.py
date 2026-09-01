@@ -154,7 +154,8 @@ def build_franchises(season_team_names: dict[str, dict[str, str]]) -> tuple[list
                 hits = {s for s, names in season_team_names.items() for sl, nm in names.items()
                         if norm_name(nm) == a or a in norm_name(nm)}
                 if hits:
-                    slug = next(iter(hits))
+                    # 集合迭代顺序会随 Python 进程变化；固定排序保证同一输入始终生成同一映射。
+                    slug = sorted(hits)[0]
                     break
         if not slug:
             manual = {

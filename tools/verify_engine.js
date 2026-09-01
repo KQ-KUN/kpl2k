@@ -87,6 +87,37 @@ manifest.seasons.forEach((item) => {
   });
 });
 
+// 旧赛事使用 10403、现行入口使用 10903，二者都是情久；跨版本参赛时只能占一个席位。
+{
+  const sid = 'KCC2023';
+  const format = readJson(`app/data/seasons/${sid}.json`);
+  const track = '10903';
+  const oldId = '10403';
+  const roster = E.POSITIONS.map((position, index) => ({
+    player_id: `QJ${index}`, season_id: sid, team_franchise: track,
+    position, games: 20, rating: 75
+  }));
+  const rosters = {};
+  (format.rosters || []).forEach((record) => {
+    if ((record.games || 0) >= 5) (rosters[record.team_franchise] ||= []).push(record);
+  });
+  const formats = {}; formats[sid] = format;
+  const session = E.createSession({
+    season_id: sid, formats, rosters, rng: E.makeRng(20260830), names,
+    tpl: base.narrative.templates, chem: E.buildChem(format.rosters || [], {}, base.players),
+    players: base.players, track, override_rosters: { [track]: roster }
+  });
+  let stage, steps = 0;
+  do {
+    stage = session.next();
+    if (++steps > 5000) fail('QingJiu alias probe did not finish');
+  } while (!stage || stage.kind !== 'done');
+  const tree = session.getTree();
+  if (!tree.some((row) => row.a === track || row.b === track)) fail('current QingJiu did not inherit the historical slot');
+  if (tree.some((row) => row.a === oldId || row.b === oldId)) fail('old and current QingJiu IDs both remained in the bracket');
+  console.log('QingJiu alias regression passed: 10403 -> 10903.');
+}
+
 const placements = {
   '32强': '32强', '16强': '16强', '8强': '8强', '半决赛': '4强',
   '败者组决赛': '季军', '总决赛': '亚军', '常规赛第三轮': '常规赛'

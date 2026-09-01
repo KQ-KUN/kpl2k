@@ -1,0 +1,44 @@
+[
+  { "name": "久哲", "slug": "jiuzhe", "rank": 2, "focus": "50% 20%" },
+  { "name": "Gemini", "slug": "gemini", "rank": 4, "focus": "50% 24%" },
+  { "name": "SK", "slug": "sk", "rank": 1, "focus": "78% 20%" },
+  { "name": "张角", "slug": "zhangjiao", "rank": 1, "focus": "50% 24%" },
+  {
+    "name": "林",
+    "slug": "lin",
+    "focus": "50% 18%",
+    "localFile": "public/assets/staff-icons/lin-official.jpg",
+    "title": "北京WB王者荣耀分部人员变动公告：吕成林担任主教练",
+    "sourcePage": "https://www.weibo.com/6528198786/PbcjL5xwz",
+    "originalImage": "https://wx3.sinaimg.cn/orj360/0077NEIOgy1hxuaddn1x2j31i92kkkjm.jpg"
+  },
+  { "name": "花楼", "slug": "hualou", "rank": 4, "focus": "50% 18%" },
+  { "name": "LoveCD", "slug": "lovecd", "rank": 2, "focus": "50% 20%" },
+  { "name": "770", "slug": "770", "rank": 1, "focus": "50% 18%" },
+  { "name": "李九", "slug": "lijiu", "rank": 2, "focus": "50% 18%" },
+  { "name": "瓶子", "slug": "pingzi", "rank": 1, "focus": "50% 18%" },
+  { "name": "英凯", "slug": "yingkai", "rank": 2, "focus": "50% 18%" },
+  { "name": "潇洒", "slug": "xiaosa", "rank": 3, "focus": "50% 18%" },
+  {
+    "name": "狂人",
+    "slug": "kuangren",
+    "focus": "50% 18%",
+    "localFile": "tmp/kuangren_correct.jpg",
+    "title": "老司机狂人微博认证头像",
+    "sourcePage": "https://www.weibo.com/119737022",
+    "originalImage": "https://tvax4.sinaimg.cn/crop.0.0.959.959.180/752876cfly8h3fv6fp11oj20qn0qnjsx.jpg"
+  },
+  {
+    "name": "黄超",
+    "slug": "huangchao",
+    "focus": "50% 17%",
+    "localFile": "tmp/huangchao_correct.jpg",
+    "title": "黄超｜2023 KPL 缤纷 COLOURFUL 电竞卡牌",
+    "sourcePage": "https://qiandao.com/spu?id=808536825504220418",
+    "originalImage": "https://treasure.qiandaocdn.com/treasure/images/nQn6AYTdGc.png"
+  },
+  { "name": "居居", "slug": "juju", "rank": 2, "focus": "50% 18%" },
+  { "name": "天云", "slug": "tianyun", "rank": 2, "focus": "50% 18%" },
+  { "name": "灵儿", "slug": "linger", "rank": 5, "focus": "50% 16%" },
+  { "name": "琪琪", "slug": "qiqi", "rank": 4, "focus": "50% 14%" }
+]

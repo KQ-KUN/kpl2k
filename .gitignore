@@ -1,5 +1,15 @@
 # 原始爬取数据与临时文件（体积大，不入库）
 data/raw/
+# 2016—2018 历史档案的可复现输入快照需要随项目保存。
+!data/raw/
+data/raw/*
+!data/raw/kplow/
+!data/raw/liquipedia/
+data/raw/kplow/*
+data/raw/liquipedia/*
+!data/raw/kplow/kpl_history_2016_2018.json
+!data/raw/liquipedia/career_history.json
+!data/raw/liquipedia/player_pages.json
 tmp/
 tmp_body_season.json
 tmp_edge*/
@@ -26,3 +36,7 @@ shot_library.*
 .venv/
 .env
 *.log
+node_modules/
+dist/
+guessing/node_modules/
+guessing/dist/

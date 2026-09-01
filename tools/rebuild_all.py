@@ -22,6 +22,7 @@ STEPS = [
     ("build_pair_win.py", "组合胜率"),
     ("clean_kpl.py", "清洗+评分"),
     ("build_kpl_maps.py", "改名映射+赛制"),
+    ("build_historical_archive.py", "2016—2018 历史档案"),
     ("build_player_library.py", "选手库"),
     ("validate_ratings.py", "评分验证"),
     ("build_team_icons.py", "战队头像"),

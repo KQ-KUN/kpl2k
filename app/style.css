@@ -44,8 +44,10 @@ img{display:block}
 .quick-start:active{transform:scale(.99)}
 .quick-start:disabled{opacity:.65;cursor:wait}
 .qs-icon{font-size:24px;line-height:1}
-.quick-start b{display:block;color:var(--gold);font-size:16px}
-.quick-start small{display:block;margin-top:1px;color:var(--mut);font-size:11px;line-height:1.4}
+.qs-copy{display:block;min-width:0;flex:1}
+.qs-kicker{display:block;margin-bottom:2px;color:#f8d978;font-size:10px;font-style:normal;font-weight:800;letter-spacing:.12em}
+.quick-start b{display:block;color:var(--fg);font-size:16px;line-height:1.35}
+.quick-start small{display:block;margin-top:3px;color:var(--mut);font-size:11px;line-height:1.4}
 .qs-arrow{margin-left:auto;color:var(--gold);font-size:26px}
 .tactic-panel{margin:12px 0;padding:12px;border:1px solid var(--line2);border-radius:var(--radius);background:rgba(18,36,63,.82)}
 .tactic-title{margin-bottom:8px;font-weight:750;color:var(--fg)}
@@ -105,6 +107,8 @@ img{display:block}
     linear-gradient(120deg, #c22a2a 0%, #8f1d1d 44%, #1e3a8a 56%, #1d4ed8 100%);
 }
 .hero{margin:12vh 0 8px}
+.logo-lockup{display:flex;align-items:center;justify-content:center;gap:13px}
+.site-avatar{width:66px;height:66px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.28))}
 .logo{
   font-size:46px;font-weight:900;letter-spacing:3px;
   background:linear-gradient(135deg,#f0b90b,#ff7b3d);
@@ -463,6 +467,10 @@ img{display:block}
 .result-pc .ppos{color:var(--mut);font-size:11px;margin-left:6px;font-weight:400}
 .result-pc .pstat{color:var(--mut);font-size:11px;margin-top:2px}
 .result-factors-card{border-color:rgba(240,185,11,.3)}
+.result-story-card{border-color:rgba(240,185,11,.38);background:linear-gradient(145deg,rgba(240,185,11,.09),rgba(13,27,46,.94))}
+.result-story-theme{margin-bottom:7px;color:var(--gold);font-size:13px;font-weight:800}
+.result-story-line{color:#d8e3f1;font-size:12px;line-height:1.65}
+.result-story-line+.result-story-line{margin-top:4px}
 .factor-item{display:grid;grid-template-columns:72px 1fr;gap:9px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.55}
 .factor-item:last-of-type{border-bottom:none}
 .factor-label{color:var(--gold);font-weight:800}

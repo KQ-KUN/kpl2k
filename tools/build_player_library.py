@@ -86,6 +86,8 @@ def main() -> None:
     attr = load("player_attribution.json").get("records", [])
     franchises = load("franchises.json")["franchises"]
     flavor = json.loads((ROOT / "data" / "narrative" / "player_flavor.json").read_text(encoding="utf-8")).get("flavors", {})
+    meta_path = PROC / "historical_player_meta.json"
+    career_meta = load("historical_player_meta.json").get("records", {}) if meta_path.exists() else {}
 
     season_names = {s["season_id"]: s["name"] for s in seasons}
     franchise_display = {}
@@ -221,13 +223,16 @@ def main() -> None:
             "current_team": current_team if current_team != ACTIVE_2026[fid] else None,
             "last_order": last_order,
             "mvp_total": sum(v["mvp_count"] for v in versions),
+            "debut_year": (career_meta.get(pid) or {}).get("debut_year"),
+            "championship_count": (career_meta.get(pid) or {}).get("championship_count"),
+            "championship_events": (career_meta.get(pid) or {}).get("championship_events", []),
             "versions": versions,
         })
 
     library.sort(key=lambda pl: -pl["peak_rating"])
     out = {
-        "schema_version": "0.1",
-        "data_version": "2026-08-15",
+        "schema_version": "0.2",
+        "data_version": "2026-08-30",
         "players": library,
     }
     (PROC / "player_library.json").write_text(
@@ -320,6 +325,7 @@ img.ava{object-fit:cover;background:#21262d}
   <button class="rules-btn" id="rules-btn">战力规则</button>
 </div>
 <div class="sub" id="meta"></div>
+<div class="sub">首秀年份与冠军首发统计的口径、来源及许可见 <a href="history_archive.html">历史档案说明</a>。</div>
 <div class="toolbar">
   <input id="q" placeholder="搜索选手（如 Fly / 小胖 / 一诺）">
   <select id="team"><option value="">全部战队</option></select>
@@ -421,6 +427,8 @@ function card(p){
     <div class="brief">
       <span class="b"><b>${p.version_count}</b> 版本</span>
       <span class="b"><b>${p.mvp_total}</b> 次 MVP</span>
+      ${p.debut_year?`<span class="b"><b>${p.debut_year}</b> KPL 首秀</span>`:''}
+      ${p.championship_count!=null?`<span class="b"><b>${p.championship_count}</b> 冠</span>`:''}
       <span class="b">${keyStats(peak)}</span>
     </div>
     <div class="tags">${p.positions.map(x=>`<span class="tag">${x}</span>`).join('')}</div>

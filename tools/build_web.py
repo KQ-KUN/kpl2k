@@ -26,25 +26,25 @@ BUILD_VERSION = "2026.08.26.1"
 # 王朝战队预设：真实历史主力五人组；版本取王朝年代赛季（若该赛季无记录则就近回退），
 # 该选手当年战力差的部分由该赛季真实同场默契 + 组合胜率化学补偿
 DYNASTIES = [
-    {"id": "2019qg", "label": "19QG 巅峰", "team_fid": "10001", "desc": "2019 秋冠，Fly 时代起点",
-     "season": "L20190004", "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
-    {"id": "2019estar", "label": "19eStar 五虎", "team_fid": "10006", "desc": "2019 双冠，诺言花海 Cat",
+    {"id": "2019qg", "label": "19QG 巅峰", "theme": "五冠王朝，再赴冬冠之夜", "team_fid": "10001", "desc": "Fly、Hurt领衔的冬冠阵容",
+     "season": "L20190004", "battle_season": "L20190006", "players": ["Fly", "Hurt", "Mojo", "Giao", "770"]},
+    {"id": "2019estar", "label": "19eStar 五虎", "theme": "双冠五虎，花海与Cat再并肩", "team_fid": "10006", "desc": "2019双冠核心阵容",
      "season": "L20190003", "players": ["诺言", "花海", "Cat", "Alan", "无铭"]},
-    {"id": "2020dyg", "label": "20DYG 大魔王", "team_fid": "10008", "desc": "2020 秋冠，清清久诚易峥",
+    {"id": "2020dyg", "label": "20DYG 大魔王", "theme": "大魔王归来，重走秋冠之路", "team_fid": "10008", "desc": "清清、小义、久诚、易峥、星宇",
      "season": "KPL2020S2", "players": ["清清", "小义", "久诚", "易峥", "星宇"]},
-    {"id": "2021hero", "label": "21Hero 双冠", "team_fid": "10007", "desc": "20冬+21春，星痕无畏清融",
+    {"id": "2021hero", "label": "21Hero 双冠", "theme": "青春风暴，重返南京之巅", "team_fid": "10007", "desc": "20冬+21春双冠五人组",
      "season": "KPL2021S1", "players": ["星痕", "无畏", "清融", "久酷", "子阳"]},
-    {"id": "2021ttg", "label": "21TTG 无冕", "team_fid": "10017", "desc": "巅峰亚军五虎，通天边路清清",
+    {"id": "2021ttg", "label": "21TTG 无冕", "theme": "无冕五虎，这次能否捧杯？", "team_fid": "10017", "desc": "清清、不然、九尾、钎城、冰尘",
      "season": "KPL2021S2", "players": ["清清", "不然", "九尾", "钎城", "冰尘"]},
-    {"id": "2022estar", "label": "22eStar 王朝", "team_fid": "10006", "desc": "21-22 六连决赛五夺冠",
+    {"id": "2022estar", "label": "22eStar 王朝", "theme": "王朝最盛，再看五人组压境", "team_fid": "10006", "desc": "21—22六连决赛五夺冠阵容",
      "season": "KPL2022S1", "players": ["坦然", "花海", "清融", "易峥", "子阳"]},
-    {"id": "2023wolf", "label": "23狼队双冠", "team_fid": "10001", "desc": "2023 春季赛+挑战者杯冠军，胖鱼刀帆",
+    {"id": "2023wolf", "label": "23狼队双冠", "theme": "金色雨再落山城", "team_fid": "10001", "desc": "Fly、小胖、向鱼、妖刀、帆帆",
      "season": "KPL2023S1", "players": ["Fly", "小胖", "向鱼", "妖刀", "帆帆"]},
-    {"id": "2024ag", "label": "24-25AG 红色王朝", "team_fid": "10027", "desc": "九连决赛 · 六连冠",
-     "season": "KPL2024S1", "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
-    {"id": "2026ksg", "label": "26KSG 新王", "team_fid": "10005", "desc": "2026 春冠，4:0 横扫狼队，队史首冠",
+    {"id": "2024ag", "label": "24—25AG 红色王朝", "theme": "红色王朝，从那个夏天启航", "team_fid": "10027", "desc": "轩染、钟意、长生、一诺、大帅",
+     "season": "KPL2024S2", "players": ["轩染", "钟意", "长生", "一诺", "大帅"]},
+    {"id": "2026ksg", "label": "26KSG 新王", "theme": "队史首冠之后，新王守擂", "team_fid": "10005", "desc": "4:0登顶的春冠五人组",
      "season": "KPL2026S1", "players": ["无言", "句号", "流浪", "小屿", "一笙"]},
-    {"id": "2026wolf", "label": "26狼队", "team_fid": "10001", "desc": "2026 挑战者杯冠军，队史十一冠",
+    {"id": "2026wolf", "label": "26狼队", "theme": "十一冠之后，再守巅峰", "team_fid": "10001", "desc": "挑战者杯冠军五人组",
      "season": "KCC2026", "players": ["清清", "皖皖", "紫幻", "道崽", "信"]},
 ]
 
@@ -96,6 +96,7 @@ def main() -> None:
         for f in franchises
     ]
     templates = json.loads((NARR / "templates.json").read_text(encoding="utf-8"))
+    dynasty_stories = json.loads((NARR / "dynasty_stories.json").read_text(encoding="utf-8"))["stories"]
     templates["heroes_pool"] = json.loads((NARR / "heroes_pool.json").read_text(encoding="utf-8"))
     base = {
         "franchises": franchises_min,
@@ -306,7 +307,8 @@ def main() -> None:
         if len(roster) == 5:
             dyn_out.append({
                 "id": d["id"], "label": d["label"], "team_fid": d["team_fid"],
-                "desc": d["desc"], "era_season": d["season"], "players": roster,
+                "theme": d["theme"], "desc": d["desc"], "story": dynasty_stories.get(d["id"], {}),
+                "era_season": d.get("battle_season", d["season"]), "players": roster,
             })
         else:
             print(f"[warn] 王朝预设 {d['label']} 仅凑齐 {len(roster)} 人，跳过")

@@ -1,0 +1,853 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "provider": "Liquipedia Honor of Kings Wiki",
+    "api": "https://liquipedia.net/honorofkings/api.php",
+    "retrievedAt": "2026-08-30T13:17:32+00:00",
+    "license": "CC BY-SA 3.0",
+    "championshipScope": {
+      "includedPatterns": [
+        "King Pro League (?:Spring|Summer|Fall|Autumn) \\d{4}",
+        "King Pro League Grand Finals \\d{4}",
+        "Honor of Kings Challenger Cup \\d{4}",
+        "Honor of Kings International Championship \\d{4}",
+        "Honor of Kings World Champion Cup \\d{4}",
+        "Honor of Kings Champion Cup(?: Winter Season)? \\d{4}"
+      ],
+      "excluded": [
+        "Honor of Kings World Cup ",
+        "Honor of Kings Invitational Midseason "
+      ]
+    }
+  },
+  "players": {
+    "Cat": {
+      "page": "Cat (Chen Zhengzheng)",
+      "debutYear": 2016,
+      "placementChampionshipCount": 9,
+      "championships": [
+        {
+          "date": "2017-07-08",
+          "tournament": "King Pro League Spring 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2017-08-19",
+          "tournament": "Honor of Kings Champion Cup 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2017-12-23",
+          "tournament": "King Pro League Fall 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2018-08-11",
+          "tournament": "Honor of Kings Champion Cup 2018",
+          "team": "Wolves"
+        },
+        {
+          "date": "2019-06-15",
+          "tournament": "King Pro League Spring 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2019-08-10",
+          "tournament": "Honor of Kings World Champion Cup 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2023-12-30",
+          "tournament": "Honor of Kings International Championship 2023",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "Fly": {
+      "page": "Fly",
+      "debutYear": 2017,
+      "placementChampionshipCount": 8,
+      "championships": [
+        {
+          "date": "2017-07-08",
+          "tournament": "King Pro League Spring 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2017-08-19",
+          "tournament": "Honor of Kings Champion Cup 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2017-12-23",
+          "tournament": "King Pro League Fall 2017",
+          "team": "Wolves"
+        },
+        {
+          "date": "2018-08-11",
+          "tournament": "Honor of Kings Champion Cup 2018",
+          "team": "Wolves"
+        },
+        {
+          "date": "2020-01-04",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2019",
+          "team": "Wolves"
+        },
+        {
+          "date": "2021-08-28",
+          "tournament": "Honor of Kings World Champion Cup 2021",
+          "team": "Wolves"
+        },
+        {
+          "date": "2022-09-03",
+          "tournament": "King Pro League Summer 2022",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        }
+      ]
+    },
+    "一诺": {
+      "page": "YiNuo",
+      "debutYear": 2018,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2019-12-14",
+          "tournament": "King Pro League Fall 2019",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2023-12-30",
+          "tournament": "Honor of Kings International Championship 2023",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-09-15",
+          "tournament": "King Pro League Summer 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-05-10",
+          "tournament": "King Pro League Spring 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "久诚": {
+      "page": "JiuCheng",
+      "debutYear": 2018,
+      "placementChampionshipCount": 4,
+      "championships": [
+        {
+          "date": "2018-07-08",
+          "tournament": "King Pro League Spring 2018",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2018-12-22",
+          "tournament": "King Pro League Fall 2018",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2019-01-13",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2018",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2020-12-19",
+          "tournament": "King Pro League Fall 2020",
+          "team": "Douyu Gaming"
+        }
+      ]
+    },
+    "久酷": {
+      "page": "JiuKu",
+      "debutYear": 2019,
+      "placementChampionshipCount": 2,
+      "championships": [
+        {
+          "date": "2021-01-23",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2020",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-06-26",
+          "tournament": "King Pro League Spring 2021",
+          "team": "Hero JiuJing"
+        }
+      ]
+    },
+    "乔兮": {
+      "page": "QiaoXi",
+      "debutYear": 2021,
+      "placementChampionshipCount": 0,
+      "championships": []
+    },
+    "九尾": {
+      "page": "JiuWei",
+      "debutYear": 2019,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2023-09-10",
+          "tournament": "King Pro League Summer 2023",
+          "team": "Talent Gaming"
+        }
+      ]
+    },
+    "向鱼": {
+      "page": "XiangYu",
+      "debutYear": 2020,
+      "placementChampionshipCount": 5,
+      "championships": [
+        {
+          "date": "2021-08-28",
+          "tournament": "Honor of Kings World Champion Cup 2021",
+          "team": "Wolves"
+        },
+        {
+          "date": "2022-09-03",
+          "tournament": "King Pro League Summer 2022",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-11-05",
+          "tournament": "Honor of Kings Challenger Cup 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2024-05-18",
+          "tournament": "King Pro League Spring 2024",
+          "team": "Wolves"
+        }
+      ]
+    },
+    "坦然": {
+      "page": "TanRan",
+      "debutYear": 2021,
+      "placementChampionshipCount": 6,
+      "championships": [
+        {
+          "date": "2021-12-25",
+          "tournament": "King Pro League Fall 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-01-15",
+          "tournament": "Honor of Kings Challenger Cup 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-05-08",
+          "tournament": "King Pro League Spring 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-10-06",
+          "tournament": "Honor of Kings Challenger Cup 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-12-30",
+          "tournament": "Honor of Kings International Championship 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "大帅": {
+      "page": "DaShuai",
+      "debutYear": 2024,
+      "placementChampionshipCount": 6,
+      "championships": [
+        {
+          "date": "2024-09-15",
+          "tournament": "King Pro League Summer 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-01-11",
+          "tournament": "Honor of Kings Challenger Cup 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-05-10",
+          "tournament": "King Pro League Spring 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "妖刀": {
+      "page": "1dao",
+      "debutYear": 2019,
+      "placementChampionshipCount": 6,
+      "championships": [
+        {
+          "date": "2020-01-04",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2019",
+          "team": "Wolves"
+        },
+        {
+          "date": "2021-08-28",
+          "tournament": "Honor of Kings World Champion Cup 2021",
+          "team": "Wolves"
+        },
+        {
+          "date": "2022-09-03",
+          "tournament": "King Pro League Summer 2022",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-11-05",
+          "tournament": "Honor of Kings Challenger Cup 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2024-05-18",
+          "tournament": "King Pro League Spring 2024",
+          "team": "Wolves"
+        }
+      ]
+    },
+    "子阳": {
+      "page": "ZiYang",
+      "debutYear": 2020,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2021-01-23",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2020",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-06-26",
+          "tournament": "King Pro League Spring 2021",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-12-25",
+          "tournament": "King Pro League Fall 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-01-15",
+          "tournament": "Honor of Kings Challenger Cup 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-05-08",
+          "tournament": "King Pro League Spring 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-10-06",
+          "tournament": "Honor of Kings Challenger Cup 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-12-30",
+          "tournament": "Honor of Kings International Championship 2022",
+          "team": "EStar Pro"
+        }
+      ]
+    },
+    "小胖": {
+      "page": "XiaoPang",
+      "debutYear": 2020,
+      "placementChampionshipCount": 5,
+      "championships": [
+        {
+          "date": "2021-08-28",
+          "tournament": "Honor of Kings World Champion Cup 2021",
+          "team": "Wolves"
+        },
+        {
+          "date": "2022-09-03",
+          "tournament": "King Pro League Summer 2022",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-11-05",
+          "tournament": "Honor of Kings Challenger Cup 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2024-05-18",
+          "tournament": "King Pro League Spring 2024",
+          "team": "Wolves"
+        }
+      ]
+    },
+    "帆帆": {
+      "page": "FanFan",
+      "debutYear": 2020,
+      "placementChampionshipCount": 4,
+      "championships": [
+        {
+          "date": "2021-08-28",
+          "tournament": "Honor of Kings World Champion Cup 2021",
+          "team": "Wolves"
+        },
+        {
+          "date": "2022-09-03",
+          "tournament": "King Pro League Summer 2022",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-09-10",
+          "tournament": "King Pro League Summer 2023",
+          "team": "Talent Gaming"
+        }
+      ]
+    },
+    "无畏": {
+      "page": "NoFear (Yang Tao)",
+      "debutYear": 2020,
+      "placementChampionshipCount": 2,
+      "championships": [
+        {
+          "date": "2021-01-23",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2020",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-06-26",
+          "tournament": "King Pro League Spring 2021",
+          "team": "Hero JiuJing"
+        }
+      ]
+    },
+    "星宇": {
+      "page": "XingYu",
+      "debutYear": 2018,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2020-12-19",
+          "tournament": "King Pro League Fall 2020",
+          "team": "Douyu Gaming"
+        }
+      ]
+    },
+    "暖阳": {
+      "page": "NuanYang",
+      "debutYear": 2018,
+      "placementChampionshipCount": 3,
+      "championships": [
+        {
+          "date": "2020-06-13",
+          "tournament": "King Pro League Spring 2020",
+          "team": "Weibo Gaming"
+        },
+        {
+          "date": "2020-08-16",
+          "tournament": "Honor of Kings World Champion Cup 2020",
+          "team": "Weibo Gaming"
+        },
+        {
+          "date": "2026-01-02",
+          "tournament": "Honor of Kings Challenger Cup 2025",
+          "team": "Weibo Gaming"
+        }
+      ]
+    },
+    "梓墨": {
+      "page": "ZiMo",
+      "debutYear": 2020,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2026-01-02",
+          "tournament": "Honor of Kings Challenger Cup 2025",
+          "team": "Weibo Gaming"
+        }
+      ]
+    },
+    "梦泪": {
+      "page": "MengLei",
+      "debutYear": 2016,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2019-12-14",
+          "tournament": "King Pro League Fall 2019",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "清清": {
+      "page": "QingQing",
+      "debutYear": 2019,
+      "placementChampionshipCount": 3,
+      "championships": [
+        {
+          "date": "2020-12-19",
+          "tournament": "King Pro League Fall 2020",
+          "team": "Douyu Gaming"
+        },
+        {
+          "date": "2023-09-10",
+          "tournament": "King Pro League Summer 2023",
+          "team": "Talent Gaming"
+        },
+        {
+          "date": "2026-05-23",
+          "tournament": "Honor of Kings Challenger Cup 2026",
+          "team": "Wolves"
+        }
+      ]
+    },
+    "清融": {
+      "page": "QingRong",
+      "debutYear": 2020,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2021-01-23",
+          "tournament": "Honor of Kings Champion Cup Winter Season 2020",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-06-26",
+          "tournament": "King Pro League Spring 2021",
+          "team": "Hero JiuJing"
+        },
+        {
+          "date": "2021-12-25",
+          "tournament": "King Pro League Fall 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-01-15",
+          "tournament": "Honor of Kings Challenger Cup 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-05-08",
+          "tournament": "King Pro League Spring 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-10-06",
+          "tournament": "Honor of Kings Challenger Cup 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-12-30",
+          "tournament": "Honor of Kings International Championship 2022",
+          "team": "EStar Pro"
+        }
+      ]
+    },
+    "爱思": {
+      "page": "Ice",
+      "debutYear": 2018,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2019-12-14",
+          "tournament": "King Pro League Fall 2019",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "笑影": {
+      "page": "XiaoYing",
+      "debutYear": 2019,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2019-12-14",
+          "tournament": "King Pro League Fall 2019",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "老帅": {
+      "page": "LaoShuai",
+      "debutYear": 2016,
+      "placementChampionshipCount": 1,
+      "championships": [
+        {
+          "date": "2019-12-14",
+          "tournament": "King Pro League Fall 2019",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "花海": {
+      "page": "HuaHai",
+      "debutYear": 2019,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2019-06-15",
+          "tournament": "King Pro League Spring 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2019-08-10",
+          "tournament": "Honor of Kings World Champion Cup 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2021-12-25",
+          "tournament": "King Pro League Fall 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-01-15",
+          "tournament": "Honor of Kings Challenger Cup 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-05-08",
+          "tournament": "King Pro League Spring 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-10-06",
+          "tournament": "Honor of Kings Challenger Cup 2022",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-12-30",
+          "tournament": "Honor of Kings International Championship 2022",
+          "team": "EStar Pro"
+        }
+      ]
+    },
+    "诺言": {
+      "page": "NuoYan",
+      "debutYear": 2017,
+      "placementChampionshipCount": 4,
+      "championships": [
+        {
+          "date": "2019-06-15",
+          "tournament": "King Pro League Spring 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2019-08-10",
+          "tournament": "Honor of Kings World Champion Cup 2019",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2021-12-25",
+          "tournament": "King Pro League Fall 2021",
+          "team": "EStar Pro"
+        },
+        {
+          "date": "2022-05-08",
+          "tournament": "King Pro League Spring 2022",
+          "team": "EStar Pro"
+        }
+      ]
+    },
+    "轩染": {
+      "page": "XuanRan",
+      "debutYear": 2023,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2023-12-30",
+          "tournament": "Honor of Kings International Championship 2023",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-09-15",
+          "tournament": "King Pro League Summer 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-01-11",
+          "tournament": "Honor of Kings Challenger Cup 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-05-10",
+          "tournament": "King Pro League Spring 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "钎城": {
+      "page": "QC",
+      "debutYear": 2019,
+      "placementChampionshipCount": 0,
+      "championships": []
+    },
+    "钟意": {
+      "page": "ZhongYi",
+      "debutYear": 2023,
+      "placementChampionshipCount": 8,
+      "championships": [
+        {
+          "date": "2023-05-13",
+          "tournament": "King Pro League Spring 2023",
+          "team": "Wolves"
+        },
+        {
+          "date": "2023-12-30",
+          "tournament": "Honor of Kings International Championship 2023",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-09-15",
+          "tournament": "King Pro League Summer 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-01-11",
+          "tournament": "Honor of Kings Challenger Cup 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-05-10",
+          "tournament": "King Pro League Spring 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    },
+    "长生": {
+      "page": "ChangSheng",
+      "debutYear": 2023,
+      "placementChampionshipCount": 7,
+      "championships": [
+        {
+          "date": "2023-12-30",
+          "tournament": "Honor of Kings International Championship 2023",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-09-15",
+          "tournament": "King Pro League Summer 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2024-11-16",
+          "tournament": "King Pro League Grand Finals 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-01-11",
+          "tournament": "Honor of Kings Challenger Cup 2024",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-05-10",
+          "tournament": "King Pro League Spring 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-09-07",
+          "tournament": "King Pro League Summer 2025",
+          "team": "AG Super Play"
+        },
+        {
+          "date": "2025-11-08",
+          "tournament": "King Pro League Grand Finals 2025",
+          "team": "AG Super Play"
+        }
+      ]
+    }
+  }
+}
