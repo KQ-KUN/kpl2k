@@ -19,6 +19,8 @@ def run(label: str, command: list[str]) -> None:
 
 def static_checks() -> None:
     html = (ROOT / "app/index.html").read_text(encoding="utf-8")
+    portal_html = (ROOT / "portal/index.html").read_text(encoding="utf-8")
+    announcement_html = (ROOT / "portal/announcement.html").read_text(encoding="utf-8")
     ui = (ROOT / "app/js/ui.js").read_text(encoding="utf-8")
     required_pages = ("home", "team", "allstar", "season", "sim", "result", "history", "achievements")
     missing_ids = [page for page in required_pages if f'id="{page}"' not in html]
@@ -27,11 +29,19 @@ def static_checks() -> None:
         raise SystemExit(f"[FAIL] SPA smoke: missing ids={missing_ids}, routes={missing_routes}")
     if "compactAllStarState(STATE.allStar)" not in ui:
         raise SystemExit("[FAIL] All-Star history still risks duplicating avatar data")
-    for marker in ("btn-quick", "每日挑战", "今日主题：", "function dailyChallenge", "../guessing/", "sister-game-link", "#/a?", "build_version", "data-tactic=\"stable\"", "result-achievements", "sideWins[side[0]] / gameCount", "storageHistory.pop()", "cachedRoster === requestedRoster", "sim-pause", "sim-skip-series", "picker-compare", "result-factors", "var best = bestVersionFor(p, pos);", "确认清空", "kpl2k_achievements_v1", "recordAchievementRun", "recordAchievementEvent", "reconcileAchievementHistory", "item.champ === true", "achievement-grid"):
+    for marker in ("btn-quick", "每日挑战", "今日主题：", "function dailyChallenge", "../guessing/", "home-guessing-link", "#/a?", "build_version", "data-tactic=\"stable\"", "result-achievements", "sideWins[side[0]] / gameCount", "storageHistory.pop()", "cachedRoster === requestedRoster", "normalizeAllStarState", "playerAvatarHtml", "sim-pause", "sim-skip-series", "picker-compare", "result-factors", "var best = bestVersionFor(p, pos);", "确认清空", "kpl2k_achievements_v1", "recordAchievementRun", "recordAchievementEvent", "reconcileAchievementHistory", "item.champ === true", "achievement-grid"):
         if marker not in html + ui + (ROOT / "app/data/manifest.json").read_text(encoding="utf-8"):
             raise SystemExit(f"[FAIL] v0.2 static marker missing: {marker}")
     if "0 / 18" not in html:
         raise SystemExit("[FAIL] achievement total is stale")
+    for unsafe_avatar_handler in ("this.parentNode.textContent=&#39;", "this.outerHTML=&#39;<div class=&quot;pava&quot;"):
+        if unsafe_avatar_handler in ui:
+            raise SystemExit(f"[FAIL] unsafe player avatar fallback remains: {unsafe_avatar_handler}")
+    if 'href="./announcement.html"' not in portal_html:
+        raise SystemExit("[FAIL] portal announcement link missing")
+    for marker in ("更新公告", "BGM 系统上线", "战力系统重新调整", "历年赛程已经补齐", "KPL Guessing 玩法补全"):
+        if marker not in announcement_html:
+            raise SystemExit(f"[FAIL] announcement page missing: {marker}")
     library_html = (ROOT / "app/player_library.html").read_text(encoding="utf-8")
     if "recordLibraryRead" not in library_html or "toggleCard" not in library_html:
         raise SystemExit("[FAIL] player library achievements missing")
@@ -50,10 +60,11 @@ def static_checks() -> None:
         and records[pid_by_name["一诺"]]["championship_count"] == 7
         and records[pid_by_name["梦泪"]]["championship_count"] == 0
         and "history_archive.html" in html
-        and "旧接口没有提供可核验的首发阵容和个人统计" in archive_html
+        and "历年赛程" in archive_html
+        and "为什么不能直接开赛" not in archive_html
     )
     if not history_ok:
-        raise SystemExit("[FAIL] 2016—2018 historical archive contract failed")
+        raise SystemExit("[FAIL] historical schedule archive contract failed")
     public_copy = "\n".join([
         html,
         ui,

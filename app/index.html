@@ -27,11 +27,6 @@
     </div>
     <div class="tagline">组一支你心中的阵容，改写 KPL 历史</div>
     <div class="stat-line" id="stat-line"></div>
-    <a class="sister-game-link" href="../guessing/" aria-label="进入姊妹游戏 KPL Guessing">
-      <span class="sister-game-mark" aria-hidden="true"></span>
-      KPL Guessing
-      <span aria-hidden="true">→</span>
-    </a>
   </div>
   <button class="quick-start" id="btn-quick">
     <span class="qs-icon">📅</span>
@@ -46,22 +41,18 @@
     <button class="mode-card" id="btn-classic">
       <div class="mc-title">经典模式</div>
       <div class="mc-desc">选定一支战队，同队选手可跨版本组队，征战任意赛季</div>
-      <div class="mc-tag">推荐</div>
     </button>
     <button class="mode-card" id="btn-allstar">
       <div class="mc-title">全明星模式</div>
       <div class="mc-desc">跨战队自由搭配，任意选手同场竞技，也包括——你自己</div>
-      <div class="mc-tag">新模式</div>
     </button>
     <a class="mode-card" href="player_library.html" style="text-decoration:none">
       <div class="mc-title">选手图鉴</div>
       <div class="mc-desc">按战队查阅历届选手版本与赛季数据</div>
-      <div class="mc-tag">数据</div>
     </a>
     <a class="mode-card" href="history_archive.html" style="text-decoration:none">
-      <div class="mc-title">历史档案</div>
-      <div class="mc-desc">查阅 2016—2018 的 5 个赛季与 587 场官方赛果</div>
-      <div class="mc-tag">新增</div>
+      <div class="mc-title">历年赛程</div>
+      <div class="mc-desc">按赛事、阶段或战队查阅历年赛程</div>
     </a>
   </div>
   <button class="history-entry" id="history-entry" style="display:none">
@@ -75,7 +66,6 @@
     <span class="he-arrow">›</span>
   </button>
   <div class="footnote social-links" aria-label="平台链接">
-    <span>链接：</span>
     <a href="https://www.bilibili.com/video/BV1tE836XEqn/" target="_blank" rel="noopener" aria-label="打开B站">
       <svg class="platform-icon bili-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3l2 3h4l2-3m-9 5h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-7a3 3 0 0 1 3-3Zm2 5v3m6-3v3"/></svg>
       B站
@@ -84,14 +74,18 @@
       <svg class="platform-icon xhs-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="5"/><text x="12" y="14.5" text-anchor="middle">小红书</text></svg>
       小红书
     </a>
+    <button id="btn-disclaimer">玩家须知</button>
   </div>
   <div class="home-bgm-row" id="home-bgm-row">
-    <span class="mut" id="music-hint">🔊 点一下屏幕，音乐就响</span>
+    <span class="mut" id="music-hint">点按开启音乐</span>
+    <a class="home-guessing-link" href="../guessing/" aria-label="进入 KPL Guessing" title="KPL Guessing">
+      <img src="../assets/brand/kpl-guessing-avatar-v1.png" width="28" height="28" alt="" aria-hidden="true">
+      <span class="home-guessing-label">Guessing</span>
+    </a>
     <span class="bgm-wrap">
       <button id="bgm-toggle-home" class="bgm-btn" title="开关音乐"></button>
     </span>
   </div>
-  <button class="link-mut" id="btn-disclaimer" style="margin-top:6px;background:none;border:none;color:var(--mut);font-size:11px;text-decoration:underline;cursor:pointer">玩家须知</button>
 </div>
 
 <!-- ================= 历史战绩页 ================= -->
@@ -172,7 +166,7 @@
     <button data-bo="3">BO3</button><button class="sel" data-bo="5">BO5</button><button data-bo="7">BO7</button>
   </div>
   <div class="tactic-panel">
-    <div class="tactic-title">赛前策略 <span>只改变赛果波动，不改变选手能力</span></div>
+    <div class="tactic-title">赛前策略</div>
     <div class="tactic-picker">
       <button data-tactic="stable"><b>稳健运营</b><small>降低波动，强队更稳</small></button>
       <button data-tactic="balanced"><b>均衡应对</b><small>标准比赛节奏</small></button>
@@ -207,7 +201,7 @@
   </div>
   <div class="mut" style="font-size:12px;margin-bottom:10px">当前阵容：<span id="season-team-name"></span></div>
   <div class="tactic-panel">
-    <div class="tactic-title">赛前策略 <span>根据阵容强弱决定要稳住，还是赌一次上限</span></div>
+    <div class="tactic-title">赛前策略</div>
     <div class="tactic-picker">
       <button data-tactic="stable"><b>稳健运营</b><small>降低波动，强队更稳</small></button>
       <button data-tactic="balanced"><b>均衡应对</b><small>标准比赛节奏</small></button>

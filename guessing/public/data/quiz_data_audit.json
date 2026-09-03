@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "dataVersion": "2026-08-15",
-  "sourceCommit": "c4ecd2e",
-  "playersHash": "46125a4ac731c6461c85d6cde005a1ea2d6e34baf0dcf2bc9b6761f027548455",
+  "sourceCommit": "be1ecba",
+  "playersHash": "9d89d5fbcc465f2610a033538065aee4ac8ad27efa70f3f81b2f9c95634e7d85",
   "sourcePlayers": 746,
   "eligiblePlayers": 592,
   "poolCounts": {
@@ -10,9 +10,9 @@
     "normal": 119,
     "hardcore": 592
   },
-  "eligibleHttpsIcons": 447,
+  "eligibleHttpsIcons": 521,
   "eligibleHttpIcons": 69,
-  "sourceHttpsIcons": 569,
+  "sourceHttpsIcons": 654,
   "sourceHttpIcons": 78,
   "duplicateNicknameGroups": [
     [
@@ -614,6 +614,6 @@
       "sourceChampionshipCount": 6
     }
   ],
-  "localIconCount": 481,
+  "localIconCount": 555,
   "remoteIconCount": 0
 }

@@ -18,7 +18,10 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
+
+from player_icons import sync_player_icon_cache
 
 ROOT = Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
@@ -243,7 +246,13 @@ def main() -> None:
     for pl in library[:8]:
         print(f"  {pl['name']:<6} 巅峰战力={pl['peak_rating']:<6} 版本数={pl['version_count']} 位置={','.join(pl['positions'])}")
 
-    data_json = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
+    web_out = deepcopy(out)
+    local_icons = sync_player_icon_cache()
+    for player in web_out["players"]:
+        player_id = player["id"].split("@", 1)[0]
+        if player_id in local_icons:
+            player["icon"] = local_icons[player_id]
+    data_json = json.dumps(web_out, ensure_ascii=False, separators=(",", ":"))
     APP.mkdir(parents=True, exist_ok=True)
     html = HTML_TEMPLATE.replace("__DATA__", data_json)
     (APP / "player_library.html").write_text(html, encoding="utf-8")
@@ -257,19 +266,19 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KPL 2K · 选手图鉴</title>
 <style>
-:root{--bg:#0d1117;--card:#161b22;--line:#21262d;--fg:#e6edf3;--mut:#8b949e;--gold:#f0b90b;--blue:#58a6ff;--green:#3fb950}
+:root{--bg:#080d1b;--card:#101a2e;--line:rgba(151,178,220,.2);--fg:#f4f7fc;--mut:#91a4c2;--gold:#f0b90b;--blue:#3e7bfa;--green:#3fb950}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:14px;max-width:820px;margin:0 auto}
-h1{font-size:18px;margin-bottom:4px}
+body{background:radial-gradient(circle at 8% 12%,rgba(216,43,70,.12),transparent 28%),radial-gradient(circle at 92% 18%,rgba(48,104,234,.14),transparent 30%),var(--bg);color:var(--fg);font:14px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;padding:24px 18px 52px;max-width:1180px;margin:0 auto}
+h1{font-size:26px;margin-bottom:4px}
 .sub{color:var(--mut);font-size:12px;margin-bottom:14px}
-.toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
-input,select{background:#0d1117;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px 10px;font-size:13px}
+.toolbar{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;position:sticky;top:0;background:rgba(8,13,27,.92);padding:10px;z-index:5;border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(16px)}
+input,select{min-height:44px;background:#0a1427;border:1px solid var(--line);color:var(--fg);border-radius:11px;padding:8px 12px;font-size:13px}
 input{flex:1;min-width:150px}
 .team{margin-bottom:18px}
-.team h2{font-size:15px;margin-bottom:8px;padding-left:8px;border-left:3px solid var(--gold);display:flex;justify-content:space-between;align-items:center}
+.team h2{font-size:17px;margin-bottom:10px;padding-left:10px;border-left:3px solid var(--blue);display:flex;justify-content:space-between;align-items:center}
 .team h2 span{color:var(--mut);font-size:12px;font-weight:400}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+.card{background:linear-gradient(145deg,rgba(18,29,49,.98),rgba(10,17,30,.99));border:1px solid var(--line);border-radius:18px;padding:14px;cursor:pointer;transition:transform .14s cubic-bezier(.23,1,.32,1),border-color .14s ease}
 .card.open{border-color:var(--blue)}
 .head{display:flex;align-items:center;gap:10px}
 .ava{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex:none}
@@ -280,13 +289,13 @@ img.ava{object-fit:cover;background:#21262d}
 .pk{color:var(--gold);font-size:17px;font-weight:700;margin-left:auto;text-align:right}
 .pk small{display:block;color:var(--mut);font-size:10px;font-weight:400}
 .brief{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
-.b{background:#0d1117;border:1px solid var(--line);border-radius:8px;padding:3px 8px;font-size:11px;color:var(--mut)}
+.b{background:#0a1427;border:1px solid var(--line);border-radius:8px;padding:3px 8px;font-size:11px;color:var(--mut)}
 .b b{color:var(--fg);font-weight:600}
 .tags{margin-top:7px;font-size:11px;color:var(--mut)}
 .tag{display:inline-block;background:#21262d;border-radius:6px;padding:1px 7px;margin-right:5px}
 .versions{margin-top:10px;display:none}
 .card.open .versions{display:block}
-.ver{background:#0d1117;border:1px solid var(--line);border-radius:9px;padding:8px 10px;margin-top:7px}
+.ver{background:#0a1427;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-top:8px}
 .ver-top{display:flex;justify-content:space-between;align-items:center;font-size:12px}
 .v-rating{color:var(--blue);font-weight:700}
 .v-stats{color:var(--mut);font-size:11px;margin-top:3px}
@@ -298,10 +307,11 @@ img.ava{object-fit:cover;background:#21262d}
 .b-move{background:#101f2e;color:var(--blue);border:1px solid #1f6f9f}
 .b-retire{background:#2d0f0f;color:#ff7b72;border:1px solid #8b3a3a}
 .heroes{margin-top:4px;font-size:11px;color:var(--mut)}
-.meme{color:var(--mut);font-size:11px;margin-top:7px;padding:5px 8px;background:#0d1117;border:1px solid var(--line);border-radius:8px}
+.meme{color:var(--mut);font-size:11px;margin-top:7px;padding:5px 8px;background:#0a1427;border:1px solid var(--line);border-radius:8px}
 .empty{color:var(--mut);text-align:center;padding:30px 0}
-.lib-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.rules-btn{background:var(--card);border:1px solid var(--line);color:var(--blue);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;flex:none}
+.lib-head{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center;margin-bottom:8px}
+.back{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--mut);font-size:26px;text-decoration:none}
+.rules-btn{min-height:42px;background:var(--card);border:1px solid var(--line);color:#c9d8f2;border-radius:11px;padding:0 14px;font-size:13px;cursor:pointer;flex:none}
 .rules-btn:hover{border-color:var(--blue)}
 .rules-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:20;padding:14px}
 .rules-mask.show{display:flex}
@@ -309,23 +319,25 @@ img.ava{object-fit:cover;background:#21262d}
 .rules-box h3{font-size:15px;margin-bottom:10px;color:var(--gold)}
 .rules-box .r{color:var(--mut);font-size:12px;line-height:1.7}
 .rules-box .r b{color:var(--fg)}
-.rules-close{width:100%;margin-top:12px;background:#0d1117;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px;cursor:pointer}
+.rules-close{width:100%;min-height:44px;margin-top:12px;background:linear-gradient(110deg,#e83e57,#386ee3);border:0;color:#fff;border-radius:11px;padding:8px;cursor:pointer}
 .achievement-toast{position:fixed;left:20px;bottom:20px;z-index:30;display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center;gap:12px;width:min(360px,calc(100vw - 40px));min-height:68px;padding:11px 16px 11px 12px;border:1px solid rgba(240,185,11,.55);border-radius:8px;background:linear-gradient(105deg,#171b20,#222831);box-shadow:0 14px 42px rgba(0,0,0,.52),inset 3px 0 0 var(--gold);opacity:0;pointer-events:none;transform:translateY(calc(100% + 24px));transition:opacity .16s cubic-bezier(.23,1,.32,1),transform .22s cubic-bezier(.23,1,.32,1)}
 .achievement-toast.show{opacity:1;transform:translateY(0)}
 .achievement-toast-icon{display:grid;place-items:center;width:44px;height:44px;border-radius:6px;background:linear-gradient(145deg,#473b14,#211d0d);font-size:23px}
 .achievement-toast-copy{min-width:0;display:flex;flex-direction:column;line-height:1.25}.achievement-toast-copy small{color:#aeb6c1;font-size:11px;font-weight:700;letter-spacing:.08em}.achievement-toast-copy strong{margin-top:4px;overflow:hidden;color:#ffe08a;font-size:14px;text-overflow:ellipsis;white-space:nowrap}
 @media(max-width:600px){.achievement-toast{left:50%;bottom:max(12px,env(safe-area-inset-bottom));width:calc(100vw - 24px);transform:translate(-50%,calc(100% + 24px))}.achievement-toast.show{transform:translate(-50%,0)}}
+@media(hover:hover) and (pointer:fine){.card:hover{transform:translateY(-2px);border-color:rgba(93,126,187,.55)}}
+@media(max-width:600px){body{padding:16px 12px 42px}.lib-head{grid-template-columns:38px 1fr auto;gap:9px}.back{width:38px;height:38px}.lib-head h1{font-size:20px}.rules-btn{padding:0 10px;font-size:12px}.toolbar{position:static}}
 @media(prefers-reduced-motion:reduce){.achievement-toast{transition:opacity .01ms}}
 </style>
 </head>
 <body>
 <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true"><span class="achievement-toast-icon" aria-hidden="true">🏆</span><span class="achievement-toast-copy"><small>成就已解锁</small><strong id="achievement-toast-name"></strong></span></div>
 <div class="lib-head">
+  <a class="back" href="index.html" aria-label="返回首页">‹</a>
   <h1>KPL 2K · 选手图鉴</h1>
   <button class="rules-btn" id="rules-btn">战力规则</button>
 </div>
 <div class="sub" id="meta"></div>
-<div class="sub">首秀年份与冠军首发统计的口径、来源及许可见 <a href="history_archive.html">历史档案说明</a>。</div>
 <div class="toolbar">
   <input id="q" placeholder="搜索选手（如 Fly / 小胖 / 一诺）">
   <select id="team"><option value="">全部战队</option></select>

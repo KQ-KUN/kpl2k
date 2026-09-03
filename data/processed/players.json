@@ -4096,7 +4096,7 @@
    "teams": {
     "KCC2021S": "10038"
    },
-   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/732.png"
+   "player_icon": "assets/player-icons/0c051c7e9b31d1aa4586.webp"
   },
   {
    "player_id": "B5749FFB6652F0377FAFCB263C0CD2CC",
@@ -10062,7 +10062,7 @@
     "KCC2026": "10910",
     "KPL2026S2": "10910"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/c084d59b55276df40c9037f98241b2ae.png"
+   "player_icon": "assets/player-icons/C8D10EFF0D4B7471234664BEA88F38C4.png"
   },
   {
    "player_id": "CBD5F4661466A98188E2A995235B63D7",
@@ -10182,7 +10182,7 @@
    "teams": {
     "KPL2026S2": "10031"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/f04a5ca07d8ff32544c2603bb9267db0.png"
+   "player_icon": "assets/player-icons/BBAE3DDECDF178F25F69E79771223842.png"
   },
   {
    "player_id": "B50BAFF5CE725B1A5A1A2E4BD7D2CEC8",
@@ -10230,7 +10230,7 @@
    "teams": {
     "KPL2026S2": "10008"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/704ad0e408cfc7aaf69cdd94f88607f6.png"
+   "player_icon": "assets/player-icons/C30EF66010B3BA2D6811BDDB006D3FF2.png"
   },
   {
    "player_id": "43FFE9422EA14E8AF81FD4CC5B52B883",
@@ -10254,7 +10254,7 @@
    "teams": {
     "KPL2026S2": "10010"
    },
-   "player_icon": "https://smobatv-pic.tga.qq.com/71afe29882919b25e6db11709515ea02.png"
+   "player_icon": "assets/player-icons/3E8F5B6D38D52D2C15135768D2D7980F.png"
   },
   {
    "player_id": "01700A32CDBF44C30561F99600469BE4",
@@ -10293,7 +10293,7 @@
     "L20200001": "10027",
     "L20200003": "10027"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/BTL66.jpg"
   },
   {
    "player_id": "BTL994",
@@ -10305,7 +10305,7 @@
    "teams": {
     "L20190001": "10010"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/FFE0641C557DBC5BD95896C0C4CE9346.png"
   },
   {
    "player_id": "BTLEvd",
@@ -10317,7 +10317,7 @@
    "teams": {
     "L20190001": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/dyg-evd.png"
   },
   {
    "player_id": "BTLKu",
@@ -10329,7 +10329,7 @@
    "teams": {
     "L20190001": "10017"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/6690B40363495C6F757FF7B87B2E8631.png"
   },
   {
    "player_id": "BTLMojo",
@@ -10344,7 +10344,7 @@
     "L20190004": "10001",
     "L20190006": "10001"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/73D09DF6368EAA1198B9B43DCDCA8536.png"
   },
   {
    "player_id": "BTLOoZ",
@@ -10357,7 +10357,7 @@
     "L20190001": "10010",
     "L20190004": "10010"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/80C8A576D7AF6A697FD29087E60398F1.png"
   },
   {
    "player_id": "BTLSnow",
@@ -10370,7 +10370,7 @@
     "L20190001": "10001",
     "L20190003": "10001"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/9C0EBC8C5FDAB2B947FE66D477F1F683.png"
   },
   {
    "player_id": "BTLTop",
@@ -10382,7 +10382,7 @@
    "teams": {
     "L20190001": "10004"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/6365F7AD0112A91FB9C5F8796FD95C3A.png"
   },
   {
    "player_id": "BTLZed",
@@ -10395,7 +10395,7 @@
     "L20190001": "10019",
     "L20190004": "10028"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/716AD9D880907191722DBB595381CDCB.png"
   },
   {
    "player_id": "BTL七杀",
@@ -10407,7 +10407,7 @@
    "teams": {
     "L20190001": "10017"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/hero-7kill.png"
   },
   {
    "player_id": "BTL倾城",
@@ -10419,7 +10419,7 @@
    "teams": {
     "L20190001": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/C9370DD54FF93F6FC7FFB078FDC7CD17.png"
   },
   {
    "player_id": "BTL南木",
@@ -10431,7 +10431,7 @@
    "teams": {
     "L20190001": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/F71BD305400A18F0C7B2BFE582889D04.png"
   },
   {
    "player_id": "BTL堪阳",
@@ -10443,7 +10443,7 @@
    "teams": {
     "L20190001": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/535BD1907263AF9B9E282ED925E0BDD4.png"
   },
   {
    "player_id": "BTL小剑",
@@ -10455,7 +10455,7 @@
    "teams": {
     "L20190001": "10004"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/AE1143A24050713B348441573E740EC8.png"
   },
   {
    "player_id": "BTL小怪兽",
@@ -10467,7 +10467,7 @@
    "teams": {
     "L20190001": "10006"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/07B4EDF3EDFFE6EAA8EE349D3BADB4CF.png"
   },
   {
    "player_id": "BTL心醉",
@@ -10480,7 +10480,7 @@
     "L20190001": "10019",
     "L20190004": "10028"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/03C692C2132AAF22135204F4A4F5B87F.png"
   },
   {
    "player_id": "BTL怼怼",
@@ -10493,7 +10493,7 @@
     "L20190001": "10008",
     "L20190004": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/09059D196CF06A3C755C2E0393E899B6.png"
   },
   {
    "player_id": "BTL惜言",
@@ -10506,7 +10506,7 @@
     "L20190001": "10019",
     "L20190004": "10009"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A299DD910EA76FAC72345B9983BFE912.png"
   },
   {
    "player_id": "BTL无痕",
@@ -10519,7 +10519,7 @@
     "L20190001": "10002",
     "L20190004": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/48042210647B57C4BC3D6867F1934705.png"
   },
   {
    "player_id": "BTL晴一",
@@ -10533,7 +10533,7 @@
     "L20190004": "10005",
     "L20200001": "10005"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/98929994F40F4FD99F36F1749214844B.png"
   },
   {
    "player_id": "BTL江陵",
@@ -10546,7 +10546,7 @@
     "L20190001": "10019",
     "L20190004": "10028"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A86D19684F08DF651C04716DC326C1B9.png"
   },
   {
    "player_id": "BTL洛阳",
@@ -10558,7 +10558,7 @@
    "teams": {
     "L20190001": "10004"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/3B5BEC2216BE2997B83ABAB7D5CF7EEE.png"
   },
   {
    "player_id": "BTL特特",
@@ -10570,7 +10570,7 @@
    "teams": {
     "L20190001": "10019"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/121F371C9EE058CAE7089851F7A45F8F.png"
   },
   {
    "player_id": "BTL破碎",
@@ -10582,7 +10582,7 @@
    "teams": {
     "L20190001": "10003"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/BEC56680808C6B082705E412637008B1.png"
   },
   {
    "player_id": "BTL空",
@@ -10595,7 +10595,7 @@
     "L20190001": "10020",
     "L20190004": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/EF8CCE6EB505E1AC11E743C31364F038.png"
   },
   {
    "player_id": "BTL老王",
@@ -10607,7 +10607,7 @@
    "teams": {
     "L20190001": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/1C794E7920EBA8B92C81BC5FA9E4C864.png"
   },
   {
    "player_id": "BTL胖墩",
@@ -10621,7 +10621,7 @@
     "L20190004": "10020",
     "L20200001": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/D524EC63CD87275ED44EFB2C898E0360.png"
   },
   {
    "player_id": "BTL芥蒂",
@@ -10633,7 +10633,7 @@
    "teams": {
     "L20190001": "10017"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/2AF9487E40B2C8A5C22DA0D9F8160902.png"
   },
   {
    "player_id": "BTL落幕",
@@ -10646,7 +10646,7 @@
     "L20190001": "10005",
     "L20190004": "10005"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/9EABDFC2F259BCDBADECD4D3AFBAAB65.png"
   },
   {
    "player_id": "BTL趴趴熊",
@@ -10658,7 +10658,7 @@
    "teams": {
     "L20190001": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/B9E6B6FFCA0BBA0CA6E6545799E4C83D.png"
   },
   {
    "player_id": "BTL轩泽",
@@ -10672,7 +10672,7 @@
     "L20190003": "10002",
     "L20200001": "10007"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/D7DB5C8BF6162962050BC9E35CD000FA.png"
   },
   {
    "player_id": "BTL逍遥",
@@ -10684,7 +10684,7 @@
    "teams": {
     "L20190001": "10019"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/ED0728CC570F35D891889943C42E3548.png"
   },
   {
    "player_id": "BTL道尔",
@@ -10696,7 +10696,7 @@
    "teams": {
     "L20190001": "10019"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/8A491271360DEC38D65B61BC5936A664.png"
   },
   {
    "player_id": "BTL阿澈",
@@ -10709,7 +10709,7 @@
     "L20190001": "10002",
     "L20190003": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/BDA5D3D8B600DC8ACD800F77FFE41BE0.png"
   },
   {
    "player_id": "BTLAdam",
@@ -10721,7 +10721,7 @@
    "teams": {
     "L20190002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLCasso",
@@ -10734,7 +10734,7 @@
     "L20190002": "10025",
     "L20200002": "10024"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLHim",
@@ -10746,7 +10746,7 @@
    "teams": {
     "L20190002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLKit",
@@ -10758,7 +10758,7 @@
    "teams": {
     "L20190002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLMTS",
@@ -10771,7 +10771,7 @@
     "L20190002": "10021",
     "L20190003": "10021"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/188D6067A84E8A2F39E1EE9B70CBC6A0.png"
   },
   {
    "player_id": "BTLMyJun",
@@ -10784,7 +10784,7 @@
     "L20190002": "10021",
     "L20190003": "10021"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/3773B33EEDA68EF7D9CE1BD2E1B0D28B.png"
   },
   {
    "player_id": "BTLRainMan",
@@ -10797,7 +10797,7 @@
     "L20190002": "10021",
     "L20190003": "10021"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/5FF0416C4E631BD443397D6E4D6B6F0C.png"
   },
   {
    "player_id": "BTLWolf",
@@ -10809,7 +10809,7 @@
    "teams": {
     "L20190002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTL770",
@@ -10824,7 +10824,7 @@
     "L20190006": "10001",
     "L20200001": "10001"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/646CAD1B629DD3DE2569986E43CA132E.png"
   },
   {
    "player_id": "BTLAJIU",
@@ -10836,7 +10836,7 @@
    "teams": {
     "L20190003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/5B49C57B2CB153A62A1914D2598E7987.png"
   },
   {
    "player_id": "BTLAOLIN",
@@ -10848,7 +10848,7 @@
    "teams": {
     "L20190003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/0AA7F781C7D181A9072C32A3CD5B2F80.png"
   },
   {
    "player_id": "BTLCHU",
@@ -10860,7 +10860,7 @@
    "teams": {
     "L20190003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/8D594C38125641BF2C455BB7C7A437E7.png"
   },
   {
    "player_id": "BTLCOLA",
@@ -10873,7 +10873,7 @@
     "L20190003": "10015",
     "L20200003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/BC0AA2741852ACAF9F90EBBD24569343.png"
   },
   {
    "player_id": "BTLCore",
@@ -10885,7 +10885,7 @@
    "teams": {
     "L20190003": "10011"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/0CF8FF32F624D8087A31B331D8241288.png"
   },
   {
    "player_id": "BTLDo",
@@ -10897,7 +10897,7 @@
    "teams": {
     "L20190003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/1B68BD882E343D6008DB116555016A4B.png"
   },
   {
    "player_id": "BTLFey",
@@ -10909,7 +10909,7 @@
    "teams": {
     "L20190003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/983F810CDF32871DCCF9570E7C741A74.png"
   },
   {
    "player_id": "BTLFlare",
@@ -10921,7 +10921,7 @@
    "teams": {
     "L20190003": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A15C4053D28F4670C159F7F442C86E60.png"
   },
   {
    "player_id": "BTLGlow",
@@ -10933,7 +10933,7 @@
    "teams": {
     "L20190003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/77DDAE83E3386784880B5A253B9C4AA2.png"
   },
   {
    "player_id": "BTLHamzzi",
@@ -10945,7 +10945,7 @@
    "teams": {
     "L20190003": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/E838C12F95ED85F62C133B67BD41FE9B.png"
   },
   {
    "player_id": "BTLHasome",
@@ -10957,7 +10957,7 @@
    "teams": {
     "L20190003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A04CF3032068D16906A34AFC081C6519.png"
   },
   {
    "player_id": "BTLJY",
@@ -10969,7 +10969,7 @@
    "teams": {
     "L20190003": "10011"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/AA60587C5DD214D999AB2FDA7AEAF923.png"
   },
   {
    "player_id": "BTLLUIS",
@@ -10981,7 +10981,7 @@
    "teams": {
     "L20190003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/BE7D85D56717EB986621A2DC1C023D92.png"
   },
   {
    "player_id": "BTLMerryday",
@@ -10993,7 +10993,7 @@
    "teams": {
     "L20190003": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/60A590DF9C71B57E561D64F160908148.png"
   },
   {
    "player_id": "BTLMidHeart",
@@ -11005,7 +11005,7 @@
    "teams": {
     "L20190003": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/CDC44FD5B99951C2ACFF9D369FAB0D97.png"
   },
   {
    "player_id": "BTLSalem",
@@ -11017,7 +11017,7 @@
    "teams": {
     "L20190003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/98B86CDFC7F72D23D9BA59502A645E1B.png"
   },
   {
    "player_id": "BTLSign",
@@ -11029,7 +11029,7 @@
    "teams": {
     "L20190003": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/FB44826A9D9E5D9EAF959C8F9E2C8A2E.png"
   },
   {
    "player_id": "BTLXian",
@@ -11041,7 +11041,7 @@
    "teams": {
     "L20190003": "10026"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/DE82A71D2BBEB0DBEF02BA1C781B92F3.png"
   },
   {
    "player_id": "BTLXingC",
@@ -11054,7 +11054,7 @@
     "L20190003": "10011",
     "L20200002": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/32DA367C8FB2A46F7E532BCF690AA352.png"
   },
   {
    "player_id": "BTL吴勉",
@@ -11068,7 +11068,7 @@
     "L20190004": "10020",
     "L20200001": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/vg-wm.png"
   },
   {
    "player_id": "BTL1dao",
@@ -11081,7 +11081,7 @@
     "L20190004": "10001",
     "L20190006": "10001"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/qg-1dao.png"
   },
   {
    "player_id": "BTLAT",
@@ -11093,7 +11093,7 @@
    "teams": {
     "L20190004": "10003"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A552A28278B83C89BC2AB49D287CCF74.png"
   },
   {
    "player_id": "BTLD e",
@@ -11105,7 +11105,7 @@
    "teams": {
     "L20190004": "10027"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/51C3A4979ADDE9E23CE73E176DE64319.png"
   },
   {
    "player_id": "BTLOvO",
@@ -11117,7 +11117,7 @@
    "teams": {
     "L20190004": "10008"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/978A761694D113E6353AC26C2B4CA160.png"
   },
   {
    "player_id": "BTLSeven",
@@ -11129,7 +11129,7 @@
    "teams": {
     "L20190004": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/vg-seven.png"
   },
   {
    "player_id": "BTL七夏",
@@ -11141,7 +11141,7 @@
    "teams": {
     "L20190004": "10010"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/we-qx.png"
   },
   {
    "player_id": "BTL久君",
@@ -11153,7 +11153,7 @@
    "teams": {
     "L20190004": "10007"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/hero-jj.png"
   },
   {
    "player_id": "BTL久年",
@@ -11165,7 +11165,7 @@
    "teams": {
     "L20190004": "10007"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/hero-jn.png"
   },
   {
    "player_id": "BTL久羽",
@@ -11177,7 +11177,7 @@
    "teams": {
     "L20190004": "10007"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/hero-jy.png"
   },
   {
    "player_id": "BTL兽兽",
@@ -11190,7 +11190,7 @@
     "L20190004": "10005",
     "L20200001": "10005"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/1FCE85BC47992F725B55BDE8EC2BD31D.png"
   },
   {
    "player_id": "BTL孤意",
@@ -11202,7 +11202,7 @@
    "teams": {
     "L20190004": "10020"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/vg-gy.png"
   },
   {
    "player_id": "BTL小暖",
@@ -11215,7 +11215,7 @@
     "L20190004": "10002",
     "L20200001": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/edg-xn.png"
   },
   {
    "player_id": "BTL支配",
@@ -11227,7 +11227,7 @@
    "teams": {
     "L20190004": "10016"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/D95E688F61A809ACBDDAC2B70235C2A6.png"
   },
   {
    "player_id": "BTL气势",
@@ -11239,7 +11239,7 @@
    "teams": {
     "L20190004": "10016"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/gk-qs.png"
   },
   {
    "player_id": "BTL白羽",
@@ -11251,7 +11251,7 @@
    "teams": {
     "L20190004": "10009"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/A049E8AD4D0DADA9666712ECAD02197A.png"
   },
   {
    "player_id": "BTL老帅",
@@ -11264,7 +11264,7 @@
     "L20190004": "10027",
     "L20190006": "10027"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/B3291E44A69302A28C6D9343BDE8181A.png"
   },
   {
    "player_id": "BTL落叶",
@@ -11276,7 +11276,7 @@
    "teams": {
     "L20190004": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/edg-ly.png"
   },
   {
    "player_id": "BTL小九",
@@ -11288,7 +11288,7 @@
    "teams": {
     "L20200001": "10006"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/305.png"
   },
   {
    "player_id": "BTL沉",
@@ -11300,7 +11300,7 @@
    "teams": {
     "L20200001": "10002"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/325.png"
   },
   {
    "player_id": "BTLAIM",
@@ -11312,7 +11312,7 @@
    "teams": {
     "L20200002": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/0C7D951B9062D379C90220F6BC82AB5C.png"
   },
   {
    "player_id": "BTLCITY",
@@ -11324,7 +11324,7 @@
    "teams": {
     "L20200002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/359.png"
   },
   {
    "player_id": "BTLChao",
@@ -11336,7 +11336,7 @@
    "teams": {
     "L20200002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/357.png"
   },
   {
    "player_id": "BTLDong",
@@ -11348,7 +11348,7 @@
    "teams": {
     "L20200002": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/375.png"
   },
   {
    "player_id": "BTLLYU",
@@ -11360,7 +11360,7 @@
    "teams": {
     "L20200002": "10024"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/374.png"
   },
   {
    "player_id": "BTLManGO",
@@ -11372,7 +11372,7 @@
    "teams": {
     "L20200002": "10014"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/358.png"
   },
   {
    "player_id": "BTLC",
@@ -11384,7 +11384,7 @@
    "teams": {
     "L20200003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/373.png"
   },
   {
    "player_id": "BTLCH",
@@ -11396,7 +11396,7 @@
    "teams": {
     "L20200003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/365.png"
   },
   {
    "player_id": "BTLJiuLong",
@@ -11408,7 +11408,7 @@
    "teams": {
     "L20200003": "10032"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLMf",
@@ -11420,7 +11420,7 @@
    "teams": {
     "L20200003": "10032"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/352.png"
   },
   {
    "player_id": "BTLMsir",
@@ -11432,7 +11432,7 @@
    "teams": {
     "L20200003": "10032"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/71D1903FED562BA5EF55B03D183977FD.png"
   },
   {
    "player_id": "BTLQF",
@@ -11444,7 +11444,7 @@
    "teams": {
     "L20200003": "10032"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/351.png"
   },
   {
    "player_id": "BTLQY",
@@ -11456,7 +11456,7 @@
    "teams": {
     "L20200003": "10015"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLTaiZ",
@@ -11468,7 +11468,7 @@
    "teams": {
     "L20200003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/372.png"
   },
   {
    "player_id": "BTLXiaoqi",
@@ -11480,7 +11480,7 @@
    "teams": {
     "L20200003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/371.png"
   },
   {
    "player_id": "BTLYu",
@@ -11492,7 +11492,7 @@
    "teams": {
     "L20200003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "assets/player-icons/player-fallback.svg"
   },
   {
    "player_id": "BTLs686",
@@ -11504,7 +11504,7 @@
    "teams": {
     "L20200003": "10012"
    },
-   "player_icon": ""
+   "player_icon": "https://res.edata.qq.com/sgame/static/images/player/370.png"
   }
  ]
 }

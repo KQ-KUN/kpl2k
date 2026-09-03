@@ -44,6 +44,7 @@ def main() -> None:
     }
     votes: dict[tuple[str, str], Counter] = defaultdict(Counter)
     heroes: dict[tuple[str, str], set[str]] = defaultdict(set)
+    player_icons: dict[tuple[str, str], str] = {}
     games: Counter = Counter()
     sums: dict[tuple[str, str], dict[str, float]] = defaultdict(lambda: defaultdict(float))
     mvp: Counter = Counter()
@@ -69,6 +70,8 @@ def main() -> None:
                 continue
             seen_in_battle.add(name)
             key = (season_id, name)
+            if p.get("player_icon"):
+                player_icons[key] = p["player_icon"]
             if p.get("team_id"):
                 votes[key]["team"] = p["team_id"]
             position = p.get("position_desc") or (recovered[1] if recovered else None)
@@ -98,6 +101,7 @@ def main() -> None:
             "player_name": name,
             "team_franchise": c.get("team"),
             "position": c.get("position"),
+            "player_icon": player_icons.get((season_id, name), ""),
             "games": games_n,
             "heroes": sorted(heroes.get((season_id, name), set())),
             "mvp_count": mvp[(season_id, name)],

@@ -19,6 +19,9 @@ PLAYERS = ROOT / "data" / "processed" / "players.json"
 PROC_ARCHIVE = ROOT / "data" / "processed" / "historical_archive.json"
 PROC_META = ROOT / "data" / "processed" / "historical_player_meta.json"
 APP_ARCHIVE = ROOT / "app" / "history_archive.html"
+APP_MANIFEST = ROOT / "app" / "data" / "manifest.json"
+APP_BASE = ROOT / "app" / "data" / "base.json"
+APP_SEASONS = ROOT / "app" / "data" / "seasons"
 
 EXPECTED_SEASONS = {
     "KPL2016QJS", "KPL2017CJS", "KPL2017QJS", "KPL2018CJS", "KPL2018QJS"
@@ -148,7 +151,40 @@ def build_player_meta(careers: dict, championships: dict, players: dict) -> dict
 
 
 def build_html(archive: dict) -> str:
-    data = json.dumps(archive, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    manifest = load(APP_MANIFEST)
+    base = load(APP_BASE)
+    franchises = {str(team["id"]): team for team in base.get("franchises") or []}
+    seasons = list(archive["seasons"])
+    for item in manifest.get("seasons") or []:
+        season_id = item["season_id"]
+        season = load(APP_SEASONS / f"{season_id}.json")
+        matches = []
+        for round_data in season.get("rounds") or []:
+            for match in round_data.get("matches") or []:
+                def team_name(team_id: str) -> str:
+                    team = franchises.get(str(team_id)) or {}
+                    return (team.get("names_by_season") or {}).get(season_id) or team.get("name") or str(team_id)
+
+                matches.append({
+                    "stageName": round_data.get("name") or "赛程",
+                    "teamAName": team_name(match.get("a_id")),
+                    "teamBName": team_name(match.get("b_id")),
+                })
+        seasons.append({
+            "season_id": season_id,
+            "name": item["name"],
+            "year": item["year"],
+            "match_count": len(matches),
+            "matches": matches,
+        })
+    seasons.sort(key=lambda season: (season["year"], season["season_id"]))
+    schedule = {
+        "scope": "历年赛事赛程",
+        "season_count": len(seasons),
+        "match_count": sum(season["match_count"] for season in seasons),
+        "seasons": seasons,
+    }
+    data = json.dumps(schedule, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return HTML_TEMPLATE.replace("__DATA__", data)
 
 
@@ -166,29 +202,27 @@ def main() -> None:
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1a2e"><title>KPL 2K · 2016—2018 历史档案</title>
+<meta name="theme-color" content="#0b1a2e"><title>KPL 2K · 历年赛程</title>
 <style>
-:root{--bg:#0b1a2e;--card:#12243f;--line:#29456e;--fg:#e9f1fb;--mut:#8fa8cc;--gold:#f0b90b;--blue:#5da8ff}
-*{box-sizing:border-box}body{margin:0 auto;max-width:920px;padding:18px 14px 48px;background:var(--bg);color:var(--fg);font:14px/1.55 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
-a{color:var(--blue)}header{display:flex;align-items:center;gap:12px;margin-bottom:14px}.back{text-decoration:none;font-size:24px;color:var(--mut)}h1{margin:0;font-size:20px}.lead{margin:0 0 14px;color:var(--mut)}
+:root{--bg:#080d1b;--card:#101a2e;--line:rgba(151,178,220,.2);--fg:#f4f7fc;--mut:#91a4c2;--gold:#f0b90b;--blue:#3e7bfa}
+*{box-sizing:border-box}body{margin:0 auto;max-width:960px;padding:24px 18px 52px;background:radial-gradient(circle at 8% 12%,rgba(216,43,70,.12),transparent 28%),radial-gradient(circle at 92% 18%,rgba(48,104,234,.14),transparent 30%),var(--bg);color:var(--fg);font:14px/1.55 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--blue)}header{display:flex;align-items:center;gap:12px;margin-bottom:14px}.back{text-decoration:none;font-size:24px;color:var(--mut)}h1{margin:0;font-size:20px}
 .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.metric,.season{border:1px solid var(--line);border-radius:14px;background:var(--card)}.metric{padding:12px;text-align:center}.metric b{display:block;color:var(--gold);font-size:21px}.metric span{color:var(--mut);font-size:11px}
 .toolbar{display:flex;gap:8px;position:sticky;top:0;z-index:3;padding:9px 0;background:rgba(11,26,46,.95)}select,input{min-height:40px;border:1px solid var(--line);border-radius:10px;background:#0d1e34;color:var(--fg);padding:0 10px}input{flex:1;min-width:0}
 .season{margin:10px 0;overflow:hidden}.season-head{width:100%;padding:14px;border:0;background:none;color:inherit;text-align:left;cursor:pointer}.season-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800}.season-title i{margin-left:auto;color:var(--gold);font-style:normal}.final{margin-top:5px;color:var(--mut);font-size:12px}.final b{color:var(--gold)}.season-body{display:none;padding:0 12px 12px}.season.open .season-body{display:block}
-.match{display:grid;grid-template-columns:70px 1fr auto 1fr;align-items:center;gap:7px;padding:8px 3px;border-top:1px solid rgba(41,69,110,.65);font-size:12px}.stage{color:var(--mut)}.a{text-align:right}.score{color:var(--gold);font-weight:800}.empty{text-align:center;color:var(--mut);padding:28px}.note{margin-top:18px;padding:12px;border-left:3px solid var(--gold);background:rgba(240,185,11,.06);color:var(--mut);font-size:12px}
+.match{display:grid;grid-template-columns:92px 1fr auto 1fr;align-items:center;gap:7px;padding:8px 3px;border-top:1px solid rgba(41,69,110,.65);font-size:12px}.stage{color:var(--mut)}.a{text-align:right}.score{color:var(--gold);font-weight:800}.empty{text-align:center;color:var(--mut);padding:28px}
 @media(max-width:560px){.match{grid-template-columns:56px 1fr auto 1fr;font-size:11px}.summary{gap:6px}.metric{padding:9px 4px}.metric b{font-size:18px}}
 </style></head><body>
-<header><a class="back" href="index.html" aria-label="返回首页">‹</a><h1>2016—2018 历史档案</h1></header>
-<p class="lead">来自 KPL 官方旧赛程接口的真实赛程与赛果，可按赛季、阶段或战队检索。</p>
-<div class="summary"><div class="metric"><b id="season-count"></b><span>历史赛季</span></div><div class="metric"><b id="match-count"></b><span>比赛记录</span></div><div class="metric"><b>官方</b><span>赛程赛果来源</span></div></div>
-<div class="toolbar"><select id="season-filter"><option value="">全部赛季</option></select><select id="stage-filter"><option value="">全部阶段</option><option>常规赛</option><option>季后赛</option><option>总决赛</option></select><input id="query" placeholder="搜索战队"></div>
+<header><a class="back" href="index.html" aria-label="返回首页">‹</a><h1>历年赛程</h1></header>
+<div class="summary"><div class="metric"><b id="season-count"></b><span>赛事</span></div><div class="metric"><b id="match-count"></b><span>对局</span></div><div class="metric"><b>11</b><span>年份</span></div></div>
+<div class="toolbar"><select id="season-filter"><option value="">全部赛事</option></select><select id="stage-filter"><option value="">全部阶段</option></select><input id="query" placeholder="搜索战队"></div>
 <main id="list"></main>
-<div class="note"><b>为什么不能直接开赛？</b><br>旧接口没有提供可核验的首发阵容和个人统计。这里保留真实历史档案，但不据此虚构选手战力；模拟战场仍从 2019 年开始。</div>
-<div class="note">赛程与赛果：KPL 官方旧接口。选手首次登场年份整理自 <a href="https://liquipedia.net/honorofkings/" target="_blank" rel="noopener">Liquipedia Honor of Kings Wiki</a>，依 <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a> 使用并转换为本项目字段。冠军数依据经交叉核对的总决赛冠军方五人首发计算，不含替补、资格赛、KWC 与梦之队邀请赛。</div>
 <script id="archive-data" type="application/json">__DATA__</script><script>
 const DATA=JSON.parse(document.getElementById('archive-data').textContent),$=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 $('#season-count').textContent=DATA.season_count;$('#match-count').textContent=DATA.match_count;
 $('#season-filter').innerHTML+=[...DATA.seasons].reverse().map(s=>`<option value="${s.season_id}">${esc(s.name)}</option>`).join('');
-function render(){const sid=$('#season-filter').value,stage=$('#stage-filter').value,q=$('#query').value.trim().toLowerCase();const seasons=[...DATA.seasons].reverse().filter(s=>!sid||s.season_id===sid);let shown=0;$('#list').innerHTML=seasons.map(s=>{const ms=s.matches.filter(m=>(!stage||m.stageName===stage)&&(!q||m.teamAName.toLowerCase().includes(q)||m.teamBName.toLowerCase().includes(q)));if(!ms.length)return'';shown+=ms.length;return `<section class="season"><button class="season-head" onclick="this.parentNode.classList.toggle('open')"><div class="season-title">${esc(s.name)}<i>${ms.length} 场⌄</i></div><div class="final">冠军 <b>${esc(s.champion)}</b> · 总决赛 ${esc(s.final_team_a)} ${s.final_score} ${esc(s.final_team_b)}</div></button><div class="season-body">${ms.map(m=>`<div class="match"><span class="stage">${esc(m.stageName)}</span><span class="a">${esc(m.teamAName)}</span><span class="score">${m.teamAScore}:${m.teamBScore}</span><span>${esc(m.teamBName)}</span></div>`).join('')}</div></section>`}).join('')||'<div class="empty">没有匹配的比赛</div>'}
+$('#stage-filter').innerHTML+=[...new Set(DATA.seasons.flatMap(s=>s.matches.map(m=>m.stageName)))].map(stage=>`<option>${esc(stage)}</option>`).join('');
+function render(){const sid=$('#season-filter').value,stage=$('#stage-filter').value,q=$('#query').value.trim().toLowerCase();const seasons=[...DATA.seasons].reverse().filter(s=>!sid||s.season_id===sid);$('#list').innerHTML=seasons.map(s=>{const ms=s.matches.filter(m=>(!stage||m.stageName===stage)&&(!q||m.teamAName.toLowerCase().includes(q)||m.teamBName.toLowerCase().includes(q)));if(!ms.length)return'';const detail=s.champion?`冠军 <b>${esc(s.champion)}</b> · 总决赛 ${esc(s.final_team_a)} ${s.final_score} ${esc(s.final_team_b)}`:`${s.match_count} 场赛程`;return `<section class="season"><button class="season-head" onclick="this.parentNode.classList.toggle('open')"><div class="season-title">${esc(s.name)}<i>${ms.length} 场⌄</i></div><div class="final">${detail}</div></button><div class="season-body">${ms.map(m=>`<div class="match"><span class="stage">${esc(m.stageName)}</span><span class="a">${esc(m.teamAName)}</span><span class="score">${m.teamAScore==null?'VS':m.teamAScore+':'+m.teamBScore}</span><span>${esc(m.teamBName)}</span></div>`).join('')}</div></section>`}).join('')||'<div class="empty">没有匹配的比赛</div>'}
 ['season-filter','stage-filter','query'].forEach(id=>$('#'+id).addEventListener('input',render));render();
 </script></body></html>"""
 

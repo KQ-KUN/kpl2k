@@ -17,6 +17,8 @@ import pathlib
 import re
 from collections import defaultdict
 
+from player_icons import sync_player_icon_cache
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
 NARR = ROOT / "data" / "narrative"
@@ -78,11 +80,12 @@ def main() -> None:
     # ---- 1. base.json ----
     name_by_id = {p["player_id"]: p["name"] for p in players}
     icon_by_id = {p["id"].split("@")[0]: p["icon"] for p in library if p.get("icon")}
+    local_icon_by_id = sync_player_icon_cache()
     players_min = {
         p["player_id"]: {
             "name": p["name"],
             "positions": p.get("positions", []),
-            "icon": icon_by_id.get(p["player_id"], ""),
+            "icon": local_icon_by_id.get(p["player_id"]) or icon_by_id.get(p["player_id"]) or p.get("player_icon", ""),
         }
         for p in players
     }

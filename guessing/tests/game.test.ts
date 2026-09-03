@@ -14,6 +14,7 @@ import {
   buildGeniusQuestions,
   rankGeniusPeople,
   selectGeniusQuestion,
+  shouldDelayGeniusGuess,
   shouldGuessGeniusPerson,
 } from "../src/genius.ts";
 import type { QuizData, QuizPlayer } from "../src/types.ts";
@@ -118,13 +119,13 @@ test("historical career and finals-starter corrections stay intact", () => {
 });
 
 
-test("network genius reuses the standard pool and keeps coaches and commentators", () => {
+test("network genius covers the full player pool and keeps coaches and commentators", () => {
   const people = buildGeniusPeople([
     player({ difficulty: ["normal", "hardcore"] }),
     player({ id: "hard", nickname: "冷门选手", difficulty: ["hardcore"] }),
   ]);
   assert.ok(people.some((item) => item.name === "Fly"));
-  assert.ok(!people.some((item) => item.name === "冷门选手"));
+  assert.ok(people.some((item) => item.name === "冷门选手"));
   assert.ok(people.some((item) => item.roles.includes("coach")));
   assert.ok(people.some((item) => item.roles.includes("commentator")));
 });
@@ -149,7 +150,6 @@ test("network genius answers raise the matching person and avoid repeated questi
   const questions = buildGeniusQuestions();
   const responses = [
     { questionId: "role:player", answer: "yes" as const },
-    { questionId: "team:成都AG超玩会", answer: "yes" as const },
     { questionId: "position:发育路", answer: "yes" as const },
     { questionId: "champion:5", answer: "yes" as const },
   ];
@@ -158,6 +158,163 @@ test("network genius answers raise the matching person and avoid repeated questi
   const asked = new Set(responses.map((response) => response.questionId));
   const next = selectGeniusQuestion(questions, ranked, asked);
   assert.ok(next === null || !asked.has(next.id));
+});
+
+
+test("network genius varies question themes and spaces out team questions", () => {
+  const data = JSON.parse(
+    readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"),
+  ) as QuizData;
+  const people = buildGeniusPeople(data.players);
+  const questions = buildGeniusQuestions(people);
+  assert.ok(questions.some((question) => question.id === "arc:long-career"));
+  assert.ok(questions.some((question) => question.id === "honour:fmvp-dynasty"));
+  assert.ok(questions.some((question) => question.id === "record:ironman"));
+  assert.ok(questions.some((question) => question.id === "last-seen:2025"));
+  assert.ok(questions.some((question) => question.id === "name:latin"));
+  assert.ok(questions.some((question) => question.id.startsWith("team:")));
+  assert.ok(questions.every((question) => question.id !== "record:peak-95"));
+  assert.ok(questions.every((question) => !question.text.includes("图鉴战力")));
+  const seenCategories = new Set<string>();
+
+  for (const target of people.filter((person) => person.roles.includes("player")).slice(0, 40)) {
+    const responses: Array<{ questionId: string; answer: "yes" | "no" | "unknown" }> = [];
+    for (let index = 0; index < 12; index += 1) {
+      const ranked = rankGeniusPeople(people, questions, responses);
+      if (shouldGuessGeniusPerson(ranked, responses.length)) break;
+      const asked = new Set(responses.map((response) => response.questionId));
+      const question = selectGeniusQuestion(questions, ranked, asked);
+      if (!question) break;
+      const expected = question.answer(target);
+      responses.push({
+        questionId: question.id,
+        answer: expected === null ? "unknown" : expected ? "yes" : "no",
+      });
+    }
+    const selected = responses.map((response) => questions.find((question) => question.id === response.questionId));
+    for (const question of selected) {
+      if (question) seenCategories.add(question.category);
+    }
+    const teamIndexes = selected
+      .map((question, index) => question?.category === "战队履历" ? index : -1)
+      .filter((index) => index >= 0);
+    assert.ok(teamIndexes.every((index) => index >= 4), `${target.name} 过早进入战队问题`);
+    for (let index = 1; index < teamIndexes.length; index += 1) {
+      assert.ok(teamIndexes[index]! - teamIndexes[index - 1]! >= 3, `${target.name} 连续使用战队问题`);
+    }
+    for (let index = 1; index < selected.length; index += 1) {
+      assert.ok(
+        selected[index - 1]?.category !== "人物称呼" || selected[index]?.category !== "人物称呼",
+        `${target.name} 连续使用称呼问题`,
+      );
+    }
+  }
+  assert.ok(seenCategories.has("生涯轨迹"));
+  assert.ok(seenCategories.has("荣誉拼图"));
+  assert.ok(seenCategories.has("赛场履历"));
+  assert.ok(seenCategories.has("人物称呼"));
+});
+
+
+test("network genius understands natural nickname clues", () => {
+  const people = buildGeniusPeople([
+    player({ id: "xiao-y", nickname: "小Y", difficulty: ["hardcore"] }),
+    player({ id: "qiqi", nickname: "琪琪", difficulty: ["hardcore"] }),
+    player({ id: "koko", nickname: "KoKo", difficulty: ["hardcore"] }),
+    player({ id: "seven", nickname: "七", difficulty: ["hardcore"] }),
+    player({ id: "north", nickname: "北诗", difficulty: ["hardcore"] }),
+    player({ id: "white", nickname: "白衣", difficulty: ["hardcore"] }),
+    player({ id: "wind", nickname: "风铃", difficulty: ["hardcore"] }),
+  ]);
+  const questions = new Map(buildGeniusQuestions(people).map((question) => [question.id, question]));
+  const person = (name: string) => {
+    const match = people.find((item) => item.name === name);
+    assert.ok(match);
+    return match;
+  };
+  assert.equal(questions.get("name:contains-xiao")?.answer(person("小Y")), true);
+  assert.equal(questions.get("name:mixed")?.answer(person("小Y")), true);
+  assert.equal(questions.get("name:repeated")?.answer(person("琪琪")), true);
+  assert.equal(questions.get("name:repeated")?.answer(person("KoKo")), true);
+  assert.equal(questions.get("name:number")?.answer(person("七")), true);
+  assert.equal(questions.get("name:direction")?.answer(person("北诗")), true);
+  assert.equal(questions.get("name:color")?.answer(person("白衣")), true);
+  assert.equal(questions.get("name:nature")?.answer(person("风铃")), true);
+});
+
+
+test("network genius resolves close rivals before guessing", () => {
+  const data = JSON.parse(
+    readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"),
+  ) as QuizData;
+  const people = buildGeniusPeople(data.players);
+  const questions = buildGeniusQuestions(people);
+  const target = people.find((person) => person.name === "一诺");
+  const rival = people.find((person) => person.name === "大帅");
+  assert.ok(target && rival);
+  const responses: Array<{ questionId: string; answer: "yes" | "no" | "unknown" }> = [];
+  let guess = "";
+  let askedDirectContrast = false;
+  for (let index = 0; index < 16; index += 1) {
+    const ranked = rankGeniusPeople(people, questions, responses);
+    const question = selectGeniusQuestion(
+      questions,
+      ranked,
+      new Set(responses.map((response) => response.questionId)),
+    );
+    if (shouldGuessGeniusPerson(ranked, responses.length)
+      && !shouldDelayGeniusGuess(question, ranked, responses.length)) {
+      guess = ranked[0]?.person.name ?? "";
+      break;
+    }
+    assert.ok(question);
+    const expected = question.answer(target);
+    if (question.answer(target) !== null
+      && question.answer(rival) !== null
+      && question.answer(target) !== question.answer(rival)) askedDirectContrast = true;
+    responses.push({
+      questionId: question.id,
+      // 模拟玩家漏记一诺早期 BA 经历；系统仍应继续核对位置、年代等硬差异。
+      answer: question.id === "arc:multi-team" ? "no" : expected === null ? "unknown" : expected ? "yes" : "no",
+    });
+  }
+  assert.equal(guess, "一诺");
+  assert.equal(askedDirectContrast, true);
+});
+
+
+test("network genius can identify representative hardcore players", () => {
+  const data = JSON.parse(
+    readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"),
+  ) as QuizData;
+  const people = buildGeniusPeople(data.players);
+  const questions = buildGeniusQuestions(people);
+  const availableNames = new Set(people.map((person) => person.name.toLocaleLowerCase("zh-CN")));
+  assert.ok(data.players.every((player) => availableNames.has(player.nickname.toLocaleLowerCase("zh-CN"))));
+
+  for (const name of ["小词", "离洛", "浅风", "风铃", "小优", "玖痕", "小北", "落空", "万基", "亦南", "孤梦", "情缘"]) {
+    const target = people.find((person) => person.name === name);
+    assert.ok(target, `冷门候选缺失：${name}`);
+    const responses: Array<{ questionId: string; answer: "yes" | "no" | "unknown" }> = [];
+    for (let index = 0; index < 12; index += 1) {
+      const ranked = rankGeniusPeople(people, questions, responses);
+      if (shouldGuessGeniusPerson(ranked, responses.length)) break;
+      const question = selectGeniusQuestion(
+        questions,
+        ranked,
+        new Set(responses.map((response) => response.questionId)),
+      );
+      assert.ok(question, `${name} 无可用问题`);
+      const expected = question.answer(target);
+      responses.push({
+        questionId: question.id,
+        answer: expected === null ? "unknown" : expected ? "yes" : "no",
+      });
+    }
+    const ranked = rankGeniusPeople(people, questions, responses);
+    assert.equal(ranked[0]?.person.id, target.id, `${name} 未被推到首位`);
+    assert.ok(shouldGuessGeniusPerson(ranked, responses.length), `${name} 未进入猜测阶段`);
+  }
 });
 
 

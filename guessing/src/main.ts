@@ -10,10 +10,12 @@ import {
   searchPlayers,
 } from "./game.ts";
 import {
+  GENIUS_MAX_QUESTIONS,
   buildGeniusPeople,
   buildGeniusQuestions,
   rankGeniusPeople,
   selectGeniusQuestion,
+  shouldDelayGeniusGuess,
   shouldGuessGeniusPerson,
 } from "./genius.ts";
 import type {
@@ -98,7 +100,7 @@ let suggestionIndex = -1;
 let visibleSuggestions: QuizPlayer[] = [];
 let loadSequence = 0;
 let geniusPeople: GeniusPerson[] = [];
-const geniusQuestions = buildGeniusQuestions();
+let geniusQuestions: GeniusQuestion[] = [];
 let geniusResponses: GeniusResponse[] = [];
 let geniusExcludedIds = new Set<string>();
 let geniusQuestion: GeniusQuestion | null = null;
@@ -207,7 +209,10 @@ function loadStoredGame(): StoredGame | null {
       typeof value.finished !== "boolean" ||
       typeof value.won !== "boolean" ||
       typeof value.recorded !== "boolean" ||
-      !playerById.get(value.targetId)?.difficulty.includes(difficulty)
+      !playerById.get(value.targetId)?.difficulty.includes(difficulty) ||
+      value.won !== value.guesses.includes(value.targetId) ||
+      value.finished !== (value.won || value.guesses.length >= MAX_GUESSES) ||
+      (value.recorded && !value.finished)
     ) {
       return null;
     }
@@ -244,9 +249,9 @@ function loadStats(): Stats {
     const value = JSON.parse(raw) as Partial<Stats>;
     if (
       value.storageVersion !== 1 ||
-      typeof value.games !== "number" ||
-      typeof value.wins !== "number" ||
-      typeof value.totalWinningGuesses !== "number"
+      typeof value.games !== "number" || !Number.isInteger(value.games) || value.games < 0 ||
+      typeof value.wins !== "number" || !Number.isInteger(value.wins) || value.wins < 0 || value.wins > value.games ||
+      typeof value.totalWinningGuesses !== "number" || !Number.isInteger(value.totalWinningGuesses) || value.totalWinningGuesses < 0
     ) {
       return defaultStats();
     }
@@ -395,13 +400,16 @@ function advanceGenius(): void {
   const ranking = geniusRanking();
   const leader = ranking[0] ?? null;
   const asked = new Set(geniusResponses.map((response) => response.questionId));
-  if (leader && shouldGuessGeniusPerson(ranking, geniusResponses.length)) {
+  const nextQuestion = selectGeniusQuestion(geniusQuestions, ranking, asked);
+  if (leader
+    && shouldGuessGeniusPerson(ranking, geniusResponses.length)
+    && !shouldDelayGeniusGuess(nextQuestion, ranking, geniusResponses.length)) {
     geniusQuestion = null;
     geniusGuess = leader;
     renderGenius();
     return;
   }
-  geniusQuestion = selectGeniusQuestion(geniusQuestions, ranking, asked);
+  geniusQuestion = nextQuestion;
   geniusGuess = geniusQuestion ? null : leader;
   renderGenius();
 }
@@ -517,7 +525,7 @@ function renderGeniusQuestion(): void {
   const progress = document.createElement("span");
   progress.className = "genius-progress";
   const progressFill = document.createElement("i");
-  progressFill.style.width = `${Math.min(((geniusResponses.length + 1) / geniusQuestions.length) * 100, 100)}%`;
+  progressFill.style.width = `${Math.min(((geniusResponses.length + 1) / GENIUS_MAX_QUESTIONS) * 100, 100)}%`;
   progress.append(progressFill);
   const stage = document.createElement("div");
   stage.className = "genius-question-stage";
@@ -933,9 +941,16 @@ async function copyShare(target: QuizPlayer): Promise<void> {
     textarea.style.opacity = "0";
     document.body.append(textarea);
     textarea.select();
-    document.execCommand("copy");
+    let copied = false;
+    try {
+      copied = document.execCommand("copy");
+    } catch {
+      copied = false;
+    }
     textarea.remove();
-    formMessage.textContent = "战绩已复制，分享内容不含答案。";
+    formMessage.textContent = copied
+      ? "战绩已复制，分享内容不含答案。"
+      : "复制失败，请检查浏览器权限后重试。";
   }
 }
 
@@ -1259,6 +1274,7 @@ async function start(): Promise<void> {
     libraryData = libraryValue;
     playerById = new Map(data.players.map((player) => [player.id, player]));
     geniusPeople = buildGeniusPeople(data.players);
+    geniusQuestions = buildGeniusQuestions(geniusPeople);
     setupLibraryFilters();
     loadSettings();
     currentView = viewFromHash();

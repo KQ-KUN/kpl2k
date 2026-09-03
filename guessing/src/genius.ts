@@ -2,6 +2,7 @@ import type { QuizPlayer } from "./types.ts";
 
 
 export const GENIUS_ANSWERS = ["yes", "probably_yes", "unknown", "probably_no", "no"] as const;
+export const GENIUS_MAX_QUESTIONS = 16;
 export type GeniusAnswer = (typeof GENIUS_ANSWERS)[number];
 export type GeniusRole = "player" | "coach" | "commentator";
 export type GeniusTrait = "host_interviewer" | "english_broadcast" | "rookie_commentator_award";
@@ -17,6 +18,8 @@ export interface GeniusPerson {
   teams: string[];
   positions: string[];
   debutYear: number | null;
+  latestYear: number | null;
+  totalGames: number | null;
   active: boolean | null;
   female: boolean | null;
   championshipCount: number | null;
@@ -41,8 +44,8 @@ export interface RankedPerson {
   probability: number;
 }
 
-type ExtraPerson = Omit<GeniusPerson, "id" | "aliases" | "iconUrl" | "iconPosition" | "traits" | "positions" | "debutYear" | "female" | "championshipCount" | "hasFmvp"> &
-  Partial<Pick<GeniusPerson, "aliases" | "iconUrl" | "iconPosition" | "traits" | "positions" | "debutYear" | "female" | "championshipCount" | "hasFmvp">>;
+type ExtraPerson = Omit<GeniusPerson, "id" | "aliases" | "iconUrl" | "iconPosition" | "traits" | "positions" | "debutYear" | "latestYear" | "totalGames" | "female" | "championshipCount" | "hasFmvp"> &
+  Partial<Pick<GeniusPerson, "aliases" | "iconUrl" | "iconPosition" | "traits" | "positions" | "debutYear" | "latestYear" | "totalGames" | "female" | "championshipCount" | "hasFmvp">>;
 
 const EXTRA_PEOPLE: ExtraPerson[] = [
   { name: "久哲", aliases: ["胡庄浩"], roles: ["coach"], teams: ["南京Hero久竞", "广州TTG", "上海RNG.M"], active: null, popularity: 6, championshipCount: 5, female: false, hasFmvp: false },
@@ -116,9 +119,17 @@ function unique(values: string[]): string[] {
   return [...new Set(values.filter(Boolean))];
 }
 
+function hasRepeatedNamePattern(name: string): boolean {
+  const characters = [...name.toLocaleLowerCase("zh-CN")];
+  if (characters.some((character, index) => index > 0 && character === characters[index - 1])) return true;
+  if (characters.length < 4 || characters.length % 2 !== 0) return false;
+  const middle = characters.length / 2;
+  return characters.slice(0, middle).join("") === characters.slice(middle).join("");
+}
+
 export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
   const people = new Map<string, GeniusPerson>();
-  for (const player of players.filter((item) => item.difficulty.includes("normal"))) {
+  for (const player of players) {
     people.set(player.nickname.toLocaleLowerCase("zh-CN"), {
       id: player.id,
       name: player.nickname,
@@ -130,11 +141,13 @@ export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
       teams: unique([player.latestTeamName, ...player.teamHistoryNames]),
       positions: player.positions,
       debutYear: player.debutYear,
+      latestYear: player.latestYear,
+      totalGames: player.totalGames,
       active: player.active,
       female: false,
       championshipCount: player.championshipCount,
       hasFmvp: player.hasFmvp,
-      popularity: player.difficulty.includes("popular") ? 7 : 2,
+      popularity: player.difficulty.includes("popular") ? 7 : player.difficulty.includes("normal") ? 2 : 0.7,
     });
   }
 
@@ -166,6 +179,8 @@ export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
       teams: extra.teams,
       positions: extra.positions ?? [],
       debutYear: extra.debutYear ?? null,
+      latestYear: extra.latestYear ?? null,
+      totalGames: extra.totalGames ?? null,
       active: extra.active,
       female: extra.female ?? null,
       championshipCount: extra.championshipCount ?? null,
@@ -194,7 +209,12 @@ function booleanQuestion(
   return { id, text, category, answer: read };
 }
 
-export function buildGeniusQuestions(): GeniusQuestion[] {
+export function buildGeniusQuestions(people: GeniusPerson[] = []): GeniusQuestion[] {
+  const extraTeamNames = unique(people.flatMap((person) => person.teams))
+    .filter((team) => !/待定|未知|自由人/.test(team))
+    .filter((team) => !TEAM_GROUPS.some(([, aliases]) => aliases.some(
+      (alias) => team.includes(alias) || alias.includes(team),
+    )));
   const questions: GeniusQuestion[] = [
     roleQuestion("player", "职业选手"),
     roleQuestion("coach", "教练"),
@@ -208,12 +228,48 @@ export function buildGeniusQuestions(): GeniusQuestion[] {
     booleanQuestion("champion:3", "你想的这位人物至少拿过三次 KPL 联赛或挑战者杯冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 3),
     booleanQuestion("champion:5", "你想的这位人物至少拿过五次 KPL 联赛或挑战者杯冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 5),
     booleanQuestion("fmvp", "你想的这位人物拿过 KPL 联赛或挑战者杯 FMVP 吗？", "生涯荣誉", (person) => person.hasFmvp),
+    booleanQuestion("arc:multi-role", "你想的这位人物是否把生涯从选手席延伸到了教练席或解说席？", "生涯轨迹", (person) => person.roles.includes("player") && person.roles.length > 1),
+    booleanQuestion("arc:versatile", "你想的这位人物打职业时，是能胜任两个或更多位置的摇摆人吗？", "生涯轨迹", (person) => person.roles.includes("player") ? person.positions.length >= 2 : null),
+    booleanQuestion("arc:long-career", "你想的这位人物，KPL 生涯是否跨越了至少六个自然年？", "生涯轨迹", (person) => person.debutYear === null || person.latestYear === null ? null : person.latestYear - person.debutYear >= 5),
+    booleanQuestion("arc:one-season", "你想的这位选手是否只在一个自然年留下过正式比赛记录？", "生涯轨迹", (person) => person.debutYear === null || person.latestYear === null ? null : person.latestYear === person.debutYear),
+    booleanQuestion("arc:multi-team", "你想的这位人物是否至少效力或执教过两支战队？", "生涯轨迹", (person) => person.teams.length >= 2),
+    booleanQuestion("arc:evergreen", "你想的这位人物是 2020 年前登场、如今仍活跃的老将吗？", "生涯轨迹", (person) => person.debutYear === null || person.active === null ? null : person.debutYear < 2020 && person.active),
+    booleanQuestion("arc:well-travelled", "你想的这位人物，生涯足迹是否遍布四支或更多战队？", "生涯轨迹", (person) => person.teams.length >= 4),
+    booleanQuestion("honour:fmvp-dynasty", "你想的这位人物是否既拿过 FMVP，又至少三次捧起冠军奖杯？", "荣誉拼图", (person) => person.hasFmvp === null || person.championshipCount === null ? null : person.hasFmvp && person.championshipCount >= 3),
+    booleanQuestion("honour:active-champion", "你想的这位人物是仍活跃在赛场的冠军选手吗？", "荣誉拼图", (person) => person.active === null || person.championshipCount === null ? null : person.roles.includes("player") && person.active && person.championshipCount > 0),
+    booleanQuestion("honour:early-fmvp", "你想的这位人物是 2018 年前登场、后来拿到 FMVP 的选手吗？", "荣誉拼图", (person) => person.debutYear === null || person.hasFmvp === null ? null : person.roles.includes("player") && person.debutYear < 2018 && person.hasFmvp),
+    booleanQuestion("record:ironman", "你想的这位选手是否打满过至少五百小局，是赛场上的铁人？", "赛场履历", (person) => person.totalGames === null ? null : person.totalGames >= 500),
+    booleanQuestion("record:brief-champion", "你想的这位选手是否在不足三百局的生涯里就拿到过冠军？", "赛场履历", (person) => person.totalGames === null || person.championshipCount === null ? null : person.totalGames < 300 && person.championshipCount > 0),
+    booleanQuestion("record:active-veteran", "你想的这位选手是否已经征战三百局以上，如今仍在赛场？", "赛场履历", (person) => person.totalGames === null || person.active === null ? null : person.totalGames >= 300 && person.active),
+    ...[50, 150, 300].map((games) => booleanQuestion(
+      `games:${games}`,
+      `你想的这位选手，正式比赛记录是否达到过 ${games} 小局？`,
+      "赛场履历",
+      (person) => person.totalGames === null ? null : person.totalGames >= games,
+    )),
     ...[2018, 2020, 2022, 2024].map((year) => booleanQuestion(
       `debut:${year}`,
       `你想的这位人物是在 ${year} 年以前登上 KPL 赛场的吗？`,
       "登场时间",
       (person) => person.debutYear === null ? null : person.debutYear < year,
     )),
+    ...[2020, 2023, 2025].map((year) => booleanQuestion(
+      `last-seen:${year}`,
+      `你想的这位选手在 ${year} 年或以后仍有正式比赛记录吗？`,
+      "活跃年代",
+      (person) => person.latestYear === null ? null : person.latestYear >= year,
+    )),
+    booleanQuestion("name:latin", "你想的这位人物，常用 ID 或称呼中包含英文字母吗？", "人物称呼", (person) => /[a-z]/i.test(person.name)),
+    booleanQuestion("name:short", "你想的这位人物，常用 ID 或称呼是否只有两个字符？", "人物称呼", (person) => [...person.name].length === 2),
+    booleanQuestion("name:contains-xiao", "你想的这位人物，常用 ID 或称呼里有“小”字吗？", "人物称呼", (person) => person.name.includes("小")),
+    booleanQuestion("name:repeated", "你想的这位人物，常用 ID 或称呼带有叠字或重复结构吗？", "人物称呼", (person) => hasRepeatedNamePattern(person.name)),
+    booleanQuestion("name:single", "你想的这位人物，常用 ID 或称呼只有一个字符吗？", "人物称呼", (person) => [...person.name].length === 1),
+    booleanQuestion("name:long", "你想的这位人物，常用 ID 或称呼有四个或更多字符吗？", "人物称呼", (person) => [...person.name].length >= 4),
+    booleanQuestion("name:mixed", "你想的这位人物，常用 ID 或称呼是中文与英文字母混合的吗？", "人物称呼", (person) => /[\u3400-\u9fff]/.test(person.name) && /[a-z]/i.test(person.name)),
+    booleanQuestion("name:number", "你想的这位人物，常用 ID 或称呼带有数字或数字汉字吗？", "人物称呼", (person) => /[\d零一二三四五六七八九十百千]/.test(person.name)),
+    booleanQuestion("name:direction", "你想的这位人物，常用 ID 或称呼里有东、南、西、北这样的方位字吗？", "人物称呼", (person) => /[东南西北]/.test(person.name)),
+    booleanQuestion("name:color", "你想的这位人物，常用 ID 或称呼里有颜色字吗？", "人物称呼", (person) => /[红橙黄绿青蓝紫白黑金银]/.test(person.name)),
+    booleanQuestion("name:nature", "你想的这位人物，常用 ID 或称呼里有风、雨、雪、月、星、云等自然意象吗？", "人物称呼", (person) => /[风雨雪月星云海山川雷光]/.test(person.name)),
     ...["对抗路", "打野", "中路", "发育路", "游走"].map((position) => booleanQuestion(
       `position:${position}`,
       `你想的这位人物打职业时主要担任${position}吗？`,
@@ -222,9 +278,15 @@ export function buildGeniusQuestions(): GeniusQuestion[] {
     )),
     ...TEAM_GROUPS.map(([label, aliases]) => booleanQuestion(
       `team:${label}`,
-      `你想的这位人物曾经效力、执教或长期关联过 ${label} 吗？`,
-      "战队经历",
+      `你想的这位人物，职业生涯是否与 ${label} 有过正式交集？`,
+      "战队履历",
       (person) => person.teams.some((team) => aliases.some((alias) => team.includes(alias))),
+    )),
+    ...extraTeamNames.map((team) => booleanQuestion(
+      `team:${team}`,
+      `你想的这位人物，职业生涯是否与 ${team} 有过正式交集？`,
+      "战队履历",
+      (person) => person.teams.includes(team),
     )),
   ];
   return questions;
@@ -275,17 +337,47 @@ export function shouldGuessGeniusPerson(
   );
 }
 
+export function shouldDelayGeniusGuess(
+  question: GeniusQuestion | null,
+  ranked: RankedPerson[],
+  responseCount: number,
+): boolean {
+  if (!question || responseCount >= GENIUS_MAX_QUESTIONS) return false;
+  const leader = ranked[0];
+  if (!leader) return false;
+  const leaderAnswer = question.answer(leader.person);
+  if (leaderAnswer === null) return false;
+  const rivalFloor = Math.max(0.015, leader.probability * 0.04);
+  return ranked.slice(1, 6).some((rival) => {
+    const rivalAnswer = question.answer(rival.person);
+    return rival.probability >= rivalFloor && rivalAnswer !== null && rivalAnswer !== leaderAnswer;
+  });
+}
+
 export function selectGeniusQuestion(
   questions: GeniusQuestion[],
   ranked: RankedPerson[],
   askedIds: ReadonlySet<string>,
 ): GeniusQuestion | null {
+  const questionById = new Map(questions.map((question) => [question.id, question]));
+  const askedQuestions = [...askedIds]
+    .map((id) => questionById.get(id))
+    .filter((question): question is GeniusQuestion => Boolean(question));
+  const categoryCounts = new Map<string, number>();
+  for (const question of askedQuestions) {
+    categoryCounts.set(question.category, (categoryCounts.get(question.category) ?? 0) + 1);
+  }
+  const recentCategories = askedQuestions.slice(-2).map((question) => question.category);
+  const recentlyAskedTeam = recentCategories.includes("战队履历");
+  const lastCategory = recentCategories.at(-1);
   const totalWeight = ranked.reduce((sum, item) => sum + item.probability, 0) || 1;
   const leader = ranked[0];
   const runnerUp = ranked[1];
   let best: { question: GeniusQuestion; score: number } | null = null;
   for (const question of questions) {
     if (askedIds.has(question.id)) continue;
+    if (question.category === "战队履历" && (askedQuestions.length < 4 || recentlyAskedTeam)) continue;
+    if (question.category === "人物称呼" && lastCategory === "人物称呼") continue;
     const leaderAnswer = leader ? question.answer(leader.person) : null;
     const runnerUpAnswer = runnerUp ? question.answer(runnerUp.person) : null;
     const separatesLeaders = (leader?.probability ?? 0) >= 0.35
@@ -305,7 +397,13 @@ export function selectGeniusQuestion(
     if ((yesRatio < 0.04 || yesRatio > 0.96) && !separatesLeaders) continue;
     const coverage = known / totalWeight;
     const balance = 1 - Math.abs(0.5 - yesRatio) * 2;
-    const score = coverage * (0.2 + balance * 0.8) + (separatesLeaders ? 1 : 0);
+    const categoryCount = categoryCounts.get(question.category) ?? 0;
+    const variety = recentCategories.at(-1) === question.category
+      ? 0.32
+      : recentCategories.includes(question.category) ? 0.62 : 1;
+    const score = (coverage * (0.2 + balance * 0.8) + (separatesLeaders ? 1 : 0))
+      * variety
+      / (1 + categoryCount * 0.3);
     if (!best || score > best.score) best = { question, score };
   }
   return best?.question ?? null;

@@ -57,6 +57,21 @@
     };
   }
 
+  function normalizeAllStarState(value) {
+    var source = value && typeof value === 'object' ? value : {};
+    var bo = parseInt(source.bo, 10);
+    return {
+      aTeam: typeof source.aTeam === 'string' ? source.aTeam : null,
+      bTeam: typeof source.bTeam === 'string' ? source.bTeam : null,
+      aRoster: Array.isArray(source.aRoster) ? source.aRoster.slice(0, 5) : [],
+      bRoster: Array.isArray(source.bRoster) ? source.bRoster.slice(0, 5) : [],
+      bo: [3, 5, 7].indexOf(bo) >= 0 ? bo : 5,
+      customs: Array.isArray(source.customs) ? source.customs.filter(function (player) {
+        return player && typeof player.id === 'string' && typeof player.name === 'string';
+      }) : []
+    };
+  }
+
   function saveState() {
     var payload = JSON.stringify({
       mode: STATE.mode, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed, tactic: STATE.tactic,
@@ -86,15 +101,15 @@
       var raw = localStorage.getItem(STATE_KEY);
       if (!raw) return;
       var s = JSON.parse(raw);
-      STATE.mode = s.mode || 'classic';
-      STATE.team = s.team || null;
-      STATE.roster = s.roster || [];
-      STATE.season = s.season || null;
-      STATE.seed = s.seed || 0;
+      STATE.mode = s.mode === 'allstar' ? 'allstar' : 'classic';
+      STATE.team = typeof s.team === 'string' ? s.team : null;
+      STATE.roster = Array.isArray(s.roster) ? s.roster.slice(0, 5) : [];
+      STATE.season = typeof s.season === 'string' ? s.season : null;
+      STATE.seed = Number.isFinite(s.seed) ? Math.max(0, Math.floor(s.seed)) : 0;
       STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(s.tactic) >= 0 ? s.tactic : 'balanced';
-      STATE.dynasty = s.dynasty || null;
-      STATE.lastRun = s.lastRun || null;
-      STATE.allStar = s.allStar || STATE.allStar;
+      STATE.dynasty = typeof s.dynasty === 'string' ? s.dynasty : null;
+      STATE.lastRun = s.lastRun && typeof s.lastRun === 'object' ? s.lastRun : null;
+      STATE.allStar = normalizeAllStarState(s.allStar);
     } catch (e) { /* ignore */ }
   }
 
@@ -148,7 +163,10 @@
 
   /* ---------------- 历史战绩（首页） ---------------- */
   function loadHistory() {
-    try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]'); } catch (e) { return []; }
+    try {
+      var value = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      return Array.isArray(value) ? value : [];
+    } catch (e) { return []; }
   }
   function saveHistory(h) {
     var out = h.slice(0, 20).map(function (item) {
@@ -501,6 +519,13 @@
   function playerIcon(pid) {
     var custom = customPlayer(pid);
     return (custom && custom.icon) || (DATA.players[pid] && DATA.players[pid].icon) || '';
+  }
+  function playerAvatarHtml(icon, name, className) {
+    var cls = className || 'ava';
+    var fallback = esc(String(name || '?').slice(0, 1));
+    return '<div class="' + cls + '">' + fallback + (icon
+      ? '<img src="' + esc(icon) + '" alt="" loading="lazy" onerror="this.remove()">'
+      : '') + '</div>';
   }
 
   /* 把 roster 槽位映射为 record（从已加载赛季分片找） */
@@ -980,9 +1005,7 @@
         var info = slotInfo(slot.pid, slot.sid);
         var rating = info.ver ? info.ver.rating : (info.rec ? info.rec.rating : null);
         var label = (info.ver && info.ver.label) || (slot.sid || '').replace(/^(KPL|KCC|L)/, '');
-        var ava = info.icon
-          ? '<div class="ava"><img src="' + esc(info.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(info.name[0]) + '&#39;"></div>'
-          : '<div class="ava">' + esc(info.name[0]) + '</div>';
+        var ava = playerAvatarHtml(info.icon, info.name);
         inner = ava +
           '<div class="info"><div class="pname">' + esc(info.name) + '</div>' +
           '<div class="pmeta">' + esc(label) + ' · ' + esc(pos) + '</div></div>' +
@@ -1043,9 +1066,7 @@
     $('picker-pool').innerHTML = candidates.map(function (p) {
       var best = bestVersionFor(p, pos);
       var inRoster = STATE.roster.some(function (s) { return s && s.pid === p.player_id; });
-      var ava = p.icon
-        ? '<div class="ava"><img src="' + esc(p.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(p.name[0]) + '&#39;"></div>'
-        : '<div class="ava">' + esc(p.name[0]) + '</div>';
+      var ava = playerAvatarHtml(p.icon, p.name);
       return '<button class="pool-item' + (inRoster ? ' sel' : '') + '" data-pid="' + p.player_id + '">' + ava +
         '<div><div class="pname">' + esc(p.name) + '</div>' +
         '<div class="pver">' + (inRoster ? '已在阵容 · ' : '') + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
@@ -1275,7 +1296,7 @@
         var slot = roster[i], inner;
         if (slot) {
           var v = allStarVersion(slot), name = playerName(slot.pid), icon = playerIcon(slot.pid);
-          var ava = icon ? '<div class="ava"><img src="' + esc(icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(name[0]) + '&#39;"></div>' : '<div class="ava">' + esc(name[0]) + '</div>';
+          var ava = playerAvatarHtml(icon, name);
           inner = ava + '<div class="info"><div class="pname">' + esc(name) + '</div>' +
             '<div class="pmeta">' + esc((v && v.label) || slot.sid) + ' · ' + esc((v && v.team_name) || '') +
             (slot.templatePid ? '<span class="custom-slot-hint">自定义选手 · 能力继承自 ' + esc(playerName(slot.templatePid)) + '</span>' : '') + '</div></div>' +
@@ -1325,7 +1346,7 @@
     $('picker-pool').style.display = '';
     $('picker-pool').innerHTML = '<div class="picker-tools"><input id="allstar-search" placeholder="搜索选手姓名" value="' + esc(query || '') + '"></div>' + candidates.map(function (p) {
       var best = bestVersionFor(p, pos);
-      var ava = p.icon ? '<div class="ava"><img src="' + esc(p.icon) + '" onerror="this.parentNode.textContent=&#39;' + esc(p.name[0]) + '&#39;"></div>' : '<div class="ava">' + esc(p.name[0]) + '</div>';
+      var ava = playerAvatarHtml(p.icon, p.name);
       return '<button class="pool-item" data-pid="' + esc(p.player_id) + '" data-name="' + esc(p.name.toLowerCase()) + '">' + ava + '<div><div class="pname">' + esc(p.name) + '</div>' +
         '<div class="pver">' + esc(best.label) + ' · ' + esc(best.team_name || '') + '</div></div><div class="prate">' + Math.round(best.rating) + '</div></button>';
     }).join('');
@@ -1678,9 +1699,8 @@
       '<div class="se-line mut">双方阵容与历史版本已就绪，马上开赛…</div></div>';
     var slots = aSlots.concat(bSlots), sids = slots.map(function (s) { return s.sid; });
     D.loadSeasons(sids).then(function () {
-      var rng = E.makeRng(STATE.seed || Math.floor(Math.random() * 100000));
       if (!STATE.seed) STATE.seed = Math.floor(Math.random() * 100000);
-      rng = E.makeRng(STATE.seed);
+      var rng = E.makeRng(STATE.seed);
       var aSource = allStarRecords('a', true), bSource = allStarRecords('b', true);
       var chem = D.buildChemFor(sids);
       var aStrength = E.lineupStrength(aSource, chem, E.COMPRESS);
@@ -2523,9 +2543,7 @@
       var name = playerName(r.player_id);
       var icon = playerIcon(r.player_id);
       var rs = (run.runStats || {})[r.player_id];
-      var ava = icon
-        ? '<img class="pava" src="' + esc(icon) + '" onerror="this.outerHTML=&#39;<div class=&quot;pava&quot;>' + esc(name[0]) + '</div>&#39;">'
-        : '<div class="pava">' + esc(name[0]) + '</div>';
+      var ava = playerAvatarHtml(icon, name, 'pava');
       var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
       var avgK = rs ? f1(rs.avgK) : f1(r.avg_kill_num);
       var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
@@ -2594,7 +2612,7 @@
     function rosterHtml(title, records) {
       return '<div class="allstar-result-side"><h3>' + esc(title) + '</h3>' + records.map(function (r) {
         var name = playerName(r.player_id), icon = playerIcon(r.player_id), rs = (run.runStats || {})[r.player_id];
-        var ava = icon ? '<img class="pava" src="' + esc(icon) + '" onerror="this.outerHTML=&#39;<div class=&quot;pava&quot;>' + esc(name[0]) + '</div>&#39;">' : '<div class="pava">' + esc(name[0]) + '</div>';
+        var ava = playerAvatarHtml(icon, name, 'pava');
         return '<div class="result-pc">' + ava + '<div><div class="pnm">' + esc(name) + '<span class="ppos">' + esc(r.position) + '</span></div>' +
           '<div class="pstat">KDA ' + f1(rs && rs.kda) + ' · 场均击杀 ' + f1(rs && rs.avgK) + ' · 参团 ' + pct(rs && rs.participation) + ' · ' + ((rs && rs.games) || 0) + ' 场' + ((rs && rs.mvp) ? ' · MVP ' + rs.mvp : '') + '</div></div></div>';
       }).join('') + '</div>';
@@ -2650,20 +2668,25 @@
       $('share-tip').textContent = '链接已复制，发给好友即可还原这场平行时空';
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done).catch(function () { fallbackCopy(url, done); });
+      navigator.clipboard.writeText(url).then(done).catch(function () {
+        fallbackCopy(url, done, function () { $('share-tip').textContent = '复制失败，请手动复制浏览器地址'; });
+      });
     } else {
-      fallbackCopy(url, done);
+      fallbackCopy(url, done, function () { $('share-tip').textContent = '复制失败，请手动复制浏览器地址'; });
     }
   }
-  function fallbackCopy(text, done) {
+  function fallbackCopy(text, done, fail) {
+    if (!text) { if (fail) fail(); return; }
     var ta = document.createElement('textarea');
     ta.value = text;
     ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand('copy'); } catch (e) { /* ignore */ }
+    var copied = false;
+    try { copied = document.execCommand('copy') === true; } catch (e) { copied = false; }
     document.body.removeChild(ta);
-    done();
+    if (copied) done();
+    else if (fail) fail();
   }
 
   /* ---------------- 战绩分享图（Canvas 手绘） ---------------- */
@@ -2883,7 +2906,7 @@
         fallbackCopy(shareLink(), function () {
           $('share-copy').textContent = '已复制 ✓';
           recordAchievementEvent('sharedRuns');
-        });
+        }, function () { $('share-copy').textContent = '复制失败'; });
       });
       $('drawer-mask').addEventListener('click', closePicker);
       $('picker-confirm').addEventListener('click', confirmPicker);

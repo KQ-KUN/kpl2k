@@ -155,6 +155,9 @@ def main() -> None:
                 "teams": {},
                 "player_icon": info.get("player_icon", ""),
             })
+            # 同一选手跨赛季共用 ID；早期记录可能没有头像，后期官方记录已补齐。
+            if info.get("player_icon") and not pl.get("player_icon"):
+                pl["player_icon"] = info["player_icon"]
             if pos:
                 pl["positions"].add(pos)
             pl["teams"][season_id] = info.get("team_id")
@@ -219,8 +222,10 @@ def main() -> None:
             "real_name": "",
             "positions": set(),
             "teams": {},
-            "player_icon": "",
+            "player_icon": rec.get("player_icon", ""),
         })
+        if rec.get("player_icon") and not pl.get("player_icon"):
+            pl["player_icon"] = rec["player_icon"]
         if rec.get("position"):
             pl["positions"].add(rec["position"])
         pl["teams"][sid] = rec.get("team_franchise")
@@ -264,6 +269,9 @@ def main() -> None:
         attr = attr_by_key.get((s["season_id"], name_by_pid.get(s["player_id"], "")))
         s["mvp_count"] = int(attr.get("mvp_count") or 0) if attr else 0
         if attr:
+            player = players.get(s["player_id"])
+            if player is not None and attr.get("player_icon") and not player.get("player_icon"):
+                player["player_icon"] = attr["player_icon"]
             if attr.get("team_franchise"):
                 s["team_franchise"] = attr["team_franchise"]
             if attr.get("position"):
@@ -273,6 +281,21 @@ def main() -> None:
         print(f"attribution applied: {attr_applied} 条归属修正")
 
     overrides = load_overrides()
+    icon_overrides = overrides.get("icons", {})
+    for pid, icon in icon_overrides.items():
+        if pid in players and icon:
+            players[pid]["player_icon"] = icon
+
+    # battle 合成的历史选手若与官方榜单同名，复用已核验的官方头像。
+    icons_by_name = {
+        pl["name"]: pl["player_icon"]
+        for pl in players.values()
+        if pl.get("name") and pl.get("player_icon")
+    }
+    for pl in players.values():
+        if not pl.get("player_icon") and pl.get("name") in icons_by_name:
+            pl["player_icon"] = icons_by_name[pl["name"]]
+
     pos_overrides = overrides.get("positions", {})
     team_overrides = overrides.get("teams", {})
     applied = 0
