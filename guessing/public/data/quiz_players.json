@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "dataVersion": "2026-08-15",
-  "sourceCommit": "be1ecba",
-  "playersHash": "9d89d5fbcc465f2610a033538065aee4ac8ad27efa70f3f81b2f9c95634e7d85",
+  "sourceCommit": "a797eac",
+  "playersHash": "5fa7816d156a49b3e93986b06d51b79c886e1ab5a74aafd05a8c832a811fb25e",
   "players": [
     {
       "id": "00243FC750872542DC5D94B66A102621",
@@ -27,6 +27,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 62.8,
       "active": false,
       "difficulty": [
@@ -58,6 +59,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 90,
+      "championshipVerified": true,
       "peakRating": 80.1,
       "active": false,
       "difficulty": [
@@ -87,6 +89,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 61.9,
       "active": true,
       "difficulty": [
@@ -116,6 +119,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 58.6,
       "active": false,
       "difficulty": [
@@ -146,7 +150,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 149,
+      "totalGames": 151,
+      "championshipVerified": true,
       "peakRating": 66.5,
       "active": true,
       "difficulty": [
@@ -180,6 +185,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 168,
+      "championshipVerified": true,
       "peakRating": 80.4,
       "active": false,
       "difficulty": [
@@ -200,17 +206,20 @@
       "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
         "10002",
+        "10027",
         "10031"
       ],
       "teamHistoryNames": [
         "上海EDG.M",
+        "成都AG超玩会",
         "杭州LGD.NBW"
       ],
       "debutYear": 2020,
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 132,
+      "totalGames": 136,
+      "championshipVerified": true,
       "peakRating": 68.0,
       "active": false,
       "difficulty": [
@@ -230,16 +239,19 @@
       "latestTeamId": "10008",
       "latestTeamName": "深圳DYG",
       "teamHistory": [
+        "10903",
         "10008"
       ],
       "teamHistoryNames": [
+        "桐乡情久",
         "深圳DYG"
       ],
-      "debutYear": 2025,
+      "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 115,
+      "totalGames": 120,
+      "championshipVerified": true,
       "peakRating": 70.3,
       "active": true,
       "difficulty": [
@@ -269,6 +281,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 69.9,
       "active": false,
       "difficulty": [
@@ -300,6 +313,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 74.9,
       "active": false,
       "difficulty": [
@@ -335,6 +349,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 53,
+      "championshipVerified": true,
       "peakRating": 79.1,
       "active": false,
       "difficulty": [
@@ -366,6 +381,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 119,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": false,
       "difficulty": [
@@ -382,8 +398,8 @@
       "positions": [
         "打野"
       ],
-      "latestTeamId": "10010",
-      "latestTeamName": "西安WE",
+      "latestTeamId": "10020",
+      "latestTeamName": "北京JDG",
       "teamHistory": [
         "10020",
         "10008",
@@ -397,10 +413,11 @@
         "西安WE"
       ],
       "debutYear": 2019,
-      "latestYear": 2023,
+      "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 548,
+      "totalGames": 551,
+      "championshipVerified": true,
       "peakRating": 78.2,
       "active": false,
       "difficulty": [
@@ -433,6 +450,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": false,
       "peakRating": 61.3,
       "active": false,
       "difficulty": [
@@ -462,6 +480,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 332,
+      "championshipVerified": true,
       "peakRating": 87.2,
       "active": true,
       "difficulty": [
@@ -478,19 +497,22 @@
       "positions": [
         "游走"
       ],
-      "latestTeamId": "10006",
-      "latestTeamName": "武汉eStarPro",
+      "latestTeamId": "10027",
+      "latestTeamName": "成都AG超玩会",
       "teamHistory": [
-        "10006"
+        "10006",
+        "10027"
       ],
       "teamHistoryNames": [
-        "武汉eStarPro"
+        "武汉eStarPro",
+        "成都AG超玩会"
       ],
       "debutYear": 2019,
       "latestYear": 2019,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 6,
+      "championshipCount": 0,
+      "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 71.1,
       "active": false,
       "difficulty": [
@@ -522,6 +544,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 51,
+      "championshipVerified": true,
       "peakRating": 87.5,
       "active": true,
       "difficulty": [
@@ -553,6 +576,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 77,
+      "championshipVerified": true,
       "peakRating": 73.8,
       "active": false,
       "difficulty": [
@@ -582,6 +606,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 357,
+      "championshipVerified": true,
       "peakRating": 81.4,
       "active": false,
       "difficulty": [
@@ -612,6 +637,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 61.0,
       "active": false,
       "difficulty": [
@@ -640,7 +666,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 70,
+      "totalGames": 71,
+      "championshipVerified": true,
       "peakRating": 76.2,
       "active": false,
       "difficulty": [
@@ -660,18 +687,21 @@
       "latestTeamId": "10028",
       "latestTeamName": "长沙TES.A",
       "teamHistory": [
+        "12205",
         "12404",
         "10028"
       ],
       "teamHistoryNames": [
+        "WD",
         "ZDC",
         "长沙TES.A"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 70,
+      "totalGames": 74,
+      "championshipVerified": true,
       "peakRating": 86.2,
       "active": true,
       "difficulty": [
@@ -701,6 +731,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 102,
+      "championshipVerified": true,
       "peakRating": 85.3,
       "active": true,
       "difficulty": [
@@ -731,7 +762,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 50,
+      "totalGames": 51,
+      "championshipVerified": true,
       "peakRating": 58.7,
       "active": false,
       "difficulty": [
@@ -761,6 +793,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 65.4,
       "active": false,
       "difficulty": [
@@ -794,6 +827,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 308,
+      "championshipVerified": true,
       "peakRating": 82.6,
       "active": false,
       "difficulty": [
@@ -823,7 +857,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 147,
+      "totalGames": 157,
+      "championshipVerified": true,
       "peakRating": 82.0,
       "active": false,
       "difficulty": [
@@ -855,6 +890,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 119,
+      "championshipVerified": true,
       "peakRating": 82.0,
       "active": true,
       "difficulty": [
@@ -886,6 +922,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 227,
+      "championshipVerified": true,
       "peakRating": 83.3,
       "active": false,
       "difficulty": [
@@ -915,6 +952,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 52.7,
       "active": false,
       "difficulty": [
@@ -944,6 +982,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 91,
+      "championshipVerified": true,
       "peakRating": 78.7,
       "active": false,
       "difficulty": [
@@ -973,6 +1012,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 256,
+      "championshipVerified": true,
       "peakRating": 69.1,
       "active": false,
       "difficulty": [
@@ -989,23 +1029,26 @@
       "positions": [
         "中路"
       ],
-      "latestTeamId": "10028",
-      "latestTeamName": "长沙TES.A",
+      "latestTeamId": "10031",
+      "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
         "10010",
         "10006",
-        "10028"
+        "10028",
+        "10031"
       ],
       "teamHistoryNames": [
         "西安WE",
         "武汉eStarPro",
-        "长沙TES.A"
+        "长沙TES.A",
+        "杭州LGD.NBW"
       ],
       "debutYear": 2023,
-      "latestYear": 2024,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 149,
+      "totalGames": 153,
+      "championshipVerified": true,
       "peakRating": 77.6,
       "active": false,
       "difficulty": [
@@ -1039,6 +1082,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 144,
+      "championshipVerified": true,
       "peakRating": 74.7,
       "active": true,
       "difficulty": [
@@ -1078,7 +1122,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 2,
-      "totalGames": 992,
+      "totalGames": 995,
+      "championshipVerified": true,
       "peakRating": 83.3,
       "active": true,
       "difficulty": [
@@ -1105,11 +1150,12 @@
       "teamHistoryNames": [
         "西安WE"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 83,
+      "totalGames": 87,
+      "championshipVerified": true,
       "peakRating": 84.3,
       "active": true,
       "difficulty": [
@@ -1139,6 +1185,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 57.8,
       "active": false,
       "difficulty": [
@@ -1168,6 +1215,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 95,
+      "championshipVerified": true,
       "peakRating": 79.5,
       "active": true,
       "difficulty": [
@@ -1197,6 +1245,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 67.3,
       "active": false,
       "difficulty": [
@@ -1226,6 +1275,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 59.3,
       "active": false,
       "difficulty": [
@@ -1257,6 +1307,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 160,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": false,
       "difficulty": [
@@ -1288,6 +1339,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 347,
+      "championshipVerified": true,
       "peakRating": 81.5,
       "active": false,
       "difficulty": [
@@ -1318,6 +1370,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 178,
+      "championshipVerified": true,
       "peakRating": 91.4,
       "active": false,
       "difficulty": [
@@ -1347,6 +1400,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 66.2,
       "active": false,
       "difficulty": [
@@ -1380,6 +1434,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 37,
+      "championshipVerified": false,
       "peakRating": 70.2,
       "active": false,
       "difficulty": [
@@ -1396,21 +1451,24 @@
       "positions": [
         "对抗路"
       ],
-      "latestTeamId": "12202",
-      "latestTeamName": "SYG",
+      "latestTeamId": "10905",
+      "latestTeamName": "LTG",
       "teamHistory": [
-        "12202"
+        "12202",
+        "10905"
       ],
       "teamHistoryNames": [
-        "SYG"
+        "SYG",
+        "LTG"
       ],
       "debutYear": 2025,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 9,
+      "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 74.6,
-      "active": false,
+      "active": true,
       "difficulty": [
         "hardcore"
       ]
@@ -1438,6 +1496,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 71.4,
       "active": false,
       "difficulty": [
@@ -1471,6 +1530,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 892,
+      "championshipVerified": true,
       "peakRating": 85.6,
       "active": false,
       "difficulty": [
@@ -1496,11 +1556,12 @@
       "teamHistoryNames": [
         "杭州LGD.NBW"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 13,
+      "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 73.6,
       "active": true,
       "difficulty": [
@@ -1532,6 +1593,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 47,
+      "championshipVerified": true,
       "peakRating": 80.4,
       "active": true,
       "difficulty": [
@@ -1561,6 +1623,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 54.0,
       "active": false,
       "difficulty": [
@@ -1590,6 +1653,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 64.4,
       "active": false,
       "difficulty": [
@@ -1617,8 +1681,9 @@
       "debutYear": 2020,
       "latestYear": 2021,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 64,
+      "championshipCount": 0,
+      "totalGames": 65,
+      "championshipVerified": true,
       "peakRating": 81.1,
       "active": false,
       "difficulty": [
@@ -1648,6 +1713,7 @@
       "hasFmvp": false,
       "championshipCount": 2,
       "totalGames": 438,
+      "championshipVerified": true,
       "peakRating": 75.8,
       "active": false,
       "difficulty": [
@@ -1669,17 +1735,20 @@
       "latestTeamName": "SYG",
       "teamHistory": [
         "10008",
+        "10031",
         "12202"
       ],
       "teamHistoryNames": [
         "深圳DYG",
+        "杭州LGD.NBW",
         "SYG"
       ],
       "debutYear": 2022,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 99,
+      "totalGames": 102,
+      "championshipVerified": true,
       "peakRating": 72.3,
       "active": true,
       "difficulty": [
@@ -1696,21 +1765,24 @@
       "positions": [
         "对抗路"
       ],
-      "latestTeamId": "10020",
-      "latestTeamName": "北京JDG",
+      "latestTeamId": "10006",
+      "latestTeamName": "武汉eStarPro",
       "teamHistory": [
         "10007",
-        "10020"
+        "10020",
+        "10006"
       ],
       "teamHistoryNames": [
         "南通Hero久竞",
-        "北京JDG"
+        "北京JDG",
+        "武汉eStarPro"
       ],
       "debutYear": 2023,
-      "latestYear": 2024,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 69,
+      "totalGames": 77,
+      "championshipVerified": true,
       "peakRating": 82.8,
       "active": false,
       "difficulty": [
@@ -1743,7 +1815,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 65,
+      "totalGames": 69,
+      "championshipVerified": true,
       "peakRating": 80.2,
       "active": false,
       "difficulty": [
@@ -1777,6 +1850,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 176,
+      "championshipVerified": true,
       "peakRating": 68.3,
       "active": false,
       "difficulty": [
@@ -1810,6 +1884,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 40,
+      "championshipVerified": true,
       "peakRating": 71.9,
       "active": false,
       "difficulty": [
@@ -1839,6 +1914,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 468,
+      "championshipVerified": true,
       "peakRating": 87.1,
       "active": false,
       "difficulty": [
@@ -1871,6 +1947,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 214,
+      "championshipVerified": true,
       "peakRating": 78.0,
       "active": false,
       "difficulty": [
@@ -1902,8 +1979,9 @@
       "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 183,
+      "championshipCount": 0,
+      "totalGames": 187,
+      "championshipVerified": true,
       "peakRating": 74.8,
       "active": true,
       "difficulty": [
@@ -1941,6 +2019,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 617,
+      "championshipVerified": true,
       "peakRating": 89.5,
       "active": true,
       "difficulty": [
@@ -1973,6 +2052,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 578,
+      "championshipVerified": true,
       "peakRating": 94.6,
       "active": true,
       "difficulty": [
@@ -2005,6 +2085,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 77.1,
       "active": true,
       "difficulty": [
@@ -2035,7 +2116,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 180,
+      "totalGames": 184,
+      "championshipVerified": true,
       "peakRating": 91.3,
       "active": false,
       "difficulty": [
@@ -2065,6 +2147,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 71.2,
       "active": true,
       "difficulty": [
@@ -2096,6 +2179,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 63.2,
       "active": false,
       "difficulty": [
@@ -2125,6 +2209,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 65.2,
       "active": false,
       "difficulty": [
@@ -2154,6 +2239,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 65.1,
       "active": false,
       "difficulty": [
@@ -2189,6 +2275,7 @@
       "hasFmvp": false,
       "championshipCount": 4,
       "totalGames": 933,
+      "championshipVerified": true,
       "peakRating": 88.6,
       "active": true,
       "difficulty": [
@@ -2220,6 +2307,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 408,
+      "championshipVerified": true,
       "peakRating": 85.5,
       "active": false,
       "difficulty": [
@@ -2248,8 +2336,9 @@
       "debutYear": 2024,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 59.8,
       "active": false,
       "difficulty": [
@@ -2282,7 +2371,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 356,
+      "totalGames": 360,
+      "championshipVerified": true,
       "peakRating": 88.0,
       "active": false,
       "difficulty": [
@@ -2313,6 +2403,7 @@
       "hasFmvp": true,
       "championshipCount": 6,
       "totalGames": 612,
+      "championshipVerified": true,
       "peakRating": 93.8,
       "active": true,
       "difficulty": [
@@ -2344,6 +2435,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 373,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": true,
       "difficulty": [
@@ -2380,6 +2472,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 290,
+      "championshipVerified": true,
       "peakRating": 89.5,
       "active": true,
       "difficulty": [
@@ -2409,7 +2502,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 74,
+      "totalGames": 75,
+      "championshipVerified": true,
       "peakRating": 73.0,
       "active": false,
       "difficulty": [
@@ -2441,6 +2535,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 110,
+      "championshipVerified": true,
       "peakRating": 75.7,
       "active": true,
       "difficulty": [
@@ -2457,19 +2552,22 @@
       "positions": [
         "对抗路"
       ],
-      "latestTeamId": "10036",
-      "latestTeamName": "XYG",
+      "latestTeamId": "10018",
+      "latestTeamName": "济南RW侠",
       "teamHistory": [
-        "10036"
+        "10036",
+        "10018"
       ],
       "teamHistoryNames": [
-        "XYG"
+        "XYG",
+        "济南RW侠"
       ],
       "debutYear": 2023,
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 8,
+      "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 57.6,
       "active": false,
       "difficulty": [
@@ -2501,6 +2599,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 584,
+      "championshipVerified": true,
       "peakRating": 94.3,
       "active": false,
       "difficulty": [
@@ -2531,7 +2630,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 656,
+      "totalGames": 660,
+      "championshipVerified": true,
       "peakRating": 94.8,
       "active": true,
       "difficulty": [
@@ -2562,6 +2662,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 65.6,
       "active": false,
       "difficulty": [
@@ -2591,6 +2692,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 66.2,
       "active": false,
       "difficulty": [
@@ -2615,11 +2717,12 @@
       "teamHistoryNames": [
         "无锡TCG"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 9,
+      "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 65.1,
       "active": true,
       "difficulty": [
@@ -2649,6 +2752,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 74.7,
       "active": false,
       "difficulty": [
@@ -2678,8 +2782,9 @@
       "debutYear": 2020,
       "latestYear": 2026,
       "hasFmvp": true,
-      "championshipCount": 6,
-      "totalGames": 871,
+      "championshipCount": 5,
+      "totalGames": 878,
+      "championshipVerified": true,
       "peakRating": 96.5,
       "active": true,
       "difficulty": [
@@ -2711,6 +2816,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 70.4,
       "active": false,
       "difficulty": [
@@ -2742,6 +2848,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 70.6,
       "active": false,
       "difficulty": [
@@ -2771,6 +2878,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 66.5,
       "active": false,
       "difficulty": [
@@ -2802,6 +2910,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 32,
+      "championshipVerified": true,
       "peakRating": 77.6,
       "active": true,
       "difficulty": [
@@ -2835,6 +2944,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 531,
+      "championshipVerified": true,
       "peakRating": 88.9,
       "active": true,
       "difficulty": [
@@ -2865,8 +2975,9 @@
       "debutYear": 2023,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 3,
-      "totalGames": 501,
+      "championshipCount": 1,
+      "totalGames": 508,
+      "championshipVerified": true,
       "peakRating": 92.0,
       "active": true,
       "difficulty": [
@@ -2894,11 +3005,12 @@
         "无锡TCG",
         "北京WB"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 117,
+      "totalGames": 120,
+      "championshipVerified": true,
       "peakRating": 76.8,
       "active": true,
       "difficulty": [
@@ -2918,16 +3030,21 @@
       "latestTeamId": "10009",
       "latestTeamName": "上海RNG.M",
       "teamHistory": [
+        "10032",
+        "10002",
         "10009"
       ],
       "teamHistoryNames": [
+        "郑州MTG",
+        "上海EDG.M",
         "上海RNG.M"
       ],
-      "debutYear": 2025,
+      "debutYear": 2023,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 13,
+      "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 72.5,
       "active": false,
       "difficulty": [
@@ -2944,21 +3061,24 @@
       "positions": [
         "打野"
       ],
-      "latestTeamId": "12208",
-      "latestTeamName": "桑杰队",
+      "latestTeamId": "12401",
+      "latestTeamName": "青训潜渊",
       "teamHistory": [
-        "12208"
+        "12208",
+        "12401"
       ],
       "teamHistoryNames": [
-        "桑杰队"
+        "桑杰队",
+        "青训潜渊"
       ],
       "debutYear": 2025,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 8,
+      "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 62.9,
-      "active": false,
+      "active": true,
       "difficulty": [
         "hardcore"
       ]
@@ -2988,6 +3108,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 65,
+      "championshipVerified": true,
       "peakRating": 76.3,
       "active": true,
       "difficulty": [
@@ -3017,6 +3138,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 44,
+      "championshipVerified": true,
       "peakRating": 85.1,
       "active": false,
       "difficulty": [
@@ -3036,20 +3158,23 @@
       "latestTeamId": "10010",
       "latestTeamName": "西安WE",
       "teamHistory": [
+        "10007",
         "10010",
         "10032",
         "10028"
       ],
       "teamHistoryNames": [
+        "南通Hero久竞",
         "西安WE",
         "郑州MTG",
         "长沙TES.A"
       ],
-      "debutYear": 2020,
+      "debutYear": 2019,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 576,
+      "totalGames": 577,
+      "championshipVerified": true,
       "peakRating": 91.9,
       "active": false,
       "difficulty": [
@@ -3080,6 +3205,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 41,
+      "championshipVerified": true,
       "peakRating": 67.2,
       "active": false,
       "difficulty": [
@@ -3109,6 +3235,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 63.8,
       "active": false,
       "difficulty": [
@@ -3142,6 +3269,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 267,
+      "championshipVerified": true,
       "peakRating": 92.9,
       "active": false,
       "difficulty": [
@@ -3171,6 +3299,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 64.7,
       "active": false,
       "difficulty": [
@@ -3200,6 +3329,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 72.6,
       "active": false,
       "difficulty": [
@@ -3220,19 +3350,22 @@
       "latestTeamName": "成都AG超玩会",
       "teamHistory": [
         "10001",
+        "10009",
         "10010",
         "10027"
       ],
       "teamHistoryNames": [
         "重庆狼队",
+        "上海RNG.M",
         "西安WE",
         "成都AG超玩会"
       ],
       "debutYear": 2019,
       "latestYear": 2025,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 196,
+      "championshipCount": 0,
+      "totalGames": 199,
+      "championshipVerified": true,
       "peakRating": 94.9,
       "active": false,
       "difficulty": [
@@ -3264,6 +3397,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 320,
+      "championshipVerified": true,
       "peakRating": 85.9,
       "active": false,
       "difficulty": [
@@ -3294,6 +3428,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 166,
+      "championshipVerified": true,
       "peakRating": 70.3,
       "active": false,
       "difficulty": [
@@ -3313,16 +3448,19 @@
       "latestTeamId": "10008",
       "latestTeamName": "深圳DYG",
       "teamHistory": [
+        "10106",
         "10008"
       ],
       "teamHistoryNames": [
+        "无锡JXG",
         "深圳DYG"
       ],
-      "debutYear": 2025,
+      "debutYear": 2021,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 51,
+      "totalGames": 55,
+      "championshipVerified": true,
       "peakRating": 75.1,
       "active": false,
       "difficulty": [
@@ -3352,6 +3490,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 63.8,
       "active": false,
       "difficulty": [
@@ -3368,23 +3507,26 @@
       "positions": [
         "发育路"
       ],
-      "latestTeamId": "10003",
-      "latestTeamName": "北京WB",
+      "latestTeamId": "10031",
+      "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
         "10907",
-        "10003"
+        "10003",
+        "10031"
       ],
       "teamHistoryNames": [
         "青训凌云",
-        "北京WB"
+        "北京WB",
+        "杭州LGD.NBW"
       ],
       "debutYear": 2024,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 48,
+      "totalGames": 51,
+      "championshipVerified": true,
       "peakRating": 89.1,
-      "active": false,
+      "active": true,
       "difficulty": [
         "hardcore"
       ]
@@ -3399,19 +3541,22 @@
       "positions": [
         "发育路"
       ],
-      "latestTeamId": "10104",
-      "latestTeamName": "HH",
+      "latestTeamId": "10020",
+      "latestTeamName": "北京JDG",
       "teamHistory": [
-        "10104"
+        "10104",
+        "10020"
       ],
       "teamHistoryNames": [
-        "HH"
+        "HH",
+        "北京JDG"
       ],
       "debutYear": 2021,
-      "latestYear": 2021,
+      "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 8,
+      "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 64.3,
       "active": false,
       "difficulty": [
@@ -3442,7 +3587,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 81,
+      "totalGames": 84,
+      "championshipVerified": true,
       "peakRating": 77.9,
       "active": true,
       "difficulty": [
@@ -3474,6 +3620,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 182,
+      "championshipVerified": true,
       "peakRating": 75.1,
       "active": false,
       "difficulty": [
@@ -3503,6 +3650,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 64.8,
       "active": false,
       "difficulty": [
@@ -3531,7 +3679,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 26,
+      "totalGames": 27,
+      "championshipVerified": true,
       "peakRating": 83.4,
       "active": false,
       "difficulty": [
@@ -3562,7 +3711,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 81,
+      "totalGames": 84,
+      "championshipVerified": true,
       "peakRating": 81.7,
       "active": true,
       "difficulty": [
@@ -3592,6 +3742,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 4,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": false,
       "difficulty": [
@@ -3623,8 +3774,9 @@
       "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 33,
+      "championshipCount": 0,
+      "totalGames": 36,
+      "championshipVerified": true,
       "peakRating": 71.8,
       "active": true,
       "difficulty": [
@@ -3658,6 +3810,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 113,
+      "championshipVerified": true,
       "peakRating": 84.9,
       "active": true,
       "difficulty": [
@@ -3687,6 +3840,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 61.6,
       "active": true,
       "difficulty": [
@@ -3716,6 +3870,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 46,
+      "championshipVerified": true,
       "peakRating": 61.4,
       "active": true,
       "difficulty": [
@@ -3749,6 +3904,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 50,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": false,
       "difficulty": [
@@ -3778,6 +3934,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 133,
+      "championshipVerified": true,
       "peakRating": 62.8,
       "active": false,
       "difficulty": [
@@ -3807,6 +3964,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 75,
+      "championshipVerified": true,
       "peakRating": 70.0,
       "active": false,
       "difficulty": [
@@ -3836,6 +3994,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 63,
+      "championshipVerified": true,
       "peakRating": 70.4,
       "active": false,
       "difficulty": [
@@ -3867,6 +4026,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 295,
+      "championshipVerified": true,
       "peakRating": 77.6,
       "active": false,
       "difficulty": [
@@ -3886,18 +4046,21 @@
       "latestTeamId": "10007",
       "latestTeamName": "南通Hero久竞",
       "teamHistory": [
+        "10907",
         "10006",
         "10007"
       ],
       "teamHistoryNames": [
+        "青训凌云",
         "武汉eStarPro",
         "南通Hero久竞"
       ],
-      "debutYear": 2026,
+      "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 60,
+      "totalGames": 68,
+      "championshipVerified": true,
       "peakRating": 74.2,
       "active": true,
       "difficulty": [
@@ -3927,6 +4090,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 54.9,
       "active": false,
       "difficulty": [
@@ -3956,6 +4120,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 475,
+      "championshipVerified": true,
       "peakRating": 80.8,
       "active": false,
       "difficulty": [
@@ -3988,6 +4153,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 168,
+      "championshipVerified": true,
       "peakRating": 89.3,
       "active": false,
       "difficulty": [
@@ -4017,6 +4183,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 55.4,
       "active": true,
       "difficulty": [
@@ -4036,16 +4203,19 @@
       "latestTeamId": "10005",
       "latestTeamName": "KSG",
       "teamHistory": [
+        "12410",
         "10005"
       ],
       "teamHistoryNames": [
+        "好厚米",
         "KSG"
       ],
       "debutYear": 2026,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 10,
+      "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 60.1,
       "active": true,
       "difficulty": [
@@ -4077,6 +4247,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 235,
+      "championshipVerified": true,
       "peakRating": 79.9,
       "active": true,
       "difficulty": [
@@ -4112,8 +4283,9 @@
       "debutYear": 2020,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 1004,
+      "championshipVerified": true,
       "peakRating": 92.6,
       "active": true,
       "difficulty": [
@@ -4144,6 +4316,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 63.2,
       "active": false,
       "difficulty": [
@@ -4160,19 +4333,22 @@
       "positions": [
         "游走"
       ],
-      "latestTeamId": "10406",
-      "latestTeamName": "斗鱼XHW",
+      "latestTeamId": "12205",
+      "latestTeamName": "WD",
       "teamHistory": [
-        "10406"
+        "10406",
+        "12205"
       ],
       "teamHistoryNames": [
-        "斗鱼XHW"
+        "斗鱼XHW",
+        "WD"
       ],
       "debutYear": 2023,
-      "latestYear": 2023,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 22,
+      "totalGames": 26,
+      "championshipVerified": true,
       "peakRating": 64.9,
       "active": false,
       "difficulty": [
@@ -4204,6 +4380,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 45,
+      "championshipVerified": true,
       "peakRating": 90.0,
       "active": true,
       "difficulty": [
@@ -4233,6 +4410,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 51.2,
       "active": false,
       "difficulty": [
@@ -4268,6 +4446,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 194,
+      "championshipVerified": true,
       "peakRating": 80.7,
       "active": false,
       "difficulty": [
@@ -4297,6 +4476,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 88,
+      "championshipVerified": true,
       "peakRating": 72.4,
       "active": false,
       "difficulty": [
@@ -4327,7 +4507,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 340,
+      "totalGames": 342,
+      "championshipVerified": true,
       "peakRating": 87.2,
       "active": true,
       "difficulty": [
@@ -4358,6 +4539,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 65.5,
       "active": false,
       "difficulty": [
@@ -4389,6 +4571,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 122,
+      "championshipVerified": true,
       "peakRating": 89.5,
       "active": false,
       "difficulty": [
@@ -4420,6 +4603,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 229,
+      "championshipVerified": true,
       "peakRating": 84.2,
       "active": false,
       "difficulty": [
@@ -4450,7 +4634,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 86,
+      "totalGames": 90,
+      "championshipVerified": true,
       "peakRating": 73.9,
       "active": false,
       "difficulty": [
@@ -4481,7 +4666,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 90,
+      "totalGames": 93,
+      "championshipVerified": true,
       "peakRating": 76.7,
       "active": true,
       "difficulty": [
@@ -4506,11 +4692,12 @@
       "teamHistoryNames": [
         "WST"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 51,
+      "totalGames": 54,
+      "championshipVerified": true,
       "peakRating": 67.9,
       "active": true,
       "difficulty": [
@@ -4540,6 +4727,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 48,
+      "championshipVerified": true,
       "peakRating": 86.3,
       "active": false,
       "difficulty": [
@@ -4569,6 +4757,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 52.4,
       "active": false,
       "difficulty": [
@@ -4598,6 +4787,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 14,
+      "championshipVerified": true,
       "peakRating": 54.1,
       "active": false,
       "difficulty": [
@@ -4608,7 +4798,8 @@
       "id": "51C3A4979ADDE9E23CE73E176DE64319",
       "nickname": "爱思",
       "aliases": [
-        "爱思"
+        "爱思",
+        "D e"
       ],
       "iconUrl": "/assets/player-icons/6cbb97dd35414de88ff1.webp",
       "positions": [
@@ -4617,10 +4808,12 @@
       "latestTeamId": "10002",
       "latestTeamName": "上海EDG.M",
       "teamHistory": [
+        "10018",
         "10027",
         "10002"
       ],
       "teamHistoryNames": [
+        "济南RW侠",
         "成都AG超玩会",
         "上海EDG.M"
       ],
@@ -4628,7 +4821,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 452,
+      "totalGames": 459,
+      "championshipVerified": true,
       "peakRating": 89.7,
       "active": false,
       "difficulty": [
@@ -4660,6 +4854,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 127,
+      "championshipVerified": true,
       "peakRating": 64.8,
       "active": false,
       "difficulty": [
@@ -4692,7 +4887,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 345,
+      "totalGames": 349,
+      "championshipVerified": true,
       "peakRating": 90.0,
       "active": true,
       "difficulty": [
@@ -4722,6 +4918,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 68.5,
       "active": false,
       "difficulty": [
@@ -4738,19 +4935,22 @@
       "positions": [
         "游走"
       ],
-      "latestTeamId": "10004",
-      "latestTeamName": "BA黑凤梨",
+      "latestTeamId": "10005",
+      "latestTeamName": "KSG",
       "teamHistory": [
-        "10004"
+        "10004",
+        "10005"
       ],
       "teamHistoryNames": [
-        "BA黑凤梨"
+        "BA黑凤梨",
+        "KSG"
       ],
       "debutYear": 2019,
-      "latestYear": 2019,
+      "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 18,
+      "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 75.5,
       "active": false,
       "difficulty": [
@@ -4780,6 +4980,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 454,
+      "championshipVerified": true,
       "peakRating": 82.5,
       "active": false,
       "difficulty": [
@@ -4810,6 +5011,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 59.0,
       "active": false,
       "difficulty": [
@@ -4835,10 +5037,11 @@
         "北京JDG"
       ],
       "debutYear": 2021,
-      "latestYear": 2021,
+      "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 5,
+      "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 64.8,
       "active": false,
       "difficulty": [
@@ -4872,6 +5075,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 200,
+      "championshipVerified": true,
       "peakRating": 82.9,
       "active": true,
       "difficulty": [
@@ -4901,6 +5105,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 151,
+      "championshipVerified": true,
       "peakRating": 83.0,
       "active": false,
       "difficulty": [
@@ -4931,7 +5136,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 209,
+      "totalGames": 211,
+      "championshipVerified": true,
       "peakRating": 84.2,
       "active": true,
       "difficulty": [
@@ -4962,7 +5168,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 371,
+      "totalGames": 375,
+      "championshipVerified": true,
       "peakRating": 88.6,
       "active": false,
       "difficulty": [
@@ -4993,6 +5200,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 63.1,
       "active": false,
       "difficulty": [
@@ -5023,7 +5231,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 179,
+      "totalGames": 180,
+      "championshipVerified": true,
       "peakRating": 82.5,
       "active": false,
       "difficulty": [
@@ -5053,6 +5262,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 70.9,
       "active": false,
       "difficulty": [
@@ -5084,6 +5294,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 236,
+      "championshipVerified": true,
       "peakRating": 79.2,
       "active": false,
       "difficulty": [
@@ -5113,6 +5324,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 108,
+      "championshipVerified": true,
       "peakRating": 85.7,
       "active": false,
       "difficulty": [
@@ -5146,6 +5358,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 135,
+      "championshipVerified": true,
       "peakRating": 86.0,
       "active": false,
       "difficulty": [
@@ -5175,6 +5388,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 63.2,
       "active": false,
       "difficulty": [
@@ -5204,6 +5418,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 194,
+      "championshipVerified": true,
       "peakRating": 70.4,
       "active": false,
       "difficulty": [
@@ -5235,6 +5450,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 27,
+      "championshipVerified": true,
       "peakRating": 73.9,
       "active": false,
       "difficulty": [
@@ -5265,7 +5481,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 71,
+      "totalGames": 74,
+      "championshipVerified": true,
       "peakRating": 80.4,
       "active": true,
       "difficulty": [
@@ -5299,6 +5516,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 165,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": false,
       "difficulty": [
@@ -5331,7 +5549,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 1081,
+      "totalGames": 1085,
+      "championshipVerified": true,
       "peakRating": 81.4,
       "active": true,
       "difficulty": [
@@ -5369,6 +5588,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 375,
+      "championshipVerified": true,
       "peakRating": 84.4,
       "active": false,
       "difficulty": [
@@ -5401,6 +5621,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 262,
+      "championshipVerified": true,
       "peakRating": 69.6,
       "active": false,
       "difficulty": [
@@ -5432,6 +5653,7 @@
       "hasFmvp": false,
       "championshipCount": 2,
       "totalGames": 243,
+      "championshipVerified": true,
       "peakRating": 92.4,
       "active": false,
       "difficulty": [
@@ -5457,12 +5679,13 @@
         "上海EDG.M"
       ],
       "debutYear": 2025,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 86,
+      "totalGames": 90,
+      "championshipVerified": true,
       "peakRating": 78.0,
-      "active": false,
+      "active": true,
       "difficulty": [
         "hardcore"
       ]
@@ -5492,8 +5715,9 @@
       "debutYear": 2019,
       "latestYear": 2022,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 2,
       "totalGames": 363,
+      "championshipVerified": true,
       "peakRating": 85.7,
       "active": false,
       "difficulty": [
@@ -5528,6 +5752,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 964,
+      "championshipVerified": true,
       "peakRating": 91.8,
       "active": false,
       "difficulty": [
@@ -5566,6 +5791,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 543,
+      "championshipVerified": true,
       "peakRating": 88.9,
       "active": false,
       "difficulty": [
@@ -5583,19 +5809,22 @@
       "positions": [
         "发育路"
       ],
-      "latestTeamId": "10018",
-      "latestTeamName": "济南RW侠",
+      "latestTeamId": "10010",
+      "latestTeamName": "西安WE",
       "teamHistory": [
-        "10018"
+        "10018",
+        "10010"
       ],
       "teamHistoryNames": [
-        "济南RW侠"
+        "济南RW侠",
+        "西安WE"
       ],
       "debutYear": 2024,
-      "latestYear": 2024,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 6,
+      "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 58.2,
       "active": false,
       "difficulty": [
@@ -5615,16 +5844,19 @@
       "latestTeamId": "12404",
       "latestTeamName": "ZDC",
       "teamHistory": [
+        "12205",
         "12404"
       ],
       "teamHistoryNames": [
+        "WD",
         "ZDC"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 5,
+      "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 71.6,
       "active": true,
       "difficulty": [
@@ -5654,6 +5886,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 52.0,
       "active": false,
       "difficulty": [
@@ -5683,6 +5916,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 33,
+      "championshipVerified": true,
       "peakRating": 75.6,
       "active": false,
       "difficulty": [
@@ -5712,6 +5946,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 60.9,
       "active": false,
       "difficulty": [
@@ -5741,6 +5976,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 52.0,
       "active": false,
       "difficulty": [
@@ -5772,8 +6008,9 @@
       "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 199,
+      "championshipCount": 0,
+      "totalGames": 203,
+      "championshipVerified": true,
       "peakRating": 91.3,
       "active": true,
       "difficulty": [
@@ -5805,6 +6042,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 34,
+      "championshipVerified": true,
       "peakRating": 75.9,
       "active": false,
       "difficulty": [
@@ -5824,16 +6062,19 @@
       "latestTeamId": "10034",
       "latestTeamName": "东莞Wz",
       "teamHistory": [
+        "10106",
         "10034"
       ],
       "teamHistoryNames": [
+        "无锡JXG",
         "东莞Wz"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 9,
+      "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 77.5,
       "active": false,
       "difficulty": [
@@ -5864,6 +6105,7 @@
       "hasFmvp": true,
       "championshipCount": 7,
       "totalGames": 1063,
+      "championshipVerified": true,
       "peakRating": 96.5,
       "active": false,
       "difficulty": [
@@ -5895,6 +6137,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 62,
+      "championshipVerified": true,
       "peakRating": 78.9,
       "active": false,
       "difficulty": [
@@ -5928,6 +6171,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 228,
+      "championshipVerified": true,
       "peakRating": 88.3,
       "active": false,
       "difficulty": [
@@ -5960,11 +6204,12 @@
         "济南RW侠",
         "西安WE"
       ],
-      "debutYear": 2024,
+      "debutYear": 2023,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 399,
+      "totalGames": 402,
+      "championshipVerified": true,
       "peakRating": 85.7,
       "active": true,
       "difficulty": [
@@ -5996,7 +6241,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 19,
+      "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 77.4,
       "active": false,
       "difficulty": [
@@ -6027,7 +6273,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 687,
+      "totalGames": 690,
+      "championshipVerified": true,
       "peakRating": 96.0,
       "active": false,
       "difficulty": [
@@ -6060,6 +6307,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 239,
+      "championshipVerified": true,
       "peakRating": 82.1,
       "active": true,
       "difficulty": [
@@ -6089,6 +6337,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 69.2,
       "active": false,
       "difficulty": [
@@ -6118,6 +6367,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 25,
+      "championshipVerified": true,
       "peakRating": 70.5,
       "active": false,
       "difficulty": [
@@ -6147,6 +6397,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 164,
+      "championshipVerified": true,
       "peakRating": 80.0,
       "active": true,
       "difficulty": [
@@ -6178,6 +6429,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 34,
+      "championshipVerified": true,
       "peakRating": 67.8,
       "active": false,
       "difficulty": [
@@ -6208,7 +6460,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 17,
+      "totalGames": 21,
+      "championshipVerified": true,
       "peakRating": 57.2,
       "active": false,
       "difficulty": [
@@ -6240,6 +6493,7 @@
       "hasFmvp": true,
       "championshipCount": 7,
       "totalGames": 747,
+      "championshipVerified": true,
       "peakRating": 94.7,
       "active": true,
       "difficulty": [
@@ -6270,7 +6524,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 137,
+      "totalGames": 138,
+      "championshipVerified": true,
       "peakRating": 80.4,
       "active": false,
       "difficulty": [
@@ -6300,6 +6555,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 80,
+      "championshipVerified": true,
       "peakRating": 69.8,
       "active": false,
       "difficulty": [
@@ -6329,6 +6585,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 62.9,
       "active": false,
       "difficulty": [
@@ -6363,7 +6620,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 7,
-      "totalGames": 931,
+      "totalGames": 935,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": true,
       "difficulty": [
@@ -6397,6 +6655,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 77.9,
       "active": false,
       "difficulty": [
@@ -6422,10 +6681,11 @@
         "长沙TES.A"
       ],
       "debutYear": 2023,
-      "latestYear": 2023,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 12,
+      "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 69.6,
       "active": false,
       "difficulty": [
@@ -6456,7 +6716,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 149,
+      "totalGames": 153,
+      "championshipVerified": true,
       "peakRating": 85.6,
       "active": true,
       "difficulty": [
@@ -6488,6 +6749,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 100,
+      "championshipVerified": true,
       "peakRating": 75.2,
       "active": false,
       "difficulty": [
@@ -6517,6 +6779,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 25,
+      "championshipVerified": true,
       "peakRating": 71.5,
       "active": true,
       "difficulty": [
@@ -6546,6 +6809,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 80,
+      "championshipVerified": true,
       "peakRating": 81.6,
       "active": true,
       "difficulty": [
@@ -6575,6 +6839,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 71.9,
       "active": false,
       "difficulty": [
@@ -6594,20 +6859,21 @@
       "latestTeamId": "10909",
       "latestTeamName": "梦之队Pro",
       "teamHistory": [
-        "10021",
         "10031",
+        "10021",
         "10909"
       ],
       "teamHistoryNames": [
-        "GOG",
         "杭州LGD.NBW",
+        "GOG",
         "梦之队Pro"
       ],
-      "debutYear": 2021,
+      "debutYear": 2020,
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 113,
+      "totalGames": 116,
+      "championshipVerified": true,
       "peakRating": 71.7,
       "active": false,
       "difficulty": [
@@ -6641,6 +6907,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 43,
+      "championshipVerified": true,
       "peakRating": 60.8,
       "active": false,
       "difficulty": [
@@ -6673,7 +6940,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 781,
+      "totalGames": 786,
+      "championshipVerified": true,
       "peakRating": 84.1,
       "active": false,
       "difficulty": [
@@ -6711,6 +6979,7 @@
       "hasFmvp": false,
       "championshipCount": 2,
       "totalGames": 795,
+      "championshipVerified": true,
       "peakRating": 88.5,
       "active": false,
       "difficulty": [
@@ -6741,6 +7010,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 65.0,
       "active": false,
       "difficulty": [
@@ -6760,16 +7030,19 @@
       "latestTeamId": "10016",
       "latestTeamName": "佛山DRG",
       "teamHistory": [
+        "12201",
         "10016"
       ],
       "teamHistoryNames": [
+        "OP",
         "佛山DRG"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 73,
+      "totalGames": 76,
+      "championshipVerified": true,
       "peakRating": 74.8,
       "active": true,
       "difficulty": [
@@ -6786,19 +7059,22 @@
       "positions": [
         "中路"
       ],
-      "latestTeamId": "10101",
-      "latestTeamName": "常山UUG",
+      "latestTeamId": "10007",
+      "latestTeamName": "南通Hero久竞",
       "teamHistory": [
+        "10007",
         "10101"
       ],
       "teamHistoryNames": [
+        "南通Hero久竞",
         "常山UUG"
       ],
       "debutYear": 2023,
-      "latestYear": 2023,
+      "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 10,
+      "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 64.4,
       "active": false,
       "difficulty": [
@@ -6828,6 +7104,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 57.3,
       "active": false,
       "difficulty": [
@@ -6857,6 +7134,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 65.7,
       "active": false,
       "difficulty": [
@@ -6888,6 +7166,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 161,
+      "championshipVerified": true,
       "peakRating": 76.3,
       "active": false,
       "difficulty": [
@@ -6919,6 +7198,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 88.8,
       "active": false,
       "difficulty": [
@@ -6948,6 +7228,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 71,
+      "championshipVerified": true,
       "peakRating": 66.1,
       "active": false,
       "difficulty": [
@@ -6979,6 +7260,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 110,
+      "championshipVerified": true,
       "peakRating": 70.0,
       "active": true,
       "difficulty": [
@@ -7008,6 +7290,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 67.7,
       "active": false,
       "difficulty": [
@@ -7036,7 +7319,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 11,
+      "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 72.8,
       "active": true,
       "difficulty": [
@@ -7064,10 +7348,11 @@
         "长沙TES.A"
       ],
       "debutYear": 2019,
-      "latestYear": 2019,
+      "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 86,
+      "totalGames": 90,
+      "championshipVerified": true,
       "peakRating": 68.0,
       "active": false,
       "difficulty": [
@@ -7099,6 +7384,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 158,
+      "championshipVerified": true,
       "peakRating": 81.2,
       "active": false,
       "difficulty": [
@@ -7132,6 +7418,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 1022,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": true,
       "difficulty": [
@@ -7162,6 +7449,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 66.7,
       "active": false,
       "difficulty": [
@@ -7193,6 +7481,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 502,
+      "championshipVerified": true,
       "peakRating": 85.0,
       "active": false,
       "difficulty": [
@@ -7224,7 +7513,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 82,
+      "totalGames": 83,
+      "championshipVerified": true,
       "peakRating": 79.6,
       "active": false,
       "difficulty": [
@@ -7241,21 +7531,24 @@
       "positions": [
         "游走"
       ],
-      "latestTeamId": "10028",
-      "latestTeamName": "长沙TES.A",
+      "latestTeamId": "10036",
+      "latestTeamName": "XYG",
       "teamHistory": [
         "10009",
-        "10028"
+        "10028",
+        "10036"
       ],
       "teamHistoryNames": [
         "上海RNG.M",
-        "长沙TES.A"
+        "长沙TES.A",
+        "XYG"
       ],
       "debutYear": 2023,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 116,
+      "totalGames": 123,
+      "championshipVerified": true,
       "peakRating": 81.2,
       "active": false,
       "difficulty": [
@@ -7284,11 +7577,12 @@
         "广州TTG",
         "杭州LGD.NBW"
       ],
-      "debutYear": 2023,
+      "debutYear": 2021,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 374,
+      "totalGames": 379,
+      "championshipVerified": true,
       "peakRating": 72.9,
       "active": false,
       "difficulty": [
@@ -7310,17 +7604,20 @@
       "latestTeamName": "成都AG超玩会",
       "teamHistory": [
         "10007",
-        "10027"
+        "10027",
+        "10009"
       ],
       "teamHistoryNames": [
         "南通Hero久竞",
-        "成都AG超玩会"
+        "成都AG超玩会",
+        "上海RNG.M"
       ],
       "debutYear": 2019,
       "latestYear": 2021,
       "hasFmvp": false,
-      "championshipCount": 0,
-      "totalGames": 137,
+      "championshipCount": 3,
+      "totalGames": 144,
+      "championshipVerified": true,
       "peakRating": 79.5,
       "active": false,
       "difficulty": [
@@ -7350,6 +7647,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 53.4,
       "active": false,
       "difficulty": [
@@ -7381,6 +7679,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 949,
+      "championshipVerified": true,
       "peakRating": 92.6,
       "active": false,
       "difficulty": [
@@ -7411,6 +7710,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 75,
+      "championshipVerified": true,
       "peakRating": 82.2,
       "active": true,
       "difficulty": [
@@ -7440,6 +7740,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 57.7,
       "active": false,
       "difficulty": [
@@ -7471,6 +7772,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 70.2,
       "active": false,
       "difficulty": [
@@ -7500,6 +7802,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 58.1,
       "active": false,
       "difficulty": [
@@ -7529,6 +7832,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 67.2,
       "active": false,
       "difficulty": [
@@ -7554,10 +7858,11 @@
         "上海RNG.M"
       ],
       "debutYear": 2021,
-      "latestYear": 2022,
+      "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 86,
+      "totalGames": 87,
+      "championshipVerified": true,
       "peakRating": 75.3,
       "active": false,
       "difficulty": [
@@ -7589,6 +7894,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 142,
+      "championshipVerified": true,
       "peakRating": 82.5,
       "active": false,
       "difficulty": [
@@ -7605,8 +7911,8 @@
       "positions": [
         "打野"
       ],
-      "latestTeamId": "10017",
-      "latestTeamName": "广州TTG",
+      "latestTeamId": "10007",
+      "latestTeamName": "南通Hero久竞",
       "teamHistory": [
         "10032",
         "10008",
@@ -7620,10 +7926,11 @@
         "广州TTG"
       ],
       "debutYear": 2020,
-      "latestYear": 2024,
+      "latestYear": 2025,
       "hasFmvp": true,
       "championshipCount": 1,
-      "totalGames": 568,
+      "totalGames": 571,
+      "championshipVerified": true,
       "peakRating": 98.1,
       "active": false,
       "difficulty": [
@@ -7654,6 +7961,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 41,
+      "championshipVerified": true,
       "peakRating": 72.1,
       "active": true,
       "difficulty": [
@@ -7673,16 +7981,19 @@
       "latestTeamId": "10027",
       "latestTeamName": "成都AG超玩会",
       "teamHistory": [
+        "10028",
         "10027"
       ],
       "teamHistoryNames": [
+        "长沙TES.A",
         "成都AG超玩会"
       ],
       "debutYear": 2020,
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 45,
+      "totalGames": 49,
+      "championshipVerified": true,
       "peakRating": 85.5,
       "active": false,
       "difficulty": [
@@ -7714,8 +8025,9 @@
       "debutYear": 2019,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 2,
-      "totalGames": 1275,
+      "championshipCount": 3,
+      "totalGames": 1276,
+      "championshipVerified": true,
       "peakRating": 93.4,
       "active": true,
       "difficulty": [
@@ -7747,6 +8059,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 21,
+      "championshipVerified": true,
       "peakRating": 64.8,
       "active": false,
       "difficulty": [
@@ -7777,7 +8090,8 @@
       "latestYear": 2026,
       "hasFmvp": true,
       "championshipCount": 1,
-      "totalGames": 579,
+      "totalGames": 583,
+      "championshipVerified": true,
       "peakRating": 92.8,
       "active": true,
       "difficulty": [
@@ -7808,6 +8122,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 148,
+      "championshipVerified": true,
       "peakRating": 83.5,
       "active": false,
       "difficulty": [
@@ -7836,9 +8151,10 @@
       ],
       "debutYear": 2024,
       "latestYear": 2026,
-      "hasFmvp": false,
+      "hasFmvp": true,
       "championshipCount": 1,
       "totalGames": 220,
+      "championshipVerified": true,
       "peakRating": 90.4,
       "active": true,
       "difficulty": [
@@ -7868,6 +8184,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 62,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": false,
       "difficulty": [
@@ -7903,6 +8220,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 274,
+      "championshipVerified": true,
       "peakRating": 75.8,
       "active": true,
       "difficulty": [
@@ -7933,6 +8251,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 67.4,
       "active": false,
       "difficulty": [
@@ -7962,6 +8281,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 338,
+      "championshipVerified": true,
       "peakRating": 84.0,
       "active": false,
       "difficulty": [
@@ -7995,7 +8315,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 374,
+      "totalGames": 376,
+      "championshipVerified": true,
       "peakRating": 84.2,
       "active": false,
       "difficulty": [
@@ -8030,6 +8351,7 @@
       "hasFmvp": true,
       "championshipCount": 8,
       "totalGames": 1233,
+      "championshipVerified": true,
       "peakRating": 97.5,
       "active": true,
       "difficulty": [
@@ -8063,6 +8385,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 102,
+      "championshipVerified": true,
       "peakRating": 67.4,
       "active": false,
       "difficulty": [
@@ -8092,6 +8415,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 57.2,
       "active": false,
       "difficulty": [
@@ -8122,7 +8446,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 216,
+      "totalGames": 220,
+      "championshipVerified": true,
       "peakRating": 86.0,
       "active": true,
       "difficulty": [
@@ -8154,6 +8479,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 453,
+      "championshipVerified": true,
       "peakRating": 88.5,
       "active": true,
       "difficulty": [
@@ -8183,7 +8509,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 35,
+      "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 62.2,
       "active": false,
       "difficulty": [
@@ -8213,6 +8540,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 77.5,
       "active": false,
       "difficulty": [
@@ -8242,6 +8570,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 179,
+      "championshipVerified": true,
       "peakRating": 85.5,
       "active": false,
       "difficulty": [
@@ -8271,6 +8600,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 68,
+      "championshipVerified": true,
       "peakRating": 66.9,
       "active": true,
       "difficulty": [
@@ -8300,6 +8630,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 69.4,
       "active": true,
       "difficulty": [
@@ -8331,6 +8662,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 192,
+      "championshipVerified": true,
       "peakRating": 75.6,
       "active": false,
       "difficulty": [
@@ -8360,6 +8692,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 66.0,
       "active": false,
       "difficulty": [
@@ -8389,6 +8722,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 70.0,
       "active": false,
       "difficulty": [
@@ -8418,8 +8752,9 @@
       "debutYear": 2022,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 64.1,
       "active": false,
       "difficulty": [
@@ -8449,6 +8784,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 68.6,
       "active": true,
       "difficulty": [
@@ -8478,6 +8814,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 1060,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": true,
       "difficulty": [
@@ -8508,6 +8845,7 @@
       "hasFmvp": false,
       "championshipCount": 7,
       "totalGames": 643,
+      "championshipVerified": true,
       "peakRating": 88.5,
       "active": true,
       "difficulty": [
@@ -8543,8 +8881,9 @@
       "debutYear": 2018,
       "latestYear": 2025,
       "hasFmvp": false,
-      "championshipCount": 2,
+      "championshipCount": 1,
       "totalGames": 957,
+      "championshipVerified": true,
       "peakRating": 89.5,
       "active": false,
       "difficulty": [
@@ -8578,6 +8917,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 50,
+      "championshipVerified": true,
       "peakRating": 69.4,
       "active": false,
       "difficulty": [
@@ -8614,7 +8954,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 329,
+      "totalGames": 331,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": true,
       "difficulty": [
@@ -8645,6 +8986,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 62.2,
       "active": false,
       "difficulty": [
@@ -8674,6 +9016,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 323,
+      "championshipVerified": true,
       "peakRating": 91.8,
       "active": false,
       "difficulty": [
@@ -8704,6 +9047,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 57.8,
       "active": false,
       "difficulty": [
@@ -8735,6 +9079,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 72,
+      "championshipVerified": true,
       "peakRating": 78.0,
       "active": true,
       "difficulty": [
@@ -8764,6 +9109,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 67.0,
       "active": false,
       "difficulty": [
@@ -8783,16 +9129,19 @@
       "latestTeamId": "10031",
       "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
+        "12205",
         "10031"
       ],
       "teamHistoryNames": [
+        "WD",
         "杭州LGD.NBW"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 158,
+      "totalGames": 162,
+      "championshipVerified": true,
       "peakRating": 76.5,
       "active": true,
       "difficulty": [
@@ -8822,6 +9171,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 260,
+      "championshipVerified": true,
       "peakRating": 76.5,
       "active": false,
       "difficulty": [
@@ -8853,6 +9203,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 263,
+      "championshipVerified": true,
       "peakRating": 82.0,
       "active": true,
       "difficulty": [
@@ -8891,6 +9242,7 @@
       "hasFmvp": true,
       "championshipCount": 3,
       "totalGames": 406,
+      "championshipVerified": true,
       "peakRating": 96.5,
       "active": false,
       "difficulty": [
@@ -8924,6 +9276,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 44,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": false,
       "difficulty": [
@@ -8944,17 +9297,20 @@
       "latestTeamName": "长沙TES.A",
       "teamHistory": [
         "10002",
+        "10009",
         "10028"
       ],
       "teamHistoryNames": [
         "上海EDG.M",
+        "上海RNG.M",
         "长沙TES.A"
       ],
       "debutYear": 2019,
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 161,
+      "totalGames": 162,
+      "championshipVerified": true,
       "peakRating": 80.2,
       "active": false,
       "difficulty": [
@@ -8986,6 +9342,7 @@
       "hasFmvp": true,
       "championshipCount": 7,
       "totalGames": 1241,
+      "championshipVerified": true,
       "peakRating": 94.5,
       "active": true,
       "difficulty": [
@@ -9017,6 +9374,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 52.6,
       "active": false,
       "difficulty": [
@@ -9046,6 +9404,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 91,
+      "championshipVerified": true,
       "peakRating": 88.2,
       "active": false,
       "difficulty": [
@@ -9073,8 +9432,9 @@
       "debutYear": 2022,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 1,
       "totalGames": 177,
+      "championshipVerified": true,
       "peakRating": 82.8,
       "active": false,
       "difficulty": [
@@ -9094,16 +9454,19 @@
       "latestTeamId": "10005",
       "latestTeamName": "KSG",
       "teamHistory": [
+        "10106",
         "10005"
       ],
       "teamHistoryNames": [
+        "无锡JXG",
         "KSG"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 36,
+      "totalGames": 40,
+      "championshipVerified": true,
       "peakRating": 71.1,
       "active": false,
       "difficulty": [
@@ -9133,6 +9496,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 59.6,
       "active": false,
       "difficulty": [
@@ -9162,6 +9526,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 57.5,
       "active": false,
       "difficulty": [
@@ -9193,6 +9558,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 21,
+      "championshipVerified": true,
       "peakRating": 65.6,
       "active": false,
       "difficulty": [
@@ -9222,6 +9588,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 76.5,
       "active": false,
       "difficulty": [
@@ -9251,6 +9618,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 69.7,
       "active": false,
       "difficulty": [
@@ -9276,10 +9644,11 @@
         "济南RW侠"
       ],
       "debutYear": 2019,
-      "latestYear": 2019,
+      "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 47,
+      "totalGames": 48,
+      "championshipVerified": true,
       "peakRating": 71.8,
       "active": false,
       "difficulty": [
@@ -9310,7 +9679,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 157,
+      "totalGames": 161,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": true,
       "difficulty": [
@@ -9344,6 +9714,7 @@
       "hasFmvp": true,
       "championshipCount": 5,
       "totalGames": 894,
+      "championshipVerified": true,
       "peakRating": 94.5,
       "active": true,
       "difficulty": [
@@ -9377,6 +9748,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 217,
+      "championshipVerified": true,
       "peakRating": 84.3,
       "active": false,
       "difficulty": [
@@ -9410,6 +9782,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 275,
+      "championshipVerified": true,
       "peakRating": 71.9,
       "active": true,
       "difficulty": [
@@ -9441,6 +9814,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 48,
+      "championshipVerified": true,
       "peakRating": 68.3,
       "active": false,
       "difficulty": [
@@ -9470,6 +9844,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 66.2,
       "active": false,
       "difficulty": [
@@ -9499,6 +9874,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 74.0,
       "active": false,
       "difficulty": [
@@ -9530,6 +9906,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 66.1,
       "active": false,
       "difficulty": [
@@ -9559,6 +9936,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 14,
+      "championshipVerified": true,
       "peakRating": 56.7,
       "active": false,
       "difficulty": [
@@ -9593,7 +9971,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 233,
+      "totalGames": 236,
+      "championshipVerified": true,
       "peakRating": 85.1,
       "active": false,
       "difficulty": [
@@ -9623,6 +10002,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 59.8,
       "active": false,
       "difficulty": [
@@ -9652,6 +10032,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 249,
+      "championshipVerified": true,
       "peakRating": 76.9,
       "active": false,
       "difficulty": [
@@ -9685,6 +10066,7 @@
       "hasFmvp": false,
       "championshipCount": 5,
       "totalGames": 974,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": true,
       "difficulty": [
@@ -9716,6 +10098,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 68.5,
       "active": false,
       "difficulty": [
@@ -9749,6 +10132,7 @@
       "hasFmvp": false,
       "championshipCount": 2,
       "totalGames": 496,
+      "championshipVerified": true,
       "peakRating": 92.8,
       "active": false,
       "difficulty": [
@@ -9779,6 +10163,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": false,
       "difficulty": [
@@ -9809,7 +10194,8 @@
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 68,
+      "totalGames": 71,
+      "championshipVerified": true,
       "peakRating": 72.3,
       "active": false,
       "difficulty": [
@@ -9841,6 +10227,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 72,
+      "championshipVerified": true,
       "peakRating": 73.8,
       "active": false,
       "difficulty": [
@@ -9870,6 +10257,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 74.0,
       "active": false,
       "difficulty": [
@@ -9889,16 +10277,19 @@
       "latestTeamId": "10010",
       "latestTeamName": "西安WE",
       "teamHistory": [
+        "10002",
         "10010"
       ],
       "teamHistoryNames": [
+        "上海EDG.M",
         "西安WE"
       ],
-      "debutYear": 2025,
+      "debutYear": 2023,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 7,
+      "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 54.3,
       "active": false,
       "difficulty": [
@@ -9931,7 +10322,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 285,
+      "totalGames": 289,
+      "championshipVerified": true,
       "peakRating": 87.7,
       "active": true,
       "difficulty": [
@@ -9963,8 +10355,9 @@
       "debutYear": 2021,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 3,
-      "totalGames": 507,
+      "championshipCount": 2,
+      "totalGames": 513,
+      "championshipVerified": true,
       "peakRating": 90.9,
       "active": true,
       "difficulty": [
@@ -9997,6 +10390,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 50,
+      "championshipVerified": true,
       "peakRating": 77.0,
       "active": false,
       "difficulty": [
@@ -10029,10 +10423,11 @@
         "杭州LGD.NBW"
       ],
       "debutYear": 2016,
-      "latestYear": 2024,
+      "latestYear": 2025,
       "hasFmvp": true,
       "championshipCount": 7,
-      "totalGames": 582,
+      "totalGames": 584,
+      "championshipVerified": false,
       "peakRating": 88.5,
       "active": false,
       "difficulty": [
@@ -10064,6 +10459,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 56.1,
       "active": false,
       "difficulty": [
@@ -10093,6 +10489,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 70.1,
       "active": true,
       "difficulty": [
@@ -10122,6 +10519,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 77.7,
       "active": false,
       "difficulty": [
@@ -10150,7 +10548,8 @@
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 74,
+      "totalGames": 75,
+      "championshipVerified": true,
       "peakRating": 75.9,
       "active": false,
       "difficulty": [
@@ -10180,6 +10579,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 56.5,
       "active": false,
       "difficulty": [
@@ -10213,8 +10613,9 @@
       "debutYear": 2022,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 4,
-      "totalGames": 775,
+      "championshipCount": 3,
+      "totalGames": 782,
+      "championshipVerified": true,
       "peakRating": 90.6,
       "active": true,
       "difficulty": [
@@ -10248,8 +10649,9 @@
       "debutYear": 2019,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 2,
-      "totalGames": 243,
+      "championshipCount": 1,
+      "totalGames": 245,
+      "championshipVerified": true,
       "peakRating": 79.1,
       "active": false,
       "difficulty": [
@@ -10269,20 +10671,25 @@
       "latestTeamId": "10018",
       "latestTeamName": "济南RW侠",
       "teamHistory": [
+        "10038",
         "10302",
+        "10020",
         "10003",
         "10018"
       ],
       "teamHistoryNames": [
+        "昆山SC",
         "BOA",
+        "北京JDG",
         "北京WB",
         "济南RW侠"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 424,
+      "totalGames": 431,
+      "championshipVerified": true,
       "peakRating": 88.9,
       "active": true,
       "difficulty": [
@@ -10315,6 +10722,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 1096,
+      "championshipVerified": true,
       "peakRating": 88.0,
       "active": true,
       "difficulty": [
@@ -10346,6 +10754,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 53.8,
       "active": false,
       "difficulty": [
@@ -10377,6 +10786,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 183,
+      "championshipVerified": true,
       "peakRating": 72.0,
       "active": false,
       "difficulty": [
@@ -10406,6 +10816,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 61.0,
       "active": false,
       "difficulty": [
@@ -10435,6 +10846,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 79.9,
       "active": false,
       "difficulty": [
@@ -10467,7 +10879,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 173,
+      "totalGames": 180,
+      "championshipVerified": true,
       "peakRating": 87.1,
       "active": false,
       "difficulty": [
@@ -10497,6 +10910,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 65.8,
       "active": false,
       "difficulty": [
@@ -10525,7 +10939,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 420,
+      "totalGames": 422,
+      "championshipVerified": true,
       "peakRating": 83.9,
       "active": false,
       "difficulty": [
@@ -10558,6 +10973,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 44,
+      "championshipVerified": true,
       "peakRating": 63.4,
       "active": false,
       "difficulty": [
@@ -10587,8 +11003,9 @@
       "debutYear": 2019,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 3,
       "totalGames": 593,
+      "championshipVerified": true,
       "peakRating": 86.8,
       "active": false,
       "difficulty": [
@@ -10619,6 +11036,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 139,
+      "championshipVerified": true,
       "peakRating": 86.7,
       "active": true,
       "difficulty": [
@@ -10652,8 +11070,9 @@
       "debutYear": 2023,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 2,
+      "championshipCount": 1,
       "totalGames": 558,
+      "championshipVerified": true,
       "peakRating": 83.2,
       "active": true,
       "difficulty": [
@@ -10671,19 +11090,22 @@
       "positions": [
         "对抗路"
       ],
-      "latestTeamId": "10405",
-      "latestTeamName": "虎牙小当家",
+      "latestTeamId": "10036",
+      "latestTeamName": "XYG",
       "teamHistory": [
-        "10405"
+        "10405",
+        "10036"
       ],
       "teamHistoryNames": [
-        "虎牙小当家"
+        "虎牙小当家",
+        "XYG"
       ],
       "debutYear": 2023,
-      "latestYear": 2023,
+      "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 16,
+      "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 72.5,
       "active": false,
       "difficulty": [
@@ -10713,6 +11135,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 200,
+      "championshipVerified": true,
       "peakRating": 80.2,
       "active": false,
       "difficulty": [
@@ -10742,6 +11165,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 60.6,
       "active": false,
       "difficulty": [
@@ -10761,16 +11185,19 @@
       "latestTeamId": "10010",
       "latestTeamName": "西安WE",
       "teamHistory": [
+        "10018",
         "10010"
       ],
       "teamHistoryNames": [
+        "济南RW侠",
         "西安WE"
       ],
-      "debutYear": 2025,
+      "debutYear": 2023,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 16,
+      "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 58.0,
       "active": false,
       "difficulty": [
@@ -10806,6 +11233,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 233,
+      "championshipVerified": true,
       "peakRating": 75.5,
       "active": false,
       "difficulty": [
@@ -10835,6 +11263,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 364,
+      "championshipVerified": true,
       "peakRating": 89.8,
       "active": true,
       "difficulty": [
@@ -10864,6 +11293,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 264,
+      "championshipVerified": true,
       "peakRating": 76.1,
       "active": false,
       "difficulty": [
@@ -10893,6 +11323,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 26,
+      "championshipVerified": true,
       "peakRating": 71.5,
       "active": false,
       "difficulty": [
@@ -10922,6 +11353,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 70.3,
       "active": false,
       "difficulty": [
@@ -10953,6 +11385,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 118,
+      "championshipVerified": true,
       "peakRating": 90.8,
       "active": false,
       "difficulty": [
@@ -10973,11 +11406,13 @@
       "latestTeamName": "上海RNG.M",
       "teamHistory": [
         "10017",
+        "10010",
         "10009",
         "12202"
       ],
       "teamHistoryNames": [
         "广州TTG",
+        "西安WE",
         "上海RNG.M",
         "SYG"
       ],
@@ -10985,7 +11420,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 51,
+      "totalGames": 55,
+      "championshipVerified": true,
       "peakRating": 80.3,
       "active": true,
       "difficulty": [
@@ -11015,6 +11451,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 232,
+      "championshipVerified": true,
       "peakRating": 84.8,
       "active": false,
       "difficulty": [
@@ -11043,7 +11480,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 49,
+      "totalGames": 52,
+      "championshipVerified": true,
       "peakRating": 60.4,
       "active": false,
       "difficulty": [
@@ -11068,11 +11506,12 @@
       "teamHistoryNames": [
         "KSG"
       ],
-      "debutYear": 2020,
+      "debutYear": 2019,
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 39,
+      "totalGames": 43,
+      "championshipVerified": true,
       "peakRating": 68.3,
       "active": false,
       "difficulty": [
@@ -11103,7 +11542,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 203,
+      "totalGames": 204,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": false,
       "difficulty": [
@@ -11133,6 +11573,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 11,
+      "championshipVerified": true,
       "peakRating": 63.9,
       "active": true,
       "difficulty": [
@@ -11164,6 +11605,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 34,
+      "championshipVerified": true,
       "peakRating": 64.0,
       "active": false,
       "difficulty": [
@@ -11193,6 +11635,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 62,
+      "championshipVerified": true,
       "peakRating": 77.0,
       "active": false,
       "difficulty": [
@@ -11222,6 +11665,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 66.4,
       "active": false,
       "difficulty": [
@@ -11252,7 +11696,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 158,
+      "totalGames": 159,
+      "championshipVerified": true,
       "peakRating": 92.5,
       "active": false,
       "difficulty": [
@@ -11272,10 +11717,12 @@
       "latestTeamId": "10028",
       "latestTeamName": "长沙TES.A",
       "teamHistory": [
+        "10002",
         "10034",
         "10028"
       ],
       "teamHistoryNames": [
+        "上海EDG.M",
         "东莞Wz",
         "长沙TES.A"
       ],
@@ -11283,7 +11730,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 79,
+      "totalGames": 80,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": false,
       "difficulty": [
@@ -11315,6 +11763,7 @@
       "hasFmvp": true,
       "championshipCount": 7,
       "totalGames": 674,
+      "championshipVerified": true,
       "peakRating": 95.5,
       "active": true,
       "difficulty": [
@@ -11341,11 +11790,12 @@
       "teamHistoryNames": [
         "南通Hero久竞"
       ],
-      "debutYear": 2024,
+      "debutYear": 2023,
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 5,
+      "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 58.5,
       "active": false,
       "difficulty": [
@@ -11375,6 +11825,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 61,
+      "championshipVerified": true,
       "peakRating": 72.6,
       "active": true,
       "difficulty": [
@@ -11402,8 +11853,9 @@
       "debutYear": 2019,
       "latestYear": 2020,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 194,
+      "championshipVerified": true,
       "peakRating": 92.0,
       "active": false,
       "difficulty": [
@@ -11423,16 +11875,19 @@
       "latestTeamId": "10302",
       "latestTeamName": "BOA",
       "teamHistory": [
+        "10038",
         "10302"
       ],
       "teamHistoryNames": [
+        "昆山SC",
         "BOA"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 95,
+      "totalGames": 96,
+      "championshipVerified": true,
       "peakRating": 65.8,
       "active": false,
       "difficulty": [
@@ -11462,6 +11917,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 213,
+      "championshipVerified": true,
       "peakRating": 81.2,
       "active": false,
       "difficulty": [
@@ -11491,6 +11947,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 103,
+      "championshipVerified": true,
       "peakRating": 88.2,
       "active": true,
       "difficulty": [
@@ -11507,27 +11964,30 @@
       "positions": [
         "游走"
       ],
-      "latestTeamId": "10028",
-      "latestTeamName": "长沙TES.A",
+      "latestTeamId": "10031",
+      "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
         "10017",
         "10028",
         "10102",
-        "10010"
+        "10010",
+        "10031"
       ],
       "teamHistoryNames": [
         "广州TTG",
         "长沙TES.A",
         "MD",
-        "西安WE"
+        "西安WE",
+        "杭州LGD.NBW"
       ],
       "debutYear": 2019,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 928,
+      "totalGames": 929,
+      "championshipVerified": true,
       "peakRating": 89.1,
-      "active": false,
+      "active": true,
       "difficulty": [
         "normal",
         "hardcore"
@@ -11556,6 +12016,7 @@
       "hasFmvp": true,
       "championshipCount": 3,
       "totalGames": 1267,
+      "championshipVerified": true,
       "peakRating": 92.0,
       "active": true,
       "difficulty": [
@@ -11587,8 +12048,9 @@
       "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 2,
-      "totalGames": 214,
+      "championshipCount": 1,
+      "totalGames": 218,
+      "championshipVerified": true,
       "peakRating": 81.9,
       "active": true,
       "difficulty": [
@@ -11618,6 +12080,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 285,
+      "championshipVerified": true,
       "peakRating": 91.0,
       "active": true,
       "difficulty": [
@@ -11647,6 +12110,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 63.1,
       "active": false,
       "difficulty": [
@@ -11676,6 +12140,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 49,
+      "championshipVerified": true,
       "peakRating": 71.8,
       "active": false,
       "difficulty": [
@@ -11703,8 +12168,9 @@
       "debutYear": 2019,
       "latestYear": 2019,
       "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 21,
+      "championshipCount": 0,
+      "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 67.9,
       "active": false,
       "difficulty": [
@@ -11740,6 +12206,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 350,
+      "championshipVerified": true,
       "peakRating": 79.6,
       "active": true,
       "difficulty": [
@@ -11774,6 +12241,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 1077,
+      "championshipVerified": true,
       "peakRating": 87.5,
       "active": true,
       "difficulty": [
@@ -11795,16 +12263,19 @@
       "latestTeamId": "10001",
       "latestTeamName": "重庆狼队",
       "teamHistory": [
-        "10001"
+        "10001",
+        "10106"
       ],
       "teamHistoryNames": [
-        "重庆狼队"
+        "重庆狼队",
+        "无锡JXG"
       ],
       "debutYear": 2019,
-      "latestYear": 2020,
+      "latestYear": 2023,
       "hasFmvp": false,
-      "championshipCount": 0,
-      "totalGames": 241,
+      "championshipCount": 4,
+      "totalGames": 247,
+      "championshipVerified": true,
       "peakRating": 92.2,
       "active": false,
       "difficulty": [
@@ -11838,6 +12309,7 @@
       "hasFmvp": true,
       "championshipCount": 7,
       "totalGames": 1185,
+      "championshipVerified": true,
       "peakRating": 94.5,
       "active": true,
       "difficulty": [
@@ -11871,6 +12343,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 482,
+      "championshipVerified": true,
       "peakRating": 70.3,
       "active": true,
       "difficulty": [
@@ -11901,6 +12374,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 170,
+      "championshipVerified": true,
       "peakRating": 82.1,
       "active": false,
       "difficulty": [
@@ -11931,7 +12405,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 575,
+      "totalGames": 583,
+      "championshipVerified": true,
       "peakRating": 83.0,
       "active": true,
       "difficulty": [
@@ -11949,27 +12424,30 @@
       "positions": [
         "中路"
       ],
-      "latestTeamId": "10016",
-      "latestTeamName": "佛山DRG",
+      "latestTeamId": "12411",
+      "latestTeamName": "WG",
       "teamHistory": [
         "10031",
         "10010",
         "10020",
-        "10016"
+        "10016",
+        "12411"
       ],
       "teamHistoryNames": [
         "杭州LGD.NBW",
         "西安WE",
         "北京JDG",
-        "佛山DRG"
+        "佛山DRG",
+        "WG"
       ],
       "debutYear": 2022,
-      "latestYear": 2025,
+      "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 479,
+      "totalGames": 483,
+      "championshipVerified": true,
       "peakRating": 79.4,
-      "active": false,
+      "active": true,
       "difficulty": [
         "normal",
         "hardcore"
@@ -11996,10 +12474,11 @@
         "济南RW侠"
       ],
       "debutYear": 2019,
-      "latestYear": 2022,
+      "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 2,
-      "totalGames": 519,
+      "totalGames": 521,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": false,
       "difficulty": [
@@ -12030,6 +12509,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 52.7,
       "active": false,
       "difficulty": [
@@ -12063,6 +12543,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 136,
+      "championshipVerified": true,
       "peakRating": 83.8,
       "active": true,
       "difficulty": [
@@ -12090,8 +12571,9 @@
       "debutYear": 2024,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 69.1,
       "active": false,
       "difficulty": [
@@ -12123,39 +12605,11 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 313,
+      "championshipVerified": true,
       "peakRating": 82.6,
       "active": true,
       "difficulty": [
         "normal",
-        "hardcore"
-      ]
-    },
-    {
-      "id": "BTL1dao",
-      "nickname": "1dao",
-      "aliases": [
-        "1dao"
-      ],
-      "iconUrl": "/assets/player-icons/e1621e26159cc7cb08a5.webp",
-      "positions": [
-        "发育路"
-      ],
-      "latestTeamId": "10001",
-      "latestTeamName": "重庆狼队",
-      "teamHistory": [
-        "10001"
-      ],
-      "teamHistoryNames": [
-        "重庆狼队"
-      ],
-      "debutYear": 2019,
-      "latestYear": 2019,
-      "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 38,
-      "peakRating": 85.7,
-      "active": false,
-      "difficulty": [
         "hardcore"
       ]
     },
@@ -12184,6 +12638,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 137,
+      "championshipVerified": true,
       "peakRating": 85.6,
       "active": false,
       "difficulty": [
@@ -12213,6 +12668,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 66,
+      "championshipVerified": true,
       "peakRating": 86.7,
       "active": false,
       "difficulty": [
@@ -12242,6 +12698,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 84.1,
       "active": false,
       "difficulty": [
@@ -12271,6 +12728,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 66.3,
       "active": false,
       "difficulty": [
@@ -12300,6 +12758,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 58.3,
       "active": false,
       "difficulty": [
@@ -12329,6 +12788,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 60.9,
       "active": false,
       "difficulty": [
@@ -12358,6 +12818,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 82.8,
       "active": false,
       "difficulty": [
@@ -12387,36 +12848,8 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 69.1,
-      "active": false,
-      "difficulty": [
-        "hardcore"
-      ]
-    },
-    {
-      "id": "BTLD e",
-      "nickname": "D e",
-      "aliases": [
-        "de"
-      ],
-      "iconUrl": "/assets/player-icons/c7fb1577768efe25d427.webp",
-      "positions": [
-        "游走"
-      ],
-      "latestTeamId": "10027",
-      "latestTeamName": "成都AG超玩会",
-      "teamHistory": [
-        "10027"
-      ],
-      "teamHistoryNames": [
-        "成都AG超玩会"
-      ],
-      "debutYear": 2019,
-      "latestYear": 2019,
-      "hasFmvp": false,
-      "championshipCount": 1,
-      "totalGames": 12,
-      "peakRating": 84.7,
       "active": false,
       "difficulty": [
         "hardcore"
@@ -12445,6 +12878,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 73.7,
       "active": false,
       "difficulty": [
@@ -12474,6 +12908,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 79.2,
       "active": false,
       "difficulty": [
@@ -12503,6 +12938,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 69.5,
       "active": false,
       "difficulty": [
@@ -12532,6 +12968,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 66.5,
       "active": false,
       "difficulty": [
@@ -12561,6 +12998,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 68.2,
       "active": false,
       "difficulty": [
@@ -12590,6 +13028,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 58.9,
       "active": false,
       "difficulty": [
@@ -12619,6 +13058,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 71.1,
       "active": false,
       "difficulty": [
@@ -12648,6 +13088,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 65.5,
       "active": false,
       "difficulty": [
@@ -12677,6 +13118,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 68.6,
       "active": false,
       "difficulty": [
@@ -12706,6 +13148,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 65.7,
       "active": false,
       "difficulty": [
@@ -12735,6 +13178,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 178,
+      "championshipVerified": true,
       "peakRating": 91.6,
       "active": false,
       "difficulty": [
@@ -12764,6 +13208,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 72.1,
       "active": false,
       "difficulty": [
@@ -12793,6 +13238,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 24,
+      "championshipVerified": true,
       "peakRating": 80.4,
       "active": false,
       "difficulty": [
@@ -12822,6 +13268,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 88,
+      "championshipVerified": true,
       "peakRating": 64.0,
       "active": false,
       "difficulty": [
@@ -12851,6 +13298,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 38,
+      "championshipVerified": true,
       "peakRating": 63.6,
       "active": false,
       "difficulty": [
@@ -12880,6 +13328,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 76.1,
       "active": false,
       "difficulty": [
@@ -12909,6 +13358,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 66.1,
       "active": false,
       "difficulty": [
@@ -12938,6 +13388,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 24,
+      "championshipVerified": true,
       "peakRating": 78.9,
       "active": false,
       "difficulty": [
@@ -12967,6 +13418,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 70.5,
       "active": false,
       "difficulty": [
@@ -12994,8 +13446,9 @@
       "debutYear": 2019,
       "latestYear": 2019,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 1,
       "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 78.5,
       "active": false,
       "difficulty": [
@@ -13025,6 +13478,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 19,
+      "championshipVerified": true,
       "peakRating": 76.4,
       "active": false,
       "difficulty": [
@@ -13054,6 +13508,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 73.3,
       "active": false,
       "difficulty": [
@@ -13083,6 +13538,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 67.2,
       "active": false,
       "difficulty": [
@@ -13112,6 +13568,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 69.6,
       "active": false,
       "difficulty": [
@@ -13143,6 +13600,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 46,
+      "championshipVerified": true,
       "peakRating": 73.1,
       "active": false,
       "difficulty": [
@@ -13172,6 +13630,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 42,
+      "championshipVerified": true,
       "peakRating": 66.9,
       "active": false,
       "difficulty": [
@@ -13201,6 +13660,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 14,
+      "championshipVerified": true,
       "peakRating": 69.2,
       "active": false,
       "difficulty": [
@@ -13230,6 +13690,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 41,
+      "championshipVerified": true,
       "peakRating": 69.3,
       "active": false,
       "difficulty": [
@@ -13259,6 +13720,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 54,
+      "championshipVerified": true,
       "peakRating": 83.2,
       "active": false,
       "difficulty": [
@@ -13288,6 +13750,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 49,
+      "championshipVerified": true,
       "peakRating": 69.9,
       "active": false,
       "difficulty": [
@@ -13317,6 +13780,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 58.8,
       "active": false,
       "difficulty": [
@@ -13346,6 +13810,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 221,
+      "championshipVerified": true,
       "peakRating": 72.6,
       "active": false,
       "difficulty": [
@@ -13375,6 +13840,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 60,
+      "championshipVerified": true,
       "peakRating": 71.3,
       "active": false,
       "difficulty": [
@@ -13404,6 +13870,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 36,
+      "championshipVerified": true,
       "peakRating": 84.3,
       "active": false,
       "difficulty": [
@@ -13435,6 +13902,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 86,
+      "championshipVerified": true,
       "peakRating": 69.4,
       "active": false,
       "difficulty": [
@@ -13464,6 +13932,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 21,
+      "championshipVerified": true,
       "peakRating": 69.7,
       "active": false,
       "difficulty": [
@@ -13493,6 +13962,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 59.5,
       "active": false,
       "difficulty": [
@@ -13522,6 +13992,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 29,
+      "championshipVerified": true,
       "peakRating": 64.0,
       "active": false,
       "difficulty": [
@@ -13551,6 +14022,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 53,
+      "championshipVerified": true,
       "peakRating": 62.8,
       "active": false,
       "difficulty": [
@@ -13578,8 +14050,9 @@
       "debutYear": 2019,
       "latestYear": 2019,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 62.1,
       "active": false,
       "difficulty": [
@@ -13609,6 +14082,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 67,
+      "championshipVerified": true,
       "peakRating": 78.0,
       "active": false,
       "difficulty": [
@@ -13640,6 +14114,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 104,
+      "championshipVerified": true,
       "peakRating": 76.0,
       "active": false,
       "difficulty": [
@@ -13669,6 +14144,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 72,
+      "championshipVerified": true,
       "peakRating": 69.1,
       "active": false,
       "difficulty": [
@@ -13700,6 +14176,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 47,
+      "championshipVerified": true,
       "peakRating": 76.6,
       "active": false,
       "difficulty": [
@@ -13729,6 +14206,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 39,
+      "championshipVerified": true,
       "peakRating": 69.8,
       "active": false,
       "difficulty": [
@@ -13756,8 +14234,9 @@
       "debutYear": 2019,
       "latestYear": 2019,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 1,
       "totalGames": 92,
+      "championshipVerified": true,
       "peakRating": 65.6,
       "active": false,
       "difficulty": [
@@ -13787,6 +14266,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 140,
+      "championshipVerified": true,
       "peakRating": 80.5,
       "active": false,
       "difficulty": [
@@ -13816,6 +14296,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 17,
+      "championshipVerified": true,
       "peakRating": 61.1,
       "active": false,
       "difficulty": [
@@ -13847,6 +14328,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 42,
+      "championshipVerified": true,
       "peakRating": 67.3,
       "active": false,
       "difficulty": [
@@ -13876,6 +14358,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 59.3,
       "active": false,
       "difficulty": [
@@ -13905,6 +14388,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 64.4,
       "active": false,
       "difficulty": [
@@ -13934,6 +14418,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 71.3,
       "active": false,
       "difficulty": [
@@ -13963,6 +14448,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 62.2,
       "active": false,
       "difficulty": [
@@ -13992,6 +14478,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 47,
+      "championshipVerified": true,
       "peakRating": 65.2,
       "active": false,
       "difficulty": [
@@ -14021,6 +14508,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 62,
+      "championshipVerified": true,
       "peakRating": 63.7,
       "active": false,
       "difficulty": [
@@ -14050,6 +14538,7 @@
       "hasFmvp": true,
       "championshipCount": 1,
       "totalGames": 90,
+      "championshipVerified": true,
       "peakRating": 90.5,
       "active": false,
       "difficulty": [
@@ -14081,6 +14570,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 68.9,
       "active": false,
       "difficulty": [
@@ -14112,6 +14602,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 143,
+      "championshipVerified": true,
       "peakRating": 83.3,
       "active": false,
       "difficulty": [
@@ -14141,6 +14632,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 37,
+      "championshipVerified": true,
       "peakRating": 73.0,
       "active": false,
       "difficulty": [
@@ -14170,6 +14662,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 11,
+      "championshipVerified": true,
       "peakRating": 61.1,
       "active": false,
       "difficulty": [
@@ -14199,6 +14692,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 104,
+      "championshipVerified": true,
       "peakRating": 73.5,
       "active": false,
       "difficulty": [
@@ -14228,6 +14722,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 57,
+      "championshipVerified": true,
       "peakRating": 76.3,
       "active": false,
       "difficulty": [
@@ -14259,6 +14754,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 46,
+      "championshipVerified": true,
       "peakRating": 81.8,
       "active": false,
       "difficulty": [
@@ -14288,6 +14784,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 28,
+      "championshipVerified": true,
       "peakRating": 61.1,
       "active": false,
       "difficulty": [
@@ -14317,6 +14814,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 24,
+      "championshipVerified": true,
       "peakRating": 76.4,
       "active": false,
       "difficulty": [
@@ -14346,6 +14844,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 72,
+      "championshipVerified": true,
       "peakRating": 69.9,
       "active": false,
       "difficulty": [
@@ -14365,18 +14864,21 @@
       "latestTeamId": "10028",
       "latestTeamName": "长沙TES.A",
       "teamHistory": [
+        "10018",
         "10017",
         "10028"
       ],
       "teamHistoryNames": [
+        "济南RW侠",
         "广州TTG",
         "长沙TES.A"
       ],
-      "debutYear": 2021,
-      "latestYear": 2024,
+      "debutYear": 2020,
+      "latestYear": 2025,
       "hasFmvp": true,
       "championshipCount": 1,
-      "totalGames": 657,
+      "totalGames": 663,
+      "championshipVerified": true,
       "peakRating": 89.7,
       "active": false,
       "difficulty": [
@@ -14407,6 +14909,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 11,
+      "championshipVerified": true,
       "peakRating": 62.4,
       "active": false,
       "difficulty": [
@@ -14438,6 +14941,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 353,
+      "championshipVerified": true,
       "peakRating": 73.0,
       "active": false,
       "difficulty": [
@@ -14468,6 +14972,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 54.0,
       "active": true,
       "difficulty": [
@@ -14503,6 +15008,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 175,
+      "championshipVerified": true,
       "peakRating": 76.6,
       "active": false,
       "difficulty": [
@@ -14523,17 +15029,20 @@
       "latestTeamName": "WST",
       "teamHistory": [
         "10006",
+        "10018",
         "10910"
       ],
       "teamHistoryNames": [
         "武汉eStarPro",
+        "济南RW侠",
         "WST"
       ],
       "debutYear": 2024,
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 11,
+      "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 53.0,
       "active": false,
       "difficulty": [
@@ -14565,8 +15074,9 @@
       "debutYear": 2019,
       "latestYear": 2023,
       "hasFmvp": false,
-      "championshipCount": 2,
-      "totalGames": 196,
+      "championshipCount": 0,
+      "totalGames": 202,
+      "championshipVerified": true,
       "peakRating": 79.2,
       "active": false,
       "difficulty": [
@@ -14597,7 +15107,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 360,
+      "totalGames": 361,
+      "championshipVerified": true,
       "peakRating": 81.5,
       "active": false,
       "difficulty": [
@@ -14632,6 +15143,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 386,
+      "championshipVerified": true,
       "peakRating": 85.3,
       "active": true,
       "difficulty": [
@@ -14662,6 +15174,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 83,
+      "championshipVerified": true,
       "peakRating": 78.4,
       "active": false,
       "difficulty": [
@@ -14693,6 +15206,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 170,
+      "championshipVerified": true,
       "peakRating": 85.9,
       "active": true,
       "difficulty": [
@@ -14709,19 +15223,22 @@
       "positions": [
         "对抗路"
       ],
-      "latestTeamId": "10020",
-      "latestTeamName": "北京JDG",
+      "latestTeamId": "10008",
+      "latestTeamName": "深圳DYG",
       "teamHistory": [
-        "10020"
+        "10020",
+        "10008"
       ],
       "teamHistoryNames": [
-        "北京JDG"
+        "北京JDG",
+        "深圳DYG"
       ],
       "debutYear": 2019,
-      "latestYear": 2019,
+      "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 58,
+      "totalGames": 59,
+      "championshipVerified": true,
       "peakRating": 68.9,
       "active": false,
       "difficulty": [
@@ -14751,6 +15268,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 63.8,
       "active": false,
       "difficulty": [
@@ -14780,6 +15298,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 69,
+      "championshipVerified": true,
       "peakRating": 73.7,
       "active": true,
       "difficulty": [
@@ -14809,6 +15328,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 15,
+      "championshipVerified": true,
       "peakRating": 66.7,
       "active": false,
       "difficulty": [
@@ -14819,7 +15339,8 @@
       "id": "C9D941685D82271FE93B9D835B50BDBE",
       "nickname": "妖刀",
       "aliases": [
-        "妖刀"
+        "妖刀",
+        "1dao"
       ],
       "iconUrl": "/assets/player-icons/1e76bf7e08470eda9e9a.webp",
       "positions": [
@@ -14841,7 +15362,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 6,
-      "totalGames": 1189,
+      "totalGames": 1231,
+      "championshipVerified": true,
       "peakRating": 90.9,
       "active": true,
       "difficulty": [
@@ -14879,6 +15401,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 162,
+      "championshipVerified": true,
       "peakRating": 78.8,
       "active": false,
       "difficulty": [
@@ -14908,6 +15431,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 55.2,
       "active": false,
       "difficulty": [
@@ -14938,7 +15462,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 97,
+      "totalGames": 101,
+      "championshipVerified": true,
       "peakRating": 76.3,
       "active": false,
       "difficulty": [
@@ -14969,7 +15494,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 147,
+      "totalGames": 151,
+      "championshipVerified": true,
       "peakRating": 82.9,
       "active": false,
       "difficulty": [
@@ -15001,6 +15527,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 33,
+      "championshipVerified": true,
       "peakRating": 84.2,
       "active": true,
       "difficulty": [
@@ -15030,6 +15557,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 61.2,
       "active": false,
       "difficulty": [
@@ -15060,7 +15588,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 2,
-      "totalGames": 285,
+      "totalGames": 288,
+      "championshipVerified": true,
       "peakRating": 91.3,
       "active": false,
       "difficulty": [
@@ -15092,6 +15621,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 43,
+      "championshipVerified": true,
       "peakRating": 60.0,
       "active": false,
       "difficulty": [
@@ -15123,6 +15653,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 119,
+      "championshipVerified": true,
       "peakRating": 85.9,
       "active": true,
       "difficulty": [
@@ -15152,6 +15683,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 80.3,
       "active": false,
       "difficulty": [
@@ -15183,6 +15715,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 952,
+      "championshipVerified": true,
       "peakRating": 93.1,
       "active": false,
       "difficulty": [
@@ -15213,6 +15746,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 62.9,
       "active": false,
       "difficulty": [
@@ -15237,11 +15771,12 @@
       "teamHistoryNames": [
         "长沙TES.A"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 126,
+      "totalGames": 130,
+      "championshipVerified": true,
       "peakRating": 75.2,
       "active": false,
       "difficulty": [
@@ -15271,6 +15806,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 18,
+      "championshipVerified": true,
       "peakRating": 54.5,
       "active": false,
       "difficulty": [
@@ -15300,6 +15836,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 16,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": false,
       "difficulty": [
@@ -15331,6 +15868,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 23,
+      "championshipVerified": true,
       "peakRating": 57.6,
       "active": false,
       "difficulty": [
@@ -15362,6 +15900,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 136,
+      "championshipVerified": true,
       "peakRating": 75.0,
       "active": false,
       "difficulty": [
@@ -15393,6 +15932,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 249,
+      "championshipVerified": true,
       "peakRating": 82.7,
       "active": false,
       "difficulty": [
@@ -15422,6 +15962,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 79.1,
       "active": false,
       "difficulty": [
@@ -15457,6 +15998,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 226,
+      "championshipVerified": true,
       "peakRating": 83.0,
       "active": true,
       "difficulty": [
@@ -15486,6 +16028,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 277,
+      "championshipVerified": true,
       "peakRating": 82.5,
       "active": false,
       "difficulty": [
@@ -15518,6 +16061,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 121,
+      "championshipVerified": true,
       "peakRating": 74.8,
       "active": false,
       "difficulty": [
@@ -15547,6 +16091,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 66.3,
       "active": false,
       "difficulty": [
@@ -15576,6 +16121,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 38,
+      "championshipVerified": true,
       "peakRating": 69.0,
       "active": false,
       "difficulty": [
@@ -15610,7 +16156,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 529,
+      "totalGames": 533,
+      "championshipVerified": true,
       "peakRating": 85.0,
       "active": true,
       "difficulty": [
@@ -15641,6 +16188,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 75.8,
       "active": false,
       "difficulty": [
@@ -15673,7 +16221,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 2,
-      "totalGames": 765,
+      "totalGames": 768,
+      "championshipVerified": true,
       "peakRating": 92.2,
       "active": true,
       "difficulty": [
@@ -15706,6 +16255,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 635,
+      "championshipVerified": true,
       "peakRating": 93.4,
       "active": true,
       "difficulty": [
@@ -15734,8 +16284,9 @@
       "debutYear": 2019,
       "latestYear": 2021,
       "hasFmvp": false,
-      "championshipCount": 0,
+      "championshipCount": 3,
       "totalGames": 253,
+      "championshipVerified": true,
       "peakRating": 70.4,
       "active": false,
       "difficulty": [
@@ -15765,6 +16316,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 309,
+      "championshipVerified": true,
       "peakRating": 73.0,
       "active": false,
       "difficulty": [
@@ -15794,7 +16346,8 @@
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 120,
+      "totalGames": 122,
+      "championshipVerified": true,
       "peakRating": 61.3,
       "active": false,
       "difficulty": [
@@ -15819,11 +16372,12 @@
       "teamHistoryNames": [
         "上海EDG.M"
       ],
-      "debutYear": 2020,
+      "debutYear": 2019,
       "latestYear": 2020,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 28,
+      "totalGames": 31,
+      "championshipVerified": true,
       "peakRating": 61.4,
       "active": false,
       "difficulty": [
@@ -15853,6 +16407,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 61.3,
       "active": false,
       "difficulty": [
@@ -15879,11 +16434,12 @@
         "济南RW侠",
         "郑州MTG"
       ],
-      "debutYear": 2023,
+      "debutYear": 2022,
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 49,
+      "totalGames": 53,
+      "championshipVerified": true,
       "peakRating": 72.3,
       "active": false,
       "difficulty": [
@@ -15913,6 +16469,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 408,
+      "championshipVerified": true,
       "peakRating": 95.4,
       "active": false,
       "difficulty": [
@@ -15943,6 +16500,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 374,
+      "championshipVerified": true,
       "peakRating": 76.7,
       "active": false,
       "difficulty": [
@@ -15962,10 +16520,12 @@
       "latestTeamId": "10101",
       "latestTeamName": "常山UUG",
       "teamHistory": [
+        "10031",
         "10018",
         "10101"
       ],
       "teamHistoryNames": [
+        "杭州LGD.NBW",
         "济南RW侠",
         "常山UUG"
       ],
@@ -15973,7 +16533,8 @@
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 96,
+      "totalGames": 98,
+      "championshipVerified": true,
       "peakRating": 68.8,
       "active": false,
       "difficulty": [
@@ -16005,6 +16566,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 294,
+      "championshipVerified": true,
       "peakRating": 86.4,
       "active": true,
       "difficulty": [
@@ -16035,6 +16597,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 164,
+      "championshipVerified": true,
       "peakRating": 78.9,
       "active": true,
       "difficulty": [
@@ -16064,6 +16627,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 56,
+      "championshipVerified": true,
       "peakRating": 73.2,
       "active": false,
       "difficulty": [
@@ -16097,6 +16661,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 332,
+      "championshipVerified": true,
       "peakRating": 89.1,
       "active": true,
       "difficulty": [
@@ -16117,16 +16682,19 @@
       "latestTeamId": "10005",
       "latestTeamName": "KSG",
       "teamHistory": [
+        "12207",
         "10005"
       ],
       "teamHistoryNames": [
+        "青训破军",
         "KSG"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 22,
+      "totalGames": 24,
+      "championshipVerified": true,
       "peakRating": 61.0,
       "active": true,
       "difficulty": [
@@ -16151,11 +16719,12 @@
       "teamHistoryNames": [
         "东莞Wz"
       ],
-      "debutYear": 2021,
+      "debutYear": 2020,
       "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 19,
+      "totalGames": 27,
+      "championshipVerified": true,
       "peakRating": 67.3,
       "active": false,
       "difficulty": [
@@ -16185,6 +16754,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 218,
+      "championshipVerified": true,
       "peakRating": 86.8,
       "active": false,
       "difficulty": [
@@ -16218,6 +16788,7 @@
       "hasFmvp": false,
       "championshipCount": 1,
       "totalGames": 373,
+      "championshipVerified": true,
       "peakRating": 87.5,
       "active": true,
       "difficulty": [
@@ -16248,6 +16819,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 737,
+      "championshipVerified": true,
       "peakRating": 88.6,
       "active": false,
       "difficulty": [
@@ -16279,8 +16851,9 @@
       "debutYear": 2019,
       "latestYear": 2025,
       "hasFmvp": false,
-      "championshipCount": 5,
-      "totalGames": 839,
+      "championshipCount": 6,
+      "totalGames": 840,
+      "championshipVerified": true,
       "peakRating": 84.5,
       "active": false,
       "difficulty": [
@@ -16311,6 +16884,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 27,
+      "championshipVerified": true,
       "peakRating": 58.0,
       "active": false,
       "difficulty": [
@@ -16340,6 +16914,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 71.2,
       "active": false,
       "difficulty": [
@@ -16369,6 +16944,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 236,
+      "championshipVerified": true,
       "peakRating": 78.2,
       "active": true,
       "difficulty": [
@@ -16397,7 +16973,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 282,
+      "totalGames": 286,
+      "championshipVerified": true,
       "peakRating": 88.1,
       "active": false,
       "difficulty": [
@@ -16425,10 +17002,11 @@
         "武汉eStarPro"
       ],
       "debutYear": 2019,
-      "latestYear": 2020,
+      "latestYear": 2021,
       "hasFmvp": false,
-      "championshipCount": 2,
-      "totalGames": 194,
+      "championshipCount": 5,
+      "totalGames": 197,
+      "championshipVerified": true,
       "peakRating": 68.6,
       "active": false,
       "difficulty": [
@@ -16458,6 +17036,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 5,
+      "championshipVerified": true,
       "peakRating": 69.5,
       "active": false,
       "difficulty": [
@@ -16477,16 +17056,19 @@
       "latestTeamId": "10910",
       "latestTeamName": "WST",
       "teamHistory": [
+        "10002",
         "10910"
       ],
       "teamHistoryNames": [
+        "上海EDG.M",
         "WST"
       ],
       "debutYear": 2026,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 48,
+      "totalGames": 50,
+      "championshipVerified": true,
       "peakRating": 72.3,
       "active": true,
       "difficulty": [
@@ -16516,6 +17098,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 208,
+      "championshipVerified": true,
       "peakRating": 81.0,
       "active": false,
       "difficulty": [
@@ -16550,7 +17133,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 78,
+      "totalGames": 79,
+      "championshipVerified": true,
       "peakRating": 75.8,
       "active": true,
       "difficulty": [
@@ -16584,6 +17168,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 473,
+      "championshipVerified": true,
       "peakRating": 85.2,
       "active": false,
       "difficulty": [
@@ -16614,6 +17199,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 72.7,
       "active": true,
       "difficulty": [
@@ -16633,18 +17219,21 @@
       "latestTeamId": "10018",
       "latestTeamName": "济南RW侠",
       "teamHistory": [
+        "10006",
         "10010",
         "10018"
       ],
       "teamHistoryNames": [
+        "武汉eStarPro",
         "西安WE",
         "济南RW侠"
       ],
-      "debutYear": 2022,
+      "debutYear": 2021,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 456,
+      "totalGames": 457,
+      "championshipVerified": true,
       "peakRating": 92.9,
       "active": true,
       "difficulty": [
@@ -16675,6 +17264,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 9,
+      "championshipVerified": true,
       "peakRating": 72.4,
       "active": false,
       "difficulty": [
@@ -16706,8 +17296,9 @@
       "debutYear": 2024,
       "latestYear": 2026,
       "hasFmvp": false,
-      "championshipCount": 1,
+      "championshipCount": 0,
       "totalGames": 362,
+      "championshipVerified": true,
       "peakRating": 83.8,
       "active": true,
       "difficulty": [
@@ -16740,7 +17331,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 621,
+      "totalGames": 623,
+      "championshipVerified": true,
       "peakRating": 80.9,
       "active": false,
       "difficulty": [
@@ -16770,7 +17362,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 196,
+      "totalGames": 198,
+      "championshipVerified": true,
       "peakRating": 77.8,
       "active": true,
       "difficulty": [
@@ -16802,6 +17395,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 12,
+      "championshipVerified": true,
       "peakRating": 59.3,
       "active": false,
       "difficulty": [
@@ -16831,6 +17425,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 63.9,
       "active": true,
       "difficulty": [
@@ -16862,6 +17457,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 268,
+      "championshipVerified": true,
       "peakRating": 93.2,
       "active": false,
       "difficulty": [
@@ -16891,6 +17487,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 274,
+      "championshipVerified": true,
       "peakRating": 85.8,
       "active": false,
       "difficulty": [
@@ -16920,6 +17517,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 61.5,
       "active": false,
       "difficulty": [
@@ -16949,6 +17547,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 76.1,
       "active": false,
       "difficulty": [
@@ -16978,6 +17577,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 78.2,
       "active": false,
       "difficulty": [
@@ -17009,6 +17609,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 27,
+      "championshipVerified": true,
       "peakRating": 75.2,
       "active": false,
       "difficulty": [
@@ -17039,7 +17640,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 22,
+      "totalGames": 24,
+      "championshipVerified": true,
       "peakRating": 75.9,
       "active": true,
       "difficulty": [
@@ -17069,6 +17671,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 80,
+      "championshipVerified": true,
       "peakRating": 67.7,
       "active": true,
       "difficulty": [
@@ -17099,7 +17702,8 @@
       "latestYear": 2025,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 166,
+      "totalGames": 169,
+      "championshipVerified": true,
       "peakRating": 66.1,
       "active": false,
       "difficulty": [
@@ -17129,6 +17733,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 10,
+      "championshipVerified": true,
       "peakRating": 53.3,
       "active": false,
       "difficulty": [
@@ -17158,6 +17763,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 571,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": true,
       "difficulty": [
@@ -17194,6 +17800,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 861,
+      "championshipVerified": true,
       "peakRating": 82.5,
       "active": true,
       "difficulty": [
@@ -17228,8 +17835,9 @@
       "debutYear": 2019,
       "latestYear": 2024,
       "hasFmvp": false,
-      "championshipCount": 3,
+      "championshipCount": 2,
       "totalGames": 659,
+      "championshipVerified": true,
       "peakRating": 90.4,
       "active": false,
       "difficulty": [
@@ -17260,6 +17868,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 451,
+      "championshipVerified": true,
       "peakRating": 92.5,
       "active": false,
       "difficulty": [
@@ -17294,6 +17903,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 22,
+      "championshipVerified": true,
       "peakRating": 71.2,
       "active": false,
       "difficulty": [
@@ -17323,6 +17933,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 281,
+      "championshipVerified": true,
       "peakRating": 84.0,
       "active": false,
       "difficulty": [
@@ -17339,19 +17950,22 @@
       "positions": [
         "中路"
       ],
-      "latestTeamId": "10002",
-      "latestTeamName": "上海EDG.M",
+      "latestTeamId": "10031",
+      "latestTeamName": "杭州LGD.NBW",
       "teamHistory": [
-        "10002"
+        "10002",
+        "10031"
       ],
       "teamHistoryNames": [
-        "上海EDG.M"
+        "上海EDG.M",
+        "杭州LGD.NBW"
       ],
       "debutYear": 2020,
-      "latestYear": 2020,
+      "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 26,
+      "totalGames": 29,
+      "championshipVerified": true,
       "peakRating": 80.1,
       "active": false,
       "difficulty": [
@@ -17381,6 +17995,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 62,
+      "championshipVerified": true,
       "peakRating": 75.9,
       "active": false,
       "difficulty": [
@@ -17405,11 +18020,12 @@
       "teamHistoryNames": [
         "无锡TCG"
       ],
-      "debutYear": 2026,
+      "debutYear": 2025,
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 66,
+      "totalGames": 69,
+      "championshipVerified": true,
       "peakRating": 73.7,
       "active": true,
       "difficulty": [
@@ -17443,6 +18059,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 621,
+      "championshipVerified": true,
       "peakRating": 83.1,
       "active": true,
       "difficulty": [
@@ -17474,7 +18091,8 @@
       "latestYear": 2026,
       "hasFmvp": false,
       "championshipCount": 1,
-      "totalGames": 147,
+      "totalGames": 151,
+      "championshipVerified": true,
       "peakRating": 87.0,
       "active": true,
       "difficulty": [
@@ -17504,6 +18122,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 59,
+      "championshipVerified": true,
       "peakRating": 77.2,
       "active": true,
       "difficulty": [
@@ -17533,6 +18152,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 13,
+      "championshipVerified": true,
       "peakRating": 61.0,
       "active": false,
       "difficulty": [
@@ -17562,6 +18182,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 41,
+      "championshipVerified": true,
       "peakRating": 67.3,
       "active": false,
       "difficulty": [
@@ -17593,6 +18214,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 263,
+      "championshipVerified": true,
       "peakRating": 74.5,
       "active": true,
       "difficulty": [
@@ -17624,7 +18246,8 @@
       "latestYear": 2022,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 361,
+      "totalGames": 364,
+      "championshipVerified": true,
       "peakRating": 80.2,
       "active": false,
       "difficulty": [
@@ -17656,7 +18279,8 @@
       "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 40,
+      "totalGames": 43,
+      "championshipVerified": true,
       "peakRating": 72.5,
       "active": false,
       "difficulty": [
@@ -17686,6 +18310,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 404,
+      "championshipVerified": true,
       "peakRating": 69.6,
       "active": false,
       "difficulty": [
@@ -17716,6 +18341,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 6,
+      "championshipVerified": true,
       "peakRating": 56.2,
       "active": false,
       "difficulty": [
@@ -17752,6 +18378,7 @@
       "hasFmvp": false,
       "championshipCount": 2,
       "totalGames": 890,
+      "championshipVerified": true,
       "peakRating": 92.5,
       "active": true,
       "difficulty": [
@@ -17783,6 +18410,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 58,
+      "championshipVerified": true,
       "peakRating": 70.4,
       "active": false,
       "difficulty": [
@@ -17812,6 +18440,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 30,
+      "championshipVerified": true,
       "peakRating": 67.9,
       "active": false,
       "difficulty": [
@@ -17841,6 +18470,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 7,
+      "championshipVerified": true,
       "peakRating": 68.9,
       "active": false,
       "difficulty": [
@@ -17872,6 +18502,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 226,
+      "championshipVerified": true,
       "peakRating": 77.9,
       "active": false,
       "difficulty": [
@@ -17902,7 +18533,8 @@
       "latestYear": 2024,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 511,
+      "totalGames": 514,
+      "championshipVerified": true,
       "peakRating": 79.8,
       "active": false,
       "difficulty": [
@@ -17937,6 +18569,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 55,
+      "championshipVerified": true,
       "peakRating": 83.2,
       "active": false,
       "difficulty": [
@@ -17962,10 +18595,11 @@
         "杭州LGD.NBW"
       ],
       "debutYear": 2020,
-      "latestYear": 2020,
+      "latestYear": 2021,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 10,
+      "totalGames": 11,
+      "championshipVerified": true,
       "peakRating": 68.0,
       "active": false,
       "difficulty": [
@@ -17982,19 +18616,22 @@
       "positions": [
         "打野"
       ],
-      "latestTeamId": "10018",
-      "latestTeamName": "济南RW侠",
+      "latestTeamId": "10007",
+      "latestTeamName": "南通Hero久竞",
       "teamHistory": [
-        "10018"
+        "10018",
+        "10007"
       ],
       "teamHistoryNames": [
-        "济南RW侠"
+        "济南RW侠",
+        "南通Hero久竞"
       ],
       "debutYear": 2022,
-      "latestYear": 2022,
+      "latestYear": 2023,
       "hasFmvp": false,
       "championshipCount": 0,
-      "totalGames": 30,
+      "totalGames": 31,
+      "championshipVerified": true,
       "peakRating": 80.2,
       "active": false,
       "difficulty": [
@@ -18026,6 +18663,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 418,
+      "championshipVerified": true,
       "peakRating": 85.5,
       "active": false,
       "difficulty": [
@@ -18056,6 +18694,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 8,
+      "championshipVerified": true,
       "peakRating": 70.7,
       "active": false,
       "difficulty": [
@@ -18091,6 +18730,7 @@
       "hasFmvp": false,
       "championshipCount": 0,
       "totalGames": 173,
+      "championshipVerified": true,
       "peakRating": 78.3,
       "active": false,
       "difficulty": [

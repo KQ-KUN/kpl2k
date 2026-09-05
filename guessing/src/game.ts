@@ -36,7 +36,8 @@ export function comparePlayers(guess: QuizPlayer, target: QuizPlayer): GuessResu
     debutYear: numberFeedback(guess.debutYear, target.debutYear),
     latestYear: numberFeedback(guess.latestYear, target.latestYear),
     hasFmvp: guess.hasFmvp === target.hasFmvp ? "exact" : "miss",
-    championshipCount: numberFeedback(guess.championshipCount, target.championshipCount),
+    championshipCount: guess.championshipVerified === false || target.championshipVerified === false
+      ? "unknown" : numberFeedback(guess.championshipCount, target.championshipCount),
     active: guess.active === target.active ? "exact" : "miss",
     isCorrect: guess.id === target.id,
   };
@@ -88,6 +89,7 @@ export function randomTargetId(players: QuizPlayer[], difficulty: Difficulty): s
 
 
 export function feedbackSymbol(feedback: Feedback): string {
+  if (feedback === "unknown") return "—";
   if (feedback === "exact") return "✓";
   if (feedback === "partial") return "≈";
   if (feedback === "higher") return "↑";

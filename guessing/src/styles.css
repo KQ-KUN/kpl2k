@@ -79,7 +79,7 @@ main { width: min(1180px, calc(100% - 32px)); min-height: calc(100vh - 150px); m
 .mode-card { --accent: var(--red); position: relative; display: flex; min-height: 250px; overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, rgba(25,36,60,.96), rgba(11,18,33,.98)); color: var(--text); text-decoration: none; flex-direction: column; box-shadow: 0 14px 34px rgba(0,0,0,.16); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .mode-card::before { content: ""; position: absolute; top: 0; right: 0; left: 0; height: 3px; background: var(--accent); box-shadow: 0 0 24px var(--accent); }
 .mode-card::after { content: ""; position: absolute; right: -70px; bottom: -95px; width: 180px; height: 180px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 50%; background: color-mix(in srgb, var(--accent) 5%, transparent); }
-.mode-card[href]:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 55%, white 5%); box-shadow: 0 18px 42px rgba(0,0,0,.3); }
+@media (hover:hover) and (pointer:fine) { .mode-card[href]:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, white 5%); } }
 .network-card { --accent: #75839b; opacity: .72; }
 .library-card { --accent: var(--blue); }
 .mode-icon { display: grid; place-items: center; width: 50px; height: 50px; margin-bottom: 26px; border: 1px solid color-mix(in srgb, var(--accent) 58%, transparent); border-radius: 16px; background: color-mix(in srgb, var(--accent) 13%, transparent); color: color-mix(in srgb, var(--accent) 75%, white); font-size: 24px; }
@@ -214,6 +214,8 @@ body { font-size: 16px; line-height: 1.55; }
 .feedback-cell small { font-size: 12px; }
 .feedback-cell strong { font-size: 14px; }
 .feedback-cell em { font-size: 18px; }
+.feedback-cell.unknown { background: var(--panel-2); color: var(--muted); }
+.feedback-cell.unknown small { color: var(--muted); }
 input[type="search"], .primary-button { font-size: 16px; }
 .suggestion { min-height: 62px; padding-block: 8px; font-size: 15px; }
 .suggestion small, .suggestion .years, .form-message { font-size: 13px; }
@@ -381,9 +383,62 @@ input[type="search"], .primary-button { font-size: 16px; }
   .guess-row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; padding:5px; border-radius:12px; }
   .player-cell { min-height:52px; gap:8px; padding:6px 8px; }
   .player-cell .avatar { width:36px; height:36px; }
-  .player-cell small { margin-top:1px; font-size:10px; }
+  .player-cell small { margin-top:1px; font-size:12px; }
   .feedback-cell { min-height:56px; gap:2px; padding:4px; border-radius:8px; }
-  .feedback-cell small { font-size:9px; }
-  .feedback-cell strong { font-size:11px; line-height:1.15; }
+  .feedback-cell small { font-size:12px; }
+  .feedback-cell strong { font-size:13px; line-height:1.35; overflow-wrap:anywhere; }
   .feedback-cell em { font-size:13px; }
+}
+
+/* Shared interaction rhythm; reserve strong color for the primary action. */
+button,a { touch-action:manipulation; }
+button { transition:transform 140ms cubic-bezier(.23,1,.32,1),background-color 140ms ease,border-color 140ms ease; }
+button:not(:disabled):active { transform:scale(.98); }
+.header-actions a,.text-button,.theme-toggle,.segmented button,.reveal-answer-button,.back-link { min-height:44px; }
+.back-link { display:inline-flex; align-items:center; }
+.home-hero,.mode-card,.genius-panel,.view-header { background:var(--panel); border-radius:18px; box-shadow:none; }
+.home-hero::before,.home-hero::after,.mode-card::after { display:none; }
+.home-hero h1 { background:none; color:var(--text); filter:none; }
+.mode-card::before { height:2px; box-shadow:none; }
+.hero-preview { box-shadow:none; }
+.header-actions .sister-link { background:var(--panel-2); border-color:var(--line); box-shadow:none; color:var(--text); }
+.primary-button,.hero-primary,.genius-start,.genius-correct { background:var(--blue); box-shadow:none; }
+.genius-question-stage { min-height:260px; }
+.genius-question-stage h2 { font-size:clamp(24px,3vw,34px); line-height:1.45; }
+.genius-reset { min-height:44px; }
+/* Mode names are navigation labels; the question is the main heading. */
+.classic-view > .view-header,.genius-view > .view-header {
+  display:flex; align-items:center; justify-content:flex-start; gap:20px;
+  padding:0 0 12px; border:0; border-bottom:1px solid var(--line);
+  border-radius:0; background:none; box-shadow:none;
+}
+.classic-view > .view-header h1,.genius-view > .view-header h1 {
+  margin:0; font-size:22px; font-weight:700; font-style:normal; line-height:1.4;
+}
+.classic-view > .view-header .back-link,.genius-view > .view-header .back-link {
+  margin:0; align-self:center; min-height:44px; font-size:13px;
+}
+.genius-root { min-height:0; padding:20px 0; }
+.genius-intro { padding:28px 32px; }
+.genius-intro .genius-kicker { display:none; }
+.genius-intro h2 { font-size:26px; line-height:1.4; }
+.genius-intro .genius-mascot-picker { margin:20px 0; }
+.library-view > .view-header { display:flex; align-items:center; padding:12px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:none; }
+.library-view > .view-header h1 { margin:0; font-size:22px; font-style:normal; }
+@media (max-width:540px) {
+  .classic-view > .view-header h1,.genius-view > .view-header h1 { font-size:20px; }
+  .genius-intro { padding:22px 18px; }
+  .genius-intro h2 { font-size:22px; }
+  .mode-card p { font-size:13px; line-height:1.5; }
+  .mode-action { font-size:12px; }
+  .genius-question-stage { display:block; min-height:200px; }
+  .genius-question-stage .genius-character { width:64px; height:72px; margin:0 auto 8px; }
+  .genius-question-stage h2 { margin:0; font-size:23px; }
+  .genius-answers { margin-top:14px; }
+  .header-actions .sister-link { padding-inline:10px; }
+}
+@media (hover:none) {
+  .mode-card[href]:hover,.library-card-item:hover { transform:none; box-shadow:none; border-color:var(--line); }
+  .header-actions .sister-link:hover { background:var(--panel-2); color:var(--text); box-shadow:none; border-color:var(--line); }
+  .header-actions .sister-link:hover b { transform:none; }
 }

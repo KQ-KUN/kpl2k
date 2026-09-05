@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "data": "python tools/import_kpl2k.py --source \"../KPL 2K\"",
+    "data": "python tools/import_kpl2k.py --source ..",
     "data:careers": "python tools/sync_liquipedia_careers.py",
     "data:history": "python tools/crawl_kpl_history.py",
     "dev": "vite",

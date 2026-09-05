@@ -7,8 +7,21 @@
 <title>KPL 2K · 平行时空战队经理</title>
 <link rel="icon" type="image/png" href="assets/brand/kpl2k-avatar-v1.png">
 <link rel="stylesheet" href="style.css?v=20260901">
+<link rel="stylesheet" href="navigation.css">
+<script src="js/theme.js"></script>
 </head>
 <body>
+<header class="site-header">
+  <a class="brand" href="#/" aria-label="KPL 2K 首页"><img class="brand-avatar" src="assets/brand/kpl2k-avatar-v1.png" alt=""><span>KPL 2K</span></a>
+  <nav class="header-actions" aria-label="主要导航">
+    <button id="nav-home" class="text-button" type="button">首页</button>
+    <button id="nav-rules" class="text-button" type="button">游戏规则</button>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换浅色模式"><span aria-hidden="true">☀</span><span class="theme-label">浅色</span></button>
+    <a class="sister-link" href="../guessing/"><span>KPL Guessing</span><b aria-hidden="true">→</b></a>
+    <span class="bgm-wrap"><button id="bgm-toggle-home" class="bgm-btn" title="开关音乐" aria-label="开关音乐"></button></span>
+  </nav>
+</header>
+<dialog id="game-rules" class="game-rules"><h2>游戏规则</h2><p>经典模式：选定战队，搭配该队不同时期的选手，选择赛季开始征战。</p><p>全明星模式：双方各选五人，可使用默认战队或自定义选手，进行 BO3、BO5 或 BO7 对决。</p><p>每日挑战：直接体验当天推荐的阵容和赛事。</p><p>比赛中可调整文字播放速度、暂停或跳过；结束后可保存战绩卡。</p><form method="dialog"><button class="btn" autofocus>知道了</button></form></dialog>
 <div class="storage-warning" id="storage-warning" role="status" aria-live="polite"></div>
 <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true">
   <span class="achievement-toast-icon" aria-hidden="true">🏆</span>
@@ -75,16 +88,6 @@
       小红书
     </a>
     <button id="btn-disclaimer">玩家须知</button>
-  </div>
-  <div class="home-bgm-row" id="home-bgm-row">
-    <span class="mut" id="music-hint">点按开启音乐</span>
-    <a class="home-guessing-link" href="../guessing/" aria-label="进入 KPL Guessing" title="KPL Guessing">
-      <img src="../assets/brand/kpl-guessing-avatar-v1.png" width="28" height="28" alt="" aria-hidden="true">
-      <span class="home-guessing-label">Guessing</span>
-    </a>
-    <span class="bgm-wrap">
-      <button id="bgm-toggle-home" class="bgm-btn" title="开关音乐"></button>
-    </span>
   </div>
 </div>
 

@@ -926,10 +926,14 @@
     });
   }
 
+  var teamViewRequest = 0;
   function loadTeamView(fid) {
+    var request = ++teamViewRequest;
+    $('btn-confirm-team').disabled = true;
     $('team-slots').innerHTML = '<div class="mut" style="padding:20px;text-align:center">正在加载选手数据…</div>';
     var loaders = PRESET_SEASONS.map(D.loadSeason);
     Promise.all([D.loadTeam(fid)].concat(loaders)).then(function (res) {
+      if (request !== teamViewRequest || STATE.team !== fid) return;
       currentTeamData = res[0];
       if (!STATE.roster.length) {
         STATE.roster = presetRoster(fid);
@@ -937,7 +941,9 @@
       }
       renderSlots();
       renderStrength();
+      $('btn-confirm-team').disabled = false;
     }).catch(function (e) {
+      if (request !== teamViewRequest || STATE.team !== fid) return;
       $('team-slots').innerHTML = '<div class="mut">加载失败：' + esc(e.message) + '</div>';
     });
   }
@@ -2804,6 +2810,66 @@
     $('share-mask').classList.remove('show');
   }
 
+  function setupOverlayInteraction() {
+    var panels = [
+      { id: 'drawer', title: 'picker-title', close: closePicker },
+      { id: 'share-modal', label: '分享战绩', close: closeShareModal },
+      { id: 'confirm-box', title: 'cf-title', close: closeConfirm },
+      { id: 'disclaimer', label: '玩家须知', close: null }
+    ];
+    var active = null, returnFocus = null, savedOverflow = '';
+    var inertBefore = new Map();
+    function focusable(panel) {
+      return Array.from(panel.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),[tabindex="0"]'))
+        .filter(function (el) { return el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden'; });
+    }
+    function sync() {
+      var next = panels.filter(function (item) { return $(item.id).classList.contains('show'); }).pop() || null;
+      if (next === active) return;
+      inertBefore.forEach(function (value, el) { el.inert = value; });
+      inertBefore.clear();
+      if (!active && next) { returnFocus = document.activeElement; savedOverflow = document.body.style.overflow; }
+      active = next;
+      if (active) {
+        var panel = $(active.id);
+        document.body.style.overflow = 'hidden';
+        Array.from(document.body.children).forEach(function (el) {
+          if (el === panel || el.contains(panel) || !el.querySelector('button,a,input,select')) return;
+          inertBefore.set(el, el.inert); el.inert = true;
+        });
+        (focusable(panel)[0] || panel).focus({ preventScroll: true });
+      } else {
+        document.body.style.overflow = savedOverflow;
+        if (returnFocus && returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
+      }
+    }
+    panels.forEach(function (item) {
+      var panel = $(item.id);
+      panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
+      panel.setAttribute(item.title ? 'aria-labelledby' : 'aria-label', item.title || item.label);
+      new MutationObserver(sync).observe(panel, { attributes: true, attributeFilter: ['class'] });
+    });
+    document.addEventListener('keydown', function (event) {
+      if (!active) return;
+      if (event.key === 'Escape' && active.close) { event.preventDefault(); active.close(); return; }
+      if (event.key !== 'Tab') return;
+      var panel = $(active.id), items = focusable(panel);
+      var index = items.indexOf(document.activeElement);
+      if (!items.length) { event.preventDefault(); panel.focus(); }
+      else if (index < 0 || (!event.shiftKey && index === items.length - 1) || (event.shiftKey && index === 0)) {
+        event.preventDefault(); items[event.shiftKey ? items.length - 1 : 0].focus();
+      }
+    });
+    var bars = Array.from(document.querySelectorAll('.bottom-bar'));
+    function measureBars() {
+      var height = Math.max.apply(null, [0].concat(bars.map(function (bar) { return bar.getBoundingClientRect().height; })));
+      document.body.style.setProperty('--action-bar-height', height + 'px');
+    }
+    var observer = new ResizeObserver(measureBars);
+    bars.forEach(function (bar) { observer.observe(bar); });
+    measureBars(); sync();
+  }
+
   function downloadShare() {
     var a = document.createElement('a');
     a.href = $('share-img').src;
@@ -2817,6 +2883,7 @@
   /* ---------------- 入口 ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initDisclaimer();
+    setupOverlayInteraction();
     initBGM();
     loadState();
     D.loadBase().then(function () {

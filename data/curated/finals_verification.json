@@ -1,0 +1,797 @@
+{
+  "verifiedAt": "2026-09-05",
+  "source": "Cached responses of Tencent official smoba match API",
+  "events": [
+    {
+      "eventId": "KPL2016S2",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2017S1",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KCC2017",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2017S2",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2018S1",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KCC2018",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2018S2",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KCC2018W",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2019S1",
+      "matchId": "2019061501",
+      "status": "matched",
+      "officialNames": [
+        "Alan",
+        "Cat",
+        "无铭",
+        "花海",
+        "诺言"
+      ],
+      "expectedNames": [
+        "诺言",
+        "Alan",
+        "Cat",
+        "花海",
+        "无铭"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_19_1559468822",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_20_1559471300",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_11_1560595977",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_12_1560598194",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_13_1560600030",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=118293024_14_1560602314"
+      ]
+    },
+    {
+      "eventId": "KCC2019",
+      "matchId": "2019081001",
+      "status": "matched",
+      "officialNames": [
+        "Alan",
+        "Cat",
+        "无铭",
+        "花海",
+        "诺言"
+      ],
+      "expectedNames": [
+        "诺言",
+        "Alan",
+        "Cat",
+        "花海",
+        "无铭"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_26_1565427966",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_27_1565430685",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_28_1565432522",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_29_1565435897",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_30_1565438044",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_31_1565440263"
+      ]
+    },
+    {
+      "eventId": "KPL2019S2",
+      "matchId": "2019121401",
+      "status": "needs-manual-evidence",
+      "officialNames": [
+        "",
+        "D e",
+        "一诺",
+        "老帅",
+        "麟羽轩"
+      ],
+      "expectedNames": [
+        "六点六",
+        "麟羽轩",
+        "老帅",
+        "一诺",
+        "爱思"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_29_1576316153",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_30_1576318259",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_31_1576320235",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_32_1576323340",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_33_1576325755"
+      ]
+    },
+    {
+      "eventId": "KCC2019W",
+      "matchId": "202001040001",
+      "status": "matched",
+      "officialNames": [
+        "770",
+        "Fly",
+        "Giao",
+        "Mojo",
+        "妖刀"
+      ],
+      "expectedNames": [
+        "Fly",
+        "Giao",
+        "Mojo",
+        "妖刀",
+        "770"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_31_1578132176",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_32_1578134436",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_33_1578136361",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_34_1578138969",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_35_1578141461",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_36_1578143073",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_37_1578145220"
+      ]
+    },
+    {
+      "eventId": "KPL2020S1",
+      "matchId": "2020061301",
+      "status": "matched",
+      "officialNames": [
+        "千世",
+        "暖阳",
+        "神人",
+        "诗酒",
+        "阿豆"
+      ],
+      "expectedNames": [
+        "神人",
+        "暖阳",
+        "千世",
+        "诗酒",
+        "阿豆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_73_1592043183",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_74_1592046051",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_75_1592048858",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_76_1592051365",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_77_1592053275",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_78_1592055436",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=34406913_79_1592057792"
+      ]
+    },
+    {
+      "eventId": "KCC2020",
+      "matchId": "2020081601",
+      "status": "matched",
+      "officialNames": [
+        "千世",
+        "暖阳",
+        "神人",
+        "诗酒",
+        "阿豆"
+      ],
+      "expectedNames": [
+        "神人",
+        "暖阳",
+        "千世",
+        "诗酒",
+        "阿豆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_60_1597569247",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_61_1597572956",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_62_1597575408",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_63_1597579883",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_64_1597582565",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_65_1597585545",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=454492673_66_1597587687"
+      ]
+    },
+    {
+      "eventId": "KPL2020S2",
+      "matchId": "2020121901",
+      "status": "matched",
+      "officialNames": [
+        "小义",
+        "易峥",
+        "星宇",
+        "清清",
+        "萧玦"
+      ],
+      "expectedNames": [
+        "清清",
+        "小义",
+        "萧玦",
+        "易峥",
+        "星宇"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_36_1608373510",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488178177_21_1608376293",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_37_1608378670",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488178177_22_1608381772"
+      ]
+    },
+    {
+      "eventId": "KCC2020W",
+      "matchId": "2021012301",
+      "status": "matched",
+      "officialNames": [
+        "久酷",
+        "子阳",
+        "无畏",
+        "星痕",
+        "清融"
+      ],
+      "expectedNames": [
+        "星痕",
+        "无畏",
+        "清融",
+        "久酷",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=35062273_16_1611393967",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=35127809_16_1611396531",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=35062273_17_1611399083",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=35127809_17_1611401810",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=35062273_18_1611404072"
+      ]
+    },
+    {
+      "eventId": "KPL2021S1",
+      "matchId": "2021062601",
+      "status": "matched",
+      "officialNames": [
+        "久酷",
+        "子阳",
+        "无畏",
+        "星痕",
+        "清融"
+      ],
+      "expectedNames": [
+        "星痕",
+        "无畏",
+        "清融",
+        "久酷",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387449345_14_1624702897",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_19_1624705460",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387449345_15_1624708288",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_20_1624711888",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387449345_16_1624714350",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_21_1624716925",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387449345_17_1624719066"
+      ]
+    },
+    {
+      "eventId": "KCC2021",
+      "matchId": "2021082801",
+      "status": "matched",
+      "officialNames": [
+        "Fly",
+        "向鱼",
+        "妖刀",
+        "小胖",
+        "帆帆"
+      ],
+      "expectedNames": [
+        "Fly",
+        "小胖",
+        "向鱼",
+        "妖刀",
+        "帆帆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_38_1630144066",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_34_1630146658",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_39_1630149062",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_35_1630152719",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_40_1630154725",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387514881_36_1630157041"
+      ]
+    },
+    {
+      "eventId": "KPL2021S2",
+      "matchId": "2021122501",
+      "status": "matched",
+      "officialNames": [
+        "坦然",
+        "子阳",
+        "易峥",
+        "清融",
+        "花海"
+      ],
+      "expectedNames": [
+        "坦然",
+        "花海",
+        "清融",
+        "易峥",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=689439233_10_1640427402",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=689373697_10_1640429606",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=689439233_11_1640431896",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=689373697_11_1640435018",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=689439233_12_1640436739"
+      ]
+    },
+    {
+      "eventId": "KCC2021C",
+      "matchId": "2022011501",
+      "status": "matched",
+      "officialNames": [
+        "坦然",
+        "子阳",
+        "易峥",
+        "清融",
+        "花海"
+      ],
+      "expectedNames": [
+        "坦然",
+        "花海",
+        "清融",
+        "易峥",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722993665_42_1642241985",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=723124737_29_1642244239",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722993665_43_1642246337",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=723124737_30_1642249402",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722993665_44_1642251175"
+      ]
+    },
+    {
+      "eventId": "KPL2022S1",
+      "matchId": "2022050801",
+      "status": "matched",
+      "officialNames": [
+        "坦然",
+        "子阳",
+        "易峥",
+        "清融",
+        "花海"
+      ],
+      "expectedNames": [
+        "坦然",
+        "花海",
+        "清融",
+        "易峥",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2132410625_215_1652004218",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115436801_200_1652006027",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115502337_232_1652008488",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2132410625_217_1652011116"
+      ]
+    },
+    {
+      "eventId": "KPL2022S2",
+      "matchId": "2022090301",
+      "status": "matched",
+      "officialNames": [
+        "Fly",
+        "向鱼",
+        "妖刀",
+        "小胖",
+        "帆帆"
+      ],
+      "expectedNames": [
+        "Fly",
+        "小胖",
+        "向鱼",
+        "妖刀",
+        "帆帆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387580417_21_1662199609",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_40_1662202322",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387580417_22_1662204454",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_41_1662207110",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387580417_23_1662209363",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=387383809_42_1662211432"
+      ]
+    },
+    {
+      "eventId": "KCC2022C",
+      "matchId": "2022100601",
+      "status": "matched",
+      "officialNames": [
+        "坦然",
+        "子阳",
+        "易峥",
+        "清融",
+        "花海"
+      ],
+      "expectedNames": [
+        "坦然",
+        "花海",
+        "清融",
+        "易峥",
+        "子阳"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2132214017_348_1665050977",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115567873_393_1665053368",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115436801_352_1665055847",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2132410625_356_1665059035",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115567873_395_1665061107",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2115436801_353_1665063131",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=2132410625_357_1665065679"
+      ]
+    },
+    {
+      "eventId": "KIC2022",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2023S1",
+      "matchId": "2023051301",
+      "status": "matched",
+      "officialNames": [
+        "Fly",
+        "向鱼",
+        "妖刀",
+        "小胖",
+        "帆帆"
+      ],
+      "expectedNames": [
+        "Fly",
+        "小胖",
+        "向鱼",
+        "妖刀",
+        "帆帆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_24_1683972869",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_25_1683975040",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_26_1683977271",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_27_1683980155",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=488047105_28_1683982615"
+      ]
+    },
+    {
+      "eventId": "KPL2023S2",
+      "matchId": "2023091001",
+      "status": "matched",
+      "officialNames": [
+        "不然",
+        "帆帆",
+        "清清",
+        "紫幻",
+        "风箫"
+      ],
+      "expectedNames": [
+        "清清",
+        "不然",
+        "紫幻",
+        "风箫",
+        "帆帆"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_22_1694337425",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_23_1694340181",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_24_1694342221",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_25_1694345016",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_26_1694347285",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=420938241_27_1694349788"
+      ]
+    },
+    {
+      "eventId": "KCC2023",
+      "matchId": "2023110501",
+      "status": "matched",
+      "officialNames": [
+        "一笙",
+        "向鱼",
+        "妖刀",
+        "小胖",
+        "归期"
+      ],
+      "expectedNames": [
+        "归期",
+        "小胖",
+        "向鱼",
+        "妖刀",
+        "一笙"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_30_1699176376",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_31_1699179064",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_32_1699181364",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_33_1699183814",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_34_1699185962",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=722928129_35_1699187997"
+      ]
+    },
+    {
+      "eventId": "KIC2023",
+      "status": "no-unique-official-match"
+    },
+    {
+      "eventId": "KPL2024S1",
+      "matchId": "2024051801",
+      "status": "matched",
+      "officialNames": [
+        "一笙",
+        "向鱼",
+        "妖刀",
+        "小胖",
+        "归期"
+      ],
+      "expectedNames": [
+        "归期",
+        "小胖",
+        "向鱼",
+        "妖刀",
+        "一笙"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_34_1716027538",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_35_1716029810",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_36_1716031980",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_37_1716035007",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_38_1716036920",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_39_1716038962",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_40_1716041417"
+      ]
+    },
+    {
+      "eventId": "KPL2024S2",
+      "matchId": "2024091501",
+      "status": "matched",
+      "officialNames": [
+        "一诺",
+        "大帅",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "一诺",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_36_1726395308",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_37_1726397594",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_38_1726400083",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_39_1726403607",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_40_1726405533"
+      ]
+    },
+    {
+      "eventId": "KPL2024F",
+      "matchId": "2024111601",
+      "status": "matched",
+      "officialNames": [
+        "一诺",
+        "大帅",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "一诺",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_32_1731751196",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_33_1731753535",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_34_1731755801",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_35_1731759128",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_36_1731761717",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=501236240_37_1731763637"
+      ]
+    },
+    {
+      "eventId": "KCC2024",
+      "matchId": "2025011101",
+      "status": "matched",
+      "officialNames": [
+        "大帅",
+        "小俞",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "小俞",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_21_1736583443",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_22_1736585474",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_23_1736587361",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_24_1736589389",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_25_1736592314",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_26_1736594226",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_27_1736596607",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=736117264_28_1736598912"
+      ]
+    },
+    {
+      "eventId": "KPL2025S1",
+      "matchId": "2025051001",
+      "status": "matched",
+      "officialNames": [
+        "一诺",
+        "大帅",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "一诺",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_35_1746871740",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_36_1746873948",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_37_1746876140",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_38_1746879129",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_39_1746881416"
+      ]
+    },
+    {
+      "eventId": "KPL2025S2",
+      "matchId": "2025090701",
+      "status": "matched",
+      "officialNames": [
+        "一诺",
+        "大帅",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "一诺",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_31_1757239877",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_32_1757242522",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_33_1757244436",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_34_1757247422",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_35_1757249656"
+      ]
+    },
+    {
+      "eventId": "KPL2025F",
+      "matchId": "2025110801",
+      "status": "matched",
+      "officialNames": [
+        "一诺",
+        "大帅",
+        "轩染",
+        "钟意",
+        "长生"
+      ],
+      "expectedNames": [
+        "轩染",
+        "钟意",
+        "长生",
+        "一诺",
+        "大帅"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_37_1762595238",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_38_1762598027",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_39_1762600253",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_40_1762604270",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_41_1762606844",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_42_1762609208"
+      ]
+    },
+    {
+      "eventId": "KCC2025",
+      "matchId": "2026010201",
+      "status": "matched",
+      "officialNames": [
+        "听悦",
+        "小麦",
+        "暖阳",
+        "梓墨",
+        "玖欣"
+      ],
+      "expectedNames": [
+        "梓墨",
+        "暖阳",
+        "听悦",
+        "小麦",
+        "玖欣"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_28_1767342120",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_29_1767344311",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_30_1767346812",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_31_1767348994",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_32_1767352135"
+      ]
+    },
+    {
+      "eventId": "KPL2026S1",
+      "matchId": "2026041101",
+      "status": "matched",
+      "officialNames": [
+        "一笙",
+        "句号",
+        "小屿",
+        "无言",
+        "流浪"
+      ],
+      "expectedNames": [
+        "无言",
+        "句号",
+        "流浪",
+        "小屿",
+        "一笙"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_32_1775902337",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_33_1775904454",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_34_1775906562",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_35_1775909699"
+      ]
+    },
+    {
+      "eventId": "KCC2026",
+      "matchId": "2026052301",
+      "status": "matched",
+      "officialNames": [
+        "信",
+        "清清",
+        "皖皖",
+        "紫幻",
+        "道崽"
+      ],
+      "expectedNames": [
+        "清清",
+        "皖皖",
+        "紫幻",
+        "道崽",
+        "信"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_20_1779524218",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_21_1779526666",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_22_1779529174",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_23_1779531345",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_24_1779534420",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_25_1779536753",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_26_1779538707",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_27_1779541129"
+      ]
+    }
+  ]
+}

@@ -10,7 +10,7 @@ a{color:var(--blue)}header{display:flex;align-items:center;gap:12px;margin-botto
 .season{margin:10px 0;overflow:hidden}.season-head{width:100%;padding:14px;border:0;background:none;color:inherit;text-align:left;cursor:pointer}.season-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800}.season-title i{margin-left:auto;color:var(--gold);font-style:normal}.final{margin-top:5px;color:var(--mut);font-size:12px}.final b{color:var(--gold)}.season-body{display:none;padding:0 12px 12px}.season.open .season-body{display:block}
 .match{display:grid;grid-template-columns:92px 1fr auto 1fr;align-items:center;gap:7px;padding:8px 3px;border-top:1px solid rgba(41,69,110,.65);font-size:12px}.stage{color:var(--mut)}.a{text-align:right}.score{color:var(--gold);font-weight:800}.empty{text-align:center;color:var(--mut);padding:28px}
 @media(max-width:560px){.match{grid-template-columns:56px 1fr auto 1fr;font-size:11px}.summary{gap:6px}.metric{padding:9px 4px}.metric b{font-size:18px}}
-</style></head><body>
+</style><link rel="stylesheet" href="library-controls.css"></head><body>
 <header><a class="back" href="index.html" aria-label="返回首页">‹</a><h1>历年赛程</h1></header>
 <div class="summary"><div class="metric"><b id="season-count"></b><span>赛事</span></div><div class="metric"><b id="match-count"></b><span>对局</span></div><div class="metric"><b>11</b><span>年份</span></div></div>
 <div class="toolbar"><select id="season-filter"><option value="">全部赛事</option></select><select id="stage-filter"><option value="">全部阶段</option></select><input id="query" placeholder="搜索战队"></div>

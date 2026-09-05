@@ -1,4 +1,5 @@
 import "./styles.css";
+import "../../app/navigation.css";
 
 import {
   MAX_GUESSES,
@@ -111,6 +112,13 @@ let geniusMascotVariant: GeniusMascotVariant | null = null;
 
 
 function initialTheme(): Theme {
+  const entryUrl = new URL(window.location.href);
+  if (entryUrl.searchParams.get("theme") === "light") {
+    try { localStorage.setItem(THEME_KEY, "light"); } catch { /* Theme still applies without storage. */ }
+    entryUrl.searchParams.delete("theme");
+    window.history.replaceState(window.history.state, "", entryUrl);
+    return "light";
+  }
   try {
     const stored = localStorage.getItem(THEME_KEY);
     if (stored === "dark" || stored === "light") return stored;
@@ -512,6 +520,14 @@ function renderGeniusIntro(): void {
 
 function renderGeniusQuestion(): void {
   if (!geniusQuestion) return;
+  const existing = geniusRoot.querySelector('.genius-question-panel');
+  if (existing) {
+    existing.querySelector('h2')!.textContent = geniusQuestion.text;
+    existing.querySelector('.genius-topline > span')!.textContent = `问题 ${geniusResponses.length + 1}`;
+    existing.querySelector('.genius-category')!.textContent = geniusQuestion.category;
+    existing.querySelector<HTMLElement>('.genius-progress i')!.style.width = `${Math.min(((geniusResponses.length + 1) / GENIUS_MAX_QUESTIONS) * 100, 100)}%`;
+    return;
+  }
   const panel = document.createElement("section");
   panel.className = "genius-panel genius-question-panel";
   const top = document.createElement("div");
@@ -546,7 +562,11 @@ function renderGeniusQuestion(): void {
     button.type = "button";
     button.dataset.answer = value;
     button.textContent = label;
-    button.addEventListener("click", () => answerGenius(value));
+    button.addEventListener("click", (event) => {
+      // A double click should answer one question, not consume the next one.
+      if (event.detail > 1) return;
+      answerGenius(value);
+    });
     answers.append(button);
   }
   const hint = document.createElement("p");
@@ -609,6 +629,11 @@ function renderGeniusGuess(): void {
 
 
 function renderGenius(): void {
+  if (geniusStarted && !geniusGuess && geniusRoot.querySelector('.genius-question-panel')) {
+    renderGeniusQuestion();
+    return;
+  }
+  const hadFocus = geniusRoot.contains(document.activeElement);
   geniusRoot.replaceChildren();
   if (!geniusStarted) {
     renderGeniusIntro();
@@ -618,7 +643,10 @@ function renderGenius(): void {
     renderGeniusQuestion();
   }
   if (currentView === "genius") {
-    requestAnimationFrame(() => geniusRoot.scrollIntoView({ block: "start", behavior: "auto" }));
+    if (hadFocus) {
+      const target = geniusRoot.querySelector<HTMLButtonElement>('button[data-answer="yes"], .genius-correct, .genius-mascot-choice, .genius-start:not(:disabled)');
+      target?.focus({ preventScroll: true });
+    }
   }
 }
 
@@ -693,7 +721,7 @@ function createLibraryCard(player: LibraryPlayer): HTMLElement {
   team.textContent = player.team;
   const status = document.createElement("span");
   status.className = `library-status${player.active || player.current_team ? "" : " retired"}`;
-  status.textContent = player.active ? "现役" : player.current_team ? `现役 · ${player.current_team}` : "退役";
+  status.textContent = player.active ? "本年有参赛记录" : player.current_team ? player.current_team : "暂无近期记录";
   identity.append(name, team, status);
 
   const toggle = document.createElement("span");
@@ -878,11 +906,11 @@ function renderBoard(target: QuizPlayer): void {
       createPlayerCell(player),
       createFeedbackCell("最近战队", player.latestTeamName, result.latestTeam),
       createFeedbackCell("位置", player.positions.join("/"), result.positions),
-      createFeedbackCell("首秀", String(player.debutYear), result.debutYear),
+      createFeedbackCell("最早参赛", String(player.debutYear), result.debutYear),
       createFeedbackCell("最近登场", String(player.latestYear), result.latestYear),
-      createFeedbackCell("冠军", String(player.championshipCount), result.championshipCount),
-      createFeedbackCell("KPL FMVP", player.hasFmvp ? "拿过" : "未拿过", result.hasFmvp),
-      createFeedbackCell("状态", player.active ? "现役" : "退役", result.active),
+      createFeedbackCell("冠军", player.championshipVerified === false ? "待核实" : String(player.championshipCount), result.championshipCount),
+      createFeedbackCell("决赛 FMVP", player.hasFmvp ? "拿过" : "未拿过", result.hasFmvp),
+      createFeedbackCell("本年参赛", player.active ? "有记录" : "无记录", result.active),
     );
     board.append(row);
   }
@@ -1140,7 +1168,7 @@ function submitGuess(): void {
   render();
   requestAnimationFrame(() => {
     if (game.finished) {
-      resultPanel.scrollIntoView({ block: "center", behavior: "smooth" });
+      resultPanel.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
       return;
     }
     guessInput.focus({ preventScroll: true });

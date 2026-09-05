@@ -1,0 +1,46 @@
+/* Shared by both games so navigation geometry cannot drift. */
+.site-header {
+  position:sticky; top:0; z-index:35; box-sizing:border-box;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  width:100vw; margin-left:calc(50% - 50vw); min-height:72px;
+  padding:10px max(22px,calc((100vw - 1180px)/2));
+  border-bottom:1px solid rgba(151,178,220,.2);
+  background:#0b1221; color:#f4f7fc;
+}
+.site-header .brand { display:inline-flex; align-items:center; gap:10px; color:inherit; font-size:17px; font-weight:800; text-decoration:none; white-space:nowrap; }
+.site-header .brand-avatar { width:36px; height:36px; object-fit:contain; }
+.site-header .header-actions { display:flex; align-items:center; gap:8px; }
+.site-header .header-actions > a,.site-header .text-button,.site-header .theme-toggle,.site-header .sister-link,.site-header .bgm-btn {
+  box-sizing:border-box; display:inline-flex; align-items:center; justify-content:center;
+  height:44px; min-height:44px; margin:0; padding:0 12px; gap:7px;
+  font:600 14px/1 system-ui,"PingFang SC","Microsoft YaHei",sans-serif;
+  white-space:nowrap; text-decoration:none; color:#acbcd3; background:transparent;
+  border:1px solid transparent; border-radius:12px; box-shadow:none; cursor:pointer;
+  transition:background-color 140ms ease,transform 140ms ease;
+}
+.site-header .theme-toggle,.site-header .bgm-btn { border-color:#30415b; border-radius:999px; }
+.site-header .sister-link { background:#17243a; border-color:#30415b; color:#f4f7fc; }
+.site-header .sister-link b { display:grid; place-items:center; width:26px; height:26px; margin:0; border-radius:8px; background:rgba(151,178,220,.16); font-size:17px; }
+.site-header .bgm-btn { width:44px; min-width:44px; padding:0; }
+.site-header .header-actions :is(a,button,summary):focus-visible { outline:2px solid #78a6ff; outline-offset:3px; }
+.site-header .header-actions :is(a,button,summary):active { transform:scale(.97); }
+.friend-links { position:relative; }
+.friend-links summary { list-style:none; }
+.friend-links summary::-webkit-details-marker { display:none; }
+.friend-menu { position:absolute; right:0; top:calc(100% + 8px); min-width:180px; padding:6px; border:1px solid #30415b; border-radius:12px; background:#17243a; box-shadow:0 10px 28px #0003; }
+.friend-menu a { display:flex; align-items:center; min-height:44px; padding:0 12px; color:inherit; border-radius:8px; text-decoration:none; font-size:14px; }
+:root[data-theme="light"] .site-header { background:#f8faff; color:#17223a; border-color:#d7deeb; }
+:root[data-theme="light"] .site-header .header-actions :is(a,button,summary) { color:#40516d; }
+:root[data-theme="light"] .site-header :is(.theme-toggle,.sister-link,.bgm-btn) { border-color:#d1daea; background:#fff; }
+:root[data-theme="light"] .friend-menu { background:#fff; border-color:#d1daea; }
+@media(hover:hover) and (pointer:fine) {
+  .site-header .header-actions :is(a,button,summary):hover { background:rgba(120,158,220,.12); color:inherit; box-shadow:none; }
+}
+@media(max-width:620px) {
+  .site-header { padding:10px 12px; flex-wrap:wrap; gap:8px; }
+  .site-header .header-actions { width:100%; justify-content:flex-end; gap:4px; }
+  .site-header .header-actions > a,.site-header .text-button { display:inline-flex; }
+  .site-header .theme-label { display:none; }
+  .site-header .header-actions :is(a,button,summary) { padding-inline:10px; font-size:13px; }
+}
+@media(prefers-reduced-motion:reduce) { .site-header * { transition:none!important; } }

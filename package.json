@@ -6,7 +6,7 @@
     "guessing"
   ],
   "scripts": {
-    "test": "npm --workspace guessing test && node tools/verify_engine.js && node tools/verify_daily_challenge.js && node tools/verify_history_archive.js",
+    "test": "npm --workspace guessing test && node tools/verify_engine.js && node tools/verify_daily_challenge.js && node tools/verify_history_archive.js && node tools/verify_ui_interactions.js",
     "build": "npm --workspace guessing run build && node tools/build_portal.mjs",
     "serve": "python tools/serve_local.py"
   }

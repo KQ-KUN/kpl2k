@@ -329,6 +329,7 @@ img.ava{object-fit:cover;background:#21262d}
 @media(max-width:600px){body{padding:16px 12px 42px}.lib-head{grid-template-columns:38px 1fr auto;gap:9px}.back{width:38px;height:38px}.lib-head h1{font-size:20px}.rules-btn{padding:0 10px;font-size:12px}.toolbar{position:static}}
 @media(prefers-reduced-motion:reduce){.achievement-toast{transition:opacity .01ms}}
 </style>
+<link rel="stylesheet" href="library-controls.css">
 </head>
 <body>
 <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true"><span class="achievement-toast-icon" aria-hidden="true">🏆</span><span class="achievement-toast-copy"><small>成就已解锁</small><strong id="achievement-toast-name"></strong></span></div>

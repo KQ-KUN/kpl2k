@@ -1,6 +1,14 @@
 {
   "activeSeasonIds": ["KPL2026S1", "KCC2026", "KPL2026S2"],
   "minimumGamesPerEvent": 5,
+  "playerIdAliases": {
+    "BTL1dao": "C9D941685D82271FE93B9D835B50BDBE",
+    "BTLD e": "51C3A4979ADDE9E23CE73E176DE64319"
+  },
+  "playerIdAliases": {
+    "BTL1dao": "C9D941685D82271FE93B9D835B50BDBE",
+    "BTLD e": "51C3A4979ADDE9E23CE73E176DE64319"
+  },
   "minimumGamesPerEventOverrides": {
     "梦泪": 4
   },
@@ -11,7 +19,7 @@
   ],
   "fmvpNames": [
     "Fly", "久诚", "Cat", "老帅", "暖阳", "小义", "清融", "花海",
-    "坦然", "小胖", "不然", "钟意", "长生", "大帅", "一诺", "流浪"
+    "坦然", "小胖", "不然", "钟意", "长生", "大帅", "一诺", "流浪", "信"
   ],
   "normal": {
     "minimumEvents": 8,

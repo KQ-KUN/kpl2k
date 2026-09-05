@@ -1,7 +1,7 @@
 export const DIFFICULTIES = ["popular", "normal", "hardcore"] as const;
 export type Difficulty = (typeof DIFFICULTIES)[number];
 export type GameMode = "classic";
-export type Feedback = "exact" | "partial" | "miss" | "higher" | "lower";
+export type Feedback = "exact" | "partial" | "miss" | "higher" | "lower" | "unknown";
 
 export interface QuizPlayer {
   id: string;
@@ -17,6 +17,7 @@ export interface QuizPlayer {
   latestYear: number;
   hasFmvp: boolean;
   championshipCount: number;
+  championshipVerified?: boolean;
   totalGames: number;
   peakRating: number;
   active: boolean;

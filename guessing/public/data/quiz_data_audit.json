@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "dataVersion": "2026-08-15",
-  "sourceCommit": "be1ecba",
-  "playersHash": "9d89d5fbcc465f2610a033538065aee4ac8ad27efa70f3f81b2f9c95634e7d85",
+  "sourceCommit": "a797eac",
+  "playersHash": "5fa7816d156a49b3e93986b06d51b79c886e1ab5a74aafd05a8c832a811fb25e",
   "sourcePlayers": 746,
-  "eligiblePlayers": 592,
+  "eligiblePlayers": 590,
   "poolCounts": {
     "popular": 30,
     "normal": 119,
-    "hardcore": 592
+    "hardcore": 590
   },
-  "eligibleHttpsIcons": 521,
+  "eligibleHttpsIcons": 519,
   "eligibleHttpIcons": 69,
   "sourceHttpsIcons": 654,
   "sourceHttpIcons": 78,
@@ -82,8 +82,16 @@
       "511BC356047AA8FC68562926E41E5D7A"
     ],
     [
+      "20319A5C29E6B4A8F0B803794650B527",
+      "667A53A1CBB6F696760ABE144D8D67CF"
+    ],
+    [
       "23A681216737DCB3AFDF9EA80BA2634C",
-      "B092BD533E4E740EF69BA8BF6D78E0C0"
+      "4CFFF060395A2F79042660D80876329D"
+    ],
+    [
+      "2BE196A6E4BBF49E3EA601C36073DCC1",
+      "61BD4DE0EB432006D0E15CCEA600B816"
     ],
     [
       "3494283739D62E3DEFBA2B70D8E67939",
@@ -99,13 +107,20 @@
       "6C3384DBE69AE4B0D5B6584991EC0F6B"
     ],
     [
+      "449B838A53A50941F4ED1588CCBEDC5C",
+      "D3A29E426E009F260F9A0381884C2B4D"
+    ],
+    [
       "45542A4391B5BE4A0240153385EE51AD",
       "B856AF18D07A0ABDCA896D7CFFAE20AB"
     ],
     [
+      "5023AD9F6841811669BD74413DDD8A60",
+      "7220305557867928F17515C424392336"
+    ],
+    [
       "55833AAED46B1045AFE756BA8C0B4F07",
-      "BTLTop",
-      "BTL洛阳"
+      "BTL兽兽"
     ],
     [
       "576982DDE588DFBF070EE568BC165EE7",
@@ -116,10 +131,6 @@
       "7D665A5C5D01E4C1833EAD061CF138F1"
     ],
     [
-      "6032526B0E40970311FC5BA4BC1CC987",
-      "F28BE03F74FEBD63DF5EFBD4AE057FDD"
-    ],
-    [
       "6EF57E102F9A23CC825DDC1ED5D55F3B",
       "BTL晴一"
     ],
@@ -128,16 +139,8 @@
       "DC038568C171B98D6EC9EE60B2F0F657"
     ],
     [
-      "90AF1D9D7E35353381E5AF211FDC25C6",
-      "E8DD02C39F017E2AF855E5619C5CBDAB"
-    ],
-    [
       "961B9E5B6D088EBB6582DF2ED5B5525F",
       "9AB146D02F421D25EACAEB3227C61F30"
-    ],
-    [
-      "9F5F22A0D3101ED7B3AA6D637D5B4348",
-      "B8982198AC67B048D317C07DE73F4962"
     ],
     [
       "A03302B351AFD826AB3C1CF66754CA58",
@@ -150,10 +153,6 @@
     [
       "AABAA95A653AF1F147A43A0627DBAEA6",
       "F7FB3A63ECC8E9402D7B13C04899B16E"
-    ],
-    [
-      "B55D06F690915809C40AF962152BE477",
-      "BTL六点六"
     ],
     [
       "BD0B47A333879D6785511498DABE8D00",
@@ -172,16 +171,16 @@
       "BTL倾城"
     ],
     [
+      "BTLTop",
+      "BTL洛阳"
+    ],
+    [
       "BTLZed",
       "BTL江陵"
     ],
     [
       "BTL南木",
       "BTL老王"
-    ],
-    [
-      "BTL堪阳",
-      "BTL无痕"
     ],
     [
       "BTL孤意",
@@ -375,7 +374,7 @@
       "nickname": "笑影",
       "page": "XiaoYing",
       "debutYear": 2019,
-      "sourceDebutYear": 2020
+      "sourceDebutYear": 2019
     },
     {
       "playerId": "BTL老帅",
@@ -432,7 +431,58 @@
     "verifiedAt": "2026-08-30",
     "countingRule": "只统计总决赛冠军方五人首发；不统计替补、教练、资格赛、KWC 和 KPL 梦之队邀请赛"
   },
+  "championshipOfficialEvidence": [
+    {
+      "eventId": "KPL2016S2",
+      "url": "https://shouyou.3dmgame.com/news/43538.html",
+      "verifiedAt": "2026-09-05"
+    },
+    {
+      "eventId": "KCC2025",
+      "url": "https://www.weibo.com/6074356560/QlhELcs2V",
+      "verifiedAt": "2026-09-05"
+    },
+    {
+      "eventId": "KPL2026S1",
+      "url": "https://www.sina.cn/news/detail/5286620362180954.html",
+      "verifiedAt": "2026-09-05"
+    },
+    {
+      "eventId": "KCC2026",
+      "url": "https://www.sina.cn/news/detail/5302836298516440.html",
+      "verifiedAt": "2026-09-05"
+    }
+  ],
+  "championshipPendingReview": [
+    {
+      "playerId": "0821DA9D795FCD36B7EDA6E78EAAC2B0",
+      "nickname": "橘子",
+      "championshipCount": 0
+    },
+    {
+      "playerId": "1C7EBF05DC5EA980A259A34290DE7430",
+      "nickname": "伪装",
+      "championshipCount": 0
+    },
+    {
+      "playerId": "A25A35A18EE5DC93117789871D929E83",
+      "nickname": "Cat",
+      "championshipCount": 7
+    }
+  ],
   "championshipRosterOverrides": [
+    {
+      "playerId": "BTL770",
+      "nickname": "770",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "E5D1C89DE8A875B1187141E8BF55764B",
+      "nickname": "Alan",
+      "championshipCount": 5,
+      "sourceChampionshipCount": 2
+    },
     {
       "playerId": "A25A35A18EE5DC93117789871D929E83",
       "nickname": "Cat",
@@ -446,10 +496,58 @@
       "sourceChampionshipCount": 4
     },
     {
+      "playerId": "A3E0E22D1318A29370AF1C850A5BD45B",
+      "nickname": "Giao",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "B8982198AC67B048D317C07DE73F4962",
+      "nickname": "Hurt",
+      "championshipCount": 4,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "09532532EF6D94EC800C92CE68540CC5",
+      "nickname": "Mc",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "BTLMojo",
+      "nickname": "Mojo",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "BTLSnow",
+      "nickname": "Snow",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "A3CC4165FF162CA5177FF2B2A38C27C0",
+      "nickname": "一笙",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 4
+    },
+    {
       "playerId": "924F7C93F262FC99443B7C27E9A3D6AA",
       "nickname": "一诺",
       "championshipCount": 7,
       "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "B55D06F690915809C40AF962152BE477",
+      "nickname": "七年",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "C0BDDF50FB07FCE424537BFE33078807",
+      "nickname": "不然",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
     },
     {
       "playerId": "919D5E5E2A9039A5E7393859C9B4E012",
@@ -464,9 +562,9 @@
       "sourceChampionshipCount": 2
     },
     {
-      "playerId": "2D8E2E91721A5FB23C0A3F2542B02650",
-      "nickname": "乔兮",
-      "championshipCount": 0,
+      "playerId": "5DE81E7A60330EC8E695CF286441E468",
+      "nickname": "久龙",
+      "championshipCount": 2,
       "sourceChampionshipCount": 0
     },
     {
@@ -476,16 +574,64 @@
       "sourceChampionshipCount": 1
     },
     {
+      "playerId": "4A0A09289775D2E149FAC04A94E8E706",
+      "nickname": "今屿",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "7FA4DF2B38866F8E9E488D37EA31FEA3",
+      "nickname": "信",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "BTL六点六",
+      "nickname": "六点六",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "3DB7CBEEB6F80096A052005A0F1762F2",
+      "nickname": "北诗",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "F1B2BA5A27FE61518DCC510C73288D9C",
+      "nickname": "千世",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "53959909EBDE5BBC545D547BA12CD4CC",
+      "nickname": "句号",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
       "playerId": "9D9BA884970D4843EBCBA67AE45DFB47",
       "nickname": "向鱼",
       "championshipCount": 5,
       "sourceChampionshipCount": 5
     },
     {
+      "playerId": "ADB82BF5551FB3F9C554082FD1C04C61",
+      "nickname": "听悦",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
       "playerId": "98562D49FEF03808BFF786C0123E84AC",
       "nickname": "坦然",
       "championshipCount": 5,
       "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "439E648CDE59C33351208B1E8DDAA28B",
+      "nickname": "壶神",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
     },
     {
       "playerId": "2B8B4F16F808BA4F7BB5D862DBB85C89",
@@ -497,7 +643,7 @@
       "playerId": "C9D941685D82271FE93B9D835B50BDBE",
       "nickname": "妖刀",
       "championshipCount": 6,
-      "sourceChampionshipCount": 5
+      "sourceChampionshipCount": 6
     },
     {
       "playerId": "6A3F17E8187CCCAB514B6BE9A8F7C209",
@@ -506,10 +652,58 @@
       "sourceChampionshipCount": 6
     },
     {
+      "playerId": "7D1D29C1629432D8FA2E1CE299D1DF0C",
+      "nickname": "小义",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "B6389D984B9957CDA0C840F35A14A3B2",
+      "nickname": "小俞",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "F4512BCAF065E61596ADDFAEA811E1E2",
+      "nickname": "小屿",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "BTL小怪兽",
+      "nickname": "小怪兽",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "2A9CAE3245BC57E25B4D761E5ED013FE",
+      "nickname": "小暄",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "93BDAB623A187FD94E8CA51CCA1F1A6D",
+      "nickname": "小羽",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 0
+    },
+    {
       "playerId": "32A60408B2D697ABC6F8F84919412C37",
       "nickname": "小胖",
-      "championshipCount": 6,
+      "championshipCount": 5,
       "sourceChampionshipCount": 5
+    },
+    {
+      "playerId": "E203B175E6029F1987EB4310039F2608",
+      "nickname": "小麦",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "DBB1AA4588256E9DF8DEA01D8286A0CE",
+      "nickname": "尘夏",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 0
     },
     {
       "playerId": "29F240524C1D1CD365DEF6C5FB3163D0",
@@ -518,22 +712,82 @@
       "sourceChampionshipCount": 4
     },
     {
+      "playerId": "A19CF9FA3907681E92FA3E685122A32A",
+      "nickname": "归期",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 3
+    },
+    {
       "playerId": "F95EE73A43207678BF73129A2717E243",
       "nickname": "无畏",
       "championshipCount": 2,
       "sourceChampionshipCount": 2
     },
     {
+      "playerId": "BTL无痕",
+      "nickname": "无痕",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "9812F03AAAACB2FF2406774412D2DF1E",
+      "nickname": "无言",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "BB176EBA5A040011260420E47F5D8D6C",
+      "nickname": "无铭",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "259B8AFFB1C927FBDDE47EC9E641CD21",
+      "nickname": "明崽",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "E2DA8DAFB90822DA6DA39C6FC40C4172",
+      "nickname": "易峥",
+      "championshipCount": 6,
+      "sourceChampionshipCount": 5
+    },
+    {
       "playerId": "8B242820C3F35C0DEFB9F257D4020BC4",
       "nickname": "星宇",
-      "championshipCount": 2,
+      "championshipCount": 1,
       "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "9F13A5F29B96662F5C16147FB67AB955",
+      "nickname": "星痕",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
     },
     {
       "playerId": "B61E31C87EB42BE852DEADE5273AB0DE",
       "nickname": "暖阳",
       "championshipCount": 3,
       "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "75A0E028EC2BF9D41710669411CD19F8",
+      "nickname": "最初",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 0
+    },
+    {
+      "playerId": "C2A0F3FB93F7CD5613AE375B4B1D9C94",
+      "nickname": "月色",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "A7AAD11E26643813D72EFEBD3B0EBD28",
+      "nickname": "柠栀",
+      "championshipCount": 3,
+      "sourceChampionshipCount": 0
     },
     {
       "playerId": "A4F5BBC8EF3DE26F0DB66A63C1DCC954",
@@ -548,9 +802,21 @@
       "sourceChampionshipCount": 1
     },
     {
+      "playerId": "61BD4DE0EB432006D0E15CCEA600B816",
+      "nickname": "流星",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "7EF4118A3C301B7916337B8D71B8EFAE",
+      "nickname": "流浪",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
       "playerId": "7E1379DA0DE522674BE6D3D950792E19",
       "nickname": "清清",
-      "championshipCount": 2,
+      "championshipCount": 3,
       "sourceChampionshipCount": 3
     },
     {
@@ -566,10 +832,34 @@
       "sourceChampionshipCount": 1
     },
     {
-      "playerId": "6D24B00C1B9E76BCA81D5D7A01DEA2FB",
-      "nickname": "笑影",
+      "playerId": "2C9650E8E2261124104FED26E25D3A33",
+      "nickname": "玖欣",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "25F3601414420FAAA6AF31894941632F",
+      "nickname": "皖皖",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "217E45134E48B0E55522590E23FFE479",
+      "nickname": "神人",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "BEA6A88CA6477F8B76BBD34D86042FBA",
+      "nickname": "空绝",
       "championshipCount": 0,
-      "sourceChampionshipCount": 0
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "DA45D588FCE4E4AD2F8E817EA4629B32",
+      "nickname": "紫幻",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
     },
     {
       "playerId": "BTL老帅",
@@ -584,6 +874,30 @@
       "sourceChampionshipCount": 6
     },
     {
+      "playerId": "E95F0D2DADA0BC7199DF173E56EB43EC",
+      "nickname": "萝卜",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "266AEF44E79032783D720F7709D50BEB",
+      "nickname": "萧玦",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "B856CBF43D5DCFE854CC2B1FB3D5B1DC",
+      "nickname": "蓝柚",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "5D73362D8689CDE756564426B11DF410",
+      "nickname": "诗酒",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
       "playerId": "CFD5FB9589587760CD3C44425C336E21",
       "nickname": "诺言",
       "championshipCount": 2,
@@ -596,10 +910,16 @@
       "sourceChampionshipCount": 6
     },
     {
-      "playerId": "B85FF8B85DEC3E142B8FD38CF06AE36F",
-      "nickname": "钎城",
+      "playerId": "37DFC806CF42EE40AD7D21A3FF0394B7",
+      "nickname": "道崽",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 3
+    },
+    {
+      "playerId": "882A14CC89F092BDB73A1814544C6578",
+      "nickname": "郁上",
       "championshipCount": 0,
-      "sourceChampionshipCount": 0
+      "sourceChampionshipCount": 1
     },
     {
       "playerId": "B474B7B36B32E5F99E09D3ADC732F844",
@@ -612,6 +932,30 @@
       "nickname": "长生",
       "championshipCount": 7,
       "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "20319A5C29E6B4A8F0B803794650B527",
+      "nickname": "闪光",
+      "championshipCount": 0,
+      "sourceChampionshipCount": 1
+    },
+    {
+      "playerId": "6D54271544D17B374436D7189EEBC522",
+      "nickname": "阿豆",
+      "championshipCount": 2,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "A9A6C2449683B006DBF49334AE23E939",
+      "nickname": "风箫",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "A30C615EA7B9566AE41FBDCAA4CF16D9",
+      "nickname": "麟羽轩",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
     }
   ],
   "localIconCount": 555,

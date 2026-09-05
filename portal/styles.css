@@ -1,11 +1,11 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-synthesis: none;
-  --bg: #070c19;
-  --text: #f6f8fd;
-  --muted: #98a8c4;
-  --line: rgb(161 184 223 / 18%);
+  --bg: #f3f6fc;
+  --text: #172844;
+  --muted: #52647f;
+  --line: rgb(49 78 125 / 18%);
 }
 
 * { box-sizing: border-box; }
@@ -15,9 +15,9 @@ body {
   margin: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 8% 30%, rgb(210 34 63 / 22%), transparent 32%),
-    radial-gradient(circle at 92% 32%, rgb(44 102 233 / 25%), transparent 34%),
-    linear-gradient(135deg, #090d1b, #070b17 50%, #081021);
+    radial-gradient(ellipse at 0% 20%, rgb(245 65 90 / 18%), transparent 48%),
+    radial-gradient(ellipse at 100% 65%, rgb(48 112 240 / 20%), transparent 48%),
+    linear-gradient(120deg, #fff5f6, #f8faff 48%, #e9f1ff);
 }
 
 body::before {
@@ -47,8 +47,7 @@ body::before {
 .hero { margin: 0 auto clamp(32px, 6vh, 60px); text-align: center; }
 .hero h1 {
   margin: 0;
-  background: linear-gradient(100deg, #ff687c 3%, #fff 48%, #79a6ff 97%);
-  color: transparent;
+  color: var(--text);
   font-size: clamp(44px, 7vw, 78px);
   font-weight: 950;
   line-height: 1;
@@ -60,8 +59,8 @@ body::before {
 
 .game-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 30px); }
 .game-card {
-  --accent: #ef4158;
-  --accent-rgb: 239 65 88;
+  --accent: #c92e49;
+  --accent-rgb: 201 46 73;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -72,17 +71,18 @@ body::before {
   overflow: hidden;
   padding: clamp(26px, 4vw, 42px);
   border: 1px solid rgb(var(--accent-rgb) / 38%);
-  border-radius: 30px;
+  border-radius: 20px;
   color: inherit;
   text-decoration: none;
   background:
-    linear-gradient(145deg, rgb(var(--accent-rgb) / 15%), transparent 42%),
-    rgb(15 23 42 / 88%);
-  box-shadow: 0 28px 70px rgb(0 0 0 / 28%);
+    linear-gradient(145deg, rgb(var(--accent-rgb) / 10%), transparent 65%),
+    rgb(255 255 255 / 92%);
+  box-shadow: none;
   transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
 }
-.game-card--blue { --accent: #4e86ff; --accent-rgb: 78 134 255; }
+.game-card--blue { --accent: #245bc5; --accent-rgb: 36 91 197; }
 .card-glow {
+  display: none;
   position: absolute;
   z-index: -1;
   width: 270px;
@@ -101,14 +101,14 @@ body::before {
   height: 126px;
   border: 1px solid rgb(var(--accent-rgb) / 40%);
   border-radius: 50%;
-  background: rgb(5 10 23 / 58%);
+  background: #fff;
   box-shadow: 0 18px 42px rgb(var(--accent-rgb) / 20%), inset 0 0 30px rgb(var(--accent-rgb) / 10%);
 }
 .avatar-wrap img { width: 108px; height: 108px; object-fit: contain; filter: drop-shadow(0 12px 20px rgb(0 0 0 / 35%)); }
 .card-copy { align-self: center; min-width: 0; }
 .game-type { display: block; margin-bottom: 9px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .15em; }
 .card-copy strong { display: block; font-size: clamp(27px, 3.1vw, 40px); font-weight: 900; line-height: 1.1; letter-spacing: -.035em; }
-.game-desc { display: block; margin-top: 11px; color: #aab8cf; font-size: 14px; line-height: 1.6; }
+.game-desc { display: block; margin-top: 11px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .enter {
   grid-column: 1 / -1;
   display: flex;
@@ -118,7 +118,7 @@ body::before {
   margin-top: 26px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
-  color: #dce5f5;
+  color: var(--accent);
   font-size: 14px;
   font-weight: 750;
 }
@@ -131,21 +131,21 @@ body::before {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 18px;
-  margin-top: clamp(28px, 5vw, 48px);
-  padding: 20px 22px;
+  margin: 28px auto 0;
+  padding: 12px 16px;
   border: 1px solid rgb(126 166 255 / 28%);
-  border-radius: 20px;
+  border-radius: 12px;
   color: inherit;
   text-decoration: none;
-  background: linear-gradient(110deg, rgb(76 126 233 / 16%), rgb(255 255 255 / 5%));
-  box-shadow: 0 18px 48px rgb(0 0 0 / 18%);
+  background: rgb(255 255 255 / 3%);
+  box-shadow: none;
   transition: transform .16s ease, border-color .16s ease, background-color .16s ease;
 }
 .announcement-mark, .announcement-arrow { display: grid; place-items: center; flex: none; border-radius: 50%; }
 .announcement-mark { width: 42px; height: 42px; background: #3169dc; color: #fff; font-family: Georgia, serif; font-size: 22px; font-style: italic; font-weight: 700; box-shadow: 0 8px 22px rgb(49 105 220 / 28%); }
 .announcement-copy strong, .announcement-copy span { display: block; }
 .announcement-copy strong { font-size: 17px; line-height: 1.35; }
-.announcement-copy span { margin-top: 3px; color: #9eafc9; font-size: 12px; }
+.announcement-copy span { display: none; }
 .announcement-arrow { width: 34px; height: 34px; background: rgb(126 166 255 / 12%); color: #a9c4ff; font-size: 18px; transition: transform .16s ease; }
 .announcement-link:focus-visible, .announcement-back:focus-visible { outline: 3px solid rgb(126 166 255 / 76%); outline-offset: 4px; }
 .announcement-link:active { transform: scale(.985); }
@@ -162,7 +162,8 @@ body::before {
 .update-list p { margin: 0; color: #9eafc9; font-size: 14px; line-height: 1.75; }
 
 @media (hover: hover) and (pointer: fine) {
-  .game-card:hover { transform: translateY(-6px); border-color: rgb(var(--accent-rgb) / 72%); box-shadow: 0 34px 80px rgb(0 0 0 / 36%), 0 0 44px rgb(var(--accent-rgb) / 12%); }
+  .game-card:hover { transform: translateY(-2px); border-color: rgb(var(--accent-rgb) / 72%); box-shadow: 0 8px 24px rgb(0 0 0 / 18%); }
+  .game-card:hover:active,.announcement-link:hover:active { transform:scale(.985); }
   .game-card:hover .enter b { transform: translateX(4px); }
   .announcement-link:hover { transform: translateY(-3px); border-color: rgb(126 166 255 / 58%); background-color: rgb(76 126 233 / 8%); }
   .announcement-link:hover .announcement-arrow { transform: translateX(3px); }
@@ -202,3 +203,12 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* Keep the announcement page legible with the bright portal palette. */
+.announcement-link { background:rgb(255 255 255 / 65%); border-color:var(--line); }
+.announcement-arrow { color:#245bc5; background:rgb(36 91 197 / 9%); }
+.announcement-back { color:var(--text); background:#fff; }
+.update-list li { background:rgb(255 255 255 / 86%); }
+.update-list strong { color:var(--text); }
+.update-list p { color:var(--muted); }
+.update-list li::before { color:#245bc5; }

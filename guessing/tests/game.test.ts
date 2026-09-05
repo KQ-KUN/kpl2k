@@ -20,6 +20,17 @@ import {
 import type { QuizData, QuizPlayer } from "../src/types.ts";
 
 
+test("official recent finals corrections are present in the shipped snapshot", () => {
+  const data: QuizData = JSON.parse(readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"));
+  const byName = new Map(data.players.map((entry) => [entry.nickname, entry]));
+  const titles = { "道崽": 1, "风箫": 1, "一笙": 3, "小俞": 1, "清清": 3,
+    "皖皖": 1, "归期": 2, "小胖": 5, "星宇": 1, "玖欣": 1, "小屿": 1 };
+  for (const [name, count] of Object.entries(titles)) {
+    assert.equal(byName.get(name)?.championshipCount, count, name);
+  }
+  assert.equal(byName.get("信")?.hasFmvp, true);
+});
+
 function player(overrides: Partial<QuizPlayer> = {}): QuizPlayer {
   return {
     id: "a",
@@ -42,6 +53,17 @@ function player(overrides: Partial<QuizPlayer> = {}): QuizPlayer {
     ...overrides,
   };
 }
+
+test("same nickname players keep separate identities and uncertain honours are neutral", () => {
+  const entries = [player({ id: "one", nickname: "九月" }), player({ id: "two", nickname: "九月" })];
+  const people = buildGeniusPeople(entries);
+  assert.ok(people.some((entry) => entry.id === "one"));
+  assert.ok(people.some((entry) => entry.id === "two"));
+  const uncertain = player({ championshipVerified: false });
+  assert.equal(comparePlayers(uncertain, entries[0]!).championshipCount, "unknown");
+  assert.equal(comparePlayers(entries[0]!, uncertain).championshipCount, "unknown");
+  assert.equal(buildGeniusPeople([uncertain]).find((entry) => entry.id === uncertain.id)?.championshipCount, null);
+});
 
 
 test("comparePlayers returns exact, partial and target-relative arrows", () => {

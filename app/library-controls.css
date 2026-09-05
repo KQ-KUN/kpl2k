@@ -1,0 +1,20 @@
+/* Common controls for the generated reference pages. */
+body { background:var(--bg); }
+button,input,select { font:inherit; }
+button,a { touch-action:manipulation; }
+button,.back { transition:transform 140ms cubic-bezier(.23,1,.32,1),background-color 140ms ease; }
+button:not(:disabled):active,.back:active { transform:scale(.98); }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible { outline:2px solid var(--blue); outline-offset:3px; }
+.back { display:inline-grid; place-items:center; width:44px; height:44px; border:1px solid var(--line); border-radius:12px; text-decoration:none; }
+input,select,.rules-btn { min-height:44px; font-size:14px; }
+.card { background:var(--card); box-shadow:none; border-radius:16px; }
+.toolbar { flex-wrap:wrap; }
+.metric span,.tm,.pk small,.v-stats,.heroes,.tags,.b,.badge { font-size:12px; }
+@media(max-width:600px) {
+  .lib-head { grid-template-columns:44px 1fr auto; }
+  .back { width:44px; height:44px; }
+  .toolbar input { flex-basis:100%; }
+  .toolbar select { flex:1; min-width:0; }
+  .match { font-size:12px; }
+}
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition-duration:.01ms!important; } }

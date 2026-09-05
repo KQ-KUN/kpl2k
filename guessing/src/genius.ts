@@ -130,7 +130,7 @@ function hasRepeatedNamePattern(name: string): boolean {
 export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
   const people = new Map<string, GeniusPerson>();
   for (const player of players) {
-    people.set(player.nickname.toLocaleLowerCase("zh-CN"), {
+    people.set(player.id, {
       id: player.id,
       name: player.nickname,
       aliases: player.aliases,
@@ -145,7 +145,7 @@ export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
       totalGames: player.totalGames,
       active: player.active,
       female: false,
-      championshipCount: player.championshipCount,
+      championshipCount: player.championshipVerified === false ? null : player.championshipCount,
       hasFmvp: player.hasFmvp,
       popularity: player.difficulty.includes("popular") ? 7 : player.difficulty.includes("normal") ? 2 : 0.7,
     });
@@ -153,7 +153,8 @@ export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
 
   for (const extra of EXTRA_PEOPLE) {
     const key = extra.name.toLocaleLowerCase("zh-CN");
-    const existing = people.get(key);
+    const matches = [...people.values()].filter((person) => person.name.toLocaleLowerCase("zh-CN") === key);
+    const existing = matches.length === 1 ? matches[0] : undefined;
     const staffAvatar = STAFF_AVATARS[extra.name];
     const staffTraits = extra.traits ?? STAFF_TRAITS[extra.name] ?? [];
     if (existing) {
@@ -224,10 +225,10 @@ export function buildGeniusQuestions(people: GeniusPerson[] = []): GeniusQuestio
     booleanQuestion("host-interviewer", "你想的这位人物经常担任舞台主持或赛后采访吗？", "工作场景", (person) => person.traits.includes("host_interviewer")),
     booleanQuestion("english-broadcast", "你想的这位人物曾在 KPL 总决赛进行英文解说吗？", "特定场景", (person) => person.traits.includes("english_broadcast")),
     booleanQuestion("rookie-commentator-award", "你想的这位人物获得过 2018 年 KPL 最佳新人解说吗？", "解说荣誉", (person) => person.traits.includes("rookie_commentator_award")),
-    booleanQuestion("champion", "你想的这位人物拿过 KPL 联赛或挑战者杯冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount > 0),
-    booleanQuestion("champion:3", "你想的这位人物至少拿过三次 KPL 联赛或挑战者杯冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 3),
-    booleanQuestion("champion:5", "你想的这位人物至少拿过五次 KPL 联赛或挑战者杯冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 5),
-    booleanQuestion("fmvp", "你想的这位人物拿过 KPL 联赛或挑战者杯 FMVP 吗？", "生涯荣誉", (person) => person.hasFmvp),
+    booleanQuestion("champion", "你想的这位人物作为决赛首发，拿过 KPL 联赛或冠军杯系列赛事冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount > 0),
+    booleanQuestion("champion:3", "你想的这位人物作为决赛首发，至少拿过三次 KPL 联赛或冠军杯系列赛事冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 3),
+    booleanQuestion("champion:5", "你想的这位人物作为决赛首发，至少拿过五次 KPL 联赛或冠军杯系列赛事冠军吗？", "生涯荣誉", (person) => person.championshipCount === null ? null : person.championshipCount >= 5),
+    booleanQuestion("fmvp", "你想的这位人物拿过 KPL 联赛或冠军杯系列赛事 FMVP 吗？", "生涯荣誉", (person) => person.hasFmvp),
     booleanQuestion("arc:multi-role", "你想的这位人物是否把生涯从选手席延伸到了教练席或解说席？", "生涯轨迹", (person) => person.roles.includes("player") && person.roles.length > 1),
     booleanQuestion("arc:versatile", "你想的这位人物打职业时，是能胜任两个或更多位置的摇摆人吗？", "生涯轨迹", (person) => person.roles.includes("player") ? person.positions.length >= 2 : null),
     booleanQuestion("arc:long-career", "你想的这位人物，KPL 生涯是否跨越了至少六个自然年？", "生涯轨迹", (person) => person.debutYear === null || person.latestYear === null ? null : person.latestYear - person.debutYear >= 5),
@@ -249,7 +250,7 @@ export function buildGeniusQuestions(people: GeniusPerson[] = []): GeniusQuestio
     )),
     ...[2018, 2020, 2022, 2024].map((year) => booleanQuestion(
       `debut:${year}`,
-      `你想的这位人物是在 ${year} 年以前登上 KPL 赛场的吗？`,
+      `你想的这位人物在 ${year} 年以前就有正式比赛记录吗？`,
       "登场时间",
       (person) => person.debutYear === null ? null : person.debutYear < year,
     )),

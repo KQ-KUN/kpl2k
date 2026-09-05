@@ -29,7 +29,7 @@ def static_checks() -> None:
         raise SystemExit(f"[FAIL] SPA smoke: missing ids={missing_ids}, routes={missing_routes}")
     if "compactAllStarState(STATE.allStar)" not in ui:
         raise SystemExit("[FAIL] All-Star history still risks duplicating avatar data")
-    for marker in ("btn-quick", "每日挑战", "今日主题：", "function dailyChallenge", "../guessing/", "home-guessing-link", "#/a?", "build_version", "data-tactic=\"stable\"", "result-achievements", "sideWins[side[0]] / gameCount", "storageHistory.pop()", "cachedRoster === requestedRoster", "normalizeAllStarState", "playerAvatarHtml", "sim-pause", "sim-skip-series", "picker-compare", "result-factors", "var best = bestVersionFor(p, pos);", "确认清空", "kpl2k_achievements_v1", "recordAchievementRun", "recordAchievementEvent", "reconcileAchievementHistory", "item.champ === true", "achievement-grid"):
+    for marker in ("btn-quick", "每日挑战", "今日主题：", "function dailyChallenge", "../guessing/", "sister-link", "nav-home", "nav-rules", "theme-toggle", "navigation.css", "js/theme.js", "#/a?", "build_version", "data-tactic=\"stable\"", "result-achievements", "sideWins[side[0]] / gameCount", "storageHistory.pop()", "cachedRoster === requestedRoster", "normalizeAllStarState", "playerAvatarHtml", "sim-pause", "sim-skip-series", "picker-compare", "result-factors", "var best = bestVersionFor(p, pos);", "确认清空", "kpl2k_achievements_v1", "recordAchievementRun", "recordAchievementEvent", "reconcileAchievementHistory", "item.champ === true", "achievement-grid"):
         if marker not in html + ui + (ROOT / "app/data/manifest.json").read_text(encoding="utf-8"):
             raise SystemExit(f"[FAIL] v0.2 static marker missing: {marker}")
     if "0 / 18" not in html:
