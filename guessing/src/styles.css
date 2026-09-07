@@ -121,7 +121,7 @@ main { width: min(1180px, calc(100% - 32px)); min-height: calc(100vh - 150px); m
 .empty-state { display: grid; justify-items: center; max-width: 540px; margin: 42px auto 20px; padding: 28px 20px; color: var(--muted); text-align: center; }
 .target-icon { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid rgba(80,126,237,.55); border-radius: 50%; background: linear-gradient(135deg, rgba(239,65,88,.12), rgba(62,123,250,.2)); color: #dbe6ff; font-size: 26px; }
 .empty-state h2 { margin: 15px 0 5px; color: var(--text); font-size: 20px; }
-.board-header, .guess-row { display: grid; grid-template-columns: minmax(150px,1.45fr) repeat(7,minmax(82px,1fr)); gap: 6px; }
+.board-header, .guess-row { display: grid; grid-template-columns: minmax(124px,1.4fr) repeat(9,minmax(0,1fr)); gap: 5px; }
 .board-header { margin-top: 16px; padding: 0 7px 7px; color: var(--muted); font-size: 10px; font-weight: 750; text-align: center; }.board-header span:first-child { padding-left: 9px; text-align: left; }
 .board { display: grid; gap: 10px; }.guess-row { padding: 7px; border: 1px solid var(--line); border-radius: 14px; background: rgba(8,16,31,.9); scroll-margin-bottom: 132px; }
 .player-cell, .feedback-cell { min-height: 72px; border-radius: 10px; }.player-cell { display: flex; align-items: center; gap: 10px; padding: 9px; background: var(--panel-2); }.player-cell strong,.player-cell small { display:block; }.player-cell small { margin-top: 3px; color: var(--muted); font-size: 11px; }
@@ -189,7 +189,7 @@ dialog { width:min(540px,calc(100% - 28px));padding:22px;border:1px solid var(--
 :root[data-theme="light"] .rules-copy b { color: #17223a; }
 
 @media (max-width: 900px) { .home-hero{grid-template-columns:1fr}.hero-orbit{display:none}.mode-grid{grid-template-columns:1fr}.mode-card{min-height:205px}.library-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.library-toolbar{grid-template-columns:1fr 1fr}.view-header{grid-template-columns:120px 1fr}.view-header>span,.outline-button{grid-column:2;text-align:left;justify-self:start} }
-@media (max-width: 780px) { main{width:min(100% - 18px,650px);padding-top:18px}.site-header{padding-inline:12px}.header-actions>a:first-child{display:none}.view-header{grid-template-columns:1fr;padding:22px}.view-header .back-link{margin-bottom:8px}.view-header>span,.outline-button{grid-column:auto}.control-panel{align-items:stretch;flex-direction:column}.control-group{justify-content:space-between}.board-header{display:none}.guess-row{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.player-cell{grid-column:1/-1;min-height:62px}.feedback-cell{min-height:78px}.library-card-item.open{grid-column:span 2} }
+@media (max-width: 780px) { main{width:min(100% - 18px,650px);padding-top:18px}.site-header{padding-inline:12px}.header-actions>a:first-child{display:none}.view-header{grid-template-columns:1fr;padding:22px}.view-header .back-link{margin-bottom:8px}.view-header>span,.outline-button{grid-column:auto}.control-panel{align-items:stretch;flex-direction:column}.control-group{justify-content:space-between}.board-header{display:none}.guess-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.player-cell{grid-column:1/-1;min-height:62px}.feedback-cell{min-height:78px}.library-card-item.open{grid-column:span 2} }
 @media (max-width: 540px) { .site-header{min-height:60px}.header-actions .text-button,.theme-label{display:none}.header-actions{gap:2px}.home-hero{min-height:300px;padding:34px 24px}.home-hero h1{font-size:76px}.hero-meta{flex-direction:column;gap:5px}.mode-card{min-height:210px;padding:25px}.view-header h1{font-size:40px}.control-panel,.play-panel{padding:13px}.control-group{align-items:stretch;flex-direction:column}.segmented{display:grid;grid-auto-flow:column;grid-auto-columns:1fr}.segmented button{padding:0 8px}.game-status-line{align-items:flex-start;flex-direction:column;gap:8px}.input-row{grid-template-columns:minmax(0,1fr) 96px}.primary-button{width:96px;padding-inline:8px}.suggestions{right:0}.library-toolbar{top:68px;grid-template-columns:1fr 1fr}.search-field{grid-column:1/-1}.library-cards{grid-template-columns:1fr}.library-card-item.open{grid-column:auto}.library-card-summary{grid-template-columns:44px minmax(0,1fr) auto;padding:12px}.library-avatar{width:44px;height:44px}.library-rating{font-size:18px} }
 
 /* Readability scale: keep dense game data legible on desktop and mobile. */
@@ -209,13 +209,18 @@ body { font-size: 16px; line-height: 1.55; }
 .round-status strong { font-size: 20px; }
 .empty-state h2 { font-size: 22px; }
 .board-header { font-size: 12px; }
-.player-cell, .feedback-cell { min-height: 76px; }
+.player-cell, .feedback-cell { min-width: 0; min-height: 70px; }
+.player-cell > div { min-width: 0; overflow-wrap: anywhere; }
+.feedback-cell { padding: 5px; }
 .player-cell small { font-size: 13px; }
-.feedback-cell small { font-size: 12px; }
-.feedback-cell strong { font-size: 14px; }
+.feedback-cell small { font-size: 11px; }
+.feedback-cell strong { font-size: 13px; }
 .feedback-cell em { font-size: 18px; }
 .feedback-cell.unknown { background: var(--panel-2); color: var(--muted); }
 .feedback-cell.unknown small { color: var(--muted); }
+.social-footer { display:flex; justify-content:center; padding:20px 16px 140px; }
+.social-footer a { display:inline-flex; align-items:center; gap:7px; min-height:44px; color:var(--muted); }
+.social-footer svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; }
 input[type="search"], .primary-button { font-size: 16px; }
 .suggestion { min-height: 62px; padding-block: 8px; font-size: 15px; }
 .suggestion small, .suggestion .years, .form-message { font-size: 13px; }
@@ -380,11 +385,11 @@ input[type="search"], .primary-button { font-size: 16px; }
   .mode-action { min-height:18px; margin-top:0; font-size:11px; line-height:18px; }
   .mode-action i { font-size:14px; line-height:1; }
 
-  .guess-row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:5px; padding:5px; border-radius:12px; }
+  .guess-row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; padding:6px; border-radius:12px; }
   .player-cell { min-height:52px; gap:8px; padding:6px 8px; }
   .player-cell .avatar { width:36px; height:36px; }
   .player-cell small { margin-top:1px; font-size:12px; }
-  .feedback-cell { min-height:56px; gap:2px; padding:4px; border-radius:8px; }
+  .feedback-cell { min-width:0; min-height:62px; gap:3px; padding:6px; border-radius:8px; }
   .feedback-cell small { font-size:12px; }
   .feedback-cell strong { font-size:13px; line-height:1.35; overflow-wrap:anywhere; }
   .feedback-cell em { font-size:13px; }

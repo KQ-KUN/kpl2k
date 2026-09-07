@@ -1,9 +1,13 @@
 import "./styles.css";
 import "../../app/navigation.css";
+import { findLibraryPlayer, libraryPlayerId } from "./library-navigation.ts";
 
 import {
   MAX_GUESSES,
+  appearanceLabel,
   comparePlayers,
+  isAcceptedGuess,
+  isClassicEligible,
   feedbackSymbol,
   normalizeSearch,
   playersForDifficulty,
@@ -175,7 +179,7 @@ function isLibraryData(value: unknown): value is LibraryData {
 function viewFromHash(): AppView {
   if (location.hash === "#classic") return "classic";
   if (location.hash === "#genius") return "genius";
-  if (location.hash === "#library") return "library";
+  if (location.hash === "#library" || location.hash.startsWith("#library?")) return "library";
   return "home";
 }
 
@@ -190,6 +194,39 @@ function showView(): void {
   if (appReady && currentView === "genius") renderGenius();
   if (appReady && currentView === "library") renderLibrary();
   window.scrollTo({ top: 0, behavior: "auto" });
+  if (appReady && currentView === "library") focusLibraryPlayer();
+}
+
+function focusLibraryPlayer(): void {
+  const id = libraryPlayerId(location.hash);
+  const player = id ? playerById.get(id) : undefined;
+  if (!player) return;
+  libraryQuery.value = "";
+  libraryTeam.value = "";
+  libraryPosition.value = "";
+  renderLibrary();
+  const entry = findLibraryPlayer(libraryData.players, player);
+  let card = entry ? document.getElementById(`library-player-${entry.id}`) : null;
+  if (card) {
+    card.querySelector<HTMLButtonElement>(".library-card-summary")?.click();
+  } else {
+    // 部分杯赛选手没有年度图鉴卡，只展示题库已有资料，不拼接同名人物。
+    card = document.createElement("article");
+    card.className = "library-card-item";
+    card.append(createPlayerCell(player));
+    const details = document.createElement("p");
+    details.className = "library-brief";
+    details.textContent = `${player.positions.join(" / ")} · 冠军 ${player.championshipCount} · 征战赛事 ${player.eventCount} · 小局数 ${player.totalGames}`;
+    card.append(details);
+    libraryList.prepend(card);
+  }
+  card.tabIndex = -1;
+  const targetCard = card;
+  requestAnimationFrame(() => {
+    if (!targetCard.isConnected || currentView !== "library") return;
+    targetCard.scrollIntoView({ block: "center", behavior: "auto" });
+    targetCard.focus({ preventScroll: true });
+  });
 }
 
 
@@ -208,17 +245,23 @@ function loadStoredGame(): StoredGame | null {
       value.mode !== mode ||
       value.difficulty !== difficulty ||
       value.dataVersion !== data.dataVersion ||
+      value.playersHash !== data.playersHash ||
       typeof value.targetId !== "string" ||
       !playerById.has(value.targetId) ||
+      !isClassicEligible(playerById.get(value.targetId)!) ||
       !Array.isArray(value.guesses) ||
       value.guesses.length > MAX_GUESSES ||
       new Set(value.guesses).size !== value.guesses.length ||
-      !value.guesses.every((id) => typeof id === "string" && playerById.has(id)) ||
+      !value.guesses.every((id) => typeof id === "string" && playerById.has(id) && isClassicEligible(playerById.get(id)!)) ||
       typeof value.finished !== "boolean" ||
       typeof value.won !== "boolean" ||
       typeof value.recorded !== "boolean" ||
       !playerById.get(value.targetId)?.difficulty.includes(difficulty) ||
-      value.won !== value.guesses.includes(value.targetId) ||
+      value.won !== value.guesses.some((id) => {
+        const guess = playerById.get(id);
+        const target = playerById.get(value.targetId!);
+        return guess !== undefined && target !== undefined && isAcceptedGuess(guess, target);
+      }) ||
       value.finished !== (value.won || value.guesses.length >= MAX_GUESSES) ||
       (value.recorded && !value.finished)
     ) {
@@ -233,6 +276,7 @@ function loadStoredGame(): StoredGame | null {
 
 function saveGame(): void {
   try {
+    game.playersHash = data.playersHash;
     localStorage.setItem(storageKey(), JSON.stringify(game));
   } catch {
     formMessage.textContent = "浏览器无法保存进度，本局仍可继续。";
@@ -699,6 +743,7 @@ function keyStats(version: LibraryVersion): string {
 function createLibraryCard(player: LibraryPlayer): HTMLElement {
   const card = document.createElement("article");
   card.className = "library-card-item";
+  card.id = `library-player-${player.id}`;
 
   const summary = document.createElement("button");
   summary.className = "library-card-summary";
@@ -867,7 +912,7 @@ function createPlayerCell(player: QuizPlayer): HTMLDivElement {
   const name = document.createElement("strong");
   name.textContent = player.nickname;
   const detail = document.createElement("small");
-  detail.textContent = `${player.latestTeamName} · ${player.debutYear}–${player.latestYear}`;
+  detail.textContent = `${player.latestTeamName} · ${player.debutYear ?? "—"}–${player.latestYear}`;
   copy.append(name, detail);
   cell.append(copy);
   return cell;
@@ -906,11 +951,13 @@ function renderBoard(target: QuizPlayer): void {
       createPlayerCell(player),
       createFeedbackCell("最近战队", player.latestTeamName, result.latestTeam),
       createFeedbackCell("位置", player.positions.join("/"), result.positions),
-      createFeedbackCell("最早参赛", String(player.debutYear), result.debutYear),
+      createFeedbackCell("KPL首秀", player.debutYear == null ? "暂无记录" : String(player.debutYear), result.debutYear),
       createFeedbackCell("最近登场", String(player.latestYear), result.latestYear),
-      createFeedbackCell("冠军", player.championshipVerified === false ? "待核实" : String(player.championshipCount), result.championshipCount),
+      createFeedbackCell("冠军", String(player.championshipCount), result.championshipCount),
       createFeedbackCell("决赛 FMVP", player.hasFmvp ? "拿过" : "未拿过", result.hasFmvp),
-      createFeedbackCell("本年参赛", player.active ? "有记录" : "无记录", result.active),
+      createFeedbackCell("效力战队", player.formalTeamCount == null ? "—" : String(player.formalTeamCount), result.formalTeamCount),
+      createFeedbackCell("征战赛事", String(player.eventCount), result.eventCount),
+      createFeedbackCell("小局数", appearanceLabel(player.totalGames), result.appearances),
     );
     board.append(row);
   }
@@ -949,7 +996,9 @@ function shareText(target: QuizPlayer): string {
       result.latestYear,
       result.championshipCount,
       result.hasFmvp,
-      result.active,
+      result.formalTeamCount,
+      result.eventCount,
+      result.appearances,
     ].map(feedbackEmoji).join("");
   });
   const score = game.won ? `${game.guesses.length}/${MAX_GUESSES}` : `X/${MAX_GUESSES}`;
@@ -994,8 +1043,9 @@ function renderResult(target: QuizPlayer): void {
   const copy = document.createElement("div");
   const title = document.createElement("h2");
   title.textContent = game.won ? `${game.guesses.length} 次猜中 ${target.nickname}` : `答案是 ${target.nickname}`;
+  if (game.won && game.guesses.at(-1) !== target.id) title.textContent = `条件全部符合，算你猜中！本题原设选手：${target.nickname}`;
   const detail = document.createElement("p");
-  detail.textContent = `${target.positions.join("/")} · ${target.latestTeamName} · ${target.debutYear}–${target.latestYear}`;
+  detail.textContent = `${target.positions.join("/")} · ${target.latestTeamName} · ${target.debutYear ?? "—"}–${target.latestYear}`;
   copy.append(title, detail);
   head.append(copy);
 
@@ -1017,8 +1067,8 @@ function renderResult(target: QuizPlayer): void {
 
   const library = document.createElement("a");
   library.className = "secondary-button";
-  library.href = "#library";
-  library.textContent = "去人物图鉴看详情";
+  library.href = `#library?player=${encodeURIComponent(target.id)}`;
+  library.textContent = "去选手图鉴看详情";
   actions.append(share, next, library);
   resultPanel.append(head, actions);
 }
@@ -1074,7 +1124,7 @@ function closeSuggestions(): void {
 function selectSuggestion(player: QuizPlayer): void {
   selectedPlayerId = player.id;
   guessInput.value = player.nickname;
-  formMessage.textContent = `${player.latestTeamName} · ${player.positions.join("/")} · ${player.debutYear}–${player.latestYear}`;
+  formMessage.textContent = `${player.latestTeamName} · ${player.positions.join("/")} · ${player.debutYear ?? "—"}–${player.latestYear}`;
   closeSuggestions();
 }
 
@@ -1107,7 +1157,7 @@ function renderSuggestions(): void {
     copy.append(name, detail);
     const years = document.createElement("span");
     years.className = "years";
-    years.textContent = `${player.debutYear}–${player.latestYear}`;
+    years.textContent = `${player.debutYear ?? "—"}–${player.latestYear}`;
     option.append(copy, years);
     option.addEventListener("click", () => selectSuggestion(player));
     suggestionsElement.append(option);
@@ -1149,7 +1199,7 @@ function resolveTypedPlayer(): QuizPlayer | null {
 function submitGuess(): void {
   if (game.finished) return;
   const player = resolveTypedPlayer();
-  if (!player) {
+  if (!player || !isClassicEligible(player)) {
     formMessage.textContent = "请从候选列表选择一名明确的选手；同名选手不能只按昵称提交。";
     return;
   }
@@ -1158,7 +1208,8 @@ function submitGuess(): void {
     return;
   }
   game.guesses.push(player.id);
-  game.won = player.id === game.targetId;
+  const target = playerById.get(game.targetId);
+  game.won = target !== undefined && isAcceptedGuess(player, target);
   game.finished = game.won || game.guesses.length >= MAX_GUESSES;
   selectedPlayerId = "";
   guessInput.value = "";

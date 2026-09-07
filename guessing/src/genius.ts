@@ -145,7 +145,7 @@ export function buildGeniusPeople(players: QuizPlayer[]): GeniusPerson[] {
       totalGames: player.totalGames,
       active: player.active,
       female: false,
-      championshipCount: player.championshipVerified === false ? null : player.championshipCount,
+      championshipCount: player.championshipCount,
       hasFmvp: player.hasFmvp,
       popularity: player.difficulty.includes("popular") ? 7 : player.difficulty.includes("normal") ? 2 : 0.7,
     });

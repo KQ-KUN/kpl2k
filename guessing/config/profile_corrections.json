@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "rosterCountingRule": "KPL实际出场至少一小局；排除未登场替补、青训、试训；按俱乐部沿革去重；历史缺失仅输出已确认下限",
+  "players": {
+    "935E59132B09AF64DD43722346F441EA": {
+      "positions": ["发育路"],
+      "source": "https://zh.wikipedia.org/wiki/2021年王者荣耀世界冠军杯",
+      "note": "MTG参赛名单列北岛为发育路；修正原统计接口的打野标签"
+    },
+    "6A3F17E8187CCCAB514B6BE9A8F7C209": {
+      "hasFmvp": true,
+      "source": "https://www.sina.cn/news/detail/4925938406263509.html",
+      "note": "eStarPro官方：子阳首个辅助FMVP皮肤；2022挑战者杯"
+    }
+  }
+}

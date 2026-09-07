@@ -26,6 +26,11 @@ def normalized_search_key(value: str) -> str:
     return "".join(value.casefold().split())
 
 
+def is_kpl_league(season: dict[str, Any]) -> bool:
+    # 官方league_type把2024起的挑杯也写作kpl，不能用它区分联赛与杯赛。
+    return str(season["season_id"]).startswith("KPL") or "KPL" in str(season.get("name", "")).upper()
+
+
 def source_commit(source: Path) -> str:
     try:
         result = subprocess.run(
@@ -69,6 +74,8 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
         raise FileNotFoundError(f"KPL 2K 数据缺失：{', '.join(missing)}")
 
     config = load_json(config_path)
+    corrections_path = config_path.with_name("profile_corrections.json")
+    corrections = load_json(corrections_path).get("players", {}) if corrections_path.exists() else {}
     career_path = config_path.with_name("career_history.json")
     career_doc = load_json(career_path) if career_path.is_file() else {"players": {}}
     career_by_nickname = {
@@ -211,7 +218,19 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
         years = [int(season_by_id[str(row["season_id"])]["year"]) for row in ordered_records]
         source_debut_year = min(years)
         career = career_by_nickname.get(nickname)
-        debut_year = int(career["debutYear"]) if career else source_debut_year
+        kpl_records = [row for row in ordered_records if is_kpl_league(season_by_id[str(row["season_id"])])]
+        kpl_years = [int(season_by_id[str(row["season_id"])]["year"]) for row in kpl_records]
+        # 2019年前记录另有历史补充；杯赛首次参赛不能冒充KPL首秀。
+        debut_year = min(kpl_years) if kpl_years else None
+        if career and int(career["debutYear"]) < 2019:
+            debut_year = int(career["debutYear"])
+        correction = corrections.get(player_id, {})
+        if "positions" in correction:
+            position_set = set(correction["positions"])
+        appearance_teams = sorted({str(row["team_franchise"]) for row in kpl_records if row.get("team_franchise")})
+        formal_team_count = len(appearance_teams)
+        # 2019为逐选手数据边界；早期履历不足时只能给出已确认的下限。
+        team_count_complete = debut_year is not None and debut_year > 2019
         # 全题库按决赛首发计数，不能把冠军战队的赛季出场等同于个人夺冠。
         championship_count = int(roster_title_counts[nickname])
         if career:
@@ -237,11 +256,11 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
         difficulties = ["hardcore"]
         normal = config["normal"]
         if (
-            nickname in popular_names
+            (kpl_records or (debut_year is not None and debut_year < 2019)) and (nickname in popular_names
             or (
                 event_count >= int(normal["minimumEvents"])
                 and total_games >= int(normal["minimumGames"])
-            )
+            ))
         ):
             difficulties.insert(0, "normal")
         if nickname in popular_names:
@@ -268,10 +287,14 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
                 "teamHistory": team_history,
                 "teamHistoryNames": team_history_names,
                 "debutYear": debut_year,
+                "formalTeamCount": formal_team_count,
+                "teamCountComplete": team_count_complete,
+                "kplAppearanceTeamIds": appearance_teams,
                 "latestYear": max(years),
-                "hasFmvp": nickname in fmvp_names,
+                "hasFmvp": correction.get("hasFmvp", nickname in fmvp_names),
                 "championshipCount": championship_count,
                 "totalGames": total_games,
+                "eventCount": len({str(row["season_id"]) for row in ordered_records}),
                 "championshipVerified": nickname not in roster_doc.get("unresolvedNicknames", []),
                 "peakRating": round(peak_rating, 1),
                 "active": any(str(row["season_id"]) in active_seasons for row in ordered_records),
@@ -296,6 +319,7 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
             player["latestYear"],
             player["hasFmvp"],
             player["championshipCount"],
+            player["formalTeamCount"],
             player["active"],
         )
         fingerprints[fingerprint].append(str(player["id"]))
@@ -321,6 +345,9 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
         "playersHash": snapshot["playersHash"],
         "sourcePlayers": len(player_by_id),
         "eligiblePlayers": len(quiz_players),
+        "classicEligiblePlayers": len(quiz_players),
+        "classicExcludedPlayers": 0,
+        "geniusEligiblePlayers": len(quiz_players),
         "poolCounts": {name: pool_counts[name] for name in ("popular", "normal", "hardcore")},
         "eligibleHttpsIcons": sum(bool(player["iconUrl"]) for player in quiz_players),
         "eligibleHttpIcons": eligible_http_icons,
@@ -342,6 +369,15 @@ def build_snapshot(source: Path, config_path: Path) -> tuple[dict[str, Any], dic
             career_audit, key=lambda item: (item["nickname"], item["playerId"])
         ),
         "championshipRosterSource": roster_doc.get("source"),
+        "profileReview": {
+            "scope": "Full snapshot consistency checks, not individual official biography verification",
+            "teamCountRule": "Distinct franchise IDs with at least one recorded KPL game; no unused substitutes or academy entries",
+            "countedPlayers": len(quiz_players),
+            "incompleteTeamHistory": [p["id"] for p in quiz_players if not p["teamCountComplete"]],
+            "multiplePositionReview": [p["id"] for p in quiz_players if len(p["positions"]) >= 3],
+            "missingKplDebut": [p["id"] for p in quiz_players if p["debutYear"] is None],
+            "manualCorrections": sorted(corrections),
+        },
         "championshipOfficialEvidence": [
             {"eventId": event["id"], "url": event["officialSource"], "verifiedAt": event["verifiedAt"]}
             for event in roster_doc.get("events", []) if event.get("officialSource")
@@ -378,7 +414,7 @@ def validate(snapshot: dict[str, Any], audit: dict[str, Any]) -> None:
     for player in players:
         if not player["nickname"] or not player["positions"]:
             raise ValueError(f"选手缺少必要字段：{player['id']}")
-        if player["debutYear"] > player["latestYear"]:
+        if player["debutYear"] is not None and player["debutYear"] > player["latestYear"]:
             raise ValueError(f"选手年份倒置：{player['id']}")
 
 

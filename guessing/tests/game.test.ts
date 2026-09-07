@@ -2,9 +2,14 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { findLibraryPlayer, libraryPlayerId } from "../src/library-navigation.ts";
+import type { LibraryData } from "../src/types.ts";
 
 import {
   comparePlayers,
+  appearanceBand,
+  appearanceLabel,
+  isAcceptedGuess,
   playersForDifficulty,
   randomTargetId,
   searchPlayers,
@@ -19,6 +24,21 @@ import {
 } from "../src/genius.ts";
 import type { QuizData, QuizPlayer } from "../src/types.ts";
 
+
+test("library deep links select player identity and prefer latest team card", () => {
+  const data: LibraryData = JSON.parse(readFileSync(new URL("../public/data/player_library.json", import.meta.url), "utf8"));
+  const template = data.players[0]!;
+  const cards = [{ ...template, id: "a@old", name: "同名" }, { ...template, id: "b@wolves", name: "同名" }, { ...template, id: "a@wolves", name: "同名" }];
+  assert.equal(findLibraryPlayer(cards, player())?.id, "a@wolves");
+  assert.equal(findLibraryPlayer(cards, player({ latestTeamId: "missing" }))?.id, "a@old");
+  assert.equal(findLibraryPlayer(cards, player({ id: "missing", nickname: "同名" })), undefined);
+  assert.equal(libraryPlayerId("#library?player=a%40wolves"), "a@wolves");
+  assert.equal(libraryPlayerId("#library"), null);
+  const main = readFileSync(new URL("../src/main.ts", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  assert.ok(!`${main}${html}`.includes("人物图鉴"));
+  assert.match(main, /encodeURIComponent\(target.id\)/);
+});
 
 test("official recent finals corrections are present in the shipped snapshot", () => {
   const data: QuizData = JSON.parse(readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"));
@@ -47,6 +67,7 @@ function player(overrides: Partial<QuizPlayer> = {}): QuizPlayer {
     hasFmvp: true,
     championshipCount: 4,
     totalGames: 1000,
+    eventCount: 10,
     peakRating: 95,
     active: true,
     difficulty: ["popular", "normal", "hardcore"],
@@ -54,15 +75,87 @@ function player(overrides: Partial<QuizPlayer> = {}): QuizPlayer {
   };
 }
 
-test("same nickname players keep separate identities and uncertain honours are neutral", () => {
+test("same nickname players keep separate identities and honours use recorded counts", () => {
   const entries = [player({ id: "one", nickname: "九月" }), player({ id: "two", nickname: "九月" })];
   const people = buildGeniusPeople(entries);
   assert.ok(people.some((entry) => entry.id === "one"));
   assert.ok(people.some((entry) => entry.id === "two"));
   const uncertain = player({ championshipVerified: false });
-  assert.equal(comparePlayers(uncertain, entries[0]!).championshipCount, "unknown");
-  assert.equal(comparePlayers(entries[0]!, uncertain).championshipCount, "unknown");
-  assert.equal(buildGeniusPeople([uncertain]).find((entry) => entry.id === uncertain.id)?.championshipCount, null);
+  assert.equal(comparePlayers(uncertain, entries[0]!).championshipCount, "exact");
+  assert.equal(comparePlayers(entries[0]!, uncertain).championshipCount, "exact");
+  assert.equal(comparePlayers(player({ championshipCount: 3 }), uncertain).championshipCount, "higher");
+  assert.equal(comparePlayers(player({ championshipCount: 5 }), uncertain).championshipCount, "lower");
+  assert.equal(buildGeniusPeople([uncertain]).find((entry) => entry.id === uncertain.id)?.championshipCount, 4);
+});
+
+test("visible-equivalent answers win, but different known roster counts do not", () => {
+  const target = player({ formalTeamCount: 2 });
+  assert.equal(isAcceptedGuess(player({ id: "other", nickname: "另一人", formalTeamCount: 2 }), target), true);
+  assert.equal(isAcceptedGuess(player({ id: "other", formalTeamCount: 3 }), target), false);
+  assert.equal(isAcceptedGuess(player({ id: "other", positions: ["游走"] }), target), false);
+  assert.equal(comparePlayers(player({ debutYear: null }), target).debutYear, "unknown");
+  assert.equal(comparePlayers(player({ id: "other", formalTeamCount: 1, teamCountComplete: false }), target).formalTeamCount, "higher");
+});
+
+test("team count feedback compares recorded counts regardless of completeness", () => {
+  const incomplete = player({ id: "target", formalTeamCount: 3, teamCountComplete: false });
+  assert.equal(comparePlayers(incomplete, incomplete).formalTeamCount, "exact");
+  const known = player({ id: "other", formalTeamCount: 2, teamCountComplete: true });
+  assert.equal(comparePlayers(known, incomplete).formalTeamCount, "higher");
+  assert.equal(comparePlayers(incomplete, known).formalTeamCount, "lower");
+  assert.equal(comparePlayers({ ...known, formalTeamCount: 3 }, incomplete).formalTeamCount, "exact");
+  assert.equal(comparePlayers({ ...known, teamCountComplete: false }, incomplete).formalTeamCount, "higher");
+  assert.equal(comparePlayers({ ...known, formalTeamCount: undefined }, incomplete).formalTeamCount, "unknown");
+  const complete = { ...incomplete, teamCountComplete: true };
+  assert.equal(comparePlayers({ ...known, formalTeamCount: 3 }, complete).formalTeamCount, "exact");
+  assert.equal(comparePlayers(known, complete).formalTeamCount, "higher");
+  assert.equal(comparePlayers({ ...known, formalTeamCount: 4 }, complete).formalTeamCount, "lower");
+});
+
+test("mobile nine clues use three columns and player identity spans the row", () => {
+  const css = readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
+  const mobile = css.slice(css.indexOf("@media (max-width:540px)"));
+  assert.match(mobile, /\.guess-row\s*\{\s*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.player-cell\{grid-column:1\/-1/);
+  const main = readFileSync(new URL("../src/main.ts", import.meta.url), "utf8");
+  const row = main.slice(main.indexOf("function renderBoard"), main.indexOf("function renderProgress"));
+  assert.equal((row.match(/createFeedbackCell\(/g) ?? []).length, 9);
+  assert.match(css, /repeat\(9,minmax\(0,1fr\)\)/);
+  const share = main.slice(main.indexOf("function shareText"), main.indexOf("function shareText") + 1100);
+  assert.match(share, /result\.appearances/);
+});
+
+test("appearance bands compare visible ranges, with neutral missing data", () => {
+  for (const [games, band] of [[1, 0], [100, 0], [101, 1], [300, 1], [301, 2], [600, 2], [601, 3], [2000, 3]]) {
+    assert.equal(appearanceBand(games!), band);
+  }
+  for (const games of [0, -1, NaN, Infinity, 1.5]) {
+    assert.equal(appearanceBand(games), null);
+    assert.equal(appearanceLabel(games), "暂无记录");
+    assert.equal(comparePlayers(player({ totalGames: games }), player()).appearances, "unknown");
+  }
+  assert.equal(appearanceLabel(101), "101–300局");
+  const target = player({ totalGames: 300 });
+  assert.equal(comparePlayers(player({ totalGames: 100 }), target).appearances, "higher");
+  assert.equal(comparePlayers(player({ totalGames: 301 }), target).appearances, "lower");
+  assert.equal(comparePlayers(player({ totalGames: 101 }), target).appearances, "exact");
+  assert.equal(isAcceptedGuess(player({ id: "other", totalGames: 101 }), target), true);
+  assert.equal(isAcceptedGuess(player({ id: "other", totalGames: 301 }), target), false);
+});
+
+test("incomplete team histories do not remove stars from either game", () => {
+  const data: QuizData = JSON.parse(readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"));
+  const excluded = data.players.filter((entry) => entry.teamCountComplete === false);
+  assert.ok(excluded.length > 0);
+  assert.equal(playersForDifficulty(data.players, "hardcore").length, 590);
+  for (const difficulty of ["popular", "normal", "hardcore"] as const) {
+    assert.ok(playersForDifficulty(data.players, difficulty).length > 0);
+  }
+  const geniusIds = new Set(buildGeniusPeople(data.players).map((entry) => entry.id));
+  assert.ok(data.players.every((entry) => geniusIds.has(entry.id)));
+  for (const entry of excluded) {
+    assert.ok(searchPlayers(data.players, entry.nickname, 1000).some((found) => found.id === entry.id));
+  }
 });
 
 
@@ -82,12 +175,12 @@ test("comparePlayers returns exact, partial and target-relative arrows", () => {
   });
   const result = comparePlayers(guess, target);
   assert.equal(result.positions, "partial");
-  assert.equal(result.latestTeam, "partial");
+  assert.equal(result.latestTeam, "miss");
   assert.equal(result.debutYear, "lower");
   assert.equal(result.latestYear, "higher");
   assert.equal(result.hasFmvp, "miss");
   assert.equal(result.championshipCount, "higher");
-  assert.equal(result.active, "miss");
+  assert.equal(result.eventCount, "exact");
   assert.equal(result.isCorrect, false);
 });
 
@@ -101,6 +194,23 @@ test("difficulty pools stay nested and search is nickname-aware", () => {
   assert.equal(playersForDifficulty(players, "normal").length, 2);
   assert.equal(playersForDifficulty(players, "hardcore").length, 3);
   assert.equal(searchPlayers(players, "yi")[0]?.id, "b");
+});
+
+test("team hints compare the displayed team to the target career, never two career intersections", () => {
+  const data: QuizData = JSON.parse(readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"));
+  const qiancheng = data.players.find((entry) => entry.nickname === "钎城");
+  assert.ok(qiancheng);
+  for (const teamId of ["10001", "10002"]) {
+    // 即使猜测选手与钎城曾共同效力DYG，也不能给狼队/EDG.M格子近似提示。
+    const guess = player({ latestTeamId: teamId, teamHistory: [teamId, "10008"] });
+    assert.equal(comparePlayers(guess, qiancheng).latestTeam, "miss");
+  }
+  assert.equal(comparePlayers(player({ latestTeamId: "10017" }), qiancheng).latestTeam, "partial");
+  assert.equal(comparePlayers(player({ latestTeamId: qiancheng.latestTeamId }), qiancheng).latestTeam, "exact");
+  for (const target of data.players) for (const guess of data.players) {
+    const hint = comparePlayers(guess, target).latestTeam;
+    assert.equal(hint, guess.latestTeamId === target.latestTeamId ? "exact" : target.teamHistory.includes(guess.latestTeamId) ? "partial" : "miss");
+  }
 });
 
 
@@ -447,4 +557,15 @@ test("network genius coach catalog keeps verified identities, teams and titles",
   assert.equal(new Set(hashes).size, coaches.length, "教练头像存在重复或串位");
   assert.equal(coaches.find((coach) => coach.name === "林")?.iconUrl, "/assets/staff-icons/lin-official.jpg");
   assert.equal(coaches.find((coach) => coach.name === "LoveCD")?.iconUrl, "/assets/staff-icons/lovecd.webp");
+});
+
+test("event count replaces active status and participates in visible acceptance", () => {
+  const target = player({ eventCount: 10 });
+  assert.equal(comparePlayers(player({ eventCount: 9 }), target).eventCount, "higher");
+  assert.equal(comparePlayers(player({ eventCount: 11 }), target).eventCount, "lower");
+  assert.equal(isAcceptedGuess(player({ id: "other", active: false }), target), true);
+  assert.equal(isAcceptedGuess(player({ id: "other", eventCount: 9 }), target), false);
+  assert.ok(!("active" in comparePlayers(player(), target)));
+  const data: QuizData = JSON.parse(readFileSync(new URL("../public/data/quiz_players.json", import.meta.url), "utf8"));
+  assert.ok(data.players.every((entry) => Number.isInteger(entry.eventCount) && entry.eventCount > 0));
 });

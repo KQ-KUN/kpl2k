@@ -3,6 +3,20 @@ import type { Difficulty, Feedback, GuessResult, QuizPlayer } from "./types.ts";
 
 export const MAX_GUESSES = 8;
 
+// 按已收录小局数分档，不将历史数据缺口当作零出场。
+export function appearanceBand(totalGames: number): number | null {
+  if (!Number.isInteger(totalGames) || totalGames <= 0) return null;
+  if (totalGames <= 100) return 0;
+  if (totalGames <= 300) return 1;
+  if (totalGames <= 600) return 2;
+  return 3;
+}
+
+export function appearanceLabel(totalGames: number): string {
+  const band = appearanceBand(totalGames);
+  return band === null ? "暂无记录" : ["1–100局", "101–300局", "301–600局", "601局以上"][band]!;
+}
+
 
 function sameSet(left: string[], right: string[]): boolean {
   return left.length === right.length && left.every((value) => right.includes(value));
@@ -15,7 +29,8 @@ function setFeedback(guess: string[], target: string[]): Feedback {
 }
 
 
-function numberFeedback(guess: number, target: number): Feedback {
+function numberFeedback(guess: number | null | undefined, target: number | null | undefined): Feedback {
+  if (guess == null || target == null) return "unknown";
   if (guess === target) return "exact";
   return target > guess ? "higher" : "lower";
 }
@@ -25,7 +40,8 @@ export function comparePlayers(guess: QuizPlayer, target: QuizPlayer): GuessResu
   const latestTeam =
     guess.latestTeamId === target.latestTeamId
       ? "exact"
-      : guess.teamHistory.some((team) => target.teamHistory.includes(team))
+      // 当前格展示的是猜测选手的最近战队，只问答案选手是否曾效力该队。
+      : target.teamHistory.includes(guess.latestTeamId)
         ? "partial"
         : "miss";
 
@@ -36,16 +52,27 @@ export function comparePlayers(guess: QuizPlayer, target: QuizPlayer): GuessResu
     debutYear: numberFeedback(guess.debutYear, target.debutYear),
     latestYear: numberFeedback(guess.latestYear, target.latestYear),
     hasFmvp: guess.hasFmvp === target.hasFmvp ? "exact" : "miss",
-    championshipCount: guess.championshipVerified === false || target.championshipVerified === false
-      ? "unknown" : numberFeedback(guess.championshipCount, target.championshipCount),
-    active: guess.active === target.active ? "exact" : "miss",
+    championshipCount: numberFeedback(guess.championshipCount, target.championshipCount),
+    eventCount: numberFeedback(guess.eventCount, target.eventCount),
+    appearances: numberFeedback(appearanceBand(guess.totalGames), appearanceBand(target.totalGames)),
+    formalTeamCount: numberFeedback(guess.formalTeamCount, target.formalTeamCount),
     isCorrect: guess.id === target.id,
   };
 }
 
+// 只比较玩家看到的线索；未知字段不成为隐藏的排除条件。
+export function isAcceptedGuess(guess: QuizPlayer, target: QuizPlayer): boolean {
+  const { isCorrect, playerId: _playerId, ...feedback } = comparePlayers(guess, target);
+  return isCorrect || Object.values(feedback).every((value) => value === "exact" || value === "unknown");
+}
+
+
+export function isClassicEligible(player: QuizPlayer): boolean {
+  return player.difficulty.includes("hardcore");
+}
 
 export function playersForDifficulty(players: QuizPlayer[], difficulty: Difficulty): QuizPlayer[] {
-  return players.filter((player) => player.difficulty.includes(difficulty));
+  return players.filter((player) => isClassicEligible(player) && player.difficulty.includes(difficulty));
 }
 
 
@@ -64,7 +91,7 @@ export function searchPlayers(players: QuizPlayer[], query: string, limit = 8): 
   if (!needle) return [];
   return players
     .filter((player) =>
-      [player.nickname, ...player.aliases].some((value) => searchKey(value).includes(needle)),
+      isClassicEligible(player) && [player.nickname, ...player.aliases].some((value) => searchKey(value).includes(needle)),
     )
     .sort((left, right) => {
       const leftPrefix = searchKey(left.nickname).startsWith(needle) ? 0 : 1;
