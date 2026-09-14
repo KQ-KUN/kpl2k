@@ -6,6 +6,8 @@ export type Feedback = "exact" | "partial" | "miss" | "higher" | "lower" | "unkn
 export interface QuizPlayer {
   id: string;
   nickname: string;
+  realName?: string;
+  officialPlayerIds?: string[];
   aliases: string[];
   iconUrl: string;
   positions: string[];

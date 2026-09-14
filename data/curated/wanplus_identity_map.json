@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "identityRule": "Explicit reviewed identity links only; stable provider IDs connect historical aliases. Never match every player by nickname.",
+  "players": {
+    "43062C3D029AD48A789256BE11349345": {"nickname":"梦泪","wanplusPlayerId":"26352","aliases":["梦泪"],"identitySources":["https://wanplus.cn/match/34931.html","https://wanplus.cn/article/67382.html"]},
+    "BTL老帅": {"nickname":"老帅","wanplusPlayerId":"26356","aliases":["老帅"],"identitySources":["https://wanplus.cn/match/34931.html","https://wanplus.cn/article/67382.html"]},
+    "81AEA3A32BA205D61F400FA612808490": {"nickname":"Fly","wanplusPlayerId":"26460","aliases":["Fly"],"identitySources":["https://wanplus.cn/match/34969.html","https://wanplus.cn/article/99378.html"]},
+    "A25A35A18EE5DC93117789871D929E83": {"nickname":"Cat","wanplusPlayerId":"26361","aliases":["Cat","CatGod"],"identitySources":["https://wanplus.cn/match/35125.html","https://liquipedia.net/honorofkings/Cat_(Chen_Zhengzheng)"]},
+    "B8982198AC67B048D317C07DE73F4962": {"nickname":"Hurt","wanplusPlayerId":"26409","aliases":["Hurt","刺痛"],"identitySources":["https://wanplus.cn/match/35125.html","https://wanplus.cn/article/99378.html"]},
+    "BTL无痕": {"nickname":"无痕","wanplusPlayerId":"26430","aliases":["无痕"],"identitySources":["https://wanplus.cn/match/34926.html","https://wanplus.cn/kog/player/26430"]},
+    "E5D1C89DE8A875B1187141E8BF55764B": {"nickname":"Alan","wanplusPlayerId":"26463","aliases":["Alan"],"identitySources":["https://wanplus.cn/match/34969.html","https://wanplus.cn/article/99378.html"]},
+    "1C7EBF05DC5EA980A259A34290DE7430": {"nickname":"伪装","wanplusPlayerId":"26358","aliases":["伪装","Jungle"],"identitySources":["https://wanplus.cn/match/34938.html","https://wanplus.cn/kog/player/26358"]},
+    "0821DA9D795FCD36B7EDA6E78EAAC2B0": {"nickname":"橘子","wanplusPlayerId":"26357","aliases":["橘子","Orange"],"identitySources":["https://wanplus.cn/match/34938.html","https://wanplus.cn/kog/player/26357"]},
+    "75A0E028EC2BF9D41710669411CD19F8": {"nickname":"最初","wanplusPlayerId":"30230","aliases":["最初"],"identitySources":["https://wanplus.cn/match/48568.html","https://wanplus.cn/kog/player/30230"]},
+    "919D5E5E2A9039A5E7393859C9B4E012": {"nickname":"久诚","wanplusPlayerId":"30229","aliases":["久诚"],"identitySources":["https://wanplus.cn/match/48568.html","https://wanplus.cn/kog/player/30229"]},
+    "A7AAD11E26643813D72EFEBD3B0EBD28": {"nickname":"柠栀","wanplusPlayerId":"30227","aliases":["柠栀"],"identitySources":["https://wanplus.cn/match/48568.html","https://wanplus.cn/kog/player/30227"]},
+    "DBB1AA4588256E9DF8DEA01D8286A0CE": {"nickname":"尘夏","wanplusPlayerId":"30228","aliases":["尘夏"],"identitySources":["https://wanplus.cn/match/48568.html","https://wanplus.cn/kog/player/30228"]},
+    "924F7C93F262FC99443B7C27E9A3D6AA": {"nickname":"一诺","wanplusPlayerId":"30816","aliases":["一诺"],"identitySources":["https://wanplus.cn/match/51733.html","https://www.sohu.com/a/293149569_114977"]},
+    "B61E31C87EB42BE852DEADE5273AB0DE": {"nickname":"暖阳","wanplusPlayerId":"30270","aliases":["暖阳"],"identitySources":["https://wanplus.cn/match/56193.html","https://www.sina.cn/news/detail/4292483036974629.html"]},
+    "BTL六点六": {"nickname":"六点六","wanplusPlayerId":"28098","aliases":["六点六","Six"],"identitySources":["https://wanplus.cn/match/38748.html","https://www.ttplus.cn/publish/app/data/2018/12/22/205618/os_news.html"]},
+    "65907C634614595853DF76D9708F0E04": {"nickname":"初晨","wanplusPlayerId":"28104","aliases":["初晨"],"identitySources":["https://wanplus.cn/match/38702.html","https://www.ttplus.cn/publish/app/data/2018/06/11/157984/os_news.html"]},
+    "F1BCCA006C3701F765FD5D8AE9DC349F": {"nickname":"虔诚","wanplusPlayerId":"26411","aliases":["虔诚","Rouse"],"identitySources":["https://wanplus.cn/match/38877.html","https://www.ttplus.cn/publish/app/data/2018/05/18/151733/os_news.html"]},
+    "C33F4D32C03321DF09F884E61C01394E": {"nickname":"暴风锐","wanplusPlayerId":"26457","aliases":["暴风锐","Storm"],"identitySources":["https://wanplus.cn/match/38877.html","https://www.ttplus.cn/publish/app/data/2018/04/26/146324/os_news.html"]}
+  },
+  "excludedAmbiguousIds": {"26433":"2016 仙阁小羽不能直接合并到 2022 年首秀的小羽；同名不足以确认身份。"},
+  "teams": {
+    "4457": {"franchiseId":"10027","name":"成都AG超玩会"},
+    "4458": {"franchiseId":"10006","name":"武汉eStarPro"},
+    "4496": {"franchiseId":"10001","name":"重庆狼队"},
+    "4460": {"franchiseId":"10017","name":"广州TTG"},
+    "4471": {"franchiseId":"10002","name":"上海EDG.M"},
+    "5354": {"franchiseId":"10007","name":"南通Hero久竞"},
+    "4472": {"franchiseId":"10016","name":"佛山DRG"},
+    "4467": {"franchiseId":"HIST_ASXIANGE","name":"AS仙阁"},
+    "4464": {"franchiseId":"HIST_MU","name":"MU"},
+    "4734": {"franchiseId":"10004","name":"BA黑凤梨"},
+    "4739": {"franchiseId":"10009","name":"上海RNG.M"},
+    "5352": {"franchiseId":"10003","name":"北京WB"}
+  }
+}

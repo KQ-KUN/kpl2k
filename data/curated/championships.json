@@ -51,6 +51,7 @@
     {"id": "KPL2025F", "date": "2025-11-08", "name": "2025 KPL 年度总决赛", "starters": ["轩染", "钟意", "长生", "一诺", "大帅"]},
     {"id": "KCC2025", "date": "2026-01-02", "name": "2025 挑战者杯", "starters": ["梓墨", "暖阳", "听悦", "小麦", "玖欣"], "officialSource": "https://www.weibo.com/6074356560/QlhELcs2V", "verifiedAt": "2026-09-05"},
     {"id": "KPL2026S1", "date": "2026-04-11", "name": "2026 KPL 春季赛", "starters": ["无言", "句号", "流浪", "小屿", "一笙"], "officialSource": "https://www.sina.cn/news/detail/5286620362180954.html", "verifiedAt": "2026-09-05"},
-    {"id": "KCC2026", "date": "2026-05-23", "name": "2026 挑战者杯", "starters": ["清清", "皖皖", "紫幻", "道崽", "信"], "officialSource": "https://www.sina.cn/news/detail/5302836298516440.html", "verifiedAt": "2026-09-05"}
+    {"id": "KCC2026", "date": "2026-05-23", "name": "2026 挑战者杯", "starters": ["清清", "皖皖", "紫幻", "道崽", "信"], "officialSource": "https://www.sina.cn/news/detail/5302836298516440.html", "verifiedAt": "2026-09-05"},
+    {"id": "KPL2026S2", "date": "2026-09-12", "name": "2026 KPL 夏季赛", "starters": ["萝卜", "小胖", "鹤辞", "小雪", "涵"], "fmvp": "小胖", "officialSource": "https://sina.cn/news/detail/5342466987525094.html", "sourceNote": "腾讯 smoba 决赛 2026091201 七局首发与 4:3 赛果交叉核验", "verifiedAt": "2026-09-14"}
   ]
 }

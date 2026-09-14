@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "dataVersion": "2026-08-15",
-  "sourceCommit": "9ce59e3",
-  "playersHash": "7b9acb9941202b30135bf8d9850678f9ed86c5fa07adeca8c7a62d52e281b8ca",
+  "sourceCommit": "73699fb",
+  "playersHash": "f7ad52c070b1f481fcf3b2387afe5e33b8929491b3467d1bfbbef649448a9901",
   "sourcePlayers": 746,
   "eligiblePlayers": 590,
   "classicEligiblePlayers": 590,
@@ -839,6 +839,11 @@
       "eventId": "KCC2026",
       "url": "https://www.sina.cn/news/detail/5302836298516440.html",
       "verifiedAt": "2026-09-05"
+    },
+    {
+      "eventId": "KPL2026S2",
+      "url": "https://sina.cn/news/detail/5342466987525094.html",
+      "verifiedAt": "2026-09-14"
     }
   ],
   "championshipPendingReview": [
@@ -1078,8 +1083,14 @@
     {
       "playerId": "32A60408B2D697ABC6F8F84919412C37",
       "nickname": "小胖",
-      "championshipCount": 5,
-      "sourceChampionshipCount": 5
+      "championshipCount": 6,
+      "sourceChampionshipCount": 6
+    },
+    {
+      "playerId": "B7CDD1A0F47574A6F7C827F9B7458C0D",
+      "nickname": "小雪",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
     },
     {
       "playerId": "E203B175E6029F1987EB4310039F2608",
@@ -1202,6 +1213,12 @@
       "sourceChampionshipCount": 1
     },
     {
+      "playerId": "A7CA749AE227E70003392FAEC1543F9B",
+      "nickname": "涵",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
+    },
+    {
       "playerId": "7E1379DA0DE522674BE6D3D950792E19",
       "nickname": "清清",
       "championshipCount": 3,
@@ -1264,8 +1281,8 @@
     {
       "playerId": "E95F0D2DADA0BC7199DF173E56EB43EC",
       "nickname": "萝卜",
-      "championshipCount": 0,
-      "sourceChampionshipCount": 1
+      "championshipCount": 1,
+      "sourceChampionshipCount": 2
     },
     {
       "playerId": "266AEF44E79032783D720F7709D50BEB",
@@ -1338,6 +1355,12 @@
       "nickname": "风箫",
       "championshipCount": 1,
       "sourceChampionshipCount": 2
+    },
+    {
+      "playerId": "DEB3F79E30E4B8A9A36755A08CA98AFD",
+      "nickname": "鹤辞",
+      "championshipCount": 1,
+      "sourceChampionshipCount": 1
     },
     {
       "playerId": "A30C615EA7B9566AE41FBDCAA4CF16D9",

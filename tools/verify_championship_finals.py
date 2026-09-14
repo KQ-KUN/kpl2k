@@ -3,6 +3,7 @@
 Run after crawl_kpl.py. Missing archives are reported, never counted as passes.
 """
 import json
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -47,7 +48,7 @@ def main():
             "status": "matched" if names == set(event["starters"]) else "needs-manual-evidence",
             "officialNames": sorted(names), "expectedNames": event["starters"], "sources": sources,
         })
-    output = {"verifiedAt": "2026-09-05", "source": "Cached responses of Tencent official smoba match API", "events": results}
+    output = {"verifiedAt": date.today().isoformat(), "source": "Cached responses of Tencent official smoba match API", "events": results}
     (ROOT / "data/curated/finals_verification.json").write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     for result in results:
         print(result["eventId"], result["status"])

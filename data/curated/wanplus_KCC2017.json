@@ -1,0 +1,4394 @@
+{
+  "checkedAt": "2026-09-08T00:29:44.888682+00:00",
+  "provider": "WanPlus (non-official)",
+  "complete": false,
+  "scope": "Only schedules linked from public event page; no completeness assumption",
+  "events": [
+    {
+      "eventId": "KPL2016S2",
+      "source": "https://wanplus.cn/event/414.html",
+      "scheduleIds": [
+        "26207",
+        "26208",
+        "26209",
+        "26210",
+        "26211",
+        "26212",
+        "26213",
+        "26214",
+        "26215",
+        "26216",
+        "26217",
+        "26218",
+        "26219",
+        "26220",
+        "26221",
+        "26222",
+        "26223",
+        "26224",
+        "26247",
+        "26248",
+        "26249",
+        "26250",
+        "26259",
+        "26260",
+        "26261",
+        "26262",
+        "26263",
+        "26264",
+        "26265",
+        "26266",
+        "26267",
+        "26268",
+        "26269",
+        "26270",
+        "26271",
+        "26272",
+        "26273",
+        "26274",
+        "26275",
+        "26276"
+      ]
+    },
+    {
+      "eventId": "KPL2017S1",
+      "source": "https://wanplus.cn/event/416.html",
+      "scheduleIds": [
+        "26732",
+        "26733",
+        "26734",
+        "26735",
+        "26736",
+        "26737",
+        "26738",
+        "26739",
+        "26740",
+        "26741",
+        "26742",
+        "26743",
+        "26744",
+        "26745",
+        "26746",
+        "26747",
+        "26748",
+        "26749",
+        "26750",
+        "26751",
+        "26752",
+        "26753",
+        "26754",
+        "26755",
+        "26756",
+        "26757",
+        "26758",
+        "26759",
+        "26760",
+        "26761",
+        "26762",
+        "26763",
+        "30896",
+        "30897",
+        "30898",
+        "30899",
+        "30900",
+        "30901",
+        "30902",
+        "31171"
+      ]
+    },
+    {
+      "eventId": "KCC2017",
+      "source": "https://wanplus.cn/event/498.html",
+      "scheduleIds": [
+        "33166",
+        "33167",
+        "33168",
+        "33169",
+        "33170",
+        "33171",
+        "33172",
+        "33173",
+        "33174",
+        "33175",
+        "33176",
+        "33177",
+        "33178",
+        "33179",
+        "33180",
+        "33181",
+        "33182",
+        "33183",
+        "33184",
+        "33185",
+        "33186",
+        "33187",
+        "33188",
+        "33189",
+        "33190",
+        "33191",
+        "33192",
+        "33193",
+        "33194",
+        "33195"
+      ]
+    },
+    {
+      "eventId": "KPL2017S2",
+      "source": "https://wanplus.cn/event/533.html",
+      "scheduleIds": [
+        "35731",
+        "35732",
+        "35733",
+        "35734",
+        "35735",
+        "35744",
+        "35745",
+        "35746",
+        "35747",
+        "35748",
+        "35749",
+        "35768",
+        "35769",
+        "35770",
+        "35771",
+        "35772",
+        "35773",
+        "35774",
+        "35775",
+        "35776",
+        "35777",
+        "35778",
+        "35779",
+        "36480",
+        "36481",
+        "36482",
+        "36483",
+        "36484",
+        "36485",
+        "37620",
+        "37622",
+        "37623",
+        "37624",
+        "37625",
+        "37626",
+        "37627",
+        "37628",
+        "37629",
+        "37630",
+        "37631"
+      ]
+    },
+    {
+      "eventId": "KPL2018S1",
+      "source": "https://wanplus.cn/event/592.html",
+      "scheduleIds": [
+        "40386",
+        "40387",
+        "40388",
+        "40389",
+        "40390",
+        "40391",
+        "40392",
+        "40393",
+        "40394",
+        "40395",
+        "40396",
+        "40397",
+        "40398",
+        "40399",
+        "40400",
+        "40401",
+        "40402",
+        "40403",
+        "40404",
+        "40405",
+        "40406",
+        "40407",
+        "40408",
+        "40409",
+        "40410",
+        "40411",
+        "40412",
+        "40413",
+        "42513",
+        "42514",
+        "42515",
+        "42516",
+        "42517",
+        "42518",
+        "42519",
+        "42520",
+        "42524",
+        "42525",
+        "42526",
+        "43320"
+      ]
+    },
+    {
+      "eventId": "KCC2018",
+      "source": "https://wanplus.cn/event/690.html",
+      "scheduleIds": [
+        "43994",
+        "43995",
+        "43996",
+        "43997",
+        "43998",
+        "43999",
+        "44000",
+        "44001",
+        "44002",
+        "44003",
+        "44004",
+        "44005",
+        "44006",
+        "44007",
+        "44008"
+      ]
+    },
+    {
+      "eventId": "KPL2018S2",
+      "source": "https://wanplus.cn/event/704.html",
+      "scheduleIds": [
+        "45777",
+        "45778",
+        "45779",
+        "45780",
+        "45781",
+        "45782",
+        "45783",
+        "45784",
+        "45785",
+        "45786",
+        "45787",
+        "45788",
+        "45789",
+        "45790",
+        "45791",
+        "45792",
+        "45793",
+        "45795",
+        "45797",
+        "45798",
+        "45799",
+        "45800",
+        "45801",
+        "45804",
+        "45805",
+        "45834",
+        "45835",
+        "45836",
+        "45837",
+        "46509",
+        "46510",
+        "46513",
+        "46515",
+        "46516",
+        "46519",
+        "46520",
+        "46523",
+        "46525",
+        "46526",
+        "46861"
+      ]
+    },
+    {
+      "eventId": "KCC2018W",
+      "source": "https://wanplus.cn/event/765.html",
+      "scheduleIds": [
+        "47267",
+        "47268",
+        "47269",
+        "47270",
+        "47271",
+        "47272",
+        "47273",
+        "47274",
+        "47275",
+        "47276",
+        "47277",
+        "47278",
+        "47337",
+        "47408",
+        "47409",
+        "47410",
+        "47411",
+        "47412",
+        "47413",
+        "47414",
+        "47415",
+        "47416",
+        "47417",
+        "47418",
+        "47419",
+        "47420",
+        "47421",
+        "47422",
+        "47423",
+        "47424",
+        "47425",
+        "47426",
+        "47427",
+        "47428",
+        "47429",
+        "47430",
+        "47431",
+        "47659",
+        "47660",
+        "47661"
+      ]
+    }
+  ],
+  "sampleEventId": "KCC2017",
+  "matches": [
+    {
+      "matchId": "38702",
+      "source": "https://wanplus.cn/match/38702.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "27821",
+          "nickname": "迷神",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26471",
+          "nickname": "胖墩",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26893",
+          "nickname": "黄大仙",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26472",
+          "nickname": "淤青",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26473",
+          "nickname": "未央",
+          "wanplusTeamId": "4472"
+        }
+      ]
+    },
+    {
+      "matchId": "38707",
+      "source": "https://wanplus.cn/match/38707.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "27821",
+          "nickname": "迷神",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26471",
+          "nickname": "胖墩",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26893",
+          "nickname": "黄大仙",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26472",
+          "nickname": "淤青",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26473",
+          "nickname": "未央",
+          "wanplusTeamId": "4472"
+        }
+      ]
+    },
+    {
+      "matchId": "38709",
+      "source": "https://wanplus.cn/match/38709.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "27821",
+          "nickname": "迷神",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26471",
+          "nickname": "胖墩",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26893",
+          "nickname": "黄大仙",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26472",
+          "nickname": "淤青",
+          "wanplusTeamId": "4472"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26473",
+          "nickname": "未央",
+          "wanplusTeamId": "4472"
+        }
+      ]
+    },
+    {
+      "matchId": "38715",
+      "source": "https://wanplus.cn/match/38715.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26346",
+          "nickname": "笑煮",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26396",
+          "nickname": "兰博",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26399",
+          "nickname": "输出",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26402",
+          "nickname": "百年",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26347",
+          "nickname": "潇洒",
+          "wanplusTeamId": "4463"
+        }
+      ]
+    },
+    {
+      "matchId": "38719",
+      "source": "https://wanplus.cn/match/38719.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26346",
+          "nickname": "笑煮",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26396",
+          "nickname": "兰博",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26399",
+          "nickname": "输出",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26402",
+          "nickname": "百年",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26347",
+          "nickname": "潇洒",
+          "wanplusTeamId": "4463"
+        }
+      ]
+    },
+    {
+      "matchId": "38721",
+      "source": "https://wanplus.cn/match/38721.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26346",
+          "nickname": "笑煮",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26396",
+          "nickname": "兰博",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26399",
+          "nickname": "输出",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26402",
+          "nickname": "百年",
+          "wanplusTeamId": "4463"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26347",
+          "nickname": "潇洒",
+          "wanplusTeamId": "4463"
+        }
+      ]
+    },
+    {
+      "matchId": "38725",
+      "source": "https://wanplus.cn/match/38725.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38726",
+      "source": "https://wanplus.cn/match/38726.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38727",
+      "source": "https://wanplus.cn/match/38727.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38728",
+      "source": "https://wanplus.cn/match/38728.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38729",
+      "source": "https://wanplus.cn/match/38729.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38730",
+      "source": "https://wanplus.cn/match/38730.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38748",
+      "source": "https://wanplus.cn/match/38748.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28098",
+          "nickname": "Six",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28101",
+          "nickname": "初冬",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28097",
+          "nickname": "Sz",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28100",
+          "nickname": "DJ",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28103",
+          "nickname": "小兽",
+          "wanplusTeamId": "4734"
+        }
+      ]
+    },
+    {
+      "matchId": "38752",
+      "source": "https://wanplus.cn/match/38752.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28098",
+          "nickname": "Six",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28101",
+          "nickname": "初冬",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28097",
+          "nickname": "Sz",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28100",
+          "nickname": "DJ",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28103",
+          "nickname": "小兽",
+          "wanplusTeamId": "4734"
+        }
+      ]
+    },
+    {
+      "matchId": "38757",
+      "source": "https://wanplus.cn/match/38757.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28444",
+          "nickname": "Wolf",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28098",
+          "nickname": "Six",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28097",
+          "nickname": "Sz",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26412",
+          "nickname": "FeiFei",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28103",
+          "nickname": "小兽",
+          "wanplusTeamId": "4734"
+        }
+      ]
+    },
+    {
+      "matchId": "38761",
+      "source": "https://wanplus.cn/match/38761.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28444",
+          "nickname": "Wolf",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28098",
+          "nickname": "Six",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28097",
+          "nickname": "Sz",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26412",
+          "nickname": "FeiFei",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28103",
+          "nickname": "小兽",
+          "wanplusTeamId": "4734"
+        }
+      ]
+    },
+    {
+      "matchId": "38768",
+      "source": "https://wanplus.cn/match/38768.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28098",
+          "nickname": "Six",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28101",
+          "nickname": "初冬",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28097",
+          "nickname": "Sz",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28100",
+          "nickname": "DJ",
+          "wanplusTeamId": "4734"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28103",
+          "nickname": "小兽",
+          "wanplusTeamId": "4734"
+        }
+      ]
+    },
+    {
+      "matchId": "38775",
+      "source": "https://wanplus.cn/match/38775.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26410",
+          "nickname": "七罪",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26420",
+          "nickname": "几迟",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26424",
+          "nickname": "Shadow",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26422",
+          "nickname": "Evildoer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26421",
+          "nickname": "Summer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "38780",
+      "source": "https://wanplus.cn/match/38780.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26410",
+          "nickname": "七罪",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26420",
+          "nickname": "几迟",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26424",
+          "nickname": "Shadow",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26422",
+          "nickname": "Evildoer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26421",
+          "nickname": "Summer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "38781",
+      "source": "https://wanplus.cn/match/38781.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38782",
+      "source": "https://wanplus.cn/match/38782.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38784",
+      "source": "https://wanplus.cn/match/38784.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38785",
+      "source": "https://wanplus.cn/match/38785.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38790",
+      "source": "https://wanplus.cn/match/38790.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26410",
+          "nickname": "七罪",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26420",
+          "nickname": "几迟",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26424",
+          "nickname": "Shadow",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26422",
+          "nickname": "Evildoer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26421",
+          "nickname": "Summer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "38791",
+      "source": "https://wanplus.cn/match/38791.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26410",
+          "nickname": "七罪",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26420",
+          "nickname": "几迟",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26424",
+          "nickname": "Shadow",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26422",
+          "nickname": "Evildoer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26421",
+          "nickname": "Summer",
+          "wanplusTeamId": "4466"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "38828",
+      "source": "https://wanplus.cn/match/38828.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27877",
+          "nickname": "茶",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26497",
+          "nickname": "路西法",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26495",
+          "nickname": "夏天",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26494",
+          "nickname": "天明",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26496",
+          "nickname": "落幕",
+          "wanplusTeamId": "4476"
+        }
+      ]
+    },
+    {
+      "matchId": "38829",
+      "source": "https://wanplus.cn/match/38829.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27877",
+          "nickname": "茶",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26497",
+          "nickname": "路西法",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26495",
+          "nickname": "夏天",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26494",
+          "nickname": "天明",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26496",
+          "nickname": "落幕",
+          "wanplusTeamId": "4476"
+        }
+      ]
+    },
+    {
+      "matchId": "38830",
+      "source": "https://wanplus.cn/match/38830.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27877",
+          "nickname": "茶",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26497",
+          "nickname": "路西法",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26495",
+          "nickname": "夏天",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26494",
+          "nickname": "天明",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26496",
+          "nickname": "落幕",
+          "wanplusTeamId": "4476"
+        }
+      ]
+    },
+    {
+      "matchId": "38833",
+      "source": "https://wanplus.cn/match/38833.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27877",
+          "nickname": "茶",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26497",
+          "nickname": "路西法",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26495",
+          "nickname": "夏天",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26498",
+          "nickname": "英噗",
+          "wanplusTeamId": "4476"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26496",
+          "nickname": "落幕",
+          "wanplusTeamId": "4476"
+        }
+      ]
+    },
+    {
+      "matchId": "38836",
+      "source": "https://wanplus.cn/match/38836.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38837",
+      "source": "https://wanplus.cn/match/38837.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38842",
+      "source": "https://wanplus.cn/match/38842.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26486",
+          "nickname": "雨雨",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26430",
+          "nickname": "无痕",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26380",
+          "nickname": "Roar",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26426",
+          "nickname": "辰鬼",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26433",
+          "nickname": "小羽",
+          "wanplusTeamId": "4467"
+        }
+      ]
+    },
+    {
+      "matchId": "38843",
+      "source": "https://wanplus.cn/match/38843.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38847",
+      "source": "https://wanplus.cn/match/38847.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26486",
+          "nickname": "雨雨",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26430",
+          "nickname": "无痕",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26380",
+          "nickname": "Roar",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26426",
+          "nickname": "辰鬼",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26433",
+          "nickname": "小羽",
+          "wanplusTeamId": "4467"
+        }
+      ]
+    },
+    {
+      "matchId": "38851",
+      "source": "https://wanplus.cn/match/38851.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38852",
+      "source": "https://wanplus.cn/match/38852.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26486",
+          "nickname": "雨雨",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26430",
+          "nickname": "无痕",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26380",
+          "nickname": "Roar",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26427",
+          "nickname": "神男",
+          "wanplusTeamId": "4467"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26433",
+          "nickname": "小羽",
+          "wanplusTeamId": "4467"
+        }
+      ]
+    },
+    {
+      "matchId": "38877",
+      "source": "https://wanplus.cn/match/38877.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26483",
+          "nickname": "凌斗",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "28446",
+          "nickname": "XJ",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26419",
+          "nickname": "安然",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26417",
+          "nickname": "王子",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26897",
+          "nickname": "多情",
+          "wanplusTeamId": "4465"
+        }
+      ]
+    },
+    {
+      "matchId": "38881",
+      "source": "https://wanplus.cn/match/38881.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "28446",
+          "nickname": "XJ",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26483",
+          "nickname": "凌斗",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26419",
+          "nickname": "安然",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26417",
+          "nickname": "王子",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26897",
+          "nickname": "多情",
+          "wanplusTeamId": "4465"
+        }
+      ]
+    },
+    {
+      "matchId": "38885",
+      "source": "https://wanplus.cn/match/38885.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "28446",
+          "nickname": "XJ",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26483",
+          "nickname": "凌斗",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26419",
+          "nickname": "安然",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26417",
+          "nickname": "王子",
+          "wanplusTeamId": "4465"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26897",
+          "nickname": "多情",
+          "wanplusTeamId": "4465"
+        }
+      ]
+    },
+    {
+      "matchId": "38890",
+      "source": "https://wanplus.cn/match/38890.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38891",
+      "source": "https://wanplus.cn/match/38891.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38895",
+      "source": "https://wanplus.cn/match/38895.html",
+      "players": [
+        {
+          "wanplusPlayerId": "41118",
+          "nickname": "流苏",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26352",
+          "nickname": "梦泪",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26356",
+          "nickname": "老帅",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26351",
+          "nickname": "Vv",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26413",
+          "nickname": "月痕",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "38896",
+      "source": "https://wanplus.cn/match/38896.html",
+      "players": [
+        {
+          "wanplusPlayerId": "41118",
+          "nickname": "流苏",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26352",
+          "nickname": "梦泪",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26356",
+          "nickname": "老帅",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26351",
+          "nickname": "Vv",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26413",
+          "nickname": "月痕",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "38898",
+      "source": "https://wanplus.cn/match/38898.html",
+      "players": [
+        {
+          "wanplusPlayerId": "41118",
+          "nickname": "流苏",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26352",
+          "nickname": "梦泪",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26356",
+          "nickname": "老帅",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26351",
+          "nickname": "Vv",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26413",
+          "nickname": "月痕",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "38902",
+      "source": "https://wanplus.cn/match/38902.html",
+      "players": [
+        {
+          "wanplusPlayerId": "41118",
+          "nickname": "流苏",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26352",
+          "nickname": "梦泪",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26356",
+          "nickname": "老帅",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26351",
+          "nickname": "Vv",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26413",
+          "nickname": "月痕",
+          "wanplusTeamId": "4457"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "38903",
+      "source": "https://wanplus.cn/match/38903.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "38904",
+      "source": "https://wanplus.cn/match/38904.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39083",
+      "source": "https://wanplus.cn/match/39083.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39084",
+      "source": "https://wanplus.cn/match/39084.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39092",
+      "source": "https://wanplus.cn/match/39092.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39094",
+      "source": "https://wanplus.cn/match/39094.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39096",
+      "source": "https://wanplus.cn/match/39096.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39098",
+      "source": "https://wanplus.cn/match/39098.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "28104",
+          "nickname": "初晨",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26465",
+          "nickname": "啊楚",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26466",
+          "nickname": "浪浪",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26467",
+          "nickname": "啊澈",
+          "wanplusTeamId": "4471"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26468",
+          "nickname": "PJJ",
+          "wanplusTeamId": "4471"
+        }
+      ]
+    },
+    {
+      "matchId": "39099",
+      "source": "https://wanplus.cn/match/39099.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39100",
+      "source": "https://wanplus.cn/match/39100.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39101",
+      "source": "https://wanplus.cn/match/39101.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39202",
+      "source": "https://wanplus.cn/match/39202.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "39208",
+      "source": "https://wanplus.cn/match/39208.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "39213",
+      "source": "https://wanplus.cn/match/39213.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "39216",
+      "source": "https://wanplus.cn/match/39216.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28133",
+          "nickname": "心醉",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28131",
+          "nickname": "小怪兽",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26343",
+          "nickname": "苏帝",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26416",
+          "nickname": "浩然",
+          "wanplusTeamId": "4475"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "28144",
+          "nickname": "有梦",
+          "wanplusTeamId": "4475"
+        }
+      ]
+    },
+    {
+      "matchId": "39219",
+      "source": "https://wanplus.cn/match/39219.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39220",
+      "source": "https://wanplus.cn/match/39220.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39221",
+      "source": "https://wanplus.cn/match/39221.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39336",
+      "source": "https://wanplus.cn/match/39336.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39337",
+      "source": "https://wanplus.cn/match/39337.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39338",
+      "source": "https://wanplus.cn/match/39338.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39340",
+      "source": "https://wanplus.cn/match/39340.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39344",
+      "source": "https://wanplus.cn/match/39344.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39347",
+      "source": "https://wanplus.cn/match/39347.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39350",
+      "source": "https://wanplus.cn/match/39350.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39353",
+      "source": "https://wanplus.cn/match/39353.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39355",
+      "source": "https://wanplus.cn/match/39355.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39362",
+      "source": "https://wanplus.cn/match/39362.html",
+      "players": [
+        {
+          "wanplusPlayerId": "28120",
+          "nickname": "离落",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28119",
+          "nickname": "boy",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28124",
+          "nickname": "若念",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28123",
+          "nickname": "SR",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28445",
+          "nickname": "miracle",
+          "wanplusTeamId": "4736"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39442",
+      "source": "https://wanplus.cn/match/39442.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39447",
+      "source": "https://wanplus.cn/match/39447.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39450",
+      "source": "https://wanplus.cn/match/39450.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39453",
+      "source": "https://wanplus.cn/match/39453.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39456",
+      "source": "https://wanplus.cn/match/39456.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39459",
+      "source": "https://wanplus.cn/match/39459.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26374",
+          "nickname": "Final",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26375",
+          "nickname": "7Kill",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26376",
+          "nickname": "AT",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26481",
+          "nickname": "Fangz",
+          "wanplusTeamId": "4460"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26378",
+          "nickname": "knight",
+          "wanplusTeamId": "4460"
+        }
+      ]
+    },
+    {
+      "matchId": "39460",
+      "source": "https://wanplus.cn/match/39460.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39461",
+      "source": "https://wanplus.cn/match/39461.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39659",
+      "source": "https://wanplus.cn/match/39659.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        }
+      ]
+    },
+    {
+      "matchId": "39661",
+      "source": "https://wanplus.cn/match/39661.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        }
+      ]
+    },
+    {
+      "matchId": "39663",
+      "source": "https://wanplus.cn/match/39663.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        }
+      ]
+    },
+    {
+      "matchId": "39664",
+      "source": "https://wanplus.cn/match/39664.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26476",
+          "nickname": "鬼迷",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26474",
+          "nickname": "怼怼",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26477",
+          "nickname": "荡浪",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26475",
+          "nickname": "老王",
+          "wanplusTeamId": "4473"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26478",
+          "nickname": "倾城",
+          "wanplusTeamId": "4473"
+        }
+      ]
+    },
+    {
+      "matchId": "39665",
+      "source": "https://wanplus.cn/match/39665.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39666",
+      "source": "https://wanplus.cn/match/39666.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39667",
+      "source": "https://wanplus.cn/match/39667.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39713",
+      "source": "https://wanplus.cn/match/39713.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39714",
+      "source": "https://wanplus.cn/match/39714.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39717",
+      "source": "https://wanplus.cn/match/39717.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26453",
+          "nickname": "Giroro",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39719",
+      "source": "https://wanplus.cn/match/39719.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26453",
+          "nickname": "Giroro",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39722",
+      "source": "https://wanplus.cn/match/39722.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26453",
+          "nickname": "Giroro",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39725",
+      "source": "https://wanplus.cn/match/39725.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39726",
+      "source": "https://wanplus.cn/match/39726.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39727",
+      "source": "https://wanplus.cn/match/39727.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39728",
+      "source": "https://wanplus.cn/match/39728.html",
+      "players": [
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26452",
+          "nickname": "Shrek",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26456",
+          "nickname": "Yixiao",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "28142",
+          "nickname": "Adger",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26457",
+          "nickname": "Storm",
+          "wanplusTeamId": "4739"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26411",
+          "nickname": "Rouse",
+          "wanplusTeamId": "4739"
+        }
+      ]
+    },
+    {
+      "matchId": "39886",
+      "source": "https://wanplus.cn/match/39886.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39887",
+      "source": "https://wanplus.cn/match/39887.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39888",
+      "source": "https://wanplus.cn/match/39888.html",
+      "error": "单局应有十名选手，实际 0"
+    },
+    {
+      "matchId": "39899",
+      "source": "https://wanplus.cn/match/39899.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39903",
+      "source": "https://wanplus.cn/match/39903.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39906",
+      "source": "https://wanplus.cn/match/39906.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39909",
+      "source": "https://wanplus.cn/match/39909.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39910",
+      "source": "https://wanplus.cn/match/39910.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    },
+    {
+      "matchId": "39911",
+      "source": "https://wanplus.cn/match/39911.html",
+      "players": [
+        {
+          "wanplusPlayerId": "26460",
+          "nickname": "Fly",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "27037",
+          "nickname": "奶茶",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26463",
+          "nickname": "Alan",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26357",
+          "nickname": "橘子",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26361",
+          "nickname": "Cat",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26485",
+          "nickname": "诺言",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26409",
+          "nickname": "Hurt",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26358",
+          "nickname": "伪装",
+          "wanplusTeamId": "4458"
+        },
+        {
+          "wanplusPlayerId": "26462",
+          "nickname": "YANG",
+          "wanplusTeamId": "4496"
+        },
+        {
+          "wanplusPlayerId": "26359",
+          "nickname": "小渝",
+          "wanplusTeamId": "4458"
+        }
+      ]
+    }
+  ],
+  "scheduleErrors": []
+}

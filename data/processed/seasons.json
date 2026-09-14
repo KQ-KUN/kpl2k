@@ -476,11 +476,11 @@
    "year": 2026,
    "league_type": "kpl",
    "start_time": "2026-06-17",
-   "end_time": "2026-09-12",
-   "status": 1,
+   "end_time": "2026-09-13",
+   "status": 2,
    "is_battlefield": true,
-   "champion_franchise": null,
-   "runner_up_franchise": null
+   "champion_franchise": "10017",
+   "runner_up_franchise": "10001"
   }
  ]
 }

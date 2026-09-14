@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-09-05",
+  "verifiedAt": "2026-09-14",
   "source": "Cached responses of Tencent official smoba match API",
   "events": [
     {
@@ -791,6 +791,34 @@
         "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_25_1779536753",
         "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_26_1779538707",
         "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1373651472_27_1779541129"
+      ]
+    },
+    {
+      "eventId": "KPL2026S2",
+      "matchId": "2026091201",
+      "status": "matched",
+      "officialNames": [
+        "小胖",
+        "小雪",
+        "涵",
+        "萝卜",
+        "鹤辞"
+      ],
+      "expectedNames": [
+        "萝卜",
+        "小胖",
+        "鹤辞",
+        "小雪",
+        "涵"
+      ],
+      "sources": [
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_23_1789208214",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_24_1789210294",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_25_1789212747",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_26_1789216243",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_27_1789218448",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_28_1789220888",
+        "https://prod.comp.smoba.qq.com/leaguesite/battle/open?battle_id=1054884368_29_1789223641"
       ]
     }
   ]
