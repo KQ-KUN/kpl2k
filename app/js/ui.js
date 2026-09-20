@@ -12,6 +12,7 @@
 
   var STATE = {
     mode: 'classic',
+    budgetTotal: null,
     team: null,
     roster: [],          // [{pid, sid}] 5 槽
     season: null,
@@ -74,7 +75,7 @@
 
   function saveState() {
     var payload = JSON.stringify({
-      mode: STATE.mode, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed, tactic: STATE.tactic,
+      mode: STATE.mode, budgetTotal: STATE.budgetTotal, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed, tactic: STATE.tactic,
       dynasty: STATE.dynasty,
       lastRun: STATE.lastRun, allStar: STATE.allStar
     });
@@ -101,7 +102,8 @@
       var raw = localStorage.getItem(STATE_KEY);
       if (!raw) return;
       var s = JSON.parse(raw);
-      STATE.mode = s.mode === 'allstar' ? 'allstar' : 'classic';
+      STATE.mode = ['allstar', 'budget'].indexOf(s.mode) >= 0 ? s.mode : 'classic';
+      STATE.budgetTotal = Number.isFinite(s.budgetTotal) ? s.budgetTotal : null;
       STATE.team = typeof s.team === 'string' ? s.team : null;
       STATE.roster = Array.isArray(s.roster) ? s.roster.slice(0, 5) : [];
       STATE.season = typeof s.season === 'string' ? s.season : null;
@@ -270,7 +272,8 @@
       STATE.lastRun = r.lastRun;
       saveState(); go('#/result'); return;
     }
-    STATE.mode = 'classic';
+    STATE.mode = r.mode === 'budget' ? 'budget' : 'classic';
+    STATE.budgetTotal = r.lastRun && Number.isFinite(r.lastRun.budgetTotal) ? r.lastRun.budgetTotal : null;
     STATE.team = r.team;
     STATE.roster = r.roster || [];
     STATE.season = r.season;
@@ -673,6 +676,7 @@
     var a = hash.match(/^#\/a\?(.*)$/);
     if (a) { applyAllStarShare(a[1]); return; }
     if (hash.indexOf('#/team') === 0) showTeam();
+    else if (hash.indexOf('#/budget') === 0) showBudget();
     else if (hash.indexOf('#/allstar') === 0) showAllStar();
     else if (hash.indexOf('#/season') === 0) showSeason();
     else if (hash.indexOf('#/sim') === 0) showSim();
@@ -756,19 +760,19 @@
   var activePage = null;
   function shouldAnimatePage(nextPage) {
     if (!activePage) return true;
-    return (activePage === 'home' && ['team', 'allstar'].indexOf(nextPage) >= 0) ||
+    return (activePage === 'home' && ['team', 'allstar', 'budget'].indexOf(nextPage) >= 0) ||
       (activePage === 'team' && nextPage === 'season') ||
       (activePage === 'sim' && nextPage === 'result');
   }
   function showPage(name) {
     var animateEntry = shouldAnimatePage(name);
-    ['home', 'team', 'allstar', 'season', 'sim', 'result', 'history', 'achievements'].forEach(function (p) {
+    ['home', 'team', 'budget', 'allstar', 'season', 'sim', 'result', 'history', 'achievements'].forEach(function (p) {
       var page = $(p);
       page.classList.toggle('active', p === name);
       page.classList.toggle('page-enter', p === name && animateEntry);
     });
     activePage = name;
-    ['team-bar', 'allstar-bar', 'season-bar', 'sim-bar', 'result-bar'].forEach(function (b) {
+    ['team-bar', 'budget-bar', 'allstar-bar', 'season-bar', 'sim-bar', 'result-bar'].forEach(function (b) {
       var el = $(b);
       if (el) el.style.display = 'none';
     });
@@ -1199,6 +1203,13 @@
     $('picker-confirm').style.display = '';
     $('picker-pool').style.display = '';
     $('picker-back').style.display = 'none';
+  }
+
+  /* ================= 100 金币组队 ================= */
+  function showBudget() {
+    showPage('budget');
+    BGM.play('intro');
+    KPL_BUDGET.show();
   }
 
   /* ================= 全明星模式 ================= */
@@ -2245,7 +2256,7 @@
 
   function showStageButtons() {
     $('sim-skip').style.display = '';
-    $('sim-sub').style.display = '';
+    $('sim-sub').style.display = STATE.mode === 'budget' ? 'none' : '';
     $('sim-goon').style.display = '';
     updateRevealControls();
   }
@@ -2328,6 +2339,7 @@
       });
     }
     STATE.lastRun = {
+      mode: STATE.mode, budgetTotal: STATE.mode === 'budget' ? STATE.budgetTotal : null,
       champion: championId, team: STATE.team, season: STATE.season, seed: STATE.seed,
       completedAt: Date.now(), champ: isChamp,
       version: buildVersion(), tactic: STATE.tactic,
@@ -2360,6 +2372,7 @@
         : '止步·' + runPlacement({ path: SIM.path }));
     var hist = loadHistory();
     hist.unshift({
+      mode: STATE.mode,
       team: STATE.team, teamName: teamName(STATE.team), season: STATE.season, seasonName: SIM.seasonName,
       seed: STATE.seed, savedAt: STATE.lastRun.completedAt, champ: isChamp, banner: hBanner,
       roster: STATE.roster.slice(),
@@ -2901,6 +2914,20 @@
       $('btn-allstar').addEventListener('click', function () {
         BGM.unlock(); BGM.play('intro'); STATE.mode = 'allstar'; saveState(); go('#/allstar');
       });
+      KPL_BUDGET.init(DATA, function (choice) {
+        STATE.mode = 'budget';
+        STATE.budgetTotal = choice.total;
+        STATE.team = choice.team;
+        STATE.roster = choice.roster;
+        STATE.season = 'KPL2026S2';
+        STATE.seed = Math.floor(Math.random() * 100000);
+        STATE.dynasty = null;
+        saveState();
+        go('#/sim');
+      });
+      $('btn-budget').addEventListener('click', function () {
+        BGM.unlock(); BGM.play('intro'); go('#/budget');
+      });
       $('allstar-a-team').addEventListener('change', function () { changeAllStarTeam('a', this.value); });
       $('allstar-b-team').addEventListener('change', function () { changeAllStarTeam('b', this.value); });
       $('allstar-bo').querySelectorAll('button').forEach(function (el) {
@@ -2961,6 +2988,7 @@
       });
       $('result-reteam').addEventListener('click', function () {
         if (STATE.mode === 'allstar') { go('#/allstar'); return; }
+        if (STATE.mode === 'budget') { go('#/budget'); return; }
         STATE.roster = [];
         saveState();
         go('#/team');
