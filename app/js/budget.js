@@ -32,13 +32,15 @@
     var ranked = Object.keys(byId).map(function (id) { return byId[id]; })
       .sort(function (a, b) { return b.rating - a.rating; });
     if (ranked.length < 5) throw new Error(position + '可用选手不足 5 人');
-    // 五档各抽一人，保证每局有高低价选择，而不把价格说成现实身价。
+    // 五档各抽一人；档内随机定价，整池均价约 20 金币且每路有低价选择。
     var selectedFive = [];
+    var priceBands = [[27, 32], [21, 25], [17, 22], [15, 19], [12, 15]];
     for (var tier = 0; tier < 5; tier++) {
       var start = Math.floor(ranked.length * tier / 5);
       var end = Math.max(start + 1, Math.floor(ranked.length * (tier + 1) / 5));
       var player = ranked[start + randomInt(end - start)];
-      player = Object.assign({}, player, { price: 30 - tier * 4 });
+      var band = priceBands[tier];
+      player = Object.assign({}, player, { price: band[0] + randomInt(band[1] - band[0] + 1) });
       selectedFive.push(player);
     }
     return shuffle(selectedFive);
@@ -54,11 +56,14 @@
   function render() {
     el('budget-machine').innerHTML = POSITIONS.map(function (position) {
       var players = pool[position] || [];
-      return '<section class="budget-reel"><h3>' + position + '</h3><div class="budget-candidates">' + players.map(function (p, i) {
+      var cards = players.length ? players.map(function (p, i) {
         var chosen = lineup[position] && lineup[position].pid === p.pid;
         return '<button type="button" class="budget-player' + (chosen ? ' chosen' : '') + '" data-position="' + position + '" data-index="' + i + '" aria-label="' + escapeHtml(position + ' ' + p.name + ' ' + p.price + ' 金币' + (chosen ? ' 已入队' : '')) + '">' +
           '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + '金币</small></span></button>';
-      }).join('') + '</div></section>';
+      }).join('') : Array.from({ length: 5 }, function () {
+        return '<div class="budget-player placeholder" aria-hidden="true"><span class="budget-avatar">?</span><span class="budget-player-text"><b>待抽取</b></span></div>';
+      }).join('');
+      return '<section class="budget-reel"><h3>' + position + '</h3><div class="budget-candidates">' + cards + '</div></section>';
     }).join('');
     el('budget-slots').innerHTML = POSITIONS.map(function (position) {
       var p = lineup[position];
@@ -87,7 +92,7 @@
     spinning = true;
     el('budget-spin').disabled = true;
     el('budget-spin').classList.add('pulling');
-    status('选手头像翻动中…');
+    status('正在拉下手柄…');
     // 候选池先确定，翻动仅是揭晓动画，不影响抽取规则。
     var nextPool = {};
     try { POSITIONS.forEach(function (position) { nextPool[position] = candidatesFor(position); }); }
@@ -101,8 +106,10 @@
       status('候选已揭晓。拖动头像到首发位置，或点击选手直接签入。再次抽取会清空当前阵容。');
       render();
     };
-    if (global.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-    else setTimeout(function () {
+    var reducedMotion = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(function () {
+      if (reducedMotion) { finish(); return; }
+      status('选手头像翻动中…');
       el('budget-machine').classList.add('spinning');
       var frames = 0;
       var ticker = setInterval(function () {
@@ -110,7 +117,7 @@
         render(); frames++;
         if (frames >= 6) { clearInterval(ticker); finish(); }
       }, 135);
-    }, 430);
+    }, reducedMotion ? 650 : 900);
   }
   function pointerDown(event) {
     var button = event.target.closest('.budget-player');
