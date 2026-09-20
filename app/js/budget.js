@@ -57,7 +57,7 @@
       return '<section class="budget-reel"><h3>' + position + '</h3><div class="budget-candidates">' + players.map(function (p, i) {
         var chosen = lineup[position] && lineup[position].pid === p.pid;
         return '<button type="button" class="budget-player' + (chosen ? ' chosen' : '') + '" data-position="' + position + '" data-index="' + i + '" aria-label="' + escapeHtml(position + ' ' + p.name + ' ' + p.price + ' 金币' + (chosen ? ' 已入队' : '')) + '">' +
-          '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + ' 金币</small></span></button>';
+          '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + '金币</small></span></button>';
       }).join('') + '</div></section>';
     }).join('');
     el('budget-slots').innerHTML = POSITIONS.map(function (position) {
@@ -68,7 +68,7 @@
     el('budget-remaining').textContent = 100 - total();
     var complete = POSITIONS.every(function (position) { return !!lineup[position]; });
     el('budget-continue').disabled = !complete || !el('budget-team').value;
-    el('budget-continue').textContent = complete ? '参加 2026 KPL 夏季赛 →' : '选满五人后参赛';
+    el('budget-continue').textContent = complete ? '确认阵容 · 选择战场 →' : '选满五人后选择战场';
   }
   function choose(position, index) {
     var player = (pool[position] || [])[index];
@@ -86,29 +86,31 @@
     if (spinning || !data.allStar) return;
     spinning = true;
     el('budget-spin').disabled = true;
-    el('budget-machine').classList.add('spinning');
+    el('budget-spin').classList.add('pulling');
     status('选手头像翻动中…');
     // 候选池先确定，翻动仅是揭晓动画，不影响抽取规则。
     var nextPool = {};
     try { POSITIONS.forEach(function (position) { nextPool[position] = candidatesFor(position); }); }
-    catch (error) { spinning = false; el('budget-spin').disabled = false; status(error.message); return; }
+    catch (error) { spinning = false; el('budget-spin').disabled = false; el('budget-spin').classList.remove('pulling'); status(error.message); return; }
     lineup = {};
     var finish = function () {
       pool = nextPool; lineup = {}; selected = null; spinning = false;
       el('budget-spin').disabled = false;
+      el('budget-spin').classList.remove('pulling');
       el('budget-machine').classList.remove('spinning');
       status('候选已揭晓。拖动头像到首发位置，或点击选手直接签入。再次抽取会清空当前阵容。');
       render();
     };
     if (global.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
-    else {
+    else setTimeout(function () {
+      el('budget-machine').classList.add('spinning');
       var frames = 0;
       var ticker = setInterval(function () {
         POSITIONS.forEach(function (position) { pool[position] = candidatesFor(position); });
         render(); frames++;
         if (frames >= 6) { clearInterval(ticker); finish(); }
       }, 135);
-    }
+    }, 430);
   }
   function pointerDown(event) {
     var button = event.target.closest('.budget-player');
@@ -148,7 +150,9 @@
   }
   function init(baseData, callback) {
     data = baseData; onContinue = callback;
-    el('budget-team').innerHTML = '<option value="">正在加载参赛战队…</option>';
+    el('budget-team').innerHTML = (data.manifest.teams2026 || []).map(function (team) {
+      return '<option value="' + escapeHtml(team.id) + '">' + escapeHtml(team.name) + '</option>';
+    }).join('');
     el('budget-spin').addEventListener('click', spin);
     el('budget-team').addEventListener('change', render);
     el('budget-machine').addEventListener('pointerdown', pointerDown);
@@ -176,14 +180,7 @@
   function show() {
     if (!data.allStar) {
       status('正在加载选手库…'); el('budget-spin').disabled = true;
-      Promise.all([global.KPL_DATA.loadAllStar(), global.KPL_DATA.loadSeason('KPL2026S2')]).then(function (loaded) {
-        var participants = {};
-        (loaded[1].rounds || []).forEach(function (round) { (round.matches || []).forEach(function (match) {
-          participants[match.a_id] = true; participants[match.b_id] = true;
-        }); });
-        el('budget-team').innerHTML = (data.manifest.teams2026 || []).filter(function (team) { return participants[team.id]; }).map(function (team) {
-          return '<option value="' + escapeHtml(team.id) + '">' + escapeHtml(team.name) + '</option>';
-        }).join('');
+      global.KPL_DATA.loadAllStar().then(function () {
         el('budget-spin').disabled = false; status('拉动手柄，抽取五路候选。'); render();
       }).catch(function (error) { status('选手库加载失败：' + error.message); });
     }

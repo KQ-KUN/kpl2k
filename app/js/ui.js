@@ -1566,7 +1566,7 @@
     showPage('season');
     BGM.play('intro');
     $('season-team-name').textContent = STATE.team
-      ? (teamName(STATE.team) + ' · ' + STATE.roster.map(function (s) { return playerName(s.pid); }).join('、'))
+      ? ((STATE.mode === 'budget' ? '接替 ' : '') + teamName(STATE.team) + ' · ' + STATE.roster.map(function (s) { return playerName(s.pid); }).join('、'))
       : '未组队';
     renderTacticPickers();
     renderSeasonList();
@@ -1579,7 +1579,7 @@
       (byYear[y] = byYear[y] || []).push(s);
     });
     var years = Object.keys(byYear).sort(function (a, b) { return b - a; });
-    var curYear = null;
+    var curYear = STATE.mode === 'budget' && !STATE.season ? 2026 : null;
     DATA.manifest.seasons.forEach(function (s) {
       if (s.season_id === STATE.season) curYear = s.year;
     });
@@ -2919,11 +2919,11 @@
         STATE.budgetTotal = choice.total;
         STATE.team = choice.team;
         STATE.roster = choice.roster;
-        STATE.season = 'KPL2026S2';
+        STATE.season = null;
         STATE.seed = Math.floor(Math.random() * 100000);
         STATE.dynasty = null;
         saveState();
-        go('#/sim');
+        go('#/season');
       });
       $('btn-budget').addEventListener('click', function () {
         BGM.unlock(); BGM.play('intro'); go('#/budget');
@@ -2948,6 +2948,7 @@
       $('history-entry').addEventListener('click', function () { go('#/history'); });
       $('achievement-entry').addEventListener('click', function () { go('#/achievements'); });
       $('btn-confirm-team').addEventListener('click', function () { go('#/season'); });
+      $('season-back').addEventListener('click', function () { go(STATE.mode === 'budget' ? '#/budget' : '#/team'); });
       $('season-go').addEventListener('click', function () { go('#/sim'); });
       $('sim-skip').addEventListener('click', function () {
         openConfirm('一键跳转', '是否直接查看比赛结果？将跳过剩余赛程的文字，直接生成最终战绩。', skipAll, '直接查看');
