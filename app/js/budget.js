@@ -57,7 +57,7 @@
       return '<section class="budget-reel"><h3>' + position + '</h3><div class="budget-candidates">' + players.map(function (p, i) {
         var chosen = lineup[position] && lineup[position].pid === p.pid;
         return '<button type="button" class="budget-player' + (chosen ? ' chosen' : '') + '" data-position="' + position + '" data-index="' + i + '" aria-label="' + escapeHtml(position + ' ' + p.name + ' ' + p.price + ' 金币' + (chosen ? ' 已入队' : '')) + '">' +
-          '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + escapeHtml(p.teamFid && data.names[p.teamFid] || '2026 夏季赛') + '</small></span><strong>' + p.price + ' <small>金币</small></strong></button>';
+          '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + ' 金币</small></span></button>';
       }).join('') + '</div></section>';
     }).join('');
     el('budget-slots').innerHTML = POSITIONS.map(function (position) {

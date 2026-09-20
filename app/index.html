@@ -99,9 +99,12 @@
 <!-- ================= 100 金币组队 ================= -->
 <div id="budget" class="page">
   <div class="topbar"><button class="back" onclick="location.hash='#/'" aria-label="返回首页">‹</button><h1>100 金币组一支 KPL 战队</h1><span class="step">选人 / 参赛</span></div>
-  <div class="budget-hero"><div><span class="budget-kicker">KPL 2K · 阵容挑战</span><h2>给你 <strong>100</strong> 金币<br>组一套能夺冠的阵容</h2></div><div class="budget-wallet"><small>剩余金币</small><b id="budget-remaining">100</b><span> / 100</span></div></div>
-  <div class="budget-controls"><div><b>抽取选手</b><p>每路随机 5 人。抽出后拖到右侧位置；也可点击头像选择。</p></div><button class="budget-lever" id="budget-spin" type="button"><span aria-hidden="true">●</span> 拉动手柄</button></div>
-  <div class="budget-machine" id="budget-machine" aria-label="五路选手候选"></div>
+  <div class="budget-hero"><div><span class="budget-kicker">KPL 2K · 阵容挑战</span><h2><strong>100</strong> 金币，组一套夺冠阵容</h2></div><div class="budget-wallet"><small>剩余金币</small><b id="budget-remaining">100</b><span> / 100</span></div></div>
+  <div class="budget-cabinet">
+    <div class="budget-machine-wrap"><div class="budget-marquee"><span>★</span><b>拉动手柄 · 抽取五路选手</b><span>★</span></div><div class="budget-machine" id="budget-machine" aria-label="五路选手候选"></div></div>
+    <button class="budget-lever" id="budget-spin" type="button" aria-label="拉动手柄，重新抽取五路选手"><span class="lever-ball" aria-hidden="true"></span><span class="lever-stem" aria-hidden="true"></span><span class="lever-base" aria-hidden="true"></span><b>拉动<br>手柄</b></button>
+  </div>
+  <p class="budget-instruction">拖动头像到对应位置，或点击选手签入。再次抽取会清空阵容。</p>
   <div class="budget-roster"><div class="budget-section-title"><h2>你的首发阵容</h2><span id="budget-total">已用 0 / 100 金币</span></div><div class="budget-slots" id="budget-slots"></div></div>
   <div class="budget-join"><label for="budget-team">接替参赛战队 · 2026 KPL 夏季赛</label><select id="budget-team"></select><p>你的五人阵容会替换这支战队的首发，直接进入现有夏季赛模拟。</p></div>
   <p class="budget-status" id="budget-status" role="status" aria-live="polite">先拉动手柄，抽取五路候选。</p>
