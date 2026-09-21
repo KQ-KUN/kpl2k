@@ -3,7 +3,7 @@
   color-scheme:dark;
   --bg:#080d1b;--card:#101a2e;--line:rgba(151,178,220,.2);--line2:rgba(93,126,187,.45);
   --fg:#f4f7fc;--mut:#91a4c2;--gold:#f0b90b;--blue:#3e7bfa;
-  --green:#3fb950;--red:#ef4158;--purple:#9b8cff;
+  --green:#3fb950;--red:#ef4158;--purple:#9b8cff;--bracket-line:rgba(151,178,220,.46);
   --radius:16px;
   --safe-bottom:env(safe-area-inset-bottom,0px);
   --ease-out:cubic-bezier(.23,1,.32,1);
@@ -14,7 +14,7 @@
   color-scheme:light;
   --bg:#f3f6fb;--card:#fff;--line:#d6deeb;--line2:#b5c4da;
   --fg:#172844;--mut:#536681;--gold:#946500;--blue:#245bc5;
-  --green:#21733b;--red:#c02c42;--purple:#7250b1;
+  --green:#21733b;--red:#c02c42;--purple:#7250b1;--bracket-line:#788ba8;
 }
 .game-rules { margin:auto; width:min(520px,calc(100vw - 32px)); max-height:80dvh; overflow:auto; padding:24px; border:1px solid var(--line); border-radius:16px; background:var(--card); color:var(--fg); }
 .game-rules::backdrop { background:#0008; }
@@ -443,7 +443,8 @@ button:disabled{cursor:not-allowed}
 /* ---- 淘汰赛 bracket 树 ---- */
 .bk-wrap{overflow-x:auto;margin:6px -4px 4px;padding:20px 4px 6px;-webkit-overflow-scrolling:touch}
 .bk-inner{position:relative}
-.bk-lines{z-index:0;pointer-events:none}
+.bk-lines{z-index:0;color:var(--bracket-line);pointer-events:none}
+.bk-lines path{stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
 .bk-main .bk-match{background:rgba(255,255,255,.045)}
 .bk-loser{margin-top:18px}
 .bk-loser .bk-match{background:rgba(139,148,158,.07)}

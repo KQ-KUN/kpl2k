@@ -2108,7 +2108,7 @@
           var x2 = x + COL_W + GAP;
           var y2 = (j + 0.5) * (H / nextN);
           var midX = x + COL_W + GAP / 2;
-          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.4"/>');
+          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="currentColor" stroke-width="1.7"/>');
         }
       }
     });
