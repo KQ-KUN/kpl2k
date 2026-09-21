@@ -9,6 +9,8 @@
   var ACHIEVEMENT_KEY = 'kpl2k_achievements_v1';
   var POS_ORDER = ['对抗路', '打野', '中路', '发育路', '游走'];
   var PRESET_SEASONS = ['KPL2026S2', 'KPL2026S1']; // 2026 现役首发优先取最新
+  // 金币模式按“认真搭配约三成夺冠”校准；普通模式仍沿用引擎默认加成。
+  var BUDGET_PLAYER_BOOST = 11.0;
 
   var STATE = {
     mode: 'classic',
@@ -1687,7 +1689,8 @@
       SIM.session = E.createSession({
         season_id: battleSid, formats: formats, rosters: rosters, rng: E.makeRng(STATE.seed),
         names: DATA.names, tpl: DATA.tpl, chem: D.buildChemFor(sids),
-        override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic
+        override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic,
+        player_boost: STATE.mode === 'budget' ? BUDGET_PLAYER_BOOST : undefined
       });
       SIM.stageNo = 0;
       SIM.path = [];

@@ -32,9 +32,9 @@
     var ranked = Object.keys(byId).map(function (id) { return byId[id]; })
       .sort(function (a, b) { return b.rating - a.rating; });
     if (ranked.length < 5) throw new Error(position + '可用选手不足 5 人');
-    // 五档各抽一人；档内随机定价，整池均价约 20 金币且每路有低价选择。
+    // 五档各抽一人；价带彼此重叠，让明星偶尔成为价值签，整池均价仍约 20 金币。
     var selectedFive = [];
-    var priceBands = [[27, 32], [21, 25], [17, 22], [15, 19], [12, 15]];
+    var priceBands = [[22, 32], [18, 25], [16, 23], [13, 20], [10, 17]];
     for (var tier = 0; tier < 5; tier++) {
       var start = Math.floor(ranked.length * tier / 5);
       var end = Math.max(start + 1, Math.floor(ranked.length * (tier + 1) / 5));

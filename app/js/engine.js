@@ -28,6 +28,10 @@
     return FRANCHISE_ID_ALIAS[String(fid)] || String(fid);
   }
 
+  function playerBoost(opts) {
+    return Number.isFinite(opts.player_boost) ? opts.player_boost : PLAYER_BOOST;
+  }
+
   /* ---------------- RNG (mulberry32) ---------------- */
   function makeRng(seed) {
     var a = (seed >>> 0);
@@ -810,7 +814,7 @@
     }
     /* opts: {
      *   season_id, formats (seasons map), rosters {fid:[records]},
-     *   rng, names {fid:name}, tpl, override_rosters?, chem?, track?
+     *   rng, names {fid:name}, tpl, override_rosters?, chem?, track?, player_boost?
      * }
      * returns { champion, narrations, path, losses, regular }
      */
@@ -829,7 +833,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
+    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
     var narrations = [];
     var path = [];
     var champion = null;
@@ -1107,7 +1111,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
+    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
     var phaseIdx = 0, curDef = null;
@@ -1795,7 +1799,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += PLAYER_BOOST;
+    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
 
