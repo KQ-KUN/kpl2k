@@ -22,8 +22,9 @@
 .budget-player.placeholder{opacity:.54;border-style:dashed;box-shadow:none}
 .budget-player.chosen{border:2px solid #ba2537;background:#ffe5d6;box-shadow:inset 0 0 0 1px #fff}
 .budget-player.chosen .budget-player-text small:after{content:' ✓'}
-.budget-avatar,.budget-slot-avatar{display:grid;place-items:center;overflow:hidden;flex:none;width:36px;height:36px;border-radius:50%;background:#d7c9a8;color:#352528;font-size:17px}
+.budget-avatar,.budget-slot-avatar{position:relative;display:grid;place-items:center;overflow:hidden;flex:none;width:36px;height:36px;border-radius:50%;background:#d7c9a8;color:#352528;font-size:17px}
 .budget-avatar img,.budget-slot-avatar img{width:100%;height:100%;object-fit:cover}
+.budget-tier{position:absolute;right:0;bottom:0;min-width:17px;padding:0 1px;border-radius:3px;background:#672132;color:#fff8d8;text-align:center;font-size:8px;font-weight:900;line-height:11px;font-variant-numeric:tabular-nums}
 .budget-player-text{display:flex;align-items:center;justify-content:space-between;gap:5px;min-width:0;flex:1;line-height:1.1}
 .budget-player-text b{overflow:hidden;min-width:0;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:800}
 .budget-player-text small{flex:none;color:#9a2937;font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -45,6 +46,7 @@
 .budget-section-title h2{font-size:14px}
 .budget-section-title span{color:var(--gold);font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
 .budget-slots{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.budget-duos{margin-top:7px;color:var(--mut);font-size:11px;line-height:1.45}
 .budget-slot{display:flex;align-items:center;gap:6px;min-width:0;height:61px;padding:5px;border:1px dashed var(--line2);border-radius:9px;background:var(--bg);text-align:left}
 .budget-slot.filled{border-style:solid;border-color:var(--gold)}
 .budget-slot-avatar{width:34px;height:34px;background:var(--line);color:var(--fg)}

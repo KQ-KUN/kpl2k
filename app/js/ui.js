@@ -9,8 +9,8 @@
   var ACHIEVEMENT_KEY = 'kpl2k_achievements_v1';
   var POS_ORDER = ['对抗路', '打野', '中路', '发育路', '游走'];
   var PRESET_SEASONS = ['KPL2026S2', 'KPL2026S1']; // 2026 现役首发优先取最新
-  // 金币模式按“认真搭配约三成夺冠”校准；普通模式仍沿用引擎默认加成。
-  var BUDGET_PLAYER_BOOST = 11.0;
+  // 金币模式把部分固定加成转为可通过历史搭档触发的阵容奖励。
+  var BUDGET_PLAYER_BOOST = 5.0;
 
   var STATE = {
     mode: 'classic',
@@ -1690,7 +1690,8 @@
         season_id: battleSid, formats: formats, rosters: rosters, rng: E.makeRng(STATE.seed),
         names: DATA.names, tpl: DATA.tpl, chem: D.buildChemFor(sids),
         override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic,
-        player_boost: STATE.mode === 'budget' ? BUDGET_PLAYER_BOOST : undefined
+        player_boost: STATE.mode === 'budget' ? BUDGET_PLAYER_BOOST : undefined,
+        budget_duos: STATE.mode === 'budget' ? DATA.budgetPairs : undefined
       });
       SIM.stageNo = 0;
       SIM.path = [];
@@ -2350,6 +2351,7 @@
       tree: SIM.session && SIM.session.getTree ? SIM.session.getTree() : [],
       rosterNames: STATE.roster.map(function (s) { return playerName(s.pid); }),
       records: recordsForRoster(STATE.roster), seasonName: SIM.seasonName,
+      duoDetail: STATE.mode === 'budget' ? E.budgetDuoBonus(recordsForRoster(STATE.roster), DATA.budgetPairs) : null,
       runStats: runStats, strengthBreakdown: strengthOf()[1]
     };
     var dynasty = activeDynasty();
@@ -2484,6 +2486,13 @@
       gamble: '放手一搏提高了赛果波动，爆冷与翻车都更容易出现。'
     }[run.tactic || 'balanced'];
     factors.push(['赛前策略', tacticText]);
+    if (run.mode === 'budget' && run.duoDetail) {
+      var duos = run.duoDetail.pairs || [];
+      factors.push(['同队搭档', duos.length
+        ? duos.map(function (p) { return esc(playerName(p.a)) + ' + ' + esc(playerName(p.b)); }).join('、') +
+          '，战力 +' + f1(run.duoDetail.bonus) + '。'
+        : '本阵容未触发历史同队搭档加成。']);
+    }
     var bestPid = null;
     Object.keys(run.runStats || {}).forEach(function (pid) {
       var stat = run.runStats[pid] || {};

@@ -32,6 +32,31 @@
     return Number.isFinite(opts.player_boost) ? opts.player_boost : PLAYER_BOOST;
   }
 
+  function budgetDuoBonus(starter, history) {
+    var counts = history && history.pairs || {};
+    var pairs = [], total = 0;
+    for (var i = 0; i < starter.length; i++) {
+      for (var j = i + 1; j < starter.length; j++) {
+        var a = starter[i].player_id || starter[i].pid;
+        var b = starter[j].player_id || starter[j].pid;
+        if (!a || !b || a === b) continue;
+        var count = counts[[a, b].sort().join('|')] || 0;
+        if (!count) continue;
+        var value = Math.min(3, 1.5 + (count - 1) * 0.25);
+        pairs.push({ a: a, b: b, seasons: count, value: round1(value) });
+        total += value;
+      }
+    }
+    return { bonus: round1(Math.min(5, total)), pairs: pairs };
+  }
+
+  function trackedStrength(rosters, track, opts) {
+    if (track == null || !rosters[track]) return null;
+    var starter = pickStarter(rosters[track]);
+    return teamStrength(starter, opts.chem) + playerBoost(opts) +
+      budgetDuoBonus(starter, opts.budget_duos).bonus;
+  }
+
   /* ---------------- RNG (mulberry32) ---------------- */
   function makeRng(seed) {
     var a = (seed >>> 0);
@@ -836,7 +861,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
+    if (track != null && strengths[track] !== undefined) strengths[track] = trackedStrength(rosters, track, opts);
     var narrations = [];
     var path = [];
     var champion = null;
@@ -1114,7 +1139,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
+    if (track != null && strengths[track] !== undefined) strengths[track] = trackedStrength(rosters, track, opts);
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
     var phaseIdx = 0, curDef = null;
@@ -1700,7 +1725,7 @@
     return {
       setRoster: function (fid, records) {
         rosters[fid] = records;
-        strengths[fid] = teamStrength(records, opts.chem);
+        strengths[fid] = fid === track ? trackedStrength(rosters, track, opts) : teamStrength(records, opts.chem);
       },
       next: function () {
         var guard = 0;
@@ -1803,7 +1828,7 @@
     Object.keys(rosters).forEach(function (fid) {
       strengths[fid] = teamStrength(pickStarter(rosters[fid]), opts.chem);
     });
-    if (track != null && strengths[track] !== undefined) strengths[track] += playerBoost(opts);
+    if (track != null && strengths[track] !== undefined) strengths[track] = trackedStrength(rosters, track, opts);
     var losses = {};
     var regularWins = {}, regularGames = {}, regularGf = {}, regularGa = {};
 
@@ -2057,7 +2082,7 @@
     return {
       setRoster: function (fid, records) {
         rosters[fid] = records;
-        strengths[fid] = teamStrength(records, opts.chem);
+        strengths[fid] = fid === track ? trackedStrength(rosters, track, opts) : teamStrength(records, opts.chem);
       },
       next: function () {
         if (done) return { kind: 'done', title: '赛季收官', champion: champion };
@@ -2141,7 +2166,7 @@
   global.KPL_ENGINE = {
     POSITIONS: POSITIONS, K: K, STRENGTH_NOISE: STRENGTH_NOISE, TACTIC_NOISE: TACTIC_NOISE, COMPRESS: COMPRESS,
     makeRng: makeRng, pickStarter: pickStarter, teamStrength: teamStrength,
-    buildChem: buildChem, lineupStrength: lineupStrength,
+    buildChem: buildChem, lineupStrength: lineupStrength, budgetDuoBonus: budgetDuoBonus,
     seriesWinProb: seriesWinProb, playSeries: playSeries, playMatch: playMatch, placementFromRound: placementFromRound,
     dynamicSingleElim: dynamicSingleElim, dynamicDoubleElim: dynamicDoubleElim,
     gameNarration: gameNarration, narrateSeries: narrateSeries, simMatchStats: simMatchStats,

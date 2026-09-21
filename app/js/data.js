@@ -15,6 +15,7 @@
     dynasties: [],
     teamIcons: {},    // fid -> 队标 URL
     allStar: null,    // merged global player/version index
+    budgetPairs: null,
     teamsCache: {},   // fid -> teams/{fid}.json
     seasonCache: {}   // sid -> seasons/{sid}.json
   };
@@ -63,6 +64,14 @@
     if (DATA.allStar) return Promise.resolve(DATA.allStar);
     return fetchJson('data/all_star.json').then(function (d) {
       DATA.allStar = d;
+      return d;
+    });
+  }
+
+  function loadBudgetPairs() {
+    if (DATA.budgetPairs) return Promise.resolve(DATA.budgetPairs);
+    return fetchJson('data/budget_pairs.json').then(function (d) {
+      DATA.budgetPairs = d;
       return d;
     });
   }
@@ -123,6 +132,7 @@
     loadBase: loadBase,
     loadTeam: loadTeam,
     loadAllStar: loadAllStar,
+    loadBudgetPairs: loadBudgetPairs,
     loadSeason: loadSeason,
     loadSeasons: loadSeasons,
     seasonRoster: seasonRoster,
