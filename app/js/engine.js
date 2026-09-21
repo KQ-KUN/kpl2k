@@ -552,14 +552,15 @@
   }
 
   /* 本场 10 名选手的逐局 k/d/a + 每局 MVP（用于战绩卡"本次征战"数据） */
-  function simMatchStats(rng, rosterA, rosterB, results) {
+  function simMatchStats(rng, rosterA, rosterB, results, teamAId, teamBId) {
     var agg = {};
     function ensure(pid) {
       if (!agg[pid]) agg[pid] = { games: 0, k: 0, d: 0, a: 0, mvp: 0 };
       return agg[pid];
     }
-    // 同一选手可能出现在双方阵容（平行时空转会），key 带队伍区分，防止数据互相污染
-    function keyOf(r) { return r.player_id + '|' + (r.team_franchise || '?'); }
+    // 同一选手可能出现在双方阵容（平行时空转会），key 按本场 A/B 方区分。
+    // 金币模式会保留选手原俱乐部用于化学反应，不能用该字段判断本场归属。
+    function keyOf(r, sideId) { return r.player_id + '|' + (sideId || r.team_franchise || '?'); }
     var K_W = { '对抗路': 0.8, '打野': 1.4, '中路': 1.1, '发育路': 1.5, '游走': 0.3 };
     var A_W = { '对抗路': 0.9, '打野': 1.0, '中路': 1.1, '发育路': 0.8, '游走': 1.8 };
     var D_W = { '对抗路': 1.1, '打野': 1.0, '中路': 1.2, '发育路': 1.4, '游走': 0.9 };
@@ -586,6 +587,8 @@
     (results || []).forEach(function (g) {
       var winnerR = g === 'A' ? rosterA : rosterB;
       var loserR = g === 'A' ? rosterB : rosterA;
+      var winnerId = g === 'A' ? teamAId : teamBId;
+      var loserId = g === 'A' ? teamBId : teamAId;
       // KPL 常见数据：胜方单队击杀 12-18、败方 7-12；每击杀约 1.6-2.2 助攻
       var wk = rng.randint(12, 18);
       var lk = rng.randint(7, 12);
@@ -594,14 +597,14 @@
       var wD = dist(winnerR, rng.randint(1, 4), D_W);
       var lD = dist(loserR, rng.randint(8, 16), D_W);
       winnerR.concat(loserR).forEach(function (r) {
-        var s = ensure(keyOf(r));
+        var side = winnerR.indexOf(r) >= 0 ? 'W' : 'L';
+        var s = ensure(keyOf(r, side === 'W' ? winnerId : loserId));
         s.games++;
         var kk = (wK[r.player_id] || 0) + (lK[r.player_id] || 0);
         var aa = (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
         var dd = (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
         // k/d/a 按选手本身归属的一方计算（胜方击杀、败方死亡分开），
         // 同一 pid 在双方时各自只累加自己队伍的数据
-        var side = winnerR.indexOf(r) >= 0 ? 'W' : 'L';
         if (side === 'W') { s.k += wK[r.player_id] || 0; s.a += wA[r.player_id] || 0; s.d += wD[r.player_id] || 0; }
         else { s.k += lK[r.player_id] || 0; s.a += lA[r.player_id] || 0; s.d += lD[r.player_id] || 0; }
       });
@@ -612,14 +615,14 @@
         var a = (wA[r.player_id] || 0) + (lA[r.player_id] || 0);
         var d = (wD[r.player_id] || 0) + (lD[r.player_id] || 0);
         // 已拿 MVP 越多惩罚越大 + 随机扰动，避免同一人（通常是打野）垄断全部 MVP
-        var prior = ensure(keyOf(r)).mvp || 0;
+        var prior = ensure(keyOf(r, winnerId)).mvp || 0;
         var sc = k + a * 0.8 - d * 0.6 + rng.random() * 4.0 - prior * 1.2;
         if (sc > bestScore) { bestScore = sc; best = r.player_id; }
       });
       if (best) {
         var bRec = null;
         winnerR.forEach(function (r) { if (r.player_id === best) bRec = r; });
-        if (bRec) ensure(keyOf(bRec)).mvp++;
+        if (bRec) ensure(keyOf(bRec, winnerId)).mvp++;
       }
     });
     return agg;
@@ -1163,10 +1166,11 @@
       var oppPlayers = oppRoster.map(function (x) { return pnames[x.player_id] || x.player_id; });
       // 同一选手可能同时出现在双方数据里（如玩家把帆帆放狼队、赛季数据里帆帆在 TTG），
       // 统计必须按队区分，战绩只展示主队数据，否则会出现"单赛季 33 MVP"之类的翻倍
-      var allStats = simMatchStats(rng, rosterA, rosterB, m.results);
+      var allStats = simMatchStats(rng, rosterA, rosterB, m.results, m.aId, m.bId);
       var trackStats = {};
-      Object.keys(allStats).forEach(function (k) {
-        if (String(k.split('|')[1]) === String(track)) trackStats[k.split('|')[0]] = allStats[k];
+      (trackIsA ? rosterA : rosterB).forEach(function (r) {
+        var k = r.player_id + '|' + track;
+        if (allStats[k]) trackStats[r.player_id] = allStats[k];
       });
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
@@ -1903,13 +1907,19 @@
       var scoreTrack = trackIsA ? m.scoreA : m.scoreB;
       var scoreOpp = trackIsA ? m.scoreB : m.scoreA;
       var resultsTrack = trackIsA ? m.results : m.results.map(function (g) { return g === 'A' ? 'B' : 'A'; });
+      var allStats = simMatchStats(rng, rosterA, rosterB, m.results, aId, bId);
+      var trackStats = {};
+      (trackIsA ? rosterA : rosterB).forEach(function (r) {
+        var k = r.player_id + '|' + track;
+        if (allStats[k]) trackStats[r.player_id] = allStats[k];
+      });
       return {
         round: rndName, opp: names[opp] || '?', opp_players: oppPlayers,
         score: scoreTrack + ':' + scoreOpp, win: m.winnerId === track,
         placement: m.winnerId === track ? null : placementFromRound(rndName),
         games: narrateSeries(rng, tpl, na, nb, m.results, rosterA, rosterB, pnames, bo, year, names),
         results: resultsTrack,
-        stats: simMatchStats(rng, rosterA, rosterB, m.results)
+        stats: trackStats
       };
     }
 
