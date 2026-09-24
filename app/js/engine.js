@@ -20,6 +20,8 @@
   var STYLE_PENALTY = 1.5;
   // 玩家队隐蔽加成：模拟的是"玩家亲手操盘"的平行时空，给主队一点正向偏移（不上榜、不显示）
   var PLAYER_BOOST = 5.0;
+  // 金币模式保底以当届最强对手为锚，避免低价阵容在长赛程里几乎没有夺冠机会。
+  var BUDGET_RIVAL_MARGIN = 2.5;
   var TACTIC_NOISE = { stable: 0.65, balanced: 1.0, gamble: 1.55 };
   // 同一俱乐部在两套赛事数据中的重复 ID，统一到现行入口 ID。
   var FRANCHISE_ID_ALIAS = { '10019': '10028', '10303': '10601', '10403': '10903' };
@@ -53,8 +55,20 @@
   function trackedStrength(rosters, track, opts) {
     if (track == null || !rosters[track]) return null;
     var starter = pickStarter(rosters[track]);
-    return teamStrength(starter, opts.chem) + playerBoost(opts) +
-      budgetDuoBonus(starter, opts.budget_duos).bonus;
+    var strength = teamStrength(starter, opts.chem);
+    var duo = budgetDuoBonus(starter, opts.budget_duos).bonus;
+    var boosted = strength + playerBoost(opts) + duo;
+    if (!opts.budget_mode) return boosted;
+    var strongestRival = 50;
+    Object.keys(rosters).forEach(function (fid) {
+      if (fid !== String(track)) {
+        strongestRival = Math.max(strongestRival, teamStrength(pickStarter(rosters[fid]), opts.chem));
+      }
+    });
+    // 阵容质量和历史搭档仍能提高胜算，弱阵容也有明确的竞争力下限。
+    var rosterReward = Math.max(0, Math.min(3, (strength - 70) * 0.12)) + duo * 0.35;
+    var rivalMargin = Number.isFinite(opts.budget_rival_margin) ? opts.budget_rival_margin : BUDGET_RIVAL_MARGIN;
+    return Math.max(boosted, strongestRival + rivalMargin + rosterReward);
   }
 
   /* ---------------- RNG (mulberry32) ---------------- */

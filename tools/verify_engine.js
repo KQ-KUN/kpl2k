@@ -118,6 +118,47 @@ manifest.seasons.forEach((item) => {
   console.log('QingJiu alias regression passed: 10403 -> 10903.');
 }
 
+// 金币模式用最弱的五路现役阵容验收保底；经典模式仍走原有强度规则。
+{
+  const sid = 'KPL2026S2';
+  const format = readJson(`app/data/seasons/${sid}.json`);
+  const baseRoster = E.POSITIONS.map((position) => format.rosters
+    .filter((record) => record.position === position && record.games >= 5)
+    .sort((a, b) => a.rating - b.rating)[0]);
+  const rosters = {};
+  format.rosters.forEach((record) => {
+    if (record.games >= 5) (rosters[record.team_franchise] ||= []).push(record);
+  });
+  Object.values(rosters).forEach((records) => records.sort((a, b) => b.rating - a.rating));
+  const track = '10027';
+  const options = {
+    season_id: sid, formats: { [sid]: format }, rosters, names,
+    tpl: base.narrative.templates, track, players: base.players, tactic: 'balanced',
+    chem: E.buildChem(format.rosters, { [sid]: format.pair_win || {} }, base.players),
+    override_rosters: { [track]: baseRoster }, player_boost: 5,
+    budget_duos: readJson('app/data/budget_pairs.json')
+  };
+  let budgetWins = 0, classicWins = 0;
+  for (let seed = 1; seed <= 100; seed++) {
+    const result = E.simulateSeason({ ...options, budget_mode: true, rng: E.makeRng(seed) });
+    if (result.champion === track) budgetWins++;
+    if (E.simulateSeason({ ...options, budget_duos: undefined, rng: E.makeRng(seed) }).champion === track) classicWins++;
+    if (seed <= 20) {
+      const session = E.createSession({ ...options, budget_mode: true, rng: E.makeRng(seed) });
+      let stage, steps = 0;
+      do {
+        stage = session.next();
+        if (++steps > 5000) fail('budget session did not finish');
+      } while (!stage || stage.kind !== 'done');
+      if (session.getChampion() !== result.champion) fail(`budget session mismatch at seed ${seed}`);
+    }
+  }
+  if (budgetWins < 30 || budgetWins <= classicWins) {
+    fail(`budget weakest-roster calibration failed: ${budgetWins} wins, classic ${classicWins}`);
+  }
+  console.log(`Budget weakest-roster probe passed: ${budgetWins}/100 wins, classic ${classicWins}/100.`);
+}
+
 const placements = {
   '32强': '32强', '16强': '16强', '8强': '8强', '半决赛': '4强',
   '败者组决赛': '季军', '总决赛': '亚军', '常规赛第三轮': '常规赛'

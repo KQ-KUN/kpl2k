@@ -1,4 +1,4 @@
-/* 用实际赛事引擎复测金币模式：node tools/check_budget_balance.cjs [抽池数] [每池种子数] [固定加成] [选人策略：rating|band|price] */
+/* 用实际赛事引擎复测金币模式：node tools/check_budget_balance.cjs [抽池数] [每池种子数] [固定加成] [选人策略：rating|band|price|random|worst] [对手强度差] [赛季CSV] [战队CSV|all] */
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -12,14 +12,18 @@ const current = read('seasons/KPL2026S2.json');
 const history = read('budget_pairs.json');
 const positions = engine.POSITIONS;
 const bands = [[22, 32], [18, 25], [16, 23], [13, 20], [10, 17]];
-const seasons = ['KPL2024S2', 'KPL2025S1', 'KPL2025S3', 'KPL2026S1', 'KPL2026S2', 'KCC2026'];
-const teams = ['10017', '10001', '10027']; // TTG、狼队、AG
+const seasons = process.argv[7] ? process.argv[7].split(',') : ['KPL2024S2', 'KPL2025S1', 'KPL2025S3', 'KPL2026S1', 'KPL2026S2', 'KCC2026'];
+const teams = process.argv[8] === 'all'
+  ? read('manifest.json').teams2026.map(team => team.id)
+  : (process.argv[8] ? process.argv[8].split(',') : ['10017', '10001', '10027']); // TTG、狼队、AG
 const pools = Number(process.argv[2] || 30);
 const seeds = Number(process.argv[3] || 4);
 const playerBoost = process.argv[4] == null ? 5 : Number(process.argv[4]);
 const strategy = process.argv[5] || 'rating';
+const margin = process.argv[6] == null ? undefined : Number(process.argv[6]);
 if (!Number.isInteger(pools) || pools < 1 || !Number.isInteger(seeds) || seeds < 1) throw new Error('抽池数和种子数须为正整数');
-if (!['rating', 'band', 'price'].includes(strategy)) throw new Error('选人策略须为 rating、band 或 price');
+if (!['rating', 'band', 'price', 'random', 'worst'].includes(strategy)) throw new Error('选人策略须为 rating、band、price、random 或 worst');
+if (margin !== undefined && !Number.isFinite(margin)) throw new Error('对手强度差须为有限数字');
 
 let state = 246813579;
 function random() {
@@ -40,7 +44,7 @@ function draw() {
 }
 
 function select(pool, chem) {
-  let best = null, bestScore = -Infinity, affordable = 0;
+  let best = null, bestScore = strategy === 'worst' ? Infinity : -Infinity, affordable = 0;
   for (let code = 0; code < 3125; code++) {
     let n = code;
     const chosen = pool.map(column => {
@@ -57,7 +61,7 @@ function select(pool, chem) {
       ? records.map(record => ({ ...record, rating: Math.round(record.rating / 10) * 10 }))
       : records;
     const score = strategy === 'price' ? cost + duo.bonus * 2 : engine.teamStrength(approx, chem) + duo.bonus;
-    if (score > bestScore) {
+    if (strategy === 'random' ? randint(affordable) === 0 : (strategy === 'worst' ? score < bestScore : score > bestScore)) {
       bestScore = score;
       best = { records, cost, duo };
     }
@@ -81,7 +85,8 @@ for (const seasonId of seasons) {
   }
   for (const records of Object.values(rosters)) records.sort((a, b) => b.rating - a.rating);
   let wins = 0, winsWithoutDuo = 0, total = 0, duoChoices = 0, cappedChoices = 0;
-  let strengthSum = 0, duoSum = 0;
+  let strengthSum = 0, duoSum = 0, costSum = 0, affordableSum = 0;
+  const byTeam = Object.fromEntries(teams.map(team => [team, { wins: 0, total: 0 }]));
   for (let p = 0; p < pools; p++) {
     const { best, affordable } = select(draw(), chem);
     if (!best || !affordable) throw new Error('生成了无法组齐五人的候选池');
@@ -89,6 +94,8 @@ for (const seasonId of seasons) {
     if (best.duo.bonus === 5) cappedChoices++;
     duoSum += best.duo.bonus;
     strengthSum += engine.teamStrength(best.records, chem) + best.duo.bonus;
+    costSum += best.cost;
+    affordableSum += affordable;
     for (const team of teams) {
       for (let j = 0; j < seeds; j++) {
         const result = engine.simulateSeason({
@@ -96,24 +103,29 @@ for (const seasonId of seasons) {
           rng: engine.makeRng(3000000 + p * seeds + j), names,
           tpl: base.narrative.templates, chem, track: team,
           override_rosters: { [team]: best.records }, players: base.players,
-          tactic: 'balanced', player_boost: playerBoost, budget_duos: history,
+          tactic: 'balanced', player_boost: playerBoost, budget_duos: history, budget_mode: true,
+          budget_rival_margin: margin,
         });
-        if (result.champion === team) wins++;
+        if (result.champion === team) { wins++; byTeam[team].wins++; }
         const withoutDuo = engine.simulateSeason({
           season_id: seasonId, formats: { [seasonId]: battle }, rosters,
           rng: engine.makeRng(3000000 + p * seeds + j), names,
           tpl: base.narrative.templates, chem, track: team,
           override_rosters: { [team]: best.records }, players: base.players,
-          tactic: 'balanced', player_boost: playerBoost,
+          tactic: 'balanced', player_boost: playerBoost, budget_mode: true,
+          budget_rival_margin: margin,
         });
         if (withoutDuo.champion === team) winsWithoutDuo++;
         total++;
+        byTeam[team].total++;
       }
     }
   }
   report.push({ season: battle.name, strategy, wins, winsWithoutDuo, total,
     rate: +(wins / total * 100).toFixed(1), withoutDuoRate: +(winsWithoutDuo / total * 100).toFixed(1),
     duoChoices, cappedChoices, pools, avgDuoBonus: +(duoSum / pools).toFixed(1),
-    avgStrength: +(strengthSum / pools).toFixed(1) });
+    avgStrength: +(strengthSum / pools).toFixed(1), avgCost: +(costSum / pools).toFixed(1),
+    avgAffordable: +(affordableSum / pools).toFixed(1),
+    byTeamRate: Object.fromEntries(teams.map(team => [team, +(byTeam[team].wins / byTeam[team].total * 100).toFixed(1)])) });
 }
 console.log(JSON.stringify(report, null, 2));

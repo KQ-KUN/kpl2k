@@ -1691,7 +1691,8 @@
         names: DATA.names, tpl: DATA.tpl, chem: D.buildChemFor(sids),
         override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic,
         player_boost: STATE.mode === 'budget' ? BUDGET_PLAYER_BOOST : undefined,
-        budget_duos: STATE.mode === 'budget' ? DATA.budgetPairs : undefined
+        budget_duos: STATE.mode === 'budget' ? DATA.budgetPairs : undefined,
+        budget_mode: STATE.mode === 'budget'
       });
       SIM.stageNo = 0;
       SIM.path = [];
