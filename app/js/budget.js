@@ -24,8 +24,7 @@
       if (record.position !== position || (record.games || 0) < 5) return;
       var player = data.players[record.player_id] || {};
       var candidate = { pid: record.player_id, name: player.name || record.player_id,
-        icon: player.icon, sid: record.season_id, teamFid: record.team_franchise, rating: record.rating,
-        tier: Math.round(record.rating / 10) * 10 };
+        icon: player.icon, sid: record.season_id, teamFid: record.team_franchise, rating: record.rating };
       if (!byId[record.player_id] || candidate.rating > byId[record.player_id].rating) byId[record.player_id] = candidate;
     });
     var ranked = Object.keys(byId).map(function (id) { return byId[id]; })
@@ -67,8 +66,8 @@
       var players = pool[position] || [];
       var cards = players.length ? players.map(function (p, i) {
         var chosen = lineup[position] && lineup[position].pid === p.pid;
-        return '<button type="button" class="budget-player' + (chosen ? ' chosen' : '') + '" data-position="' + position + '" data-index="' + i + '" aria-label="' + escapeHtml(position + ' ' + p.name + ' ' + p.price + ' 金币，实力 ' + p.tier + ' 档' + (chosen ? ' 已入队' : '')) + '">' +
-          '<span class="budget-avatar">' + avatar(p) + '<span class="budget-tier" aria-hidden="true">' + p.tier + '</span></span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + '金币</small></span></button>';
+        return '<button type="button" class="budget-player' + (chosen ? ' chosen' : '') + '" data-position="' + position + '" data-index="' + i + '" aria-label="' + escapeHtml(position + ' ' + p.name + ' ' + p.price + ' 金币' + (chosen ? ' 已入队' : '')) + '">' +
+          '<span class="budget-avatar">' + avatar(p) + '</span><span class="budget-player-text"><b>' + escapeHtml(p.name) + '</b><small>' + p.price + '金币</small></span></button>';
       }).join('') : Array.from({ length: 5 }, function () {
         return '<div class="budget-player placeholder" aria-hidden="true"><span class="budget-avatar">?</span><span class="budget-player-text"><b>待抽取</b></span></div>';
       }).join('');
