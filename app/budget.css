@@ -1,5 +1,5 @@
 /* 100 金币组队：参考机械老虎机的红色机柜、奶油色滚轮和金属手柄。 */
-.budget-entry{border-color:var(--gold)!important;background:linear-gradient(125deg,rgba(192,44,66,.14),rgba(240,185,11,.1))!important}
+.budget-entry{--card-accent:var(--gold)}
 #budget.page{padding-top:8px}
 #budget .topbar{margin-bottom:6px}
 .budget-hero{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px;padding:8px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}

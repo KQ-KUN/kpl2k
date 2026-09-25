@@ -633,7 +633,7 @@
       var lk = rng.randint(7, 12);
       var wK = dist(winnerR, wk, K_W), wA = dist(winnerR, Math.round(wk * (1.8 + rng.random() * 0.4)), A_W);
       var lK = dist(loserR, lk, K_W), lA = dist(loserR, Math.round(lk * (1.6 + rng.random() * 0.4)), A_W);
-      var wD = dist(winnerR, rng.randint(1, 4), D_W);
+      var wD = dist(winnerR, rng.randint(6, 10), D_W);
       var lD = dist(loserR, rng.randint(8, 16), D_W);
       winnerR.concat(loserR).forEach(function (r) {
         var side = winnerR.indexOf(r) >= 0 ? 'W' : 'L';

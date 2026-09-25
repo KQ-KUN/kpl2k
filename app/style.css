@@ -144,7 +144,7 @@ button:disabled{cursor:not-allowed}
   transition:transform .14s var(--ease-out),border-color .14s ease,box-shadow .14s ease;
 }
 .mode-card::after{content:'';position:absolute;top:20px;left:0;width:3px;height:22px;background:var(--card-accent,#3e7bfa)}
-.mode-card:nth-child(1){--card-accent:#ef4158}.mode-card:nth-child(2){--card-accent:#8a7df0}.mode-card:nth-child(3){--card-accent:#3e7bfa}.mode-card:nth-child(4){--card-accent:#5da8ff}
+.mode-card:nth-child(1){--card-accent:#ef4158}.mode-card:nth-child(2){--card-accent:#8a7df0}.mode-card:nth-child(3){--card-accent:var(--gold)}.mode-card:nth-child(4){--card-accent:#3e7bfa}.mode-card:nth-child(5){--card-accent:#5da8ff}
 .mode-card:active{transform:scale(.975);border-color:var(--gold)}
 .mode-card .mc-title{font-size:18px;font-weight:800}
 .mode-card .mc-title{color:#fff}

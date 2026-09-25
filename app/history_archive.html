@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1a2e"><title>KPL 2K · 历年赛程</title>
+<meta name="theme-color" content="#f3f6fb"><title>KPL 2K · 历年赛程</title><script src="js/subpage-theme.js"></script>
 <style>
 :root{--bg:#080d1b;--card:#101a2e;--line:rgba(151,178,220,.2);--fg:#f4f7fc;--mut:#91a4c2;--gold:#f0b90b;--blue:#3e7bfa}
 *{box-sizing:border-box}body{margin:0 auto;max-width:960px;padding:24px 18px 52px;background:radial-gradient(circle at 8% 12%,rgba(216,43,70,.12),transparent 28%),radial-gradient(circle at 92% 18%,rgba(48,104,234,.14),transparent 30%),var(--bg);color:var(--fg);font:14px/1.55 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
@@ -10,8 +10,8 @@ a{color:var(--blue)}header{display:flex;align-items:center;gap:12px;margin-botto
 .season{margin:10px 0;overflow:hidden}.season-head{width:100%;padding:14px;border:0;background:none;color:inherit;text-align:left;cursor:pointer}.season-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800}.season-title i{margin-left:auto;color:var(--gold);font-style:normal}.final{margin-top:5px;color:var(--mut);font-size:12px}.final b{color:var(--gold)}.season-body{display:none;padding:0 12px 12px}.season.open .season-body{display:block}
 .match{display:grid;grid-template-columns:92px 1fr auto 1fr;align-items:center;gap:7px;padding:8px 3px;border-top:1px solid rgba(41,69,110,.65);font-size:12px}.stage{color:var(--mut)}.a{text-align:right}.score{color:var(--gold);font-weight:800}.empty{text-align:center;color:var(--mut);padding:28px}
 @media(max-width:560px){.match{grid-template-columns:56px 1fr auto 1fr;font-size:11px}.summary{gap:6px}.metric{padding:9px 4px}.metric b{font-size:18px}}
-</style><link rel="stylesheet" href="library-controls.css"></head><body>
-<header><a class="back" href="index.html" aria-label="返回首页">‹</a><h1>历年赛程</h1></header>
+</style><link rel="stylesheet" href="library-controls.css"><link rel="stylesheet" href="subpage-theme.css"></head><body>
+<header><a class="back" href="index.html" aria-label="返回首页">‹</a><h1>历年赛程</h1><button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">◐ 深色</button></header>
 <div class="summary"><div class="metric"><b id="season-count"></b><span>赛事</span></div><div class="metric"><b id="match-count"></b><span>对局</span></div><div class="metric"><b>11</b><span>年份</span></div></div>
 <div class="toolbar"><select id="season-filter"><option value="">全部赛事</option></select><select id="stage-filter"><option value="">全部阶段</option></select><input id="query" placeholder="搜索战队"></div>
 <main id="list"></main>

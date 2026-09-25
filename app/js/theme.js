@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  var key = 'kpl2k_theme', theme = 'dark';
-  try { theme = localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'); } catch (_) {}
+  var key = 'kpl2k_theme', theme = 'light';
+  try { theme = localStorage.getItem(key) === 'dark' ? 'dark' : 'light'; } catch (_) {}
   var entryUrl = new URL(location.href);
   if (entryUrl.searchParams.get('theme') === 'light') {
     theme = 'light';

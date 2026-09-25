@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3f6fb">
 <title>KPL 2K · 选手图鉴</title>
+<script src="js/subpage-theme.js"></script>
 <style>
 :root{--bg:#080d1b;--card:#101a2e;--line:rgba(151,178,220,.2);--fg:#f4f7fc;--mut:#91a4c2;--gold:#f0b90b;--blue:#3e7bfa;--green:#3fb950}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -69,12 +71,14 @@ img.ava{object-fit:cover;background:#21262d}
 @media(prefers-reduced-motion:reduce){.achievement-toast{transition:opacity .01ms}}
 </style>
 <link rel="stylesheet" href="library-controls.css">
+<link rel="stylesheet" href="subpage-theme.css">
 </head>
 <body>
 <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true"><span class="achievement-toast-icon" aria-hidden="true">🏆</span><span class="achievement-toast-copy"><small>成就已解锁</small><strong id="achievement-toast-name"></strong></span></div>
 <div class="lib-head">
   <a class="back" href="index.html" aria-label="返回首页">‹</a>
   <h1>KPL 2K · 选手图鉴</h1>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切换深色模式">◐ 深色</button>
   <button class="rules-btn" id="rules-btn">战力规则</button>
 </div>
 <div class="sub" id="meta"></div>

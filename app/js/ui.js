@@ -2325,23 +2325,31 @@
     Object.keys(runStats).forEach(function (pid) { teamKills += runStats[pid].k; });
     Object.keys(runStats).forEach(function (pid) {
       var s = runStats[pid];
-      s.kda = s.d ? (s.k + s.a) / s.d : (s.k + s.a);
+      s.kda = (s.k + s.a) / Math.max(s.d, s.games, 1);
       s.avgK = s.games ? s.k / s.games : 0;
       s.avgD = s.games ? s.d / s.games : 0;
       s.avgA = s.games ? s.a / s.games : 0;
       s.participation = teamKills ? (s.k + s.a) / teamKills : 0;
       s.winRate = runMatches ? runWins / runMatches : 0;
     });
-    // MVP 保底：胜利场次足够时，全程 0 MVP 的选手按胜场规模补 1-3 次，
-    // 避免"打得不错但一次 MVP 都没有"；胜场太少不补
-    if (runWins >= 3) {
-      var bonus = runWins >= 12 ? 3 : (runWins >= 8 ? 2 : 1);
-      Object.keys(runStats).forEach(function (pid) {
-        var s = runStats[pid];
-        if (s.mvp === 0 && s.games >= Math.max(3, Math.round(runMatches * 0.4))) {
-          s.mvp = Math.min(bonus, Math.max(1, Math.round(runWins / 3)));
-        }
+    // 每局仍只有一位 MVP；把过度集中的次数转给足量参赛且尚未获奖的队友。
+    var eligible = Object.keys(runStats).filter(function (pid) {
+      return runStats[pid].games >= Math.max(3, Math.round(Math.max.apply(null, Object.keys(runStats).map(function (id) { return runStats[id].games; })) * 0.6));
+    });
+    var totalMvp = Object.keys(runStats).reduce(function (sum, pid) { return sum + runStats[pid].mvp; }, 0);
+    if (runWins >= 3 && totalMvp >= eligible.length) {
+      eligible.forEach(function (pid) {
+        if (runStats[pid].mvp) return;
+        var donor = eligible.slice().sort(function (a, b) { return runStats[b].mvp - runStats[a].mvp; })[0];
+        if (donor && runStats[donor].mvp > 1) { runStats[donor].mvp--; runStats[pid].mvp++; }
       });
+      var cap = Math.max(1, Math.ceil(totalMvp * 0.4));
+      for (var move = 0; move < totalMvp; move++) {
+        var ranked = eligible.slice().sort(function (a, b) { return runStats[b].mvp - runStats[a].mvp; });
+        var high = ranked[0], low = ranked[ranked.length - 1];
+        if (!high || !low || runStats[high].mvp <= cap || runStats[high].mvp - runStats[low].mvp <= 1) break;
+        runStats[high].mvp--; runStats[low].mvp++;
+      }
     }
     STATE.lastRun = {
       mode: STATE.mode, budgetTotal: STATE.mode === 'budget' ? STATE.budgetTotal : null,
