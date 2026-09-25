@@ -1694,6 +1694,7 @@
         budget_duos: STATE.mode === 'budget' ? DATA.budgetPairs : undefined,
         budget_mode: STATE.mode === 'budget'
       });
+      if (window.KPLAnalytics) window.KPLAnalytics.trackEvent('kpl2k-start');
       SIM.stageNo = 0;
       SIM.path = [];
       SIM.seasonName = battle.name;
@@ -1752,6 +1753,10 @@
         records: aRecords.concat(bRecords), runStats: runStats, path: [entry], tree: [], regular: {},
         strengthBreakdown: { a: aStrength[1], b: bStrength[1] }
       };
+      if (window.KPLAnalytics) {
+        window.KPLAnalytics.trackEvent('kpl2k-start');
+        window.KPLAnalytics.trackEvent('kpl2k-complete');
+      }
       saveState(); saveAllStarHistory();
       SIM.session = { isDone: function () { return true; }, getChampion: function () { return result[0]; } };
       SIM.path = [];
@@ -2303,6 +2308,7 @@
   }
 
   function finishSim(championId) {
+    if (window.KPLAnalytics) window.KPLAnalytics.trackEvent('kpl2k-complete');
     var championName = championId ? teamName(championId) : null;
     var isChamp = championName === teamName(STATE.team);
     // 本次征战选手数据：由逐场统计汇总（场次/击杀/死亡/助攻/MVP/参团/胜率）
