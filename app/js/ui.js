@@ -2023,7 +2023,7 @@
         var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
         html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' +
           teamAvaHtml(m.a, abbrOf(m.a)) + '<span class="tc-tn">' + esc(na) + '</span></span>' +
-          '<span class="tc-score">' + m.sa + ' : ' + m.sb + '</span>' +
+           '<span class="tc-score">' + esc(m.sa) + ' : ' + esc(m.sb) + '</span>' +
           '<span class="tc-team' + bCls + '">' +
           teamAvaHtml(m.b, abbrOf(m.b)) + '<span class="tc-tn">' + esc(nb) + '</span></span></div>';
       });
@@ -2511,7 +2511,7 @@
     });
     if (bestPid) {
       var bestStat = run.runStats[bestPid] || {};
-      factors.push(['关键选手', esc(playerName(bestPid)) + '贡献 ' + (bestStat.mvp || 0) + ' 次MVP，赛季KDA ' + f1(bestStat.kda) + '。']);
+      factors.push(['关键选手', esc(playerName(bestPid)) + '贡献 ' + esc(bestStat.mvp || 0) + ' 次MVP，赛季KDA ' + f1(bestStat.kda) + '。']);
     }
     $('result-factors').innerHTML = factors.map(function (factor) {
       return '<div class="factor-item"><div class="factor-label">' + factor[0] + '</div><div class="factor-text">' + factor[1] + '</div></div>';
@@ -2591,7 +2591,7 @@
       var mvp = rs ? rs.mvp : (r.mvp_count || 0);
       return '<div class="result-pc">' + ava +
         '<div><div class="pnm">' + esc(name) + '<span class="ppos">' + esc(r.position) + '</span></div>' +
-        '<div class="pstat">KDA ' + kda + ' · 场均击杀 ' + avgK + ' · 参团 ' + part + ' · ' + games + ' 场' + (mvp ? ' · MVP ' + mvp : '') + '</div></div></div>';
+        '<div class="pstat">KDA ' + kda + ' · 场均击杀 ' + avgK + ' · 参团 ' + part + ' · ' + esc(games) + ' 场' + (mvp ? ' · MVP ' + esc(mvp) : '') + '</div></div></div>';
     }).join('');
 
     $('result-path').innerHTML = run.path.map(function (p) {
@@ -2624,8 +2624,8 @@
         '<td>' + f1(r.avg_damage_convert_rate) + '</td>' +
         '<td>' + f1(r.avg_push_tower_num) + '</td>' +
         '<td>' + winRate + '</td>' +
-        '<td>' + games + '</td>' +
-        '<td>' + (mvp || '-') + '</td></tr>';
+        '<td>' + esc(games) + '</td>' +
+        '<td>' + esc(mvp || '-') + '</td></tr>';
     }).join('');
     requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
@@ -2654,7 +2654,7 @@
         var name = playerName(r.player_id), icon = playerIcon(r.player_id), rs = (run.runStats || {})[r.player_id];
         var ava = playerAvatarHtml(icon, name, 'pava');
         return '<div class="result-pc">' + ava + '<div><div class="pnm">' + esc(name) + '<span class="ppos">' + esc(r.position) + '</span></div>' +
-          '<div class="pstat">KDA ' + f1(rs && rs.kda) + ' · 场均击杀 ' + f1(rs && rs.avgK) + ' · 参团 ' + pct(rs && rs.participation) + ' · ' + ((rs && rs.games) || 0) + ' 场' + ((rs && rs.mvp) ? ' · MVP ' + rs.mvp : '') + '</div></div></div>';
+           '<div class="pstat">KDA ' + f1(rs && rs.kda) + ' · 场均击杀 ' + f1(rs && rs.avgK) + ' · 参团 ' + pct(rs && rs.participation) + ' · ' + esc((rs && rs.games) || 0) + ' 场' + ((rs && rs.mvp) ? ' · MVP ' + esc(rs.mvp) : '') + '</div></div></div>';
       }).join('') + '</div>';
     }
     $('result-roster').innerHTML = rosterHtml(run.aName, run.aRecords || []) + rosterHtml(run.bName, run.bRecords || []);
@@ -2665,7 +2665,7 @@
         '<td>' + f1(rs.kda) + '</td><td>' + f1(rs.avgK) + ' / ' + f1(rs.avgD) + ' / ' + f1(rs.avgA) + '</td>' +
         '<td>' + pct(rs.participation) + '</td><td>' + pct(r.avg_hurt_to_hero_total_rate) + '</td><td>' + pct(r.avg_be_hurt_by_hero_total_rate) + '</td>' +
         '<td>' + Math.round(r.avg_gpm || 0) + '</td><td>' + f1(r.avg_damage_convert_rate) + '</td><td>' + f1(r.avg_push_tower_num) + '</td>' +
-        '<td>' + pct(rs.winRate) + '</td><td>' + (rs.games || 0) + '</td><td>' + (rs.mvp || '-') + '</td></tr>';
+         '<td>' + pct(rs.winRate) + '</td><td>' + esc(rs.games || 0) + '</td><td>' + esc(rs.mvp || '-') + '</td></tr>';
     }).join('');
     requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
