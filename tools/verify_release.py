@@ -39,7 +39,7 @@ def static_checks() -> None:
             raise SystemExit(f"[FAIL] unsafe player avatar fallback remains: {unsafe_avatar_handler}")
     if 'href="./announcement.html"' not in portal_html:
         raise SystemExit("[FAIL] portal announcement link missing")
-    for marker in ("更新公告", "BGM 系统上线", "战力系统重新调整", "历年赛程已经补齐", "KPL Guessing 玩法补全"):
+    for marker in ("更新公告", "BGM 系统上线", "战力系统重新调整", "新增历年赛程查询", "KPL Guessing 玩法补全"):
         if marker not in announcement_html:
             raise SystemExit(f"[FAIL] announcement page missing: {marker}")
     library_html = (ROOT / "app/player_library.html").read_text(encoding="utf-8")
