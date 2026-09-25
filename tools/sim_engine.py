@@ -20,6 +20,7 @@ import json
 import math
 import random
 import re
+from html import escape as escape_html
 from pathlib import Path
 
 import chemistry
@@ -441,29 +442,29 @@ def render_result_card(custom: list[dict], path: list[dict], team: str, season_n
         tag = "胜" if p.get("win") else "负"
         cls = "w" if p.get("win") else "l"
         rounds_html += (
-            f'<tr class="{cls}"><td>{p["round"]}</td><td>{p["opp"]}</td>'
-            f'<td>{p["score"]}</td><td class="tag">{tag}</td></tr>'
+            f'<tr class="{cls}"><td>{escape_html(str(p["round"]))}</td><td>{escape_html(str(p["opp"]))}</td>'
+            f'<td>{escape_html(str(p["score"]))}</td><td class="tag">{tag}</td></tr>'
         )
     cards_html = ""
     for r in rows:
-        mvp_txt = f' · MVP {r["mvp"]}' if r.get("mvp") else ""
-        first_char = r["name"][0]
+        mvp_txt = f' · MVP {escape_html(str(r["mvp"]))}' if r.get("mvp") else ""
+        first_char = escape_html(r["name"][:1])
         ava = (
-            f'<img class="pava" src="{r["icon"]}" alt="" '
-            f'onerror="this.outerHTML=&#39;<div class=&quot;pava&quot;>{first_char}</div>&#39;">'
+            f'<img class="pava" src="{escape_html(r["icon"], quote=True)}" alt="{first_char}" '
+            f'onerror="this.replaceWith(document.createTextNode(this.alt))">'
             if r.get("icon") else f'<div class="pava">{first_char}</div>'
         )
         cards_html += (
             f'<div class="pc">{ava}'
-            f'<div><div class="pnm">{r["name"]}<span class="ppos">{r["position"]}</span></div>'
-            f'<div class="pstat">KDA {f1(r["kda"])} · 场均击杀 {f1(r["kills"])} · 参团 {r["participation"]:.1f}% · {r["games"]} 场{mvp_txt}</div></div></div>'
+            f'<div><div class="pnm">{escape_html(r["name"])}<span class="ppos">{escape_html(str(r["position"]))}</span></div>'
+            f'<div class="pstat">KDA {f1(r["kda"])} · 场均击杀 {f1(r["kills"])} · 参团 {r["participation"]:.1f}% · {escape_html(str(r["games"]))} 场{mvp_txt}</div></div></div>'
         )
     if champion == team:
         result = '<div class="res champ">🏆 冠军</div>'
     elif path and "决赛" in path[-1]["round"]:
         result = '<div class="res runner">亚军</div>'
     else:
-        result = f'<div class="res elim">赛季止步 · {place_text(path[-1]["round"])}</div>'
+        result = f'<div class="res elim">赛季止步 · {escape_html(place_text(path[-1]["round"]))}</div>'
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -499,7 +500,7 @@ td.tag{{text-align:center}}
 </head>
 <body>
 <h1>KPL 2K · 战绩卡</h1>
-<div class="sub">{season_name} · {team}</div>
+<div class="sub">{escape_html(season_name)} · {escape_html(team)}</div>
 <div class="card">{result}
   <h2 style="margin-top:12px">阵容</h2>
   {cards_html}
@@ -514,11 +515,11 @@ td.tag{{text-align:center}}
   <table>
     <tr><td><b>选手</b></td><td><b>KDA</b></td><td><b>击杀/死/助</b></td><td><b>参团</b></td><td><b>输出/承伤</b></td><td><b>MVP</b></td></tr>
     {''.join(
-        f'<tr><td>{r["name"]}</td><td>{f1(r["kda"])}</td>'
+        f'<tr><td>{escape_html(r["name"])}</td><td>{f1(r["kda"])}</td>'
         f'<td>{f1(r["kills"])}/{f1(r["deaths"])}/{f1(r["assists"])}</td>'
         f'<td>{r["participation"]:.1f}%</td>'
         f'<td>{(r["hurt_rate"] or 0)*100:.1f}% / {(r["be_hurt_rate"] or 0)*100:.1f}%</td>'
-        f'<td>{r["mvp"] or "-"}</td></tr>'
+        f'<td>{escape_html(str(r["mvp"] or "-"))}</td></tr>'
         for r in rows)}
   </table>
 </div>

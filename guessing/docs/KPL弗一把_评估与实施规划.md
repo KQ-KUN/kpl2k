@@ -172,11 +172,11 @@ CS 开源项目把比较字段设置为国家/地区、赛区、队伍、年龄�
 
 主要来源文件：
 
-- `D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\data\processed\players.json`
-- `D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\data\processed\player_season_stats.json`
-- `D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\data\processed\seasons.json`
-- `D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\data\processed\franchises.json`
-- `D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\data\overrides\player_versions.json`
+- `KQ-KUN/kpl2k/data/processed/players.json`
+- `KQ-KUN/kpl2k/data/processed/player_season_stats.json`
+- `KQ-KUN/kpl2k/data/processed/seasons.json`
+- `KQ-KUN/kpl2k/data/processed/franchises.json`
+- `KQ-KUN/kpl2k/data/overrides/player_versions.json`
 
 ### 5.2 可以直接借鉴
 
@@ -192,9 +192,9 @@ CS 开源项目把比较字段设置为国家/地区、赛区、队伍、年龄�
 
 相关实现可见：
 
-- `build_player_library.py` 从选手、赛季统计、赛季、归属与战队映射生成年度选手库：`D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\tools\build_player_library.py`
-- `clean_kpl.py` 应用人工位置、战队和评分覆盖：`D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\tools\clean_kpl.py`
-- KPL 2K 已明确采用静态数据和浏览器端计算：`D:\HuaweiMoveData\Users\22974\Documents\ChatGPT\KPL 2K\docs\PRD.md`
+- `build_player_library.py` 从选手、赛季统计、赛季、归属与战队映射生成年度选手库：`KQ-KUN/kpl2k/tools/build_player_library.py`
+- `clean_kpl.py` 应用人工位置、战队和评分覆盖：`KQ-KUN/kpl2k/tools/clean_kpl.py`
+- KPL 2K 已明确采用静态数据和浏览器端计算：`KQ-KUN/kpl2k/docs/PRD.md`
 
 ### 5.3 不能直接拿来当题库
 

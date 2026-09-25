@@ -425,9 +425,9 @@ function card(p){
     :(p.current_team?`<span class="badge b-move">现役：${esc(p.current_team)}</span>`
     :'<span class="badge b-retire">退役</span>');
   const avatar=p.icon
-    ? `<img class="ava" src="${esc(p.icon)}" alt="${esc(p.name)}" onerror="this.outerHTML='<div class=\'ava\' style=\'background:hsl(${hue(p.name)},65%,46%)\'>${esc(p.name[0])}</div>'">`
+    ? `<img class="ava" src="${esc(p.icon)}" alt="${esc(p.name)}" data-fallback="${esc(p.name[0])}" data-hue="${hue(p.name)}">`
     : `<div class="ava" style="background:hsl(${hue(p.name)},65%,46%)">${esc(p.name[0])}</div>`;
-  return `<div class="card" onclick="toggleCard(this,'${esc(p.id)}')">
+  return `<div class="card" data-player-id="${esc(p.id)}">
     <div class="head">
       ${avatar}
       <div>
@@ -444,7 +444,7 @@ function card(p){
       ${p.championship_count!=null?`<span class="b"><b>${p.championship_count}</b> 冠</span>`:''}
       <span class="b">${keyStats(peak)}</span>
     </div>
-    <div class="tags">${p.positions.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+    <div class="tags">${p.positions.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>
     <div class="versions">${vers}</div>
   </div>`;
 }
@@ -466,7 +466,18 @@ function render(){
   $('#meta').textContent=`${DATA.players.length} 位选手 · 共 ${DATA.players.reduce((s,p)=>s+p.version_count,0)} 个版本 · 民间算法 · 平行时空`;
   const teams=Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length||a.localeCompare(b,'zh'));
   $('#list').innerHTML=list.length?teams.map(t=>`<div class="team"><h2>${esc(t)}<span>${groups[t].length} 人</span></h2><div class="cards">${groups[t].map(card).join('')}</div></div>`).join(''):'<div class="empty">没有匹配的选手</div>';
+  $('#list').querySelectorAll('img[data-fallback]').forEach(img=>img.addEventListener('error',()=>{
+    const fallback=document.createElement('div');
+    fallback.className='ava';
+    fallback.style.background=`hsl(${Number(img.dataset.hue)||0},65%,46%)`;
+    fallback.textContent=img.dataset.fallback||'?';
+    img.replaceWith(fallback);
+  },{once:true}));
 }
+$('#list').addEventListener('click',event=>{
+  const card=event.target.closest('.card[data-player-id]');
+  if(card&&$('#list').contains(card))toggleCard(card,card.dataset.playerId);
+});
 $('#team').innerHTML='<option value="">全部战队</option>'+[...new Set(DATA.players.map(p=>p.team))].sort((a,b)=>a.localeCompare(b,'zh')).map(t=>`<option>${esc(t)}</option>`).join('');
 ['q','team','pos','sort'].forEach(id=>$('#'+id).addEventListener('input',render));
 $('#rules-btn').addEventListener('click',function(){$('#rules-mask').classList.add('show');});
