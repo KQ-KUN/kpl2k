@@ -1,4 +1,4 @@
-/* 用实际赛事引擎复测金币模式：node tools/check_budget_balance.cjs [抽池数] [每池种子数] [固定加成] [选人策略：rating|band|price|random|worst] [对手强度差] [赛季CSV] [战队CSV|all] */
+/* 用实际赛事引擎复测金币模式：node tools/check_budget_balance.cjs [抽池数] [每池种子数] [固定加成] [选人策略：rating|band|price|random|worst|cheapest] [对手强度差] [赛季CSV] [战队CSV|all] */
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -22,7 +22,7 @@ const playerBoost = process.argv[4] == null ? 5 : Number(process.argv[4]);
 const strategy = process.argv[5] || 'rating';
 const margin = process.argv[6] == null ? undefined : Number(process.argv[6]);
 if (!Number.isInteger(pools) || pools < 1 || !Number.isInteger(seeds) || seeds < 1) throw new Error('抽池数和种子数须为正整数');
-if (!['rating', 'band', 'price', 'random', 'worst'].includes(strategy)) throw new Error('选人策略须为 rating、band、price、random 或 worst');
+if (!['rating', 'band', 'price', 'random', 'worst', 'cheapest'].includes(strategy)) throw new Error('选人策略须为 rating、band、price、random、worst 或 cheapest');
 if (margin !== undefined && !Number.isFinite(margin)) throw new Error('对手强度差须为有限数字');
 
 let state = 246813579;
@@ -44,7 +44,7 @@ function draw() {
 }
 
 function select(pool, chem) {
-  let best = null, bestScore = strategy === 'worst' ? Infinity : -Infinity, affordable = 0;
+  let best = null, bestScore = ['worst', 'cheapest'].includes(strategy) ? Infinity : -Infinity, affordable = 0;
   for (let code = 0; code < 3125; code++) {
     let n = code;
     const chosen = pool.map(column => {
@@ -60,8 +60,8 @@ function select(pool, chem) {
     const approx = strategy === 'band'
       ? records.map(record => ({ ...record, rating: Math.round(record.rating / 10) * 10 }))
       : records;
-    const score = strategy === 'price' ? cost + duo.bonus * 2 : engine.teamStrength(approx, chem) + duo.bonus;
-    if (strategy === 'random' ? randint(affordable) === 0 : (strategy === 'worst' ? score < bestScore : score > bestScore)) {
+    const score = strategy === 'cheapest' ? cost : strategy === 'price' ? cost + duo.bonus * 2 : engine.teamStrength(approx, chem) + duo.bonus;
+    if (strategy === 'random' ? randint(affordable) === 0 : (['worst', 'cheapest'].includes(strategy) ? score < bestScore : score > bestScore)) {
       bestScore = score;
       best = { records, cost, duo };
     }

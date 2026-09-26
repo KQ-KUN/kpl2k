@@ -118,45 +118,70 @@ manifest.seasons.forEach((item) => {
   console.log('QingJiu alias regression passed: 10403 -> 10903.');
 }
 
-// 金币模式用最弱的五路现役阵容验收保底；经典模式仍走原有强度规则。
+// 金币模式应保留爆冷机会，同时让认真选出的强阵容明显优于最弱五人组。
 {
-  const sid = 'KPL2026S2';
-  const format = readJson(`app/data/seasons/${sid}.json`);
-  const baseRoster = E.POSITIONS.map((position) => format.rosters
-    .filter((record) => record.position === position && record.games >= 5)
-    .sort((a, b) => a.rating - b.rating)[0]);
-  const rosters = {};
-  format.rosters.forEach((record) => {
-    if (record.games >= 5) (rosters[record.team_franchise] ||= []).push(record);
+  const current = readJson('app/data/seasons/KPL2026S2.json');
+  const prices = [27, 22, 19, 16, 14];
+  const candidates = E.POSITIONS.map((position) => {
+    const ranked = current.rosters.filter((record) => record.position === position && record.games >= 5)
+      .sort((a, b) => b.rating - a.rating);
+    return prices.map((price, tier) => ({ record: ranked[Math.floor(ranked.length * tier / 5)], price }));
   });
-  Object.values(rosters).forEach((records) => records.sort((a, b) => b.rating - a.rating));
-  const track = '10027';
-  const options = {
-    season_id: sid, formats: { [sid]: format }, rosters, names,
-    tpl: base.narrative.templates, track, players: base.players, tactic: 'balanced',
-    chem: E.buildChem(format.rosters, { [sid]: format.pair_win || {} }, base.players),
-    override_rosters: { [track]: baseRoster }, player_boost: 5,
-    budget_duos: readJson('app/data/budget_pairs.json')
-  };
-  let budgetWins = 0, classicWins = 0;
-  for (let seed = 1; seed <= 100; seed++) {
-    const result = E.simulateSeason({ ...options, budget_mode: true, rng: E.makeRng(seed) });
-    if (result.champion === track) budgetWins++;
-    if (E.simulateSeason({ ...options, budget_duos: undefined, rng: E.makeRng(seed) }).champion === track) classicWins++;
-    if (seed <= 20) {
-      const session = E.createSession({ ...options, budget_mode: true, rng: E.makeRng(seed) });
-      let stage, steps = 0;
-      do {
-        stage = session.next();
-        if (++steps > 5000) fail('budget session did not finish');
-      } while (!stage || stage.kind !== 'done');
-      if (session.getChampion() !== result.champion) fail(`budget session mismatch at seed ${seed}`);
+  const weakestRoster = candidates.map((column) => column[4].record);
+  const duoHistory = readJson('app/data/budget_pairs.json');
+  function strongestAffordable(chem) {
+    let best = null, bestScore = -Infinity;
+    for (let code = 0; code < 3125; code++) {
+      let n = code;
+      const choice = candidates.map((column) => { const item = column[n % 5]; n = Math.floor(n / 5); return item; });
+      if (choice.reduce((sum, item) => sum + item.price, 0) > 100) continue;
+      const roster = choice.map((item) => item.record);
+      const score = E.teamStrength(roster, chem) + E.budgetDuoBonus(roster, duoHistory).bonus;
+      if (score > bestScore) { bestScore = score; best = roster; }
     }
+    return best;
   }
-  if (budgetWins < 30 || budgetWins <= classicWins) {
-    fail(`budget weakest-roster calibration failed: ${budgetWins} wins, classic ${classicWins}`);
+  const track = '10027';
+  const results = [];
+  for (const sid of ['KPL2024S2', 'KPL2025S3', 'KPL2026S2', 'KCC2026']) {
+    const format = readJson(`app/data/seasons/${sid}.json`);
+    const rosters = {};
+    format.rosters.forEach((record) => {
+      if (record.games >= 5) (rosters[record.team_franchise] ||= []).push(record);
+    });
+    Object.values(rosters).forEach((records) => records.sort((a, b) => b.rating - a.rating));
+    const options = {
+      season_id: sid, formats: { [sid]: format }, rosters, names,
+      tpl: base.narrative.templates, track, players: base.players, tactic: 'balanced',
+      chem: E.buildChem(sid === 'KPL2026S2' ? current.rosters : current.rosters.concat(format.rosters), {
+        KPL2026S2: current.pair_win || {}, [sid]: format.pair_win || {}
+      }, base.players), player_boost: 5, budget_duos: duoHistory
+    };
+    const strongestRoster = strongestAffordable(options.chem);
+    let weakWins = 0, strongWins = 0, classicWins = 0;
+    for (let seed = 1; seed <= 100; seed++) {
+      const weakOptions = { ...options, override_rosters: { [track]: weakestRoster }, rng: E.makeRng(seed) };
+      const weakResult = E.simulateSeason({ ...weakOptions, budget_mode: true });
+      if (weakResult.champion === track) weakWins++;
+      if (E.simulateSeason({ ...options, override_rosters: { [track]: strongestRoster }, budget_mode: true, rng: E.makeRng(seed) }).champion === track) strongWins++;
+      if (sid === 'KPL2026S2') {
+        if (E.simulateSeason({ ...weakOptions, budget_duos: undefined, rng: E.makeRng(seed) }).champion === track) classicWins++;
+        if (seed <= 20) {
+          const session = E.createSession({ ...weakOptions, budget_mode: true, rng: E.makeRng(seed) });
+          let stage, steps = 0;
+          do {
+            stage = session.next();
+            if (++steps > 5000) fail('budget session did not finish');
+          } while (!stage || stage.kind !== 'done');
+          if (session.getChampion() !== weakResult.champion) fail(`budget session mismatch at seed ${seed}`);
+        }
+      }
+    }
+    if (weakWins > 25 || strongWins < weakWins + 15 || (sid === 'KPL2026S2' && weakWins <= classicWins))
+      fail(`budget strategy separation failed in ${sid}: weak ${weakWins}, strong ${strongWins}, classic ${classicWins}`);
+    results.push(`${sid}: weak ${weakWins}, strong ${strongWins}`);
   }
-  console.log(`Budget weakest-roster probe passed: ${budgetWins}/100 wins, classic ${classicWins}/100.`);
+  console.log(`Budget strategy probe passed: ${results.join('; ')} (per 100 seeds).`);
 }
 
 const placements = {
