@@ -2746,12 +2746,72 @@
     x.closePath();
   }
 
-  function renderShareImage() {
+  function loadShareAvatar(icon) {
+    if (!icon) return Promise.resolve(null);
+    return new Promise(function (resolve) {
+      var image = new Image();
+      var timer = setTimeout(function () { finish(null); }, 8000);
+      function finish(value) {
+        clearTimeout(timer);
+        image.onload = image.onerror = null;
+        resolve(value);
+      }
+      // 同源缓存和自定义 data URL 均可导出；外链必须通过 CORS，避免污染整张画布。
+      image.crossOrigin = 'anonymous';
+      image.referrerPolicy = 'no-referrer';
+      image.onload = function () { finish(image.naturalWidth && image.naturalHeight ? image : null); };
+      image.onerror = function () { finish(null); };
+      image.src = icon;
+    });
+  }
+
+  function drawShareAvatar(x, image, name, px, py, size) {
+    x.save();
+    x.beginPath();
+    x.arc(px + size / 2, py + size / 2, size / 2, 0, Math.PI * 2);
+    x.clip();
+    x.fillStyle = '#203d5d';
+    x.fillRect(px, py, size, size);
+    if (image) {
+      // 按 object-fit: cover 居中裁切，保留头像比例。
+      var scale = Math.max(size / image.naturalWidth, size / image.naturalHeight);
+      var w = image.naturalWidth * scale, h = image.naturalHeight * scale;
+      x.drawImage(image, px + (size - w) / 2, py + (size - h) / 2, w, h);
+    } else {
+      x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
+      x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillText(String(name || '?').slice(0, 1), px + size / 2, py + size / 2);
+    }
+    x.restore();
+  }
+
+  var shareImagePending = false;
+  async function renderShareImage() {
     var run = STATE.lastRun;
-    if (!run) return;
+    if (!run || shareImagePending) return;
+    var button = $('result-share'), buttonText = button.textContent;
+    shareImagePending = true;
+    button.disabled = true;
+    button.textContent = '正在生成战绩卡…';
+    try {
+      var avatars = await Promise.all(run.records.map(function (r) {
+        return loadShareAvatar(playerIcon(r.player_id));
+      }));
+      if (STATE.lastRun !== run || !$('result').classList.contains('active')) return;
+      paintShareImage(run, avatars);
+    } catch (error) {
+      showStorageWarning('战绩卡生成失败，请重试。');
+    } finally {
+      shareImagePending = false;
+      button.disabled = false;
+      button.textContent = buttonText;
+    }
+  }
+
+  function paintShareImage(run, avatars) {
     var W = 1080, P = 64;
     var rows = Math.min(run.path.length, 8);
-    var H = 400 + run.records.length * 108 + 90 + rows * 86 + 120;
+    var H = 400 + run.records.length * 124 + 90 + rows * 86 + 120;
     var cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     var x = cv.getContext('2d');
@@ -2800,21 +2860,23 @@
     x.textAlign = 'left';
     x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
     x.fillText(isAllStar ? '双方阵容' : '阵容', P, y); y += 18;
-    run.records.forEach(function (r) {
-      y += 90;
+    run.records.forEach(function (r, index) {
+      y += 124;
+      var name = playerName(r.player_id), textX = P + 104;
+      drawShareAvatar(x, avatars[index], name, P, y - 72, 80);
       x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
-      x.fillText(playerName(r.player_id), P, y);
+      x.fillText(name, textX, y - 32, 340);
       x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
       var sideLabel = isAllStar ? (r.team_franchise === 'ALLSTAR_A' ? run.aName : run.bName) + ' · ' : '';
-      x.fillText(sideLabel + r.position, P + 330, y);
+      x.textAlign = 'right';
+      x.fillText(sideLabel + r.position, W - P, y - 32, 470);
       var rs = (run.runStats || {})[r.player_id];
       var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
       var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
       var mvp = rs ? rs.mvp : (r.mvp_count || 0);
-      x.textAlign = 'right';
-      x.fillStyle = '#f0b90b'; x.font = '600 28px sans-serif';
-      x.fillText('KDA ' + kda + ' · 参团 ' + part + ' · MVP ' + mvp, W - P, y);
       x.textAlign = 'left';
+      x.fillStyle = '#f0b90b'; x.font = '600 28px sans-serif';
+      x.fillText('KDA ' + kda + ' · 参团 ' + part + ' · MVP ' + mvp, textX, y + 10);
     });
 
     y += 46;
@@ -2841,6 +2903,10 @@
     $('share-modal').querySelector('.sm-head').textContent = canCopy
       ? '长按图片保存，或下载后发到社群'
       : '自定义选手仅保存在当前设备，可下载本场战绩图';
+    var missingAvatars = avatars.filter(function (avatar) { return !avatar; }).length;
+    if (missingAvatars) {
+      $('share-modal').querySelector('.sm-head').textContent += ' · ' + missingAvatars + ' 位选手头像未加载，已用姓名代替，可关闭后重试';
+    }
     $('share-modal').classList.add('show');
     $('share-mask').classList.add('show');
   }

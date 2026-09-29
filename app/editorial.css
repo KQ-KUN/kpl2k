@@ -155,3 +155,54 @@ button:not(:disabled):active, a:active { transform:none; }
 .rules-box .r { font-size:16px; color:var(--mut); }.rules-mask { background:rgba(35,35,35,.45); }
 .b-active,.b-peak { background:var(--color-success-bg)!important; color:var(--color-success); }.b-retire { background:var(--color-danger-bg)!important; color:var(--color-danger)!important; }
 .b-move { background:var(--color-info-bg)!important; color:var(--color-info); }.b-legend { background:var(--color-warning-bg)!important; color:var(--color-warning); }
+
+@media (max-width:767px) {
+  .site-header { padding:8px 16px; gap:4px; }
+  .site-header .brand-avatar, #nav-home { display:none; }
+  .site-header .header-actions { width:100%; gap:4px; }
+  .site-header .header-actions :is(a,button) { padding-inline:8px; }
+  body:has(#home:not(.active)) .site-header .brand { display:none; }
+  .page { padding:12px 16px 96px; }
+  #home.active { min-height:0; padding:8px 16px 12px; }
+  #home .hero { margin:0 0 12px; padding:4px 0; }
+  #home .logo-lockup { display:none; }
+  #home .tagline { margin:0; line-height:1.5; }
+  #home .stat-line { margin-top:4px; }
+  .quick-start { min-height:64px; padding:12px; margin-bottom:8px; gap:8px; }
+  .qs-icon, .quick-start small { display:none; }
+  .quick-start b { font-size:16px; }
+  .mode-cards { grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:0; gap:8px; }
+  .mode-card { min-height:64px; padding:6px 8px; }
+  .mc-title { font-size:20px; line-height:1.3; }
+  .mc-desc { margin-top:4px; font-size:14px; line-height:1.5; }
+  #btn-budget { grid-column:1/-1; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:4px 8px; min-height:44px; }
+  #btn-budget .mc-desc { margin:0; }
+  .history-entry, .achievement-entry { min-height:44px; margin-top:8px; padding:8px 12px; }
+  .footnote { margin-top:12px; padding-top:0; }
+  .social-links { flex-wrap:wrap; }
+  .dyn-chip { min-height:44px; padding:8px 12px; }
+  .dyn-chip .dc-desc { display:none; }
+  .team-chip { min-height:44px; padding:6px 8px; }
+  .team-chip .team-ava { display:none; }
+  .team-chip .tc-name { font-size:14px; line-height:1.3; margin:0; }
+  .slot { min-height:56px; padding:6px 8px; gap:8px; }
+  .slot .pname { font-size:16px; line-height:1.25; }
+  .slot .pmeta { line-height:1.3; }
+  .allstar-intro { display:none; }
+  .tactic-picker button { min-height:44px; }
+  .tactic-picker b { font-size:14px; }
+  .tactic-picker small { display:none; }
+  #budget.page { padding-inline:16px; }
+  .budget-kicker { display:none; }
+  .budget-hero { padding:8px; }
+  .budget-cabinet { grid-template-columns:minmax(0,1fr) 44px; gap:4px; padding:4px; }
+  .budget-reel { grid-template-columns:28px minmax(0,1fr); }
+  .budget-reel h3 { font-size:14px; }
+  .budget-candidates { grid-template-columns:repeat(5,minmax(0,1fr)); }
+  .budget-player { min-width:44px; min-height:44px; padding:2px; gap:0; }
+  .budget-player .budget-avatar { display:none; }
+  .budget-player-text { gap:0; justify-content:center; }
+  .budget-player-text b, .budget-player-text small { font-size:14px; line-height:1.3; }
+  .budget-instruction { margin-block:8px; }
+}
+@media (max-width:374px) { .budget-candidates { grid-template-columns:repeat(3,minmax(0,1fr)); } }
