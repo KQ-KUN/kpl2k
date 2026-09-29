@@ -13,7 +13,7 @@
   }
   function apply() {
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#f3f6fb' : '#080d1b';
+    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#F6F2E9' : '#1C1B19';
     var button = document.getElementById('theme-toggle');
     if (button) {
       button.textContent = theme === 'light' ? '◐ 深色' : '☀ 浅色';

@@ -1,0 +1,157 @@
+/* Platform UI_STANDARD v2: ../kplgame/docs/UI_STANDARD.md.
+   This last stylesheet changes presentation, leaving game geometry and state intact. */
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --color-bg:#F6F2E9; --color-surface:#FFFCF6; --color-hover:#EEE8DC; --color-active:#E5DDCF;
+  --color-text:#232323; --color-muted:#68625A; --color-border:#D8D0C4; --color-control:#837A70;
+  --color-accent:#A52B3F; --color-accent-hover:#8E2435; --color-accent-active:#781D2D; --color-focus:#244A66;
+  --color-success:#24623B; --color-success-bg:#EAF3E9; --color-warning:#8A5100; --color-warning-bg:#FFF0D6;
+  --color-danger:#A52B3F; --color-danger-bg:#FAEBED; --color-info:#244A66; --color-info-bg:#EAF0F4;
+  --bg:var(--color-bg); --card:var(--color-surface); --line:var(--color-border); --line2:var(--color-control);
+  --fg:var(--color-text); --mut:var(--color-muted); --gold:var(--color-warning); --blue:var(--color-info);
+  --green:var(--color-success); --red:var(--color-danger); --purple:#6B3C86; --bracket-line:var(--color-control); --radius:8px;
+  --font-display:Georgia,"Times New Roman",serif;
+  --font-heading:"Songti SC","Noto Serif CJK SC","Source Han Serif SC",SimSun,serif;
+  --font-body:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+}
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --color-bg:#1C1B19; --color-surface:#282622; --color-hover:#35312C; --color-active:#413B33;
+  --color-text:#F6F2E9; --color-muted:#C2B9AB; --color-border:#595147; --color-control:#9E9383;
+  --color-accent:#F19AAA; --color-accent-hover:#FFB7C3; --color-accent-active:#DF8192; --color-focus:#9FC7E4;
+  --color-success:#A2D8AF; --color-success-bg:#23352A; --color-warning:#F0CB8C; --color-warning-bg:#3A3020;
+  --color-danger:#F19AAA; --color-danger-bg:#3A242A; --color-info:#9FC7E4; --color-info-bg:#25313B;
+  --bg:var(--color-bg); --card:var(--color-surface); --line:var(--color-border); --line2:var(--color-control);
+  --fg:var(--color-text); --mut:var(--color-muted); --gold:var(--color-warning); --blue:var(--color-info);
+  --green:var(--color-success); --red:var(--color-danger); --purple:#CFACE2; --bracket-line:var(--color-control);
+}
+html { background:var(--bg); }
+body { background:var(--bg)!important; color:var(--fg); font:16px/1.7 var(--font-body); }
+*,*::before,*::after { box-shadow:none!important; text-shadow:none!important; backdrop-filter:none!important; }
+button,input,select,textarea { font-family:var(--font-body); }
+:is(button,a,input,select,textarea,summary):focus-visible { outline:3px solid var(--color-focus)!important; outline-offset:3px; }
+button,input,select { border-radius:4px; }
+button:not(:disabled):active, a:active { transform:none; }
+:is(input,select,textarea) { min-height:44px; font-size:16px; border:1px solid var(--color-control); background:var(--card)!important; color:var(--fg); }
+.site-header { position:relative; width:100%; margin:0; padding:16px; border-bottom:2px solid var(--fg); background:var(--bg)!important; color:var(--fg)!important; }
+.site-header .brand { font:700 28px/1.1 var(--font-display); }
+.site-header .header-actions { flex-wrap:wrap; }
+.site-header .header-actions :is(a,button) { min-height:44px; border-radius:4px; color:var(--fg)!important; background:transparent; font:600 14px/1.5 var(--font-body); transform:none!important; }
+.site-header :is(.theme-toggle,.sister-link,.bgm-btn) { border:1px solid var(--color-control)!important; background:var(--card)!important; }
+.site-header .sister-link b { border-radius:4px; background:var(--color-hover); }
+.hero { padding:24px 0; text-align:left; }
+.logo-lockup { justify-content:flex-start; }
+.logo { font:700 clamp(36px,5vw,60px)/1.2 var(--font-display); color:var(--fg); background:none; -webkit-text-fill-color:currentColor; }
+.tagline { font-size:16px; color:var(--mut)!important; }
+.stat-line { font-size:14px; color:var(--mut)!important; }
+#home.active::before { display:none; }
+.page.active.page-enter { animation:none; }
+.mode-cards { display:grid; grid-template-columns:1fr; gap:8px; }
+.mode-card { display:block; width:100%; min-height:88px; padding:16px 24px; border:1px solid var(--color-control)!important; border-radius:0!important; background:var(--card)!important; text-align:left; transform:none!important; }
+.mode-card::before,.mode-card::after { display:none; }
+.mc-title { font:700 24px/1.3 var(--font-heading); color:var(--fg)!important; }
+.mc-desc { margin-top:8px; font-size:14px; line-height:1.6; color:var(--mut)!important; }
+:is(.quick-start,.history-entry,.achievement-entry) { min-height:64px; border:1px solid var(--color-control); border-radius:0; background:var(--card)!important; color:var(--fg); transform:none!important; }
+.quick-start { padding:16px; }
+:is(.qs-kicker,.quick-start small,.achievement-count,.he-count) { font-size:14px; color:var(--mut); }
+.btn,.btn.gold { border:1px solid var(--color-accent); border-radius:4px; background:var(--color-accent)!important; color:var(--bg); font-weight:600; transform:none!important; }
+:root[data-theme="light"] .btn,:root:not([data-theme="dark"]) .btn { color:#FFF; }
+.btn.ghost { border-color:var(--color-control); background:var(--card)!important; color:var(--fg)!important; }
+.btn:disabled { opacity:1; color:var(--mut)!important; border-color:var(--color-control); background:var(--color-active)!important; }
+:is(.card,.tactic-panel,.slot,.allstar-side,.season-item,.team-chip,.dyn-chip,.result-story-card,.achievement-card,.achievement-summary) { border-radius:8px; background:var(--card)!important; color:var(--fg); }
+:is(.tactic-picker button,.team-chip,.dyn-chip,.season-item,.slot) { border-color:var(--color-control); transform:none!important; }
+:is(.tactic-picker button.sel,.team-chip.sel,.dyn-chip.sel,.season-item.sel,.slot.sel) { border-color:var(--color-accent); background:var(--color-active)!important; }
+:is(.topbar h1,.lib-head h1,header h1,body>h1,.dc-title,.cf-title,.sm-head) { font-family:var(--font-heading); font-weight:700; }
+.topbar h1 { font-size:24px; line-height:1.3; }
+:is(.topbar .step,.sub,.card h2,.factor-note,.pstat,.ppos,.foot,.share-tip,.social-links,.achievement-toast-copy small,.achievement-toast-copy strong) { font-size:14px; }
+:is(.card h2,.achievement-summary-title,.tactic-title) { font-weight:600; }
+:is(.factor-text,.result-story-line,.se-context,.story-event .se-game) { color:var(--fg)!important; }
+.bottom-bar { background:var(--card)!important; border-color:var(--color-border); }
+:is(.drawer,.share-modal,.confirm-box,.disclaimer-card,.game-rules) { border:1px solid var(--color-control); border-radius:8px; background:var(--card)!important; color:var(--fg); }
+:is(.disclaimer-mask,.confirm-mask,.share-modal-mask),.game-rules::backdrop { background:rgba(35,35,35,.45); }
+:is(.game-rules p,.dc-body,.cf-body) { font-size:16px!important; line-height:1.7; color:var(--mut); }
+:is(.confirm-box,.share-modal,.disclaimer-card) { transition:opacity 150ms ease-out; }
+.disclaimer-mask.show .disclaimer-card { transform:none; }
+.confirm-box.show,.share-modal.show { transform:translate(-50%,-50%); }
+.achievement-toast { background:var(--card); color:var(--fg); border-color:var(--color-control); }
+.achievement-toast-icon { background:var(--color-warning-bg); }
+.achievement-toast-copy strong { color:var(--color-warning); }
+.storage-warning { background:var(--color-danger-bg); color:var(--color-danger); }
+.res-banner.champ,.res.champ { background:var(--color-success-bg); color:var(--color-success); border-color:var(--color-success); }
+.res-banner.runner,.res.runner { background:var(--color-info-bg); color:var(--color-info); border-color:var(--color-info); }
+.res-banner.elim,.res.elim { background:var(--color-danger-bg); color:var(--color-danger); border-color:var(--color-danger); }
+.res-banner,.res { border-radius:8px; font-weight:700; animation:none!important; }
+.res-banner::after { display:none; }
+#sim-done-tip.champ,#result.page-enter>.card { animation:none; }
+.sim-top { background:var(--card)!important; }
+:is(.social-links a,.social-links button,.theme-toggle,.rules-btn,.b,.ver,.meme,.metric,.season,.tag,.back) { border-radius:4px; color:var(--fg); background:var(--card)!important; }
+:is(.social-links a,.social-links button,.theme-toggle,.rules-btn,.back) { min-height:44px; }
+.toolbar { position:relative; background:var(--bg)!important; }
+.lib-head,header { flex-wrap:wrap; }
+.lib-head h1,header h1 { min-width:0; overflow-wrap:anywhere; font-size:28px; line-height:1.3; }
+.lib-head { grid-template-columns:44px minmax(0,1fr) auto; gap:8px; }
+.lib-head .rules-btn { grid-column:2/-1; justify-self:start; }
+.metric span,.tm,.pk small,.v-stats,.heroes,.tags,.b,.badge,.match { font-size:14px; }
+.season-head { min-height:44px; }
+.budget-cabinet { border:1px solid var(--color-control); border-radius:8px; background:var(--card); }
+.budget-machine-wrap,.budget-machine,.budget-reel { background:var(--color-bg); border-color:var(--color-control); border-radius:4px; }
+.budget-marquee { color:var(--color-accent); font-size:14px; }
+.budget-marquee span { display:none; }
+.budget-player { min-height:44px; height:auto; background:var(--card); border-radius:4px; border-color:var(--color-control); color:var(--fg); }
+.budget-player.chosen { background:var(--color-active); border-color:var(--color-accent); }
+.budget-player-text small { color:var(--color-warning); }
+.budget-lever { border-radius:4px; border-color:var(--color-control); background:var(--color-active); color:var(--fg); }
+.lever-groove,.budget-lever b { background:var(--color-surface); color:var(--fg); border-color:var(--color-control); }
+.lever-knob { background:var(--color-accent); border-color:var(--color-accent-active); }
+:is(.budget-hero,.budget-roster,.budget-slot,.budget-join) { border-radius:8px; }
+:is(.budget-kicker,.budget-wallet small,.budget-wallet span,.budget-instruction,.budget-duos,.budget-section-title span,.budget-slot-text small,.budget-slot-text b,.budget-slot strong,.budget-status) { font-size:14px; line-height:1.6; }
+.budget-slot { min-height:88px; height:auto; }
+.budget-player-text b { font-weight:600; }
+.budget-hero h2 { font-family:var(--font-heading); font-weight:700; }
+@media (min-width:768px) { .hero { padding:32px 0; }.site-header .brand { font-size:36px; } }
+@media (hover:hover) and (pointer:fine) {
+  :is(.mode-card,.quick-start,.history-entry,.achievement-entry,.team-chip,.dyn-chip,.tactic-picker button,.slot):hover { background:var(--color-hover)!important; transform:none!important; }
+  .btn:not(:disabled):not(.ghost):hover { background:var(--color-accent-hover)!important; }
+}
+@media (max-width:600px) {
+  .site-header { padding:16px; }.site-header .header-actions { justify-content:flex-start; }
+  .mode-card { padding:16px; }.page { padding-inline:16px; }
+  .budget-hero { align-items:flex-start; flex-wrap:wrap; }
+  .budget-cabinet { grid-template-columns:minmax(0,1fr) 60px; padding:8px; }
+  .budget-machine { grid-template-columns:1fr; }.budget-reel { display:grid; grid-template-columns:44px minmax(0,1fr); gap:4px; }
+  .budget-reel h3 { height:auto; align-self:center; white-space:normal; line-height:1.4; }
+  .budget-candidates { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .budget-player { flex-direction:column; padding:4px; gap:4px; }
+  .budget-player-text { display:grid; width:100%; text-align:center; }.budget-player-text b { font-size:14px; }
+  .budget-player-text small { font-size:14px; }.budget-avatar { width:32px; height:32px; }
+  .budget-slots { grid-template-columns:repeat(2,minmax(0,1fr)); }.budget-slot:last-child { grid-column:1/-1; }
+  .lib-head { grid-template-columns:44px minmax(0,1fr); }.lib-head .theme-toggle { grid-column:1/-1; justify-self:start; }.lib-head .rules-btn { grid-column:1/-1; }
+  .summary { grid-template-columns:repeat(3,minmax(0,1fr)); }.toolbar>* { max-width:100%; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+
+.pava { background:var(--color-active)!important; }.site-header { border-bottom-color:var(--fg)!important; }.site-avatar,.brand-avatar { filter:none!important; }
+
+:root[data-theme="dark"] :is(.brand-avatar,.site-avatar) { filter:brightness(1.8)!important; }
+
+.pos { font-size:14px; border-radius:4px; }
+.slot .pos.p0 { background:var(--color-danger-bg); color:var(--color-danger); }
+.slot .pos.p1 { background:var(--color-success-bg); color:var(--color-success); }
+.slot .pos.p2 { background:var(--color-info-bg); color:var(--color-info); }
+.slot .pos.p3 { background:var(--color-warning-bg); color:var(--color-warning); }
+.slot .pos.p4 { background:var(--color-hover); color:var(--purple); }
+.bgm-btn,.story-event .se-game { background:var(--card)!important; color:var(--fg)!important; border:1px solid var(--color-control); border-radius:4px; }
+.se-mvp,.result-achievements span { background:var(--color-warning-bg)!important; color:var(--color-warning)!important; font-size:14px; border-radius:4px; }
+.dyn-chip small,.pmeta,.tactic-picker small { font-size:14px; line-height:1.6; }
+
+.achievement-tag { background:var(--color-warning-bg); color:var(--color-warning); border:1px solid var(--color-warning); border-radius:4px; font-size:14px; }
+.achievement-state,.achievement-desc { font-size:14px; }.achievement-progress-fill { background:var(--color-accent); }
+.achievement-card.unlocked { background:var(--card)!important; }.slot .pos,.allstar-side .slot .pos { width:64px; font-size:14px; }
+
+.ava { background:var(--color-info-bg)!important; color:var(--color-info)!important; }
+
+[role="button"]:focus-visible { outline:3px solid var(--color-focus); outline-offset:3px; }
+.rules-box { background:var(--card)!important; color:var(--fg); border:1px solid var(--color-control); border-radius:8px; }
+.rules-box .r { font-size:16px; color:var(--mut); }.rules-mask { background:rgba(35,35,35,.45); }
+.b-active,.b-peak { background:var(--color-success-bg)!important; color:var(--color-success); }.b-retire { background:var(--color-danger-bg)!important; color:var(--color-danger)!important; }
+.b-move { background:var(--color-info-bg)!important; color:var(--color-info); }.b-legend { background:var(--color-warning-bg)!important; color:var(--color-warning); }

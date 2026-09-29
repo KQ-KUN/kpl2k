@@ -12,7 +12,7 @@
   function apply(value) {
     theme = value === 'light' ? 'light' : 'dark';
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#f3f6fb' : '#080d1b';
+    document.querySelector('meta[name="theme-color"]').content = theme === 'light' ? '#F6F2E9' : '#1C1B19';
     var toggle = document.getElementById('theme-toggle');
     if (!toggle) return;
     toggle.setAttribute('aria-label', theme === 'light' ? '切换深色模式' : '切换浅色模式');
