@@ -22,6 +22,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from player_icons import sync_player_icon_cache
+from official_rosters import load_roster, update_library
 
 ROOT = Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
@@ -238,6 +239,7 @@ def main() -> None:
         "data_version": "2026-08-30",
         "players": library,
     }
+    update_library(out, load_roster())
     (PROC / "player_library.json").write_text(
         json.dumps(out, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",

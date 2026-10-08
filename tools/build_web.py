@@ -317,6 +317,8 @@ def main() -> None:
             print(f"[warn] 王朝预设 {d['label']} 仅凑齐 {len(roster)} 人，跳过")
     dump({"dynasties": dyn_out}, OUT / "dynasties.json")
 
+    from official_rosters import load_roster, sync_app
+    sync_app(load_roster())
     total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file())
     print(f"web 数据已生成：{len(seasons)} 赛季 / {len(teams2026)} 队 / {len(by_team)} 队卡 / {len(dyn_out)} 王朝 / {total/1024:.0f} KB")
 

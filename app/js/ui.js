@@ -962,6 +962,7 @@
       var byPos = {};
       POS_ORDER.forEach(function (pos) { byPos[pos] = []; });
       data.players.forEach(function (p) {
+        if (data.registered_roster && !data.registered_roster.some(function (r) { return r.playerId === p.player_id; })) return;
         var best = null;
         (p.versions || []).forEach(function (v) {
           if (v.year === 2026 && (!best || v.rating > best.rating)) best = v;
@@ -1254,6 +1255,7 @@
       var byPos = {};
       POS_ORDER.forEach(function (pos) { byPos[pos] = []; });
       data.players.forEach(function (p) {
+        if (data.registered_roster && !data.registered_roster.some(function (r) { return r.playerId === p.player_id; })) return;
         var best = null;
         (p.versions || []).forEach(function (v) {
           if (v.year === 2026 && (!best || v.rating > best.rating)) best = v;
