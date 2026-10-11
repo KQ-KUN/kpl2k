@@ -125,6 +125,9 @@ def build_data() -> tuple[dict, dict]:
     quiz_doc = load(QUIZ_DATA)
     quiz_config = load(QUIZ_CONFIG)
     registration = load_roster()
+    corrections = load(ROOT / "data/curated/player_identity_corrections.json")
+    attribution_ids = {(r["season_id"], r["team_franchise"], r["player_name"]): r["player_id"]
+                       for r in corrections["attributionIdentities"]}
 
     aliases: dict[str, str] = quiz_config.get("playerIdAliases", {})
     canonical = lambda player_id: aliases.get(player_id, player_id)
@@ -196,7 +199,12 @@ def build_data() -> tuple[dict, dict]:
         player_name = str(record.get("player_name") or "").strip()
         if not season_id or not team_id or not player_name:
             continue
-        candidates = set(candidates_by_name.get(player_name, set()))
+        # A reviewed context binding takes precedence over a unique nickname.
+        # GK's 2019 未央 is not AG's later namesake even when only AG is in the leaderboard.
+        bound_id = attribution_ids.get((season_id, team_id, player_name)) or record.get("player_id")
+        if bound_id and canonical(bound_id) not in merged:
+            raise ValueError(f"unknown reviewed attribution identity: {bound_id}")
+        candidates = {canonical(bound_id)} if bound_id else set(candidates_by_name.get(player_name, set()))
         if len(candidates) > 1:
             by_season = {
                 candidate
@@ -285,6 +293,10 @@ def build_data() -> tuple[dict, dict]:
     public_players: list[dict[str, Any]] = []
     for player_id, item in merged.items():
         quiz = quiz_by_id.get(player_id, {})
+        correction = corrections["players"].get(player_id, {})
+        item["aliases"].update(correction.get("aliases", []))
+        if correction.get("link_name"):
+            item["name"] = correction["link_name"]
         item["aliases"].update(str(value) for value in quiz.get("aliases", []) if value)
         team_id, team_label = latest_team(item)
         source_icon = next(
@@ -307,10 +319,13 @@ def build_data() -> tuple[dict, dict]:
                 "avatar": avatar,
                 "positions": sorted(item["positions"]),
                 "recentTeamId": team_id,
-                "recentTeamName": team_label,
+                "recentTeamName": correction.get("team_names", {}).get(team_id, team_label),
                 "active": registration['seasonId'] in item['teams'] or bool(quiz.get("active", False)),
                 "debutYear": quiz.get("debutYear") or (min(known_years) if known_years else None),
-                "totalGames": int(quiz.get("totalGames") or 0),
+                "totalGames": (sum(int(r.get("games") or 0) for r in attribution_doc["records"]
+                                   if attribution_ids.get((r["season_id"], r["team_franchise"], r["player_name"])) == player_id)
+                               + len({(sid, source) for sid, _, roster, source in history if player_id in roster}))
+                              if player_id == "WP26473" else int(quiz.get("totalGames") or 0),
                 "tier": tier,
             }
         )
@@ -325,6 +340,10 @@ def build_data() -> tuple[dict, dict]:
             "seasonId": season_id,
             "seasonName": str(season_by_id.get(season_id, {}).get("name") or season_id),
         }
+        for player_id in (left, right):
+            reviewed_team = corrections["players"].get(player_id, {}).get("team_names", {}).get(team_id)
+            if reviewed_team:
+                proof["teamName"] = reviewed_team
         adjacency[left].add(right)
         adjacency[right].add(left)
         evidence[f"{left}|{right}"].append(proof)
@@ -365,7 +384,7 @@ def build_data() -> tuple[dict, dict]:
     compact_evidence = {key: value for key, value in sorted(evidence.items())}
     stats = graph_stats(compact_adjacency)
 
-    data_version = registration['checkedAt']
+    data_version = max(registration['checkedAt'], corrections['checkedAt'])
     return (
         {
             "schemaVersion": 1,

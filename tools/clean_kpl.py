@@ -203,6 +203,15 @@ def main() -> None:
                     f["abbreviations"].add(camp["team_abbreviation"])
                 f["seasons"].add(season_id)
 
+    # Reviewed provider identities remain separate even when the official leaderboard omits them.
+    corrections = json.loads((ROOT / "data/curated/player_identity_corrections.json").read_text(encoding="utf-8"))
+    for pid, correction in corrections["players"].items():
+        if pid not in players and correction.get("player_id") == pid:
+            players[pid] = {k: correction[k] for k in ("player_id", "name", "real_name", "teams", "player_icon")}
+            players[pid]["positions"] = set(correction["positions"])
+        if pid in players and correction.get("real_name"):
+            players[pid]["real_name"] = correction["real_name"]
+
     # 补齐榜单缺失选手（如 2019 秋 FMVP 老帅不在官方选手榜）：用 battle 统计合成
     attribution = load_attribution()
     settle_name_set = {
@@ -215,7 +224,7 @@ def main() -> None:
         sid, name = rec["season_id"], rec["player_name"]
         if (sid, name) in settle_name_set or (rec["games"] or 0) < MIN_GAMES:
             continue
-        pid = f"BTL{name}"
+        pid = rec.get("player_id") or f"BTL{name}"
         pl = players.setdefault(pid, {
             "player_id": pid,
             "name": name,
@@ -267,6 +276,8 @@ def main() -> None:
     attr_applied = 0
     for s in stats:
         attr = attr_by_key.get((s["season_id"], name_by_pid.get(s["player_id"], "")))
+        if attr and attr.get("player_id") and attr["player_id"] != s["player_id"]:
+            attr = None
         s["mvp_count"] = int(attr.get("mvp_count") or 0) if attr else 0
         if attr:
             player = players.get(s["player_id"])

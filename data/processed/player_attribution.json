@@ -39609,7 +39609,7 @@
    "season_id": "KPL2022S2",
    "player_name": "忆安",
    "team_franchise": "10027",
-   "position": "游走",
+   "position": "对抗路",
    "player_icon": "https://smobatv-pic.tga.qq.com/18d31887b73ed212892bf5547781a67a.png",
    "games": 72,
    "heroes": [
@@ -43169,7 +43169,7 @@
    "season_id": "KPL2023S1",
    "player_name": "忆安",
    "team_franchise": "10027",
-   "position": "游走",
+   "position": "对抗路",
    "player_icon": "https://smobatv-pic.tga.qq.com/18d31887b73ed212892bf5547781a67a.png",
    "games": 76,
    "heroes": [
@@ -47056,7 +47056,7 @@
    "season_id": "KPL2023S2",
    "player_name": "忆安",
    "team_franchise": "10027",
-   "position": "游走",
+   "position": "对抗路",
    "player_icon": "https://smobatv-pic.tga.qq.com/18d31887b73ed212892bf5547781a67a.png",
    "games": 49,
    "heroes": [
@@ -54689,7 +54689,7 @@
    "season_id": "KPL2024S2",
    "player_name": "忆安",
    "team_franchise": "10601",
-   "position": "游走",
+   "position": "对抗路",
    "player_icon": "https://smobatv-pic.tga.qq.com/18d31887b73ed212892bf5547781a67a.png",
    "games": 51,
    "heroes": [
@@ -78009,7 +78009,8 @@
    "avg_dpm": 2787.2,
    "avg_participation_rate": 33.0,
    "avg_hurt_rate": 0.245,
-   "avg_be_hurt_rate": 0.125
+   "avg_be_hurt_rate": 0.125,
+   "player_id": "WP26473"
   },
   {
    "season_id": "L20190001",

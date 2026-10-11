@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-11",
+  "rule": "Bind by reviewed season, franchise and source nickname; never merge the two Weiyang identities by nickname.",
+  "players": {
+    "WP26473": {
+      "player_id": "WP26473",
+      "name": "未央（GK）",
+      "real_name": "黄捷",
+      "positions": ["发育路"],
+      "teams": {"L20190001": "10016"},
+      "player_icon": "",
+      "aliases": ["未央", "Lyr", "lyr", "GK.lyr", "GK未央", "黄捷"],
+      "link_name": "未央（GK / Lyr）",
+      "team_names": {"10016": "GK"},
+      "sources": ["https://wanplus.cn/match/35119.html", "https://wanplus.cn/match/38702.html", "https://baike.sogou.com/m/fullLemma?lid=167977217"]
+    },
+    "FEC77937DF7DD29C1BEAE6DE2456AFF3": {
+      "real_name": "殷家宝",
+      "aliases": ["AG未央", "殷家宝"],
+      "link_name": "未央（AG）",
+      "sources": ["https://m.hupu.com/bbs/60598141"]
+    },
+    "9A3E415711EF5EB63681FC4048C8B3A7": {
+      "real_name": "杜国豪",
+      "sources": ["https://www.dianjingfeng.com/team/ag/player/"]
+    }
+  },
+  "attributionIdentities": [
+    {"season_id": "L20190001", "team_franchise": "10016", "player_name": "未央", "player_id": "WP26473"}
+  ],
+  "notes": [
+    "WanPlus player 26473 is Lyr in the 2017 spring snapshot and 未央 in subsequent GK snapshots. The snapshots contain 42 games, not a complete career count.",
+    "Official battle snapshots contain two GK Weiyang games on 2019-04-29; they must never belong to AG Weiyang.",
+    "AG Weiyang season-stat count is 173 games; battle attribution has 174 because KCC2024 has 10 battle rows versus 9 in the official season-stat snapshot. The extra 2024-12-21 battle 20240004_2024122104_736117264_95_1734777107 has blank team IDs for all ten players, although actual_player_name is 世巨A.未央. Keep both source counts, do not silently replace one."
+  ]
+}

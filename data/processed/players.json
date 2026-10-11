@@ -4941,7 +4941,7 @@
   {
    "player_id": "FEC77937DF7DD29C1BEAE6DE2456AFF3",
    "name": "未央",
-   "real_name": "",
+   "real_name": "殷家宝",
    "positions": [
     "打野"
    ],
@@ -5449,8 +5449,9 @@
   {
    "player_id": "9A3E415711EF5EB63681FC4048C8B3A7",
    "name": "忆安",
-   "real_name": "",
+   "real_name": "杜国豪",
    "positions": [
+    "对抗路",
     "游走"
    ],
    "teams": {
@@ -11505,6 +11506,18 @@
     "L20200003": "10012"
    },
    "player_icon": "https://res.edata.qq.com/sgame/static/images/player/370.png"
+  },
+  {
+   "player_id": "WP26473",
+   "name": "未央（GK）",
+   "real_name": "黄捷",
+   "positions": [
+    "发育路"
+   ],
+   "teams": {
+    "L20190001": "10016"
+   },
+   "player_icon": ""
   }
  ]
 }

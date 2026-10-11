@@ -38,6 +38,13 @@ def load(name: str) -> dict:
 
 
 def main() -> None:
+    corrections = json.loads((ROOT / "data/curated/player_identity_corrections.json").read_text(encoding="utf-8"))
+    identities = {(r["season_id"], r["team_franchise"], r["player_name"]): r["player_id"]
+                  for r in corrections["attributionIdentities"]}
+    overrides = json.loads((ROOT / "data/overrides/player_versions.json").read_text(encoding="utf-8"))
+    names_by_id = {p["player_id"]: p["name"] for p in load("players.json")["players"]}
+    positions = {(sid, names_by_id[pid]): pos for pid, seasons in overrides.get("positions", {}).items()
+                 if pid in names_by_id for sid, pos in seasons.items()}
     league_to_season = {
         s["league_id"]: s["season_id"]
         for s in load("seasons.json")["seasons"]
@@ -74,7 +81,7 @@ def main() -> None:
                 player_icons[key] = p["player_icon"]
             if p.get("team_id"):
                 votes[key]["team"] = p["team_id"]
-            position = p.get("position_desc") or (recovered[1] if recovered else None)
+            position = positions.get(key) or p.get("position_desc") or (recovered[1] if recovered else None)
             if position:
                 votes[key]["position"] = position
             if p.get("hero_name"):
@@ -96,7 +103,7 @@ def main() -> None:
         dur = duration_sum[(season_id, name)]
         games_n = games[(season_id, name)]
         deaths = s.get("death_num", 0) or 0
-        records.append({
+        record = {
             "season_id": season_id,
             "player_name": name,
             "team_franchise": c.get("team"),
@@ -114,7 +121,11 @@ def main() -> None:
             "avg_participation_rate": round(s.get("participation_rate", 0) / games_n, 2) if games_n else None,
             "avg_hurt_rate": round(s.get("hurt_to_hero_total_rate", 0) / games_n, 4) if games_n else None,
             "avg_be_hurt_rate": round(s.get("be_hurt_by_hero_total_rate", 0) / games_n, 4) if games_n else None,
-        })
+        }
+        player_id = identities.get((season_id, str(c.get("team") or ""), name))
+        if player_id:
+            record["player_id"] = player_id
+        records.append(record)
     (PROC / "player_attribution.json").write_text(
         json.dumps({
             "schema_version": "0.1",

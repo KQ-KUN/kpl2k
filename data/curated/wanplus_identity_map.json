@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "identityRule": "Explicit reviewed identity links only; stable provider IDs connect historical aliases. Never match every player by nickname.",
   "players": {
+    "WP26473": {"nickname":"未央（GK）","wanplusPlayerId":"26473","aliases":["Lyr","未央"],"identitySources":["https://wanplus.cn/match/35119.html","https://wanplus.cn/match/38702.html"]},
     "43062C3D029AD48A789256BE11349345": {"nickname":"梦泪","wanplusPlayerId":"26352","aliases":["梦泪"],"identitySources":["https://wanplus.cn/match/34931.html","https://wanplus.cn/article/67382.html"]},
     "BTL老帅": {"nickname":"老帅","wanplusPlayerId":"26356","aliases":["老帅"],"identitySources":["https://wanplus.cn/match/34931.html","https://wanplus.cn/article/67382.html"]},
     "81AEA3A32BA205D61F400FA612808490": {"nickname":"Fly","wanplusPlayerId":"26460","aliases":["Fly"],"identitySources":["https://wanplus.cn/match/34969.html","https://wanplus.cn/article/99378.html"]},
