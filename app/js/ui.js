@@ -2994,7 +2994,7 @@
     setupOverlayInteraction();
     initBGM();
     loadState();
-    D.loadBase().then(function () {
+    KPL_BOOTSTRAP.mount({ load: D.loadBase, initialize: function () {
       window.addEventListener('hashchange', router);
       // 绑定固定按钮
       $('btn-classic').addEventListener('click', function () {
@@ -3124,6 +3124,6 @@
       $('sim-track-btn').addEventListener('click', showTrackPicker);
       $('sim-bgm-toggle').addEventListener('click', toggleBgm);
       router();
-    });
+    } });
   });
 })(window);

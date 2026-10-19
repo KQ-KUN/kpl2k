@@ -18,6 +18,10 @@
 from __future__ import annotations
 
 import json
+try:
+    from .attribution import IdentityResolver, index_records, team_attribution
+except ImportError:
+    from attribution import IdentityResolver, index_records, team_attribution
 from copy import deepcopy
 from pathlib import Path
 
@@ -100,7 +104,8 @@ def main() -> None:
         franchise_display[f["franchise_id"]] = (
             nbs[sorted(nbs, reverse=True)[0]] if nbs else (f.get("current_names") or ["?"])[0]
         )
-    attr_by_key = {(r["season_id"], r["player_name"]): r for r in attr}
+    corrections = json.loads((ROOT / 'data/curated/player_identity_corrections.json').read_text(encoding='utf-8'))
+    attr_by_key = index_records(attr, IdentityResolver(players, corrections))
     name_by_pid = {p["player_id"]: p["name"] for p in players}
     icon_by_pid = {p["player_id"]: p.get("player_icon", "") for p in players}
     year_by_season = {s["season_id"]: s.get("year") for s in seasons}
@@ -162,12 +167,12 @@ def main() -> None:
                     return None
                 return sum(v * g for v, g in items) / sum(g for _, g in items)
             mvp_total = sum(
-                int((attr_by_key.get((r["season_id"], p["name"])) or {}).get("mvp_count") or 0)
+                int(team_attribution(attr_by_key.get((r["season_id"], pid)), r['team_franchise']).get("mvp_count") or 0)
                 for r in recs
             )
             heroes = []
             for r in recs:
-                for h in (attr_by_key.get((r["season_id"], p["name"])) or {}).get("heroes", []):
+                for h in team_attribution(attr_by_key.get((r["season_id"], pid)), r['team_franchise']).get("heroes", []):
                     if h not in heroes:
                         heroes.append(h)
             # 年度战力：只统计正式战场赛季（排除季前赛/选拔赛等 is_battlefield=False 的小赛事），

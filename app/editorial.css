@@ -206,3 +206,6 @@ button:not(:disabled):active, a:active { transform:none; }
   .budget-instruction { margin-block:8px; }
 }
 @media (max-width:374px) { .budget-candidates { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+/* Startup state remains outside the inert game pages so retry is keyboard accessible. */
+.core-load-status { max-width: 720px; margin: 24px auto; padding: 16px; border: 1px solid var(--line, #D8D0C4); }
+.core-load-status[hidden] { display: none; }

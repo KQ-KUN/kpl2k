@@ -23,6 +23,10 @@
     <span class="bgm-wrap"><button id="bgm-toggle-home" class="bgm-btn" title="开关音乐" aria-label="开关音乐"></button></span>
   </nav>
 </header>
+<section id="core-load-status" class="core-load-status" role="status" aria-live="polite" aria-busy="true">
+  <p id="core-load-message">正在加载核心数据…</p>
+  <button id="core-load-retry" class="btn" type="button" hidden>重试加载</button>
+</section>
 <dialog id="game-rules" class="game-rules"><h2>游戏规则</h2><p>经典模式：选定战队，搭配该队不同时期的选手，选择赛季开始征战。</p><p>100 金币组队：拉动手柄抽出五路候选；拖动头像或点击选手填入阵容，总花费不超过 100 金币。选择一支现有战队由你的阵容接替，再征战现有赛事。</p><p>全明星模式：双方各选五人，可使用默认战队或自定义选手，进行 BO3、BO5 或 BO7 对决。</p><p>每日挑战：直接体验当天推荐的阵容和赛事。</p><p>比赛中可调整文字播放速度、暂停或跳过；结束后可保存战绩卡。</p><form method="dialog"><button class="btn" autofocus>知道了</button></form></dialog>
 <div class="storage-warning" id="storage-warning" role="status" aria-live="polite"></div>
 <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite" aria-atomic="true">
@@ -43,7 +47,7 @@
     <div class="tagline">组一支你心中的阵容，改写 KPL 历史</div>
     <div class="stat-line" id="stat-line"></div>
   </div>
-  <button class="quick-start" id="btn-quick">
+  <button class="quick-start" id="btn-quick" data-core-entry disabled>
     <span class="qs-icon">📅</span>
     <span class="qs-copy">
       <em class="qs-kicker" id="daily-kicker">每日挑战</em>
@@ -53,15 +57,15 @@
     <span class="qs-arrow">›</span>
   </button>
   <div class="mode-cards">
-    <button class="mode-card" id="btn-classic">
+    <button class="mode-card" id="btn-classic" data-core-entry disabled>
       <div class="mc-title">经典模式</div>
       <div class="mc-desc">同队跨赛季组队</div>
     </button>
-    <button class="mode-card" id="btn-allstar">
+    <button class="mode-card" id="btn-allstar" data-core-entry disabled>
       <div class="mc-title">全明星模式</div>
       <div class="mc-desc">跨战队自由搭配</div>
     </button>
-    <button class="mode-card budget-entry" id="btn-budget">
+    <button class="mode-card budget-entry" id="btn-budget" data-core-entry disabled>
       <div class="mc-title">金币模式</div>
       <div class="mc-desc">100 金币抽人组队</div>
     </button>
@@ -347,6 +351,7 @@
 <script src="js/engine.js"></script>
 <script src="js/narrative.js"></script>
 <script src="js/data.js"></script>
+<script src="js/bootstrap.js"></script>
 <script src="js/budget.js"></script>
 <script src="js/ui.js"></script>
 </body>

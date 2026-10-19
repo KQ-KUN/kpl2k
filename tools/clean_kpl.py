@@ -15,6 +15,11 @@ from __future__ import annotations
 import json
 import bisect
 import math
+from collections import Counter, defaultdict
+try:
+    from .attribution import IdentityResolver, index_records, primary
+except ImportError:
+    from attribution import IdentityResolver, index_records, primary
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -104,7 +109,8 @@ def main() -> None:
     players: dict[str, dict] = {}
     stats: list[dict] = []
     franchises: dict[str, dict] = {}
-    for lg in leagues:
+    roster_team_counts = defaultdict(Counter)
+    for lg in sorted(leagues, key=lambda row: str(row["league_id"])):
         lid = str(lg["league_id"])
         players_raw = load_raw(f"league_{lid}_players.json")
         matches_raw = load_raw(f"league_{lid}_matches.json")
@@ -140,7 +146,7 @@ def main() -> None:
         season["runner_up_franchise"] = runner
         seasons.append(season)
 
-        for rec in players_raw.get("data") or []:
+        for rec in sorted(players_raw.get("data") or [], key=lambda row: json.dumps(row, sort_keys=True)):
             info = rec.get("player_info") or {}
             st = rec.get("statistics_info") or {}
             pid = info.get("openid")
@@ -160,7 +166,8 @@ def main() -> None:
                 pl["player_icon"] = info["player_icon"]
             if pos:
                 pl["positions"].add(pos)
-            pl["teams"][season_id] = info.get("team_id")
+            if info.get("team_id"):
+                roster_team_counts[(pid, season_id)][str(info["team_id"])] += int(st.get("battle_count") or 0) or 1
             stats.append({
                 "player_id": pid,
                 "season_id": season_id,
@@ -203,6 +210,15 @@ def main() -> None:
                     f["abbreviations"].add(camp["team_abbreviation"])
                 f["seasons"].add(season_id)
 
+    for (pid, sid), counts in sorted(roster_team_counts.items()):
+        team, tied = primary(counts)
+        players[pid].setdefault('roster_team_history', {})[sid] = {
+            'counts': dict(sorted(counts.items())), 'primary': team, 'ties': tied,
+            'source': 'official leaderboard (may contain current-team metadata)',
+        }
+        if team:
+            players[pid]['teams'][sid] = team
+
     # Reviewed provider identities remain separate even when the official leaderboard omits them.
     corrections = json.loads((ROOT / "data/curated/player_identity_corrections.json").read_text(encoding="utf-8"))
     for pid, correction in corrections["players"].items():
@@ -214,17 +230,25 @@ def main() -> None:
 
     # 补齐榜单缺失选手（如 2019 秋 FMVP 老帅不在官方选手榜）：用 battle 统计合成
     attribution = load_attribution()
-    settle_name_set = {
-        (s["season_id"], players.get(s["player_id"], {}).get("name", ""))
-        for s in stats
-    }
+    # A reviewed canonical ID can be absent from the official leaderboard
+    # (battle-only historical players). Keep that identity registry available
+    # without treating its team metadata as authority for attribution.
+    registry_path = ROOT / 'data/processed/players.json'
+    registry = {p['player_id']: p for p in json.loads(registry_path.read_text(encoding='utf-8')).get('players', [])} if registry_path.exists() else {}
+    registry.update(players)
+    resolver = IdentityResolver(list(registry.values()), corrections)
+    attr_by_key = index_records(attribution.get('records', []), resolver)
+    settled_ids = {(row['season_id'], row['player_id']) for row in stats}
     season_to_league = {s["season_id"]: s["league_id"] for s in seasons}
     battle_added = 0
-    for rec in attribution.get("records", []):
-        sid, name = rec["season_id"], rec["player_name"]
-        if (sid, name) in settle_name_set or (rec["games"] or 0) < MIN_GAMES:
+    for (sid, pid), rec in sorted(attr_by_key.items()):
+        name = rec['player_name']
+        if (sid, pid) in settled_ids or (rec['games'] or 0) < MIN_GAMES:
             continue
-        pid = rec.get("player_id") or f"BTL{name}"
+        # Identity was resolved before supplementation. Unknown names are never
+        # minted as BTL<nickname>, which would silently merge namesakes.
+        if not rec.get('team_franchise') or not rec.get('position'):
+            continue
         pl = players.setdefault(pid, {
             "player_id": pid,
             "name": name,
@@ -268,14 +292,9 @@ def main() -> None:
         print(f"battle-only players added: {battle_added} 条（榜单缺失选手补齐）")
 
     # 归属修正：先 battle 归因（数据驱动），再人工覆盖（最高优先级），随后才评分
-    attr_by_key = {
-        (r["season_id"], r["player_name"]): r
-        for r in attribution.get("records", [])
-    }
-    name_by_pid = {pid: pl["name"] for pid, pl in players.items()}
     attr_applied = 0
     for s in stats:
-        attr = attr_by_key.get((s["season_id"], name_by_pid.get(s["player_id"], "")))
+        attr = attr_by_key.get((s["season_id"], s["player_id"]))
         if attr and attr.get("player_id") and attr["player_id"] != s["player_id"]:
             attr = None
         s["mvp_count"] = int(attr.get("mvp_count") or 0) if attr else 0
@@ -283,6 +302,10 @@ def main() -> None:
             player = players.get(s["player_id"])
             if player is not None and attr.get("player_icon") and not player.get("player_icon"):
                 player["player_icon"] = attr["player_icon"]
+            if player is not None:
+                player.setdefault('attribution_history', {})[s['season_id']] = {
+                    key: attr.get(key) for key in ('team_counts', 'position_counts', 'team_ties', 'position_ties', 'team_records')
+                }
             if attr.get("team_franchise"):
                 s["team_franchise"] = attr["team_franchise"]
             if attr.get("position"):
@@ -297,15 +320,7 @@ def main() -> None:
         if pid in players and icon:
             players[pid]["player_icon"] = icon
 
-    # battle 合成的历史选手若与官方榜单同名，复用已核验的官方头像。
-    icons_by_name = {
-        pl["name"]: pl["player_icon"]
-        for pl in players.values()
-        if pl.get("name") and pl.get("player_icon")
-    }
-    for pl in players.values():
-        if not pl.get("player_icon") and pl.get("name") in icons_by_name:
-            pl["player_icon"] = icons_by_name[pl["name"]]
+    # Avatars are identity data too. Do not borrow them from a namesake.
 
     pos_overrides = overrides.get("positions", {})
     team_overrides = overrides.get("teams", {})

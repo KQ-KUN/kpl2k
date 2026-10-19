@@ -21,21 +21,37 @@
   };
 
   function fetchJson(path) {
-    return fetch(path).then(function (r) {
+    return fetch(path, { signal: AbortSignal.timeout(15000) }).then(function (r) {
       if (!r.ok) throw new Error('load failed: ' + path);
       return r.json();
     });
   }
 
+  var baseRequest = null;
   function loadBase() {
-    return Promise.all([
+    if (baseRequest) return baseRequest;
+    baseRequest = Promise.all([
       fetchJson('data/manifest.json'),
       fetchJson('data/base.json'),
-      fetchJson('data/team_icons.json')
+      fetchJson('data/team_icons.json').catch(function () { return { icons: {} }; }),
+      fetchJson('data/dynasties.json').catch(function () { return { dynasties: [] }; })
     ]).then(function (res) {
+      var manifest = res[0], base = res[1];
+      if (!manifest || !Array.isArray(manifest.seasons) || !manifest.seasons.length ||
+          !manifest.seasons.every(function (season) { return season && typeof season.season_id === 'string' && typeof season.name === 'string'; }) ||
+          !Array.isArray(manifest.teams2026) || !manifest.teams2026.length ||
+          !manifest.teams2026.every(function (team) { return team && typeof team.id === 'string' && typeof team.name === 'string'; }) ||
+          !base || !base.players || typeof base.players !== 'object' || Array.isArray(base.players) || !Object.keys(base.players).length ||
+          !Array.isArray(base.franchises) || !base.franchises.length ||
+          !base.franchises.every(function (team) { return team && typeof team.id === 'string'; }) ||
+          !base.narrative || !base.narrative.templates || typeof base.narrative.templates !== 'object' || Array.isArray(base.narrative.templates)) {
+        throw new Error('核心数据格式不完整，请重试加载');
+      }
+      // Validate both core files before publishing any state used by the router.
+      var names = KPL_ENGINE.franchiseNames(base.franchises);
       DATA.manifest = res[0];
       DATA.base = res[1];
-      DATA.teamIcons = (res[2] && res[2].icons) || {};
+      DATA.teamIcons = (res[2] && res[2].icons && typeof res[2].icons === 'object' && !Array.isArray(res[2].icons)) ? res[2].icons : {};
       DATA.players = res[1].players;
       DATA.franchises = res[1].franchises;
       DATA.tpl = res[1].narrative.templates;
@@ -44,12 +60,11 @@
       DATA.teamFlavor = (res[1].narrative.team_flavor || {}).teams || {};
       DATA.teamSlogans = (res[1].narrative.team_flavor || {}).slogans || {};
       DATA.rivalries = (res[1].narrative.rivalries || {}).rivalries || [];
-      DATA.names = KPL_ENGINE.franchiseNames(res[1].franchises);
-      return fetchJson('data/dynasties.json').then(function (d) {
-        DATA.dynasties = d.dynasties || [];
-        return DATA;
-      });
-    });
+      DATA.names = names;
+      DATA.dynasties = (res[3] && Array.isArray(res[3].dynasties)) ? res[3].dynasties : [];
+      return DATA;
+    }).finally(function () { baseRequest = null; });
+    return baseRequest;
   }
 
   function loadTeam(fid) {

@@ -14,8 +14,10 @@ from pathlib import Path
 from typing import Any
 try:
     from .official_rosters import load_roster
+    from .attribution import membership_records
 except ImportError:
     from official_rosters import load_roster
+    from attribution import membership_records
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -193,7 +195,7 @@ def build_data() -> tuple[dict, dict]:
 
     unmapped: list[tuple[str, str, str]] = []
     ambiguous: list[tuple[str, str, str]] = []
-    for record in attribution_doc["records"]:
+    for record in membership_records(attribution_doc["records"]):
         season_id = str(record.get("season_id") or "")
         team_id = str(record.get("team_franchise") or "")
         player_name = str(record.get("player_name") or "").strip()
@@ -401,6 +403,9 @@ def build_data() -> tuple[dict, dict]:
             "stats": stats,
             "sourceAudit": {
                 "attributionRecords": len(attribution_doc["records"]),
+                **({"pendingAttributionRows": len(attribution_doc["pending_review"]),
+                    "attributionInputAudit": attribution_doc.get("input_audit")}
+                   if "pending_review" in attribution_doc else {}),
                 "unmappedRecords": len(unmapped),
                 "unmappedReason": "source nickname has no canonical player identity; excluded rather than guessed",
                 "historical": historical_audit,
