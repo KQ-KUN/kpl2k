@@ -40,3 +40,6 @@ node_modules/
 dist/
 guessing/node_modules/
 guessing/dist/
+
+# Generated local validation artifacts
+output/
