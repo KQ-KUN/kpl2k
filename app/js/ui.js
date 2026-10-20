@@ -1,6 +1,80 @@
 /* KPL 2K SPA 主逻辑：路由 / 组队 / 战场 / 模拟 / 结算 / 分享 */
 (function (global) {
   'use strict';
+  // One coordinator owns mutable session state. Features receive explicit lazy callbacks.
+  var uiContext={
+    get $(){return $;},set $(value){$=value;},
+    get ACHIEVEMENT_KEY(){return ACHIEVEMENT_KEY;},set ACHIEVEMENT_KEY(value){ACHIEVEMENT_KEY=value;},
+    get BRACKET_EXPECT(){return BRACKET_EXPECT;},set BRACKET_EXPECT(value){BRACKET_EXPECT=value;},
+    get BUDGET_PLAYER_BOOST(){return BUDGET_PLAYER_BOOST;},set BUDGET_PLAYER_BOOST(value){BUDGET_PLAYER_BOOST=value;},
+    get D(){return D;},set D(value){D=value;},
+    get DATA(){return DATA;},set DATA(value){DATA=value;},
+    get E(){return E;},set E(value){E=value;},
+    get HISTORY_KEY(){return HISTORY_KEY;},set HISTORY_KEY(value){HISTORY_KEY=value;},
+    get LOSER_CHAINS(){return LOSER_CHAINS;},set LOSER_CHAINS(value){LOSER_CHAINS=value;},
+    get MAIN_CHAINS(){return MAIN_CHAINS;},set MAIN_CHAINS(value){MAIN_CHAINS=value;},
+    get POS_ORDER(){return POS_ORDER;},set POS_ORDER(value){POS_ORDER=value;},
+    get PRESET_SEASONS(){return PRESET_SEASONS;},set PRESET_SEASONS(value){PRESET_SEASONS=value;},
+    get SIM(){return SIM;},set SIM(value){SIM=value;},
+    get STATE(){return STATE;},set STATE(value){STATE=value;},
+    get STATE_KEY(){return STATE_KEY;},set STATE_KEY(value){STATE_KEY=value;},
+    get abbrOf(){return abbrOf;},set abbrOf(value){abbrOf=value;},
+    get achievementTags(){return achievementTags;},set achievementTags(value){achievementTags=value;},
+    get achievementToastTimer(){return achievementToastTimer;},set achievementToastTimer(value){achievementToastTimer=value;},
+    get activeDynasty(){return activeDynasty;},set activeDynasty(value){activeDynasty=value;},
+    get activePage(){return activePage;},set activePage(value){activePage=value;},
+    get allStarHasCustom(){return allStarHasCustom;},set allStarHasCustom(value){allStarHasCustom=value;},
+    get allStarRecords(){return allStarRecords;},set allStarRecords(value){allStarRecords=value;},
+    get buildVersion(){return buildVersion;},set buildVersion(value){buildVersion=value;},
+    get closePicker(){return closePicker;},set closePicker(value){closePicker=value;},
+    get closeShareModal(){return closeShareModal;},set closeShareModal(value){closeShareModal=value;},
+    get compactAllStarState(){return compactAllStarState;},set compactAllStarState(value){compactAllStarState=value;},
+    get confirmCb(){return confirmCb;},set confirmCb(value){confirmCb=value;},
+    get currentTeamData(){return currentTeamData;},set currentTeamData(value){currentTeamData=value;},
+    get dynastyStoryLine(){return dynastyStoryLine;},set dynastyStoryLine(value){dynastyStoryLine=value;},
+    get esc(){return esc;},set esc(value){esc=value;},
+    get f1(){return f1;},set f1(value){f1=value;},
+    get finishSim(){return finishSim;},set finishSim(value){finishSim=value;},
+    get go(){return go;},set go(value){go=value;},
+    get loadHistory(){return loadHistory;},set loadHistory(value){loadHistory=value;},
+    get openConfirm(){return openConfirm;},set openConfirm(value){openConfirm=value;},
+    get pct(){return pct;},set pct(value){pct=value;},
+    get picker(){return picker;},set picker(value){picker=value;},
+    get playerAvatarHtml(){return playerAvatarHtml;},set playerAvatarHtml(value){playerAvatarHtml=value;},
+    get playerIcon(){return playerIcon;},set playerIcon(value){playerIcon=value;},
+    get playerName(){return playerName;},set playerName(value){playerName=value;},
+    get recordAchievementEvent(){return recordAchievementEvent;},set recordAchievementEvent(value){recordAchievementEvent=value;},
+    get recordAchievementRun(){return recordAchievementRun;},set recordAchievementRun(value){recordAchievementRun=value;},
+    get recordsForRoster(){return recordsForRoster;},set recordsForRoster(value){recordsForRoster=value;},
+    get renderTacticPickers(){return renderTacticPickers;},set renderTacticPickers(value){renderTacticPickers=value;},
+    get runPlacement(){return runPlacement;},set runPlacement(value){runPlacement=value;},
+    get saveHistory(){return saveHistory;},set saveHistory(value){saveHistory=value;},
+    get saveState(){return saveState;},set saveState(value){saveState=value;},
+    get scoreParts(){return scoreParts;},set scoreParts(value){scoreParts=value;},
+    get scrollBehavior(){return scrollBehavior;},set scrollBehavior(value){scrollBehavior=value;},
+    get shareImagePending(){return shareImagePending;},set shareImagePending(value){shareImagePending=value;},
+    get shareVersionNotice(){return shareVersionNotice;},set shareVersionNotice(value){shareVersionNotice=value;},
+    get showAchievements(){return showAchievements;},set showAchievements(value){showAchievements=value;},
+    get showAllStar(){return showAllStar;},set showAllStar(value){showAllStar=value;},
+    get showBudget(){return showBudget;},set showBudget(value){showBudget=value;},
+    get showHistory(){return showHistory;},set showHistory(value){showHistory=value;},
+    get showHome(){return showHome;},set showHome(value){showHome=value;},
+    get showPage(){return showPage;},set showPage(value){showPage=value;},
+    get showResult(){return showResult;},set showResult(value){showResult=value;},
+    get showSeason(){return showSeason;},set showSeason(value){showSeason=value;},
+    get showSim(){return showSim;},set showSim(value){showSim=value;},
+    get showStorageWarning(){return showStorageWarning;},set showStorageWarning(value){showStorageWarning=value;},
+    get showTeam(){return showTeam;},set showTeam(value){showTeam=value;},
+    get storageWarningTimer(){return storageWarningTimer;},set storageWarningTimer(value){storageWarningTimer=value;},
+    get strengthForRoster(){return strengthForRoster;},set strengthForRoster(value){strengthForRoster=value;},
+    get strengthOf(){return strengthOf;},set strengthOf(value){strengthOf=value;},
+    get tacticName(){return tacticName;},set tacticName(value){tacticName=value;},
+    get teamAvaHtml(){return teamAvaHtml;},set teamAvaHtml(value){teamAvaHtml=value;},
+    get teamBadgeHtml(){return teamBadgeHtml;},set teamBadgeHtml(value){teamBadgeHtml=value;},
+    get teamName(){return teamName;},set teamName(value){teamName=value;},
+    get teamViewRequest(){return teamViewRequest;},set teamViewRequest(value){teamViewRequest=value;}
+  };
+
 
   var E = KPL_ENGINE, N = KPL_NARRATIVE, D = KPL_DATA, DATA = D.DATA;
   var STATE_KEY = 'kpl2k_state_v1';
@@ -33,90 +107,21 @@
   var shareVersionNotice = '';
 
   /* ---------------- 状态持久化 ---------------- */
-  function showStorageWarning(message) {
-    var el = $('storage-warning');
-    if (!el) return;
-    el.textContent = message;
-    el.classList.add('show');
-    if (storageWarningTimer) clearTimeout(storageWarningTimer);
-    storageWarningTimer = setTimeout(function () { el.classList.remove('show'); }, 5000);
-  }
 
-  function mergeCustomPlayers(base, extra) {
-    var out = [], seen = {};
-    (base || []).concat(extra || []).forEach(function (p) {
-      if (!p || !p.id || seen[p.id]) return;
-      seen[p.id] = true;
-      out.push(p);
-    });
-    return out;
-  }
-
-  function compactAllStarState(allStar) {
-    return {
-      aTeam: allStar.aTeam, bTeam: allStar.bTeam,
-      aRoster: (allStar.aRoster || []).slice(), bRoster: (allStar.bRoster || []).slice(),
-      bo: allStar.bo || 5
-    };
-  }
-
-  function normalizeAllStarState(value) {
-    var source = value && typeof value === 'object' ? value : {};
-    var bo = parseInt(source.bo, 10);
-    return {
-      aTeam: typeof source.aTeam === 'string' ? source.aTeam : null,
-      bTeam: typeof source.bTeam === 'string' ? source.bTeam : null,
-      aRoster: Array.isArray(source.aRoster) ? source.aRoster.slice(0, 5) : [],
-      bRoster: Array.isArray(source.bRoster) ? source.bRoster.slice(0, 5) : [],
-      bo: [3, 5, 7].indexOf(bo) >= 0 ? bo : 5,
-      customs: Array.isArray(source.customs) ? source.customs.filter(function (player) {
-        return player && typeof player.id === 'string' && typeof player.name === 'string';
-      }) : []
-    };
-  }
-
-  function saveState() {
-    var payload = JSON.stringify({
-      mode: STATE.mode, budgetTotal: STATE.budgetTotal, team: STATE.team, roster: STATE.roster, season: STATE.season, seed: STATE.seed, tactic: STATE.tactic,
-      dynasty: STATE.dynasty,
-      lastRun: STATE.lastRun, allStar: STATE.allStar
-    });
-    try {
-      localStorage.setItem(STATE_KEY, payload);
-      return true;
-    } catch (e) {
-      var storageHistory = loadHistory();
-      while (storageHistory.length) {
-        storageHistory.pop();
-        try {
-          localStorage.setItem(HISTORY_KEY, JSON.stringify(storageHistory));
-          localStorage.setItem(STATE_KEY, payload);
-          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
-          return true;
-        } catch (retryError) { /* keep pruning oldest history */ }
-      }
-    }
-    showStorageWarning('本地存储空间不足，本次设置可能无法保留。请清理浏览器存储后重试。');
-    return false;
-  }
-  function loadState() {
-    try {
-      var raw = localStorage.getItem(STATE_KEY);
-      if (!raw) return;
-      var s = JSON.parse(raw);
-      STATE.mode = ['allstar', 'budget'].indexOf(s.mode) >= 0 ? s.mode : 'classic';
-      STATE.budgetTotal = Number.isFinite(s.budgetTotal) ? s.budgetTotal : null;
-      STATE.team = typeof s.team === 'string' ? s.team : null;
-      STATE.roster = Array.isArray(s.roster) ? s.roster.slice(0, 5) : [];
-      STATE.season = typeof s.season === 'string' ? s.season : null;
-      STATE.seed = Number.isFinite(s.seed) ? Math.max(0, Math.floor(s.seed)) : 0;
-      STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(s.tactic) >= 0 ? s.tactic : 'balanced';
-      STATE.dynasty = typeof s.dynasty === 'string' ? s.dynasty : null;
-      STATE.lastRun = s.lastRun && typeof s.lastRun === 'object' ? s.lastRun : null;
-      STATE.allStar = normalizeAllStarState(s.allStar);
-    } catch (e) { /* ignore */ }
-  }
-
+  var storageModule=global.KPL_UI_MODULES.storage(uiContext);
+  var showStorageWarning=storageModule.showStorageWarning,
+      mergeCustomPlayers=storageModule.mergeCustomPlayers,
+      compactAllStarState=storageModule.compactAllStarState,
+      normalizeAllStarState=storageModule.normalizeAllStarState,
+      saveState=storageModule.saveState,
+      loadState=storageModule.loadState,
+      loadHistory=storageModule.loadHistory,
+      saveHistory=storageModule.saveHistory,
+      fmtTime=storageModule.fmtTime,
+      renderHomeHistory=storageModule.renderHomeHistory,
+      teamSlogan=storageModule.teamSlogan,
+      showHistory=storageModule.showHistory,
+      restoreHistory=storageModule.restoreHistory;
   /* ---------------- 工具 ---------------- */
   function $(id) { return document.getElementById(id); }
   function esc(s) {
@@ -166,328 +171,21 @@
   }
 
   /* ---------------- 历史战绩（首页） ---------------- */
-  function loadHistory() {
-    try {
-      var value = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
-      return Array.isArray(value) ? value : [];
-    } catch (e) { return []; }
-  }
-  function saveHistory(h) {
-    var out = h.slice(0, 20).map(function (item) {
-      if (!item || item.mode !== 'allstar' || !item.allStar) return item;
-      var copy = Object.assign({}, item);
-      copy.allStar = compactAllStarState(item.allStar);
-      return copy;
-    });
-    while (out.length) {
-      try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(out));
-        if (out.length < Math.min(h.length, 20)) {
-          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
-        }
-        return true;
-      } catch (e) {
-        out.pop();
-      }
-    }
-    try { localStorage.setItem(HISTORY_KEY, '[]'); } catch (e2) { /* storage unavailable */ }
-    showStorageWarning('历史战绩保存失败：浏览器本地存储空间不足。');
-    return false;
-  }
-  function fmtTime(ts) {
-    var d = new Date(ts);
-    function p(n) { return (n < 10 ? '0' : '') + n; }
-    return (d.getMonth() + 1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
-  }
-  function renderHomeHistory() {
-    var entry = $('history-entry');
-    if (!entry) return;
-    var h = loadHistory();
-    if (!h.length) { entry.style.display = 'none'; return; }
-    entry.style.display = 'flex';
-    $('history-count').textContent = h.length;
-  }
-  /* 按战队名关键字匹配官方口号（KSG/Hero 等存多条的随机取一条） */
-  function teamSlogan(name) {
-    var map = DATA.teamSlogans || {};
-    var keys = Object.keys(map);
-    for (var i = 0; i < keys.length; i++) {
-      if (name.indexOf(keys[i]) >= 0) {
-        var s = map[keys[i]];
-        if (Array.isArray(s)) return s[Math.floor(Math.random() * s.length)];
-        return s;
-      }
-    }
-    return null;
-  }
-  function showHistory() {
-    showPage('history');
-    recordAchievementEvent('historyReads');
-    var h = loadHistory();
-    var list = $('history-list');
-    $('history-meta').textContent = h.length ? '共 ' + h.length + ' 条征战记录' : '';
-    $('history-empty').style.display = h.length ? 'none' : 'block';
-    $('history-clear').style.visibility = h.length ? '' : 'hidden';
-    list.innerHTML = h.map(function (r, i) {
-      var cls = r.champ ? 'win' : (r.banner && String(r.banner).indexOf('亚军') >= 0 ? 'runner' : 'elim');
-      return '<div class="his-item" data-i="' + i + '">' +
-        '<button class="his-open" data-i="' + i + '"><div class="his-top"><span class="his-team">' + esc(r.teamName) + ' · ' + esc(r.seasonName) + '</span>' +
-        '<span class="his-banner ' + cls + '">' + esc(r.banner) + '</span></div>' +
-        '<div class="his-sub">' + esc((r.rosterNames || []).join('、')) + ' · ' + fmtTime(r.savedAt) + '</div></button>' +
-        '<button class="his-delete" data-i="' + i + '" aria-label="删除这条战绩">删除</button></div>';
-    }).join('');
-    list.querySelectorAll('.his-open').forEach(function (el) {
-      el.addEventListener('click', function () { restoreHistory(parseInt(el.getAttribute('data-i'), 10)); });
-    });
-    list.querySelectorAll('.his-delete').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var index = parseInt(el.getAttribute('data-i'), 10);
-        openConfirm('删除这条战绩', '删除后无法恢复，确定继续吗？', function () {
-          var next = loadHistory();
-          next.splice(index, 1);
-          saveHistory(next);
-          showHistory();
-          renderHomeHistory();
-        }, '确认删除');
-      });
-    });
-    $('history-clear').onclick = function () {
-      if (!loadHistory().length) return;
-      openConfirm('清空历史战绩', '全部战绩都将被删除，并且无法恢复。确定继续吗？', function () {
-        saveHistory([]);
-        showHistory();
-        renderHomeHistory();
-      }, '确认清空');
-    };
-  }
-  function restoreHistory(i) {
-    var h = loadHistory();
-    var r = h[i];
-    if (!r || !r.lastRun) return;
-    if (r.mode === 'allstar') {
-      STATE.mode = 'allstar';
-      var savedAllStar = r.allStar || {};
-      var customs = mergeCustomPlayers(STATE.allStar.customs, savedAllStar.customs);
-      STATE.allStar = Object.assign({}, STATE.allStar, savedAllStar, { customs: customs });
-      STATE.seed = r.seed || 0;
-      STATE.tactic = (r.lastRun && r.lastRun.tactic) || 'balanced';
-      STATE.lastRun = r.lastRun;
-      saveState(); go('#/result'); return;
-    }
-    STATE.mode = r.mode === 'budget' ? 'budget' : 'classic';
-    STATE.budgetTotal = r.lastRun && Number.isFinite(r.lastRun.budgetTotal) ? r.lastRun.budgetTotal : null;
-    STATE.team = r.team;
-    STATE.roster = r.roster || [];
-    STATE.season = r.season;
-    STATE.seed = r.seed;
-    STATE.tactic = (r.lastRun && r.lastRun.tactic) || 'balanced';
-    STATE.dynasty = null;
-    STATE.lastRun = r.lastRun;
-    saveState();
-    go('#/result');
-  }
 
-  /* ---------------- 本地成就任务 ---------------- */
-  function emptyAchievementProgress() {
-    return {
-      version: 1, runs: 0, championships: 0, perfectRuns: 0, comebacks: 0,
-      deciders: 0, loserRuns: 0, allStarRuns: 0, customRuns: 0,
-      savedCards: 0, sharedRuns: 0, historyReads: 0, rosterEdits: 0,
-      tactics: {}, seasons: {}, libraryPlayers: {}, unlocked: {}, lastRunKey: ''
-    };
-  }
-
-  function normalizeAchievementProgress(value) {
-    var base = emptyAchievementProgress();
-    if (!value || typeof value !== 'object') return base;
-    ['runs', 'championships', 'perfectRuns', 'comebacks', 'deciders', 'loserRuns', 'allStarRuns', 'customRuns', 'savedCards', 'sharedRuns', 'historyReads', 'rosterEdits'].forEach(function (key) {
-      var count = Number(value[key]);
-      base[key] = Number.isFinite(count) && count >= 0 ? Math.floor(count) : 0;
-    });
-    ['tactics', 'seasons', 'libraryPlayers', 'unlocked'].forEach(function (key) {
-      if (value[key] && typeof value[key] === 'object' && !Array.isArray(value[key])) base[key] = value[key];
-    });
-    base.lastRunKey = typeof value.lastRunKey === 'string' ? value.lastRunKey : '';
-    return base;
-  }
-
-  function achievementDefinitions(progress) {
-    return [
-      { id: 'first_run', icon: '🎮', name: '平行时空启程', desc: '完成1次比赛模拟', value: progress.runs, target: 1 },
-      { id: 'ten_runs', icon: '🗓️', name: '身经百战', desc: '累计完成10次比赛模拟', value: progress.runs, target: 10 },
-      { id: 'first_champ', icon: '🏆', name: '第一座奖杯', desc: '在经典模式中首次夺冠', value: progress.championships, target: 1 },
-      { id: 'three_champs', icon: '👑', name: '冠军经理', desc: '在经典模式中累计夺冠3次', value: progress.championships, target: 3 },
-      { id: 'perfect_run', icon: '🔥', name: '不败登顶', desc: '以全胜战绩完成一次冠军征程', value: progress.perfectRuns, target: 1 },
-      { id: 'comeback', icon: '⚡', name: '绝境反击', desc: '完成一次让二追三、让三追四或逆风翻盘', value: progress.comebacks, target: 1 },
-      { id: 'deciders', icon: '🎯', name: '决胜局专家', desc: '累计经历3次决胜局系列赛', value: progress.deciders, target: 3 },
-      { id: 'loser_run', icon: '🛡️', name: '败者组奇迹', desc: '从败者组连续赢下至少2轮', value: progress.loserRuns, target: 1 },
-      { id: 'allstar', icon: '🌟', name: '群星召集人', desc: '完成1场全明星对决', value: progress.allStarRuns, target: 1 },
-      { id: 'custom_star', icon: '🪪', name: '这次我上场', desc: '使用自定义选手完成全明星对决', value: progress.customRuns, target: 1 },
-      { id: 'tactics', icon: '🧠', name: '战术万花筒', desc: '分别使用三种赛前策略完成比赛', value: Object.keys(progress.tactics).length, target: 3 },
-      { id: 'seasons', icon: '🕰️', name: '时空旅行者', desc: '征战5个不同赛季', value: Object.keys(progress.seasons).length, target: 5 },
-      { id: 'library_read', icon: '📖', name: '初识群星', desc: '在选手图鉴中展开1位选手的年度资料', value: Object.keys(progress.libraryPlayers).length, target: 1 },
-      { id: 'library_ten', icon: '🔭', name: '群星观察家', desc: '在选手图鉴中阅读10位不同选手', value: Object.keys(progress.libraryPlayers).length, target: 10 },
-      { id: 'save_card', icon: '🖼️', name: '留住高光', desc: '下载保存1张战绩卡', value: progress.savedCards, target: 1 },
-      { id: 'history_read', icon: '📜', name: '回望来路', desc: '查看1次历史战绩', value: progress.historyReads, target: 1 },
-      { id: 'roster_edit', icon: '🔧', name: '阵容工程师', desc: '手动调整1次首发阵容', value: progress.rosterEdits, target: 1 },
-      { id: 'share_run', icon: '🔗', name: '平行时空信使', desc: '复制1次可还原的战绩链接', value: progress.sharedRuns, target: 1 }
-    ];
-  }
-
-  function achievementRunKey(run) {
-    return [run.completedAt || '', run.mode || 'classic', run.team || '', run.season || '', run.seed || '', run.score || '',
-      (run.path || []).map(function (entry) { return entry.round + ':' + entry.score; }).join(',')].join('|');
-  }
-
-  function applyAchievementRun(progress, run, notify) {
-    if (!run) return [];
-    var key = achievementRunKey(run);
-    if (key === progress.lastRunKey) return [];
-    var before = {};
-    achievementDefinitions(progress).forEach(function (item) { before[item.id] = item.value >= item.target; });
-    var tags = achievementTags(run);
-    var isAllStar = run.mode === 'allstar';
-    var isChamp = !isAllStar && (run.champ === true || (run.champion && teamName(run.champion) === teamName(run.team)));
-    progress.runs += 1;
-    if (isChamp) progress.championships += 1;
-    if (tags.indexOf('全胜夺冠') >= 0) progress.perfectRuns += 1;
-    if (tags.some(function (tag) { return tag === '让二追三' || tag === '让三追四' || tag === '逆风翻盘'; })) progress.comebacks += 1;
-    progress.deciders += (run.path || []).filter(function (entry) {
-      var score = scoreParts(entry.score);
-      return Math.abs(score[0] - score[1]) === 1 && Math.min(score[0], score[1]) >= 1;
-    }).length;
-    if (tags.some(function (tag) { return String(tag).indexOf('败者组一穿') === 0; })) progress.loserRuns += 1;
-    if (isAllStar) progress.allStarRuns += 1;
-    if (isAllStar && allStarHasCustom(run)) progress.customRuns += 1;
-    progress.tactics[run.tactic || 'balanced'] = true;
-    if (run.season) progress.seasons[run.season] = true;
-    progress.lastRunKey = key;
-    var unlocked = [];
-    achievementDefinitions(progress).forEach(function (item) {
-      if (item.value >= item.target && !progress.unlocked[item.id]) {
-        progress.unlocked[item.id] = Date.now();
-        if (notify && !before[item.id]) unlocked.push(item);
-      }
-    });
-    return unlocked;
-  }
-
-  function saveAchievementProgress(progress) {
-    try {
-      localStorage.setItem(ACHIEVEMENT_KEY, JSON.stringify(progress));
-      return true;
-    } catch (e) {
-      showStorageWarning('成就进度保存失败：浏览器本地存储空间不足。');
-      return false;
-    }
-  }
-
-  function reconcileAchievementHistory(progress) {
-    var before = JSON.stringify([progress.runs, progress.championships, progress.allStarRuns, progress.tactics, progress.seasons]);
-    var history = loadHistory();
-    progress.runs = Math.max(progress.runs, history.length);
-    progress.championships = Math.max(progress.championships, history.filter(function (item) {
-      return item && item.mode !== 'allstar' && item.champ === true;
-    }).length);
-    progress.allStarRuns = Math.max(progress.allStarRuns, history.filter(function (item) { return item && item.mode === 'allstar'; }).length);
-    history.forEach(function (item) {
-      var run = item && item.lastRun;
-      if (!run) return;
-      progress.tactics[run.tactic || 'balanced'] = true;
-      if (run.season) progress.seasons[run.season] = true;
-    });
-    return before !== JSON.stringify([progress.runs, progress.championships, progress.allStarRuns, progress.tactics, progress.seasons]);
-  }
-
-  function loadAchievementProgress() {
-    try {
-      var raw = localStorage.getItem(ACHIEVEMENT_KEY);
-      if (raw) {
-        var saved = normalizeAchievementProgress(JSON.parse(raw));
-        if (reconcileAchievementHistory(saved)) {
-          var repairedUnlocks = [];
-          achievementDefinitions(saved).forEach(function (item) {
-            if (item.value >= item.target && !saved.unlocked[item.id]) {
-              saved.unlocked[item.id] = Date.now();
-              repairedUnlocks.push(item);
-            }
-          });
-          saveAchievementProgress(saved);
-          if (repairedUnlocks.length) setTimeout(function () { showAchievementToast(repairedUnlocks); }, 0);
-        }
-        return saved;
-      }
-    } catch (e) { /* migrate from history below */ }
-    var progress = emptyAchievementProgress();
-    loadHistory().slice().reverse().forEach(function (item) {
-      if (!item || !item.lastRun) return;
-      var historicalRun = Object.assign({}, item.lastRun, { completedAt: item.savedAt, champ: item.champ });
-      applyAchievementRun(progress, historicalRun, false);
-    });
-    saveAchievementProgress(progress);
-    return progress;
-  }
-
-  function showAchievementToast(items) {
-    if (!items.length) return;
-    var toast = $('achievement-toast');
-    $('achievement-toast-name').textContent = items.slice(0, 2).map(function (item) { return item.name; }).join('、') + (items.length > 2 ? '等' : '');
-    toast.classList.add('show');
-    if (achievementToastTimer) clearTimeout(achievementToastTimer);
-    achievementToastTimer = setTimeout(function () { toast.classList.remove('show'); }, 6500);
-  }
-
-  function recordAchievementRun(run) {
-    var progress = loadAchievementProgress();
-    var unlocked = applyAchievementRun(progress, run, true);
-    if (!saveAchievementProgress(progress)) return;
-    renderHomeAchievements(progress);
-    showAchievementToast(unlocked);
-  }
-
-  function recordAchievementEvent(key) {
-    var progress = loadAchievementProgress();
-    var before = {};
-    achievementDefinitions(progress).forEach(function (item) { before[item.id] = item.value >= item.target; });
-    progress[key] = (progress[key] || 0) + 1;
-    var unlocked = [];
-    achievementDefinitions(progress).forEach(function (item) {
-      if (item.value >= item.target && !progress.unlocked[item.id]) {
-        progress.unlocked[item.id] = Date.now();
-        if (!before[item.id]) unlocked.push(item);
-      }
-    });
-    if (!saveAchievementProgress(progress)) return;
-    renderHomeAchievements(progress);
-    showAchievementToast(unlocked);
-  }
-
-  function renderHomeAchievements(progress) {
-    progress = progress || loadAchievementProgress();
-    var defs = achievementDefinitions(progress);
-    var count = defs.filter(function (item) { return item.value >= item.target; }).length;
-    if ($('achievement-count')) $('achievement-count').textContent = count + ' / ' + defs.length;
-  }
-
-  function showAchievements() {
-    showPage('achievements');
-    var progress = loadAchievementProgress();
-    var defs = achievementDefinitions(progress);
-    var count = defs.filter(function (item) { return item.value >= item.target; }).length;
-    $('achievement-page-count').textContent = count + ' / ' + defs.length;
-    $('achievement-summary-title').textContent = count === defs.length ? '传奇经理' : (count >= 8 ? '冠军经理' : (count >= 4 ? '进阶经理' : '新锐经理'));
-    $('achievement-summary-text').textContent = '已完成 ' + count + ' 项挑战 · 累计模拟 ' + progress.runs + ' 次 · 经典冠军 ' + progress.championships + ' 次';
-    $('achievement-grid').innerHTML = defs.map(function (item) {
-      var unlocked = item.value >= item.target;
-      var value = Math.min(item.value, item.target);
-      var pct = Math.round(value / item.target * 100);
-      return '<div class="achievement-card' + (unlocked ? ' unlocked' : '') + '">' +
-        '<div class="achievement-icon">' + item.icon + '</div><div><div class="achievement-card-head">' +
-        '<div class="achievement-name">' + item.name + '</div><div class="achievement-state">' + (unlocked ? '已完成' : value + ' / ' + item.target) + '</div></div>' +
-        '<div class="achievement-desc">' + item.desc + '</div><div class="achievement-progress"><div class="achievement-progress-fill" style="width:' + pct + '%"></div></div></div></div>';
-    }).join('');
-  }
-
+  var achievementsModule=global.KPL_UI_MODULES.achievements(uiContext);
+  var emptyAchievementProgress=achievementsModule.emptyAchievementProgress,
+      normalizeAchievementProgress=achievementsModule.normalizeAchievementProgress,
+      achievementDefinitions=achievementsModule.achievementDefinitions,
+      achievementRunKey=achievementsModule.achievementRunKey,
+      applyAchievementRun=achievementsModule.applyAchievementRun,
+      saveAchievementProgress=achievementsModule.saveAchievementProgress,
+      reconcileAchievementHistory=achievementsModule.reconcileAchievementHistory,
+      loadAchievementProgress=achievementsModule.loadAchievementProgress,
+      showAchievementToast=achievementsModule.showAchievementToast,
+      recordAchievementRun=achievementsModule.recordAchievementRun,
+      recordAchievementEvent=achievementsModule.recordAchievementEvent,
+      renderHomeAchievements=achievementsModule.renderHomeAchievements,
+      showAchievements=achievementsModule.showAchievements;
   function teamName(fid) { return DATA.names[fid] || fid; }
   function abbrOf(fid) {
     var f = D.franchise(fid);
@@ -671,120 +369,14 @@
   }
 
   /* ---------------- 路由 ---------------- */
-  function router() {
-    var hash = location.hash || '#/';
-    var m = hash.match(/^#\/s\?(.*)$/);
-    if (m) { applyShare(m[1]); return; }
-    var a = hash.match(/^#\/a\?(.*)$/);
-    if (a) { applyAllStarShare(a[1]); return; }
-    if (hash.indexOf('#/team') === 0) showTeam();
-    else if (hash.indexOf('#/budget') === 0) showBudget();
-    else if (hash.indexOf('#/allstar') === 0) showAllStar();
-    else if (hash.indexOf('#/season') === 0) showSeason();
-    else if (hash.indexOf('#/sim') === 0) showSim();
-    else if (hash.indexOf('#/result') === 0) showResult();
-    else if (hash.indexOf('#/history') === 0) showHistory();
-    else if (hash.indexOf('#/achievements') === 0) showAchievements();
-    else showHome();
-  }
-
-  function applyShare(qs) {
-    var params = new URLSearchParams(qs);
-    var t = params.get('t'), s = params.get('s'), r = params.get('r'), seed = params.get('seed');
-    var sharedVersion = params.get('v');
-    var versionMismatch = !sharedVersion || sharedVersion !== buildVersion();
-    var roster = [];
-    (r || '').split(',').forEach(function (pair) {
-      var parts = pair.split('@');
-      if (parts.length === 2) roster.push({ pid: parts[0], sid: parts[1] });
-    });
-    if (t && roster.length === 5) {
-      STATE.mode = 'classic';
-      STATE.team = t;
-      STATE.roster = roster;
-      STATE.season = s || null;
-      STATE.dynasty = null;
-      STATE.seed = parseInt(seed || '0', 10) || 0;
-      STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(params.get('tc')) >= 0 ? params.get('tc') : 'balanced';
-      saveState();
-      var cached = null;
-      try { cached = JSON.parse(localStorage.getItem(STATE_KEY) || 'null'); } catch (e) { /* ignore */ }
-      var requestedRoster = roster.map(function (slot) { return slot.pid + '@' + slot.sid; }).join(',');
-      var cachedRoster = cached && cached.lastRun && (cached.lastRun.records || []).map(function (record) {
-        return record.player_id + '@' + record.season_id;
-      }).join(',');
-      var hit = cached && cached.lastRun &&
-        !versionMismatch && cached.lastRun.version === buildVersion() &&
-        cached.lastRun.team === t && cached.lastRun.seed === STATE.seed && cached.lastRun.season === STATE.season &&
-        (cached.lastRun.tactic || 'balanced') === STATE.tactic && cachedRoster === requestedRoster;
-      if (versionMismatch) shareVersionNotice = '该分享来自旧版本，已使用当前数据与规则重新模拟，赛果可能与原分享不同。';
-      location.hash = hit ? '#/result' : '#/sim';
-    } else {
-      location.hash = '#/';
-    }
-  }
-
-  function unpackAllStarSlots(value) {
-    var out = [];
-    (value || '').split(',').forEach(function (item) {
-      var parts = item.split('@');
-      if (parts.length < 2 || !parts[0] || !parts[1]) return;
-      out.push({ pid: parts[0], sid: parts[1], teamFid: parts[2] || null });
-    });
-    return out;
-  }
-
-  function applyAllStarShare(qs) {
-    var params = new URLSearchParams(qs);
-    var aRoster = unpackAllStarSlots(params.get('ar'));
-    var bRoster = unpackAllStarSlots(params.get('br'));
-    var bo = parseInt(params.get('bo') || '5', 10);
-    if (aRoster.length !== 5 || bRoster.length !== 5 || [3, 5, 7].indexOf(bo) < 0) {
-      location.hash = '#/';
-      return;
-    }
-    STATE.mode = 'allstar';
-    STATE.allStar = Object.assign({}, STATE.allStar, {
-      aTeam: params.get('at') || STATE.allStar.aTeam,
-      bTeam: params.get('bt') || STATE.allStar.bTeam,
-      aRoster: aRoster, bRoster: bRoster, bo: bo
-    });
-    STATE.seed = parseInt(params.get('seed') || '0', 10) || Math.floor(Math.random() * 100000);
-    STATE.tactic = ['stable', 'balanced', 'gamble'].indexOf(params.get('tc')) >= 0 ? params.get('tc') : 'balanced';
-    if (params.get('v') !== buildVersion()) {
-      shareVersionNotice = '该全明星分享来自旧版本，已使用当前数据与规则重新模拟。';
-    }
-    saveState();
-    location.hash = '#/sim';
-  }
-
-  /* ---------------- 视图切换 ---------------- */
   var activePage = null;
-  function shouldAnimatePage(nextPage) {
-    if (!activePage) return true;
-    return (activePage === 'home' && ['team', 'allstar', 'budget'].indexOf(nextPage) >= 0) ||
-      (activePage === 'team' && nextPage === 'season') ||
-      (activePage === 'sim' && nextPage === 'result');
-  }
-  function showPage(name) {
-    var animateEntry = shouldAnimatePage(name);
-    ['home', 'team', 'budget', 'allstar', 'season', 'sim', 'result', 'history', 'achievements'].forEach(function (p) {
-      var page = $(p);
-      page.classList.toggle('active', p === name);
-      page.classList.toggle('page-enter', p === name && animateEntry);
-    });
-    activePage = name;
-    ['team-bar', 'budget-bar', 'allstar-bar', 'season-bar', 'sim-bar', 'result-bar'].forEach(function (b) {
-      var el = $(b);
-      if (el) el.style.display = 'none';
-    });
-    if (name !== 'home') {
-      var bar = $(name + '-bar');
-      if (bar) bar.style.display = '';
-    }
-    window.scrollTo(0, 0);
-  }
-
+  var routerModule=global.KPL_UI_MODULES.router(uiContext);
+  var router=routerModule.router,
+      applyShare=routerModule.applyShare,
+      unpackAllStarSlots=routerModule.unpackAllStarSlots,
+      applyAllStarShare=routerModule.applyAllStarShare,
+      shouldAnimatePage=routerModule.shouldAnimatePage,
+      showPage=routerModule.showPage;
   /* ================= 首页 ================= */
   function showHome() {
     showPage('home');
@@ -867,1179 +459,48 @@
   /* ================= 组队 ================= */
   var currentTeamData = null;
 
-  function showTeam() {
-    showPage('team');
-    BGM.play('intro');
-    if (!STATE.team && DATA.manifest.teams2026.length) {
-      STATE.team = DATA.manifest.teams2026[0].id;
-    }
-    renderDynastyStrip();
-    renderTeamStrip();
-    loadTeamView(STATE.team);
-  }
-
-  /* 王朝战队预设：一键载入历史强阵（巅峰版本） */
-  function renderDynastyStrip() {
-    var html = DATA.dynasties.map(function (d) {
-      var sel = STATE.dynasty === d.id ? ' sel' : '';
-      return '<button class="dyn-chip' + sel + '" data-id="' + d.id + '">' +
-        '<div class="dc-label">' + esc(d.label) + '</div>' +
-        '<div class="dc-desc">' + esc(d.desc) + '</div></button>';
-    }).join('');
-    $('dynasty-strip').innerHTML = html;
-    $('dynasty-strip').querySelectorAll('.dyn-chip').forEach(function (el) {
-      el.addEventListener('click', function () { loadDynasty(el.getAttribute('data-id')); });
-    });
-  }
-
-  function loadDynasty(id) {
-    var d = DATA.dynasties.find(function (x) { return x.id === id; });
-    if (!d) return;
-    STATE.team = d.team_fid;
-    STATE.roster = d.players.map(function (p) { return { pid: p.player_id, sid: p.season_id }; });
-    STATE.dynasty = id;
-    saveState();
-    D.loadSeasons(d.players.map(function (p) { return p.season_id; })).then(function () {
-      renderTeamStrip();
-      renderDynastyStrip();
-      renderSlots();
-      renderStrength();
-    }).catch(function (e) {
-      $('team-slots').innerHTML = '<div class="mut">王朝阵容加载失败：' + esc(e.message) + '</div>';
-    });
-  }
-
-  function renderTeamStrip() {
-    var html = DATA.manifest.teams2026.map(function (t) {
-      return '<button class="team-chip' + (t.id === STATE.team ? ' sel' : '') + '" data-fid="' + t.id + '">' +
-        teamBadgeHtml(t.id, t.abbr || t.name) +
-        '<div class="tc-name">' + esc(t.name) + '</div></button>';
-    }).join('');
-    $('team-strip').innerHTML = html;
-    $('team-strip').querySelectorAll('.team-chip').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var fid = el.getAttribute('data-fid');
-        if (fid !== STATE.team) {
-          STATE.team = fid;
-          STATE.roster = [];  // 切队后重新加载该队 2026 首发
-          STATE.dynasty = null;
-        }
-        saveState();
-        renderTeamStrip();
-        renderDynastyStrip();
-        loadTeamView(STATE.team);
-      });
-    });
-  }
-
   var teamViewRequest = 0;
-  function loadTeamView(fid) {
-    var request = ++teamViewRequest;
-    $('btn-confirm-team').disabled = true;
-    $('team-slots').innerHTML = '<div class="mut" style="padding:20px;text-align:center">正在加载选手数据…</div>';
-    var loaders = PRESET_SEASONS.map(D.loadSeason);
-    Promise.all([D.loadTeam(fid)].concat(loaders)).then(function (res) {
-      if (request !== teamViewRequest || STATE.team !== fid) return;
-      currentTeamData = res[0];
-      if (!STATE.roster.length) {
-        STATE.roster = presetRoster(fid);
-        saveState();
-      }
-      renderSlots();
-      renderStrength();
-      $('btn-confirm-team').disabled = false;
-    }).catch(function (e) {
-      if (request !== teamViewRequest || STATE.team !== fid) return;
-      $('team-slots').innerHTML = '<div class="mut">加载失败：' + esc(e.message) + '</div>';
-    });
-  }
-
-  /* 2026 现役首发：优先 S2，缺失队用 S1 */
-  function presetRoster(fid) {
-    // 1) 优先按"2026 年版本"拼 5 位置（槽位战力与选手图鉴版本一致）
-    var data = currentTeamData;
-    if (data && data.players && data.players.length) {
-      var byPos = {};
-      POS_ORDER.forEach(function (pos) { byPos[pos] = []; });
-      data.players.forEach(function (p) {
-        if (data.registered_roster && !data.registered_roster.some(function (r) { return r.playerId === p.player_id; })) return;
-        var best = null;
-        (p.versions || []).forEach(function (v) {
-          if (v.year === 2026 && (!best || v.rating > best.rating)) best = v;
-        });
-        if (best) byPos[best.position].push({ pid: p.player_id, sid: best.season_id, rating: best.rating });
-      });
-      var slots = POS_ORDER.map(function (pos) {
-        var lst = byPos[pos].slice().sort(function (a, b) { return b.rating - a.rating; });
-        return lst[0] ? { pid: lst[0].pid, sid: lst[0].sid } : null;
-      }).filter(Boolean);
-      if (slots.length === 5) return slots;
-    }
-    // 2) 回退：S2 / S1 赛季记录
-    for (var i = 0; i < PRESET_SEASONS.length; i++) {
-      var recs = D.seasonRoster(fid, PRESET_SEASONS[i]);
-      if (recs.length >= 5) {
-        return E.pickStarter(recs).map(function (r) { return { pid: r.player_id, sid: r.season_id }; });
-      }
-    }
-    return [];
-  }
-
-  function slotInfo(pid, sid) {
-    var season = DATA.seasonCache[sid];
-    var rec = null;
-    if (season) {
-      rec = season.rosters.find(function (r) { return r.player_id === pid && r.season_id === sid; });
-    }
-    var ver = null;
-    if (currentTeamData) {
-      currentTeamData.players.forEach(function (p) {
-        if (p.player_id !== pid) return;
-        // 优先精确匹配版本赛季；旧状态可能存了同一年其它赛季，回退按年份匹配
-        p.versions.forEach(function (v) {
-          if (v.season_id === sid) ver = v;
-        });
-        if (!ver) {
-          var y = String(sid).match(/(20\d{2})/);
-          if (y) {
-            p.versions.forEach(function (v) { if (String(v.year) === y[1] && (!ver || v.rating > ver.rating)) ver = v; });
-          }
-        }
-      });
-    }
-    return { rec: rec, ver: ver, name: playerName(pid), icon: playerIcon(pid) };
-  }
-
-  function renderSlots() {
-    var html = POS_ORDER.map(function (pos, i) {
-      var slot = STATE.roster[i];
-      var inner;
-      if (slot) {
-        var info = slotInfo(slot.pid, slot.sid);
-        var rating = info.ver ? info.ver.rating : (info.rec ? info.rec.rating : null);
-        var label = (info.ver && info.ver.label) || (slot.sid || '').replace(/^(KPL|KCC|L)/, '');
-        var ava = playerAvatarHtml(info.icon, info.name);
-        inner = ava +
-          '<div class="info"><div class="pname">' + esc(info.name) + '</div>' +
-          '<div class="pmeta">' + esc(label) + ' · ' + esc(pos) + '</div></div>' +
-          '<div class="rating">' + (rating != null ? Math.round(rating) : '-') + '</div><div class="arrow">›</div>';
-      } else {
-        inner = '<div class="info pname mut">点击补位</div><div class="arrow">›</div>';
-      }
-      return '<button class="slot" data-i="' + i + '"><div class="pos p' + i + '">' + esc(pos) + '</div>' + inner + '</button>';
-    }).join('');
-    $('team-slots').innerHTML = html;
-    $('team-slots').querySelectorAll('.slot').forEach(function (el) {
-      el.addEventListener('click', function () { openPicker(parseInt(el.getAttribute('data-i'), 10)); });
-    });
-  }
-
-  function renderStrength() {
-    var res = strengthOf();
-    var eff = res[0], brk = res[1];
-    var pctFill = Math.max(6, Math.min(100, (brk.raw - 40) / 55 * 100));
-    $('strength-num').textContent = brk.raw.toFixed(1);
-    $('strength-fill').style.width = pctFill + '%';
-    $('strength-break').innerHTML =
-      '<span>基础 <b>' + brk.base + '</b></span>' +
-      '<span>覆盖 <b>' + brk.coverage + '</b></span>' +
-      '<span>默契 <b>' + brk.synergy + '</b></span>' +
-      '<span>胜率化学 <b>' + brk.win_synergy + '</b></span>' +
-      '<span>风格 <b>' + brk.style + '</b></span>';
-  }
-
-  /* -------- 换人抽屉 -------- */
-  function openPicker(slotIdx) {
-    picker = { open: true, slot: slotIdx, pid: null, sid: null };
-    D.loadTeam(STATE.team).then(function (data) {
-      currentTeamData = data;
-      renderPool(POS_ORDER[slotIdx]);
-      $('drawer').classList.add('show');
-      $('drawer-mask').classList.add('show');
-    }).catch(function () {
-      closePicker();
-    });
-  }
-
-  /* 选手列表（可按返回回到此视图） */
-  function renderPool(pos) {
-    $('picker-pool').style.display = '';
-    $('picker-ver').innerHTML = '';
-    $('picker-compare').innerHTML = '';
-    $('picker-back').style.display = 'none';
-    $('picker-confirm').style.display = '';
-    $('picker-title').textContent = pos + ' · 换人';
-    $('picker-sub').innerHTML = teamBadgeHtml(STATE.team) + ' <span>' + esc(teamName(STATE.team)) + ' 历届' + esc(pos) + '</span>';
-    var candidates = currentTeamData.players.filter(function (p) {
-      return p.versions.some(function (v) { return v.position === pos; });
-    }).sort(function (a, b) {
-      var ra = maxRatingFor(a, pos), rb = maxRatingFor(b, pos);
-      return rb - ra;
-    });
-    $('picker-pool').innerHTML = candidates.map(function (p) {
-      var best = bestVersionFor(p, pos);
-      var inRoster = STATE.roster.some(function (s) { return s && s.pid === p.player_id; });
-      var ava = playerAvatarHtml(p.icon, p.name);
-      return '<button class="pool-item' + (inRoster ? ' sel' : '') + '" data-pid="' + p.player_id + '">' + ava +
-        '<div><div class="pname">' + esc(p.name) + '</div>' +
-        '<div class="pver">' + (inRoster ? '已在阵容 · ' : '') + esc(best.label) + ' · ' + esc(best.season_id) + '</div></div>' +
-        '<div class="prate">' + Math.round(best.rating) + '</div></button>';
-    }).join('');
-    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-      el.addEventListener('click', function () {
-        pickPlayer(el.getAttribute('data-pid'), pos);
-      });
-    });
-  }
-
-  function maxRatingFor(p, pos) {
-    return p.versions.filter(function (v) { return v.position === pos; })
-      .reduce(function (m, v) { return Math.max(m, v.rating || 0); }, 0);
-  }
-  function bestVersionFor(p, pos) {
-    return p.versions.filter(function (v) { return v.position === pos; })
-      .sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); })[0];
-  }
-
-  function pickPlayer(pid, pos) {
-    var p = currentTeamData.players.find(function (x) { return x.player_id === pid; });
-    if (!p) return;
-    picker.pid = pid;
-    var vers = p.versions.filter(function (v) { return v.position === pos; })
-      .sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
-    var best = bestVersionFor(p, pos);
-    picker.sid = (best || {}).season_id || null;
-    $('picker-pool').style.display = 'none';
-    $('picker-back').style.display = '';
-    $('picker-title').textContent = p.name + ' · 选择版本';
-    $('picker-sub').textContent = '该选手在' + pos + '位的不同时期版本';
-    $('picker-ver').innerHTML = vers.map(function (v) {
-      var sel = v.season_id === picker.sid ? ' sel' : '';
-      return '<button class="vchip' + sel + '" data-sid="' + v.season_id + '">' +
-        esc(v.label) + ' · ' + Math.round(v.rating) + '</button>';
-    }).join('');
-    renderPickerComparison(pos);
-    $('drawer').scrollTop = 0;
-    $('picker-ver').querySelectorAll('.vchip').forEach(function (el) {
-      el.addEventListener('click', function () {
-        picker.sid = el.getAttribute('data-sid');
-        $('picker-ver').querySelectorAll('.vchip').forEach(function (c) {
-          c.classList.toggle('sel', c === el);
-        });
-        renderPickerComparison(pos);
-      });
-    });
-  }
-
-  function signedDelta(value) {
-    var rounded = Math.round(value * 10) / 10;
-    return (rounded > 0 ? '+' : '') + rounded.toFixed(1);
-  }
-
-  function renderPickerComparison(pos) {
-    var box = $('picker-compare');
-    if (!picker.pid || !picker.sid) { box.innerHTML = ''; return; }
-    var duplicate = STATE.roster.some(function (slot, i) {
-      return i !== picker.slot && slot && slot.pid === picker.pid;
-    });
-    if (duplicate) {
-      box.innerHTML = '<div class="picker-compare"><div class="picker-compare-title">该选手已在阵容中</div><div class="mut" style="font-size:11px">同一选手不能同时出现在两个位置。</div></div>';
-      return;
-    }
-    var before = strengthForRoster(STATE.roster)[1];
-    var nextRoster = STATE.roster.slice();
-    while (nextRoster.length < POS_ORDER.length) nextRoster.push(null);
-    nextRoster[picker.slot] = { pid: picker.pid, sid: picker.sid };
-    var after = strengthForRoster(nextRoster)[1];
-    var currentSlot = STATE.roster[picker.slot];
-    var currentRecord = currentSlot ? recordsForRoster([currentSlot])[0] : null;
-    var nextRecord = recordsForRoster([{ pid: picker.pid, sid: picker.sid }])[0];
-    var ratingBefore = currentRecord ? currentRecord.rating : null;
-    var ratingAfter = nextRecord ? nextRecord.rating : null;
-    var totalDelta = after.raw - before.raw;
-    var chemBefore = before.synergy + before.win_synergy;
-    var chemAfter = after.synergy + after.win_synergy;
-    function deltaClass(value) { return value > 0 ? 'up' : (value < 0 ? 'down' : ''); }
-    box.innerHTML = '<div class="picker-compare"><div class="picker-compare-title">换人影响 · ' + esc(pos) + '</div>' +
-      '<div class="picker-compare-row"><span>个人战力</span><b>' + (ratingBefore == null ? '待补位' : f1(ratingBefore)) + ' → ' + f1(ratingAfter) + '</b></div>' +
-      '<div class="picker-compare-row"><span>阵容总分</span><b class="' + deltaClass(totalDelta) + '">' + f1(before.raw) + ' → ' + f1(after.raw) + '（' + signedDelta(totalDelta) + '）</b></div>' +
-      '<div class="picker-compare-row"><span>默契合计</span><b class="' + deltaClass(chemAfter - chemBefore) + '">' + f1(chemBefore) + ' → ' + f1(chemAfter) + '（' + signedDelta(chemAfter - chemBefore) + '）</b></div></div>';
-  }
-
-  function confirmPicker() {
-    if (picker.mode === 'allstar') { confirmAllStarPicker(); return; }
-    if (!picker.pid || !picker.sid) { closePicker(); return; }
-    var slot = picker.slot;
-    // 同一选手不能同时上场（转分路选手在不同位置也禁止重复，避免"两个无畏/两个妖刀"）
-    var dupIdx = -1;
-    STATE.roster.forEach(function (s, i) {
-      if (i !== slot && s && s.pid === picker.pid) dupIdx = i;
-    });
-    if (dupIdx >= 0) {
-      openConfirm('已在阵容中', '该选手已在阵容中，同一选手不能同时上场。请先更换原位置的选手。', null, '知道了');
-      return;
-    }
-    // 换人后战绩卡按赛季记录渲染，新选手的版本赛季必须先加载，否则结果页会缺人
-    var need = [picker.sid].filter(function (s) { return s && !DATA.seasonCache[s]; });
-    var apply = function () {
-      STATE.roster = STATE.roster.slice();
-      while (STATE.roster.length < POS_ORDER.length) STATE.roster.push(null);
-      STATE.roster[slot] = { pid: picker.pid, sid: picker.sid };
-      STATE.dynasty = null;
-      if (SIM.session) {
-        SIM.session.setRoster(STATE.team, recordsForRoster(STATE.roster));
-        SIM.rosterChanged = true;
-      }
-      saveState();
-      recordAchievementEvent('rosterEdits');
-      renderSlots();
-      renderStrength();
-      closePicker();
-    };
-    if (need.length) D.loadSeasons(need).then(apply).catch(apply);
-    else apply();
-  }
-  function closePicker() {
-    picker.open = false;
-    $('drawer').classList.remove('show');
-    $('drawer-mask').classList.remove('show');
-    $('picker-confirm').style.display = '';
-    $('picker-pool').style.display = '';
-    $('picker-back').style.display = 'none';
-  }
-
-  /* ================= 100 金币组队 ================= */
-  function showBudget() {
-    showPage('budget');
-    BGM.play('intro');
-    KPL_BUDGET.show();
-  }
-
-  /* ================= 全明星模式 ================= */
-  function showAllStar() {
-    showPage('allstar');
-    BGM.play('intro');
-    STATE.mode = 'allstar';
-    var teams = DATA.manifest.teams2026 || [];
-    if (!STATE.allStar.aTeam && teams.length) STATE.allStar.aTeam = teams[0].id;
-    if (!STATE.allStar.bTeam && teams.length) STATE.allStar.bTeam = (teams[1] || teams[0]).id;
-    renderAllStarTeamSelects();
-    renderTacticPickers();
-    $('allstar-a-slots').innerHTML = $('allstar-b-slots').innerHTML = '<div class="mut" style="padding:18px;text-align:center">正在加载全明星选手库…</div>';
-    Promise.all([
-      D.loadAllStar(), D.loadTeam(STATE.allStar.aTeam), D.loadTeam(STATE.allStar.bTeam)
-    ].concat(PRESET_SEASONS.map(D.loadSeason))).then(function (res) {
-      if (!STATE.allStar.aRoster.length) STATE.allStar.aRoster = presetRosterFromData(STATE.allStar.aTeam, res[1]);
-      if (!STATE.allStar.bRoster.length) STATE.allStar.bRoster = presetRosterFromData(STATE.allStar.bTeam, res[2]);
-      saveState();
-      renderAllStar();
-    }).catch(function (e) {
-      $('allstar-a-slots').innerHTML = '<div class="mut">加载失败：' + esc(e.message) + '</div>';
-      $('allstar-b-slots').innerHTML = '';
-    });
-  }
-
-  function renderAllStarTeamSelects() {
-    var options = (DATA.manifest.teams2026 || []).map(function (t) {
-      return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>';
-    }).join('');
-    ['a', 'b'].forEach(function (side) {
-      var el = $('allstar-' + side + '-team');
-      el.innerHTML = options;
-      el.value = STATE.allStar[side + 'Team'];
-    });
-  }
-
-  function presetRosterFromData(fid, data) {
-    if (data && data.players) {
-      var byPos = {};
-      POS_ORDER.forEach(function (pos) { byPos[pos] = []; });
-      data.players.forEach(function (p) {
-        if (data.registered_roster && !data.registered_roster.some(function (r) { return r.playerId === p.player_id; })) return;
-        var best = null;
-        (p.versions || []).forEach(function (v) {
-          if (v.year === 2026 && (!best || v.rating > best.rating)) best = v;
-        });
-        if (best && byPos[best.position]) {
-          byPos[best.position].push({ pid: p.player_id, sid: best.season_id, teamFid: fid, rating: best.rating });
-        }
-      });
-      var slots = POS_ORDER.map(function (pos) {
-        var item = byPos[pos].sort(function (a, b) { return b.rating - a.rating; })[0];
-        return item ? { pid: item.pid, sid: item.sid, teamFid: item.teamFid } : null;
-      }).filter(Boolean);
-      if (slots.length === 5) return slots;
-    }
-    return [];
-  }
-
-  function allStarVersion(slot) {
-    if (!slot || !DATA.allStar) return null;
-    var pid = slot.templatePid || slot.pid;
-    var p = (DATA.allStar.players || []).find(function (x) { return x.player_id === pid; });
-    if (!p) return null;
-    return (p.versions || []).find(function (v) {
-      return v.season_id === slot.sid && (!slot.teamFid || v.team_fid === slot.teamFid);
-    }) || (p.versions || []).find(function (v) { return v.season_id === slot.sid; }) || null;
-  }
-
-  function allStarRecord(slot, sideId, keepSourceTeam) {
-    var v = allStarVersion(slot);
-    if (!v) return null;
-    var kda = v.kda || 0;
-    var deaths = v.deaths;
-    if (deaths == null && kda) deaths = ((v.kills || 0) + (v.assists || 0)) / kda;
-    return {
-      player_id: slot.pid, season_id: slot.sid,
-      team_franchise: keepSourceTeam ? (v.team_fid || slot.teamFid) : sideId,
-      position: v.position, rating: v.rating || 70, games: v.games || 5,
-      avg_kda: kda, avg_kill_num: v.kills || 0, avg_death_num: deaths || 0,
-      avg_assist_num: v.assists || 0, win_rate: v.win_rate || 0,
-      avg_gpm: v.gpm || 0, avg_participation_rate: v.participation || 0,
-      avg_hurt_to_hero_total_rate: v.hurt_rate || 0,
-      avg_be_hurt_by_hero_total_rate: v.be_hurt_rate || 0,
-      avg_damage_convert_rate: v.damage_convert || 0,
-      avg_push_tower_num: v.towers || 0, mvp_count: v.mvp_count || 0
-    };
-  }
-
-  function allStarRecords(side, keepSourceTeam) {
-    var sideId = side === 'a' ? 'ALLSTAR_A' : 'ALLSTAR_B';
-    return (STATE.allStar[side + 'Roster'] || []).map(function (slot) {
-      return allStarRecord(slot, sideId, keepSourceTeam);
-    }).filter(Boolean);
-  }
-
-  function renderAllStar() {
-    ['a', 'b'].forEach(function (side) {
-      var roster = STATE.allStar[side + 'Roster'] || [];
-      $('allstar-' + side + '-slots').innerHTML = POS_ORDER.map(function (pos, i) {
-        var slot = roster[i], inner;
-        if (slot) {
-          var v = allStarVersion(slot), name = playerName(slot.pid), icon = playerIcon(slot.pid);
-          var ava = playerAvatarHtml(icon, name);
-          inner = ava + '<div class="info"><div class="pname">' + esc(name) + '</div>' +
-            '<div class="pmeta">' + esc((v && v.label) || slot.sid) + ' · ' + esc((v && v.team_name) || '') +
-            (slot.templatePid ? '<span class="custom-slot-hint">自定义选手 · 能力继承自 ' + esc(playerName(slot.templatePid)) + '</span>' : '') + '</div></div>' +
-            '<div class="rating">' + (v ? Math.round(v.rating) : '-') + '</div><div class="arrow">›</div>';
-        } else {
-          inner = '<div class="info pname mut">点击补位</div><div class="arrow">›</div>';
-        }
-        return '<button class="slot" data-side="' + side + '" data-i="' + i + '"><div class="pos p' + i + '">' + esc(pos) + '</div>' + inner + '</button>';
-      }).join('');
-      $('allstar-' + side + '-slots').querySelectorAll('.slot').forEach(function (el) {
-        el.addEventListener('click', function () { openAllStarPicker(side, parseInt(el.getAttribute('data-i'), 10)); });
-      });
-    });
-    $('allstar-bo').querySelectorAll('button').forEach(function (el) {
-      el.classList.toggle('sel', parseInt(el.getAttribute('data-bo'), 10) === STATE.allStar.bo);
-    });
-    var all = (STATE.allStar.aRoster || []).concat(STATE.allStar.bRoster || []).filter(Boolean);
-    var ids = all.map(function (s) { return s.pid; });
-    var valid = all.length === 10 && ids.filter(function (id, i) { return ids.indexOf(id) === i; }).length === 10;
-    $('allstar-start').disabled = !valid;
-    $('allstar-start').textContent = valid ? ('开始 ' + 'BO' + STATE.allStar.bo + ' 全明星对决') : '请补齐双方阵容并移除重复选手';
-  }
-
-  function changeAllStarTeam(side, fid) {
-    STATE.allStar[side + 'Team'] = fid;
-    STATE.allStar[side + 'Roster'] = [];
-    D.loadTeam(fid).then(function (data) {
-      STATE.allStar[side + 'Roster'] = presetRosterFromData(fid, data);
-      saveState(); renderAllStar();
-    });
-  }
-
-  function openAllStarPicker(side, slotIdx) {
-    picker = { open: true, mode: 'allstar', side: side, slot: slotIdx, pid: null, sid: null, teamFid: null };
-    renderAllStarPool(POS_ORDER[slotIdx], '');
-    $('drawer').classList.add('show'); $('drawer-mask').classList.add('show');
-  }
-
-  function renderAllStarPool(pos, query) {
-    var candidates = (DATA.allStar.players || []).filter(function (p) {
-      return (p.versions || []).some(function (v) { return v.position === pos; }) &&
-        (!query || p.name.toLowerCase().indexOf(query.toLowerCase()) >= 0);
-    }).sort(function (a, b) { return maxRatingFor(a, pos) - maxRatingFor(b, pos); }).reverse();
-    $('picker-title').textContent = pos + ' · 全联盟选人';
-    $('picker-sub').textContent = '选择职业选手后可挑历史版本，也可把该版本设为自定义选手模板';
-    $('picker-back').style.display = 'none'; $('picker-ver').innerHTML = ''; $('picker-compare').innerHTML = ''; $('picker-confirm').style.display = 'none';
-    $('picker-pool').style.display = '';
-    $('picker-pool').innerHTML = '<div class="picker-tools"><input id="allstar-search" placeholder="搜索选手姓名" value="' + esc(query || '') + '"></div>' + candidates.map(function (p) {
-      var best = bestVersionFor(p, pos);
-      var ava = playerAvatarHtml(p.icon, p.name);
-      return '<button class="pool-item" data-pid="' + esc(p.player_id) + '" data-name="' + esc(p.name.toLowerCase()) + '">' + ava + '<div><div class="pname">' + esc(p.name) + '</div>' +
-        '<div class="pver">' + esc(best.label) + ' · ' + esc(best.team_name || '') + '</div></div><div class="prate">' + Math.round(best.rating) + '</div></button>';
-    }).join('');
-    $('allstar-search').addEventListener('input', function () {
-      var value = this.value.trim().toLowerCase();
-      $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-        el.style.display = !value || (el.getAttribute('data-name') || '').indexOf(value) >= 0 ? '' : 'none';
-      });
-    });
-    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-      el.addEventListener('click', function () { pickAllStarPlayer(el.getAttribute('data-pid'), pos); });
-    });
-  }
-
-  function pickAllStarPlayer(pid, pos) {
-    var p = DATA.allStar.players.find(function (x) { return x.player_id === pid; });
-    var versions = (p.versions || []).filter(function (v) { return v.position === pos; })
-      .sort(function (a, b) { return (b.year || 0) - (a.year || 0) || (b.rating || 0) - (a.rating || 0); });
-    picker.pid = pid; picker.sid = versions[0].season_id; picker.teamFid = versions[0].team_fid;
-    $('picker-pool').style.display = 'none'; $('picker-back').style.display = '';
-    $('picker-title').textContent = p.name + ' · 选择版本';
-    $('picker-sub').textContent = '直接上场，或用所选版本的能力创建自定义选手';
-    $('picker-ver').innerHTML = versions.map(function (v, i) {
-      return '<button class="vchip' + (i === 0 ? ' sel' : '') + '" data-sid="' + esc(v.season_id) + '" data-fid="' + esc(v.team_fid) + '">' +
-        esc(v.label) + ' · ' + esc(v.team_name) + ' · ' + Math.round(v.rating) + '</button>';
-    }).join('') + '<button class="custom-entry" id="allstar-custom">＋ 用这个版本创建自定义选手</button>';
-    $('picker-confirm').style.display = '';
-    $('picker-ver').querySelectorAll('.vchip').forEach(function (el) {
-      el.addEventListener('click', function () {
-        picker.sid = el.getAttribute('data-sid'); picker.teamFid = el.getAttribute('data-fid');
-        $('picker-ver').querySelectorAll('.vchip').forEach(function (v) { v.classList.toggle('sel', v === el); });
-      });
-    });
-    $('allstar-custom').addEventListener('click', renderCustomPlayerForm);
-  }
-
-  function renderCustomPlayerForm() {
-    var templateName = playerName(picker.pid);
-    $('picker-title').textContent = '创建自定义选手'; $('picker-back').style.display = '';
-    $('picker-sub').textContent = '能力模板：' + templateName + ' · ' + picker.sid;
-    $('picker-ver').innerHTML = '';
-    $('picker-compare').innerHTML = '';
-    $('picker-pool').style.display = '';
-    $('picker-confirm').style.display = 'none';
-    $('picker-pool').innerHTML = '<div class="custom-form"><div class="custom-note">自定义选手只替换姓名和头像，位置、战力与比赛数据继承所选职业版本。头像仅保存在当前设备。</div>' +
-      '<label>选手姓名<input id="custom-name" maxlength="12" placeholder="输入你的名字"></label>' +
-      '<label>默认头像</label><div class="default-avatars"><button class="default-avatar sel" data-src="assets/custom-avatar-male.webp" aria-label="选择默认头像一"><img src="assets/custom-avatar-male.webp" alt=""></button>' +
-      '<button class="default-avatar" data-src="assets/custom-avatar-female.webp" aria-label="选择默认头像二"><img src="assets/custom-avatar-female.webp" alt=""></button></div>' +
-      '<label>或上传头像<input id="custom-avatar" type="file" accept="image/*"></label>' +
-      '<div class="avatar-editor"><canvas class="avatar-crop" id="avatar-crop" width="384" height="384"></canvas>' +
-      '<div class="zoom-control"><span>缩小</span><input id="avatar-zoom" type="range" min="1" max="3" step="0.01" value="1"><span>放大</span></div>' +
-      '<span class="mut" style="font-size:11px">拖动头像调整裁剪位置</span></div>' +
-      '<button class="btn gold" id="custom-create">创建并上场</button></div>';
-    var editor = setupAvatarEditor('assets/custom-avatar-male.webp');
-    $('picker-pool').querySelectorAll('.default-avatar').forEach(function (el) {
-      el.addEventListener('click', function () {
-        $('picker-pool').querySelectorAll('.default-avatar').forEach(function (b) { b.classList.toggle('sel', b === el); });
-        editor.load(el.getAttribute('data-src'));
-      });
-    });
-    $('custom-avatar').addEventListener('change', function () {
-      var file = this.files && this.files[0]; if (!file) return;
-      readImageFile(file).then(function (data) {
-        $('picker-pool').querySelectorAll('.default-avatar').forEach(function (b) { b.classList.remove('sel'); });
-        editor.load(data);
-      }).catch(function () { openConfirm('头像读取失败', '请选择常见的 JPG、PNG 或 WebP 图片。', null, '知道了'); });
-    });
-    $('custom-create').addEventListener('click', function () {
-      var name = $('custom-name').value.trim();
-      var avatarData = editor.output();
-      if (!name || !avatarData) { openConfirm('资料未完成', '请输入姓名并选择或上传头像。', null, '知道了'); return; }
-      var id = 'custom_' + Date.now().toString(36) + '_' + Math.floor(Math.random() * 10000);
-      STATE.allStar.customs.push({ id: id, name: name, icon: avatarData, templatePid: picker.pid });
-      applyAllStarSlot({ pid: id, templatePid: picker.pid, sid: picker.sid, teamFid: picker.teamFid });
-    });
-  }
-
-  function readImageFile(file) {
-    return new Promise(function (resolve, reject) {
-      var reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = function () { resolve(reader.result); };
-      reader.readAsDataURL(file);
-    });
-  }
-
-  function setupAvatarEditor(initialSrc) {
-    var canvas = $('avatar-crop'), ctx = canvas.getContext('2d'), zoom = $('avatar-zoom');
-    var image = new Image(), baseScale = 1, scale = 1, x = 0, y = 0, dragging = false, lastX = 0, lastY = 0;
-    function clamp() {
-      var w = image.width * scale, h = image.height * scale;
-      x = Math.min(0, Math.max(canvas.width - w, x));
-      y = Math.min(0, Math.max(canvas.height - h, y));
-    }
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (image.complete && image.naturalWidth) ctx.drawImage(image, x, y, image.width * scale, image.height * scale);
-    }
-    function load(src) {
-      image = new Image();
-      image.onload = function () {
-        baseScale = Math.max(canvas.width / image.width, canvas.height / image.height);
-        scale = baseScale; zoom.value = '1';
-        x = (canvas.width - image.width * scale) / 2; y = (canvas.height - image.height * scale) / 2;
-        draw();
-      };
-      image.src = src;
-    }
-    zoom.addEventListener('input', function () {
-      var cx = (canvas.width / 2 - x) / scale, cy = (canvas.height / 2 - y) / scale;
-      scale = baseScale * parseFloat(zoom.value);
-      x = canvas.width / 2 - cx * scale; y = canvas.height / 2 - cy * scale; clamp(); draw();
-    });
-    canvas.addEventListener('pointerdown', function (e) { dragging = true; lastX = e.clientX; lastY = e.clientY; canvas.setPointerCapture(e.pointerId); });
-    canvas.addEventListener('pointermove', function (e) {
-      if (!dragging) return;
-      var ratio = canvas.width / canvas.getBoundingClientRect().width;
-      x += (e.clientX - lastX) * ratio; y += (e.clientY - lastY) * ratio;
-      lastX = e.clientX; lastY = e.clientY; clamp(); draw();
-    });
-    canvas.addEventListener('pointerup', function () { dragging = false; });
-    canvas.addEventListener('pointercancel', function () { dragging = false; });
-    load(initialSrc);
-    return { load: load, output: function () { return image.complete && image.naturalWidth ? canvas.toDataURL('image/jpeg', .84) : ''; } };
-  }
-
-  function applyAllStarSlot(slot) {
-    var all = (STATE.allStar.aRoster || []).concat(STATE.allStar.bRoster || []);
-    var current = STATE.allStar[picker.side + 'Roster'][picker.slot];
-    var duplicate = all.some(function (s) { return s && s.pid === slot.pid && (!current || s.pid !== current.pid); });
-    if (duplicate) { openConfirm('已在阵容中', '同一选手不能在双方重复上场。', null, '知道了'); return; }
-    var roster = STATE.allStar[picker.side + 'Roster'].slice();
-    while (roster.length < 5) roster.push(null);
-    roster[picker.slot] = slot; STATE.allStar[picker.side + 'Roster'] = roster;
-    recordAchievementEvent('rosterEdits');
-    D.loadSeasons([slot.sid]).then(function () { saveState(); renderAllStar(); closePicker(); })
-      .catch(function () { saveState(); renderAllStar(); closePicker(); });
-  }
-
-  function confirmAllStarPicker() {
-    if (!picker.pid || !picker.sid) return;
-    applyAllStarSlot({ pid: picker.pid, sid: picker.sid, teamFid: picker.teamFid });
-  }
-
-  /* 模拟页：按曲名选择对局 BGM */
-  function showTrackPicker() {
-    $('picker-title').textContent = '选择对局音乐';
-    $('picker-sub').textContent = '点击曲目立即切换';
-    var names = BGM.getTrackNames() || [];
-    var cur = BGM.getTrackIndex();
-    $('picker-ver').innerHTML = '';
-    $('picker-compare').innerHTML = '';
-    $('picker-pool').innerHTML = names.map(function (n, i) {
-      var playing = i === cur;
-      return '<button class="pool-item' + (playing ? ' sel' : '') + '" data-i="' + i + '">' +
-        '<div class="ava" style="background:linear-gradient(135deg,#f0b90b,#ff7b3d)">♪</div>' +
-        '<div><div class="pname">' + esc(n) + '</div>' +
-        '<div class="pver">' + (playing ? '正在播放' : '点击切换') + '</div></div>' +
-        '<div class="prate">' + (playing ? '▶' : '›') + '</div></button>';
-    }).join('');
-    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-      el.addEventListener('click', function () {
-        BGM.playTrack(parseInt(el.getAttribute('data-i'), 10));
-        $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
-        closePicker();
-      });
-    });
-    $('picker-confirm').style.display = 'none';
-    $('drawer').classList.add('show');
-    $('drawer-mask').classList.add('show');
-  }
-
-  /* 模拟中"更换阵容"：先选要换的位置 */
-  function showPosPicker() {
-    $('picker-title').textContent = '更换阵容 · 选择位置';
-    $('picker-sub').innerHTML = teamBadgeHtml(STATE.team) + ' <span>' + esc(teamName(STATE.team)) + '</span>';
-    $('picker-ver').innerHTML = '';
-    $('picker-compare').innerHTML = '';
-    $('picker-pool').innerHTML = POS_ORDER.map(function (pos, i) {
-      var slot = STATE.roster[i];
-      var name = slot ? playerName(slot.pid) : '空位';
-      var ava = slot ? esc(playerName(slot.pid)[0]) : '+';
-      return '<button class="pool-item" data-i="' + i + '">' +
-        '<div class="ava">' + ava + '</div>' +
-        '<div><div class="pname">' + esc(pos) + '</div>' +
-        '<div class="pver">当前：' + esc(name) + '</div></div>' +
-        '<div class="prate">›</div></button>';
-    }).join('');
-    $('picker-pool').querySelectorAll('.pool-item').forEach(function (el) {
-      el.addEventListener('click', function () {
-        openPicker(parseInt(el.getAttribute('data-i'), 10));
-      });
-    });
-    $('drawer').classList.add('show');
-    $('drawer-mask').classList.add('show');
-  }
-
-  /* ================= 战场 ================= */
-  function showSeason() {
-    showPage('season');
-    BGM.play('intro');
-    $('season-team-name').textContent = STATE.team
-      ? ((STATE.mode === 'budget' ? '接替 ' : '') + teamName(STATE.team) + ' · ' + STATE.roster.map(function (s) { return playerName(s.pid); }).join('、'))
-      : '未组队';
-    renderTacticPickers();
-    renderSeasonList();
-  }
-
-  function renderSeasonList() {
-    var byYear = {};
-    DATA.manifest.seasons.forEach(function (s) {
-      var y = s.year || 0;
-      (byYear[y] = byYear[y] || []).push(s);
-    });
-    var years = Object.keys(byYear).sort(function (a, b) { return b - a; });
-    var curYear = STATE.mode === 'budget' && !STATE.season ? 2026 : null;
-    DATA.manifest.seasons.forEach(function (s) {
-      if (s.season_id === STATE.season) curYear = s.year;
-    });
-    var html = years.map(function (y) {
-      var items = byYear[y].map(function (s) {
-        var sel = s.season_id === STATE.season ? ' sel' : '';
-        var tags = [];
-        tags.push(s.source === 'kpl' ? 'KPL' : (s.source === 'kcc' ? '挑战者杯' : '杯赛'));
-        if (s.has_regular) tags.push('常规赛');
-        if (s.playoff_type === 'double_elim') tags.push('双败');
-        else if (s.playoff_type === 'single_elim') tags.push('单败');
-        return '<button class="season-item' + sel + '" data-sid="' + s.season_id + '">' +
-          '<div><div class="si-name">' + esc(s.name) + '</div>' +
-          '<div class="si-tags">' + tags.map(function (t) { return '<span class="tag-pill">' + t + '</span>'; }).join('') + '</div></div>' +
-          '<div class="si-go">›</div></button>';
-      }).join('');
-      var open = String(curYear) === String(y);
-      return '<div class="season-group" data-year="' + y + '">' +
-        '<button class="sg-year' + (open ? ' open' : '') + '" data-year="' + y + '">' +
-        '<span class="sg-label">' + y + ' 年</span>' +
-        '<span class="sg-arrow">' + (open ? '▾' : '▸') + '</span></button>' +
-        '<div class="sg-items"' + (open ? '' : ' style="display:none"') + '>' + items + '</div></div>';
-    }).join('');
-    $('season-list').innerHTML = html;
-    // 年份手风琴：默认只显示年份，点击展开/收起，一次只开一个
-    $('season-list').querySelectorAll('.sg-year').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var items = el.parentNode.querySelector('.sg-items');
-        var wasOpen = items.style.display !== 'none';
-        $('season-list').querySelectorAll('.season-group').forEach(function (g) {
-          var gi = g.querySelector('.sg-items');
-          if (gi) gi.style.display = 'none';
-          var gy = g.querySelector('.sg-year');
-          if (gy) gy.classList.remove('open');
-        });
-        if (!wasOpen) {
-          items.style.display = 'block';
-          el.classList.add('open');
-        }
-      });
-    });
-    $('season-list').querySelectorAll('.season-item').forEach(function (el) {
-      el.addEventListener('click', function () {
-        STATE.season = el.getAttribute('data-sid');
-        saveState();
-        renderSeasonList();
-      });
-    });
-    var canGo = !!(STATE.season && STATE.team && STATE.roster.length);
-    $('season-go').disabled = !canGo;
-  }
-
-  /* ================= 模拟 ================= */
-  /* 分阶段模拟：逐局 reveal，每轮后可换人 */
+  var rosterModule=global.KPL_UI_MODULES.roster(uiContext);
+  var showTeam=rosterModule.showTeam,
+      renderDynastyStrip=rosterModule.renderDynastyStrip,
+      loadDynasty=rosterModule.loadDynasty,
+      renderTeamStrip=rosterModule.renderTeamStrip,
+      loadTeamView=rosterModule.loadTeamView,
+      presetRoster=rosterModule.presetRoster,
+      slotInfo=rosterModule.slotInfo,
+      renderSlots=rosterModule.renderSlots,
+      renderStrength=rosterModule.renderStrength,
+      openPicker=rosterModule.openPicker,
+      renderPool=rosterModule.renderPool,
+      maxRatingFor=rosterModule.maxRatingFor,
+      bestVersionFor=rosterModule.bestVersionFor,
+      pickPlayer=rosterModule.pickPlayer,
+      signedDelta=rosterModule.signedDelta,
+      renderPickerComparison=rosterModule.renderPickerComparison,
+      confirmPicker=rosterModule.confirmPicker,
+      closePicker=rosterModule.closePicker,
+      showBudget=rosterModule.showBudget,
+      showAllStar=rosterModule.showAllStar,
+      renderAllStarTeamSelects=rosterModule.renderAllStarTeamSelects,
+      presetRosterFromData=rosterModule.presetRosterFromData,
+      allStarVersion=rosterModule.allStarVersion,
+      allStarRecord=rosterModule.allStarRecord,
+      allStarRecords=rosterModule.allStarRecords,
+      renderAllStar=rosterModule.renderAllStar,
+      changeAllStarTeam=rosterModule.changeAllStarTeam,
+      openAllStarPicker=rosterModule.openAllStarPicker,
+      renderAllStarPool=rosterModule.renderAllStarPool,
+      pickAllStarPlayer=rosterModule.pickAllStarPlayer,
+      renderCustomPlayerForm=rosterModule.renderCustomPlayerForm,
+      readImageFile=rosterModule.readImageFile,
+      setupAvatarEditor=rosterModule.setupAvatarEditor,
+      applyAllStarSlot=rosterModule.applyAllStarSlot,
+      confirmAllStarPicker=rosterModule.confirmAllStarPicker,
+      showTrackPicker=rosterModule.showTrackPicker,
+      showPosPicker=rosterModule.showPosPicker,
+      showSeason=rosterModule.showSeason,
+      renderSeasonList=rosterModule.renderSeasonList;
   var SIM = { session: null, stageNo: 0, path: [], queue: [], timer: null, seasonName: '', jump: false, tree: [], rosterChanged: false, paused: false, speed: 1 };
-
-  function showSim() {
-    showPage('sim');
-    BGM.play('battle');
-    $('sim-track-btn').textContent = '🎵 ' + (BGM.getTrackName() || '');
-    $('sim-progress-fill').style.width = '0%';
-    $('sim-events').innerHTML = '';
-    $('sim-skip').style.display = '';
-    $('sim-sub').style.display = 'none';
-    $('sim-goon').style.display = 'none';
-    $('sim-next').style.display = 'none';
-    $('sim-done-tip').style.display = 'none';
-    SIM.queue = [];
-    if (SIM.timer) { clearTimeout(SIM.timer); SIM.timer = null; }
-    SIM.paused = false;
-    SIM.speed = 1;
-    updateRevealControls();
-    SIM.tree = [];
-    SIM.rosterChanged = false;
-    if (STATE.mode === 'allstar') startAllStarSimulation();
-    else startSimulation();
-  }
-
-  function startSimulation() {
-    if (!STATE.season || !STATE.team || !STATE.roster.length) {
-      go('#/season');
-      return;
-    }
-    $('sim-events').innerHTML = '<div class="story-event show" id="sim-loading"><div class="se-title">📡 正在生成平行时空</div>' +
-      '<div class="se-line mut">赛程与选手数据已就绪，马上开赛…</div></div>';
-    var battleSid = STATE.season;
-    var rosterSids = STATE.roster.map(function (s) { return s.sid; }).filter(Boolean);
-    var sids = [battleSid].concat(rosterSids).filter(function (v, i, a) { return a.indexOf(v) === i; });
-    D.loadSeasons(sids).then(function () {
-      var battle = DATA.seasonCache[battleSid];
-      var rosters = {};
-      battle.rosters.forEach(function (r) {
-        if ((r.games || 0) < 5) return;
-        (rosters[r.team_franchise] = rosters[r.team_franchise] || []).push(r);
-      });
-      Object.keys(rosters).forEach(function (fid) {
-        rosters[fid].sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
-      });
-      var override = {};
-      var recs = recordsForRoster(STATE.roster);
-      if (recs.length) override[STATE.team] = recs;
-      if (!STATE.seed) STATE.seed = Math.floor(Math.random() * 100000);
-      var formats = {};
-      formats[battleSid] = battle;
-      SIM.session = E.createSession({
-        season_id: battleSid, formats: formats, rosters: rosters, rng: E.makeRng(STATE.seed),
-        names: DATA.names, tpl: DATA.tpl, chem: D.buildChemFor(sids),
-        override_rosters: override, track: STATE.team, players: DATA.players, tactic: STATE.tactic,
-        player_boost: STATE.mode === 'budget' ? BUDGET_PLAYER_BOOST : undefined,
-        budget_duos: STATE.mode === 'budget' ? DATA.budgetPairs : undefined,
-        budget_mode: STATE.mode === 'budget'
-      });
-      if (window.KPLAnalytics) window.KPLAnalytics.trackEvent('kpl2k-start');
-      SIM.stageNo = 0;
-      SIM.path = [];
-      SIM.seasonName = battle.name;
-      var loading = $('sim-loading');
-      if (loading) loading.remove();
-      if (shareVersionNotice) {
-        appendCard({ title: '版本提示', lines: [shareVersionNotice], cls: 'reg' });
-        shareVersionNotice = '';
-      }
-      var dynasty = activeDynasty();
-      if (dynasty && dynasty.story && dynasty.story.opening) {
-        appendCard({ title: '📜 专属篇章 · ' + dynasty.theme, lines: dynasty.story.opening, cls: 'reg' });
-      }
-      renderOpeningTree();
-      advance();
-    }).catch(function (e) {
-      $('sim-events').innerHTML = '<div class="card red">模拟失败：' + esc(e.message) + '</div>';
-    });
-  }
-
-  function startAllStarSimulation() {
-    var aSlots = STATE.allStar.aRoster || [], bSlots = STATE.allStar.bRoster || [];
-    if (aSlots.length !== 5 || bSlots.length !== 5) { go('#/allstar'); return; }
-    $('sim-events').innerHTML = '<div class="story-event show" id="sim-loading"><div class="se-title">📡 正在生成全明星对决</div>' +
-      '<div class="se-line mut">双方阵容与历史版本已就绪，马上开赛…</div></div>';
-    var slots = aSlots.concat(bSlots), sids = slots.map(function (s) { return s.sid; });
-    D.loadSeasons(sids).then(function () {
-      if (!STATE.seed) STATE.seed = Math.floor(Math.random() * 100000);
-      var rng = E.makeRng(STATE.seed);
-      var aSource = allStarRecords('a', true), bSource = allStarRecords('b', true);
-      var chem = D.buildChemFor(sids);
-      var aStrength = E.lineupStrength(aSource, chem, E.COMPRESS);
-      var bStrength = E.lineupStrength(bSource, chem, E.COMPRESS);
-      var strengths = { ALLSTAR_A: aStrength[0], ALLSTAR_B: bStrength[0] };
-      var aRecords = allStarRecords('a', false), bRecords = allStarRecords('b', false);
-      var result = E.playMatch(rng, strengths, 'ALLSTAR_A', 'ALLSTAR_B', STATE.allStar.bo, STATE.tactic);
-      var aName = teamName(STATE.allStar.aTeam) + '联队';
-      var bName = teamName(STATE.allStar.bTeam) + '联队';
-      var pnames = {};
-      slots.forEach(function (slot) { pnames[slot.pid] = playerName(slot.pid); });
-      var teamNames = { ALLSTAR_A: aName, ALLSTAR_B: bName };
-      var games = E.narrateSeries(rng, DATA.tpl, aName, bName, result[3], aRecords, bRecords, pnames, STATE.allStar.bo, 2026, teamNames);
-      var rawStats = E.simMatchStats(rng, aRecords, bRecords, result[3]);
-      var runStats = allStarRunStats(rawStats, aRecords, bRecords, result[3]);
-      var entry = {
-        round: '全明星对决', opp: bName, score: result[1] + ':' + result[2], win: result[0] === 'ALLSTAR_A',
-        games: games, results: result[3], stats: runStats
-      };
-      STATE.lastRun = {
-        mode: 'allstar', champion: result[0], team: 'ALLSTAR_A', season: null, seed: STATE.seed,
-        completedAt: Date.now(),
-        version: buildVersion(), tactic: STATE.tactic,
-        seasonName: 'BO' + STATE.allStar.bo + ' 全明星对决', score: result[1] + ':' + result[2],
-        aName: aName, bName: bName, aTeam: STATE.allStar.aTeam, bTeam: STATE.allStar.bTeam,
-        aRoster: aSlots.slice(), bRoster: bSlots.slice(), aRecords: aRecords, bRecords: bRecords,
-        records: aRecords.concat(bRecords), runStats: runStats, path: [entry], tree: [], regular: {},
-        strengthBreakdown: { a: aStrength[1], b: bStrength[1] }
-      };
-      if (window.KPLAnalytics) {
-        window.KPLAnalytics.trackEvent('kpl2k-start');
-        window.KPLAnalytics.trackEvent('kpl2k-complete');
-      }
-      saveState(); saveAllStarHistory();
-      SIM.session = { isDone: function () { return true; }, getChampion: function () { return result[0]; } };
-      SIM.path = [];
-      SIM.seasonName = STATE.lastRun.seasonName;
-      var loading = $('sim-loading'); if (loading) loading.remove();
-      if (shareVersionNotice) {
-        appendCard({ title: '版本提示', lines: [shareVersionNotice], cls: 'reg' });
-        shareVersionNotice = '';
-      }
-      appendEntryCard(entry, '全明星对决');
-      $('sim-progress-fill').style.width = '100%';
-      pumpReveal();
-    }).catch(function (e) {
-      $('sim-events').innerHTML = '<div class="card red">模拟失败：' + esc(e.message) + '</div>';
-    });
-  }
-
-  function allStarRunStats(raw, aRecords, bRecords, results) {
-    var out = {};
-    var gameCount = (results || []).length;
-    var sideWins = {
-      ALLSTAR_A: (results || []).filter(function (winner) { return winner === 'A'; }).length,
-      ALLSTAR_B: (results || []).filter(function (winner) { return winner === 'B'; }).length
-    };
-    [['ALLSTAR_A', aRecords], ['ALLSTAR_B', bRecords]].forEach(function (side) {
-      var teamKills = 0;
-      side[1].forEach(function (r) { teamKills += (raw[r.player_id + '|' + side[0]] || {}).k || 0; });
-      side[1].forEach(function (r) {
-        var s = raw[r.player_id + '|' + side[0]] || { games: 0, k: 0, d: 0, a: 0, mvp: 0 };
-        out[r.player_id] = {
-          games: s.games, k: s.k, d: s.d, a: s.a, mvp: s.mvp,
-          kda: s.d ? (s.k + s.a) / s.d : (s.k + s.a),
-          avgK: s.games ? s.k / s.games : 0, avgD: s.games ? s.d / s.games : 0,
-          avgA: s.games ? s.a / s.games : 0,
-          participation: teamKills ? (s.k + s.a) / teamKills : 0,
-          winRate: gameCount ? sideWins[side[0]] / gameCount : 0
-        };
-      });
-    });
-    return out;
-  }
-
-  function saveAllStarHistory() {
-    recordAchievementRun(STATE.lastRun);
-    var run = JSON.parse(JSON.stringify(STATE.lastRun));
-    run.path = run.path.map(function (p) { return { round: p.round, opp: p.opp, score: p.score, win: p.win, placement: p.placement, results: p.results }; });
-    var hist = loadHistory();
-    hist.unshift({
-      mode: 'allstar', teamName: STATE.lastRun.aName + ' vs ' + STATE.lastRun.bName,
-      seasonName: STATE.lastRun.seasonName, savedAt: STATE.lastRun.completedAt,
-      champ: true, banner: STATE.lastRun.score,
-      rosterNames: STATE.lastRun.records.map(function (r) { return playerName(r.player_id); }),
-      allStar: compactAllStarState(STATE.allStar), seed: STATE.seed, lastRun: run
-    });
-    saveHistory(hist);
-  }
-
-  function advance() {
-    var stage = SIM.session.next();
-    SIM.stageNo += 1;
-    $('sim-progress-fill').style.width = Math.min(96, SIM.stageNo * 2) + '%';
-    if (stage.kind === 'done') {
-      finishSim(stage.champion);
-      return;
-    }
-    if (stage.kind === 'regular_recap') {
-      appendCard({ title: stage.title, lines: stage.lines, cls: 'reg' });
-      // 说明卡（如"32强战罢"）也同步赛程图：内部消化的场次一次性补齐
-      if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
-      // 由"继续征战"触发的说明卡：滚动到新卡顶部（绝不回到页面最顶端）
-      if (SIM.jump) {
-        SIM.jump = false;
-        scrollToLatestCard();
-      }
-      showStageButtons();
-      return;  // 保留 SIM.jump，继续征战能跳到真正的赛程
-    }
-    if (!stage.entries.length) { advance(); return; }  // 主队无赛事的轮次自动跳过（保留 jump）
-    stage.entries.forEach(function (entry) {
-      appendEntryCard(entry, stage.title);
-    });
-    // 每场结束后更新赛程图（谁干掉了谁、主队走到哪）
-    if (SIM.session && SIM.session.getTree) renderTreeCard(SIM.session.getTree(), stage.title);
-    // reveal 期间隐藏轮间按钮，避免在文字播放中误点"继续征战"
-    $('sim-goon').style.display = 'none';
-    $('sim-sub').style.display = 'none';
-    pumpReveal();
-    if (SIM.jump) {
-      SIM.jump = false;
-      setTimeout(scrollToLatestCard, 30);
-    }
-  }
-
-  /* 滚动到最新一张比赛/说明卡的顶部（继续征战后的目标位置） */
-  function scrollToLatestCard() {
-    var cards = $('sim-events').querySelectorAll('.story-event');
-    if (cards.length) {
-      var el = cards[cards.length - 1];
-      var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
-      window.scrollTo({ top: top, behavior: scrollBehavior() });
-    }
-  }
-
-  function seriesContext(stageTitle, entry) {
-    var lines = ['经理指令：' + tacticName(STATE.tactic) + '。' +
-      ({ stable: '先稳住阵型与资源交换，等待对手露出破绽。', balanced: '按标准节奏寻找机会，临场应变优先。', gamble: '主动提速争抢前期窗口，接受更高的赛果波动。' }[STATE.tactic] || '')];
-    var title = String(stageTitle || '');
-    if (title.indexOf('总决赛') >= 0 || title === '决赛') lines.push('所有悬念都收敛到这一场，下一座水晶决定奖杯归属。');
-    else if (title.indexOf('败者组') >= 0) lines.push('败者组没有回头路，任何一次失误都可能让整个赛季停在这里。');
-    else if (title.indexOf('半决赛') >= 0 || title.indexOf('淘汰') >= 0) lines.push('比赛进入淘汰区间，阵容上限之外，更考验谁先顶住压力。');
-    var streak = 0;
-    for (var i = SIM.path.length - 1; i >= 0 && SIM.path[i].win; i--) streak++;
-    if (streak >= 2) lines.push('此前已经连胜' + streak + '轮，气势正在成为第六名队员。');
-    if (SIM.rosterChanged) {
-      lines.push('阵容刚刚完成调整，新五人组能否立刻形成默契，是这一轮最大的变量。');
-      SIM.rosterChanged = false;
-    }
-    var storyBucket = (title.indexOf('总决赛') >= 0 || title === '决赛')
-      ? 'final' : (entry && entry.win ? 'victory' : 'defeat');
-    var dynastyLine = dynastyStoryLine(storyBucket, SIM.path.length + title.length);
-    if (dynastyLine) lines.push(dynastyLine);
-    return lines.join('<br>');
-  }
-
-  function appendEntryCard(entry, stageTitle) {
-    var context = seriesContext(stageTitle, entry);
-    SIM.path.push(entry);
-    var el = document.createElement('div');
-    el.className = 'story-event';
-    el.innerHTML = '<div class="se-title">' + stageIcon(stageTitle) + ' ' + esc(stageTitle) + ' · vs ' + esc(entry.opp) +
-      ' <span class="score-pill ' + (entry.win ? 'win' : 'lose') + '">' + esc(entry.score) + ' ' + (entry.win ? '胜' : '负') + '</span></div>' +
-      '<div class="se-context">' + context + '</div>';
-    $('sim-events').appendChild(el);
-    requestAnimationFrame(function () { el.classList.add('show'); });
-    entry.games.forEach(function (g, gi) {
-      var fn = function () {
-        var gd = document.createElement('div');
-        gd.className = 'se-game';
-        var activeSlots = STATE.mode === 'allstar'
-          ? STATE.allStar.aRoster.concat(STATE.allStar.bRoster)
-          : STATE.roster;
-        gd.innerHTML = gameHtml(g, activeSlots.map(function (s) { return playerName(s.pid); }));
-        el.appendChild(gd);
-      };
-      if (gi === 0) fn();
-      else SIM.queue.push(fn);
-    });
-  }
-
-  /* ---------- 赛程图：谁干掉了谁、主队走到哪 ---------- */
-  function renderOpeningTree() {
-    var battle = DATA.seasonCache[STATE.season];
-    if (!battle) return;
-    // 找第一个有官方对阵的轮次（小组赛/首轮/32强等）做开局图
-    var firstRound = null;
-    (battle.rounds || []).forEach(function (r) {
-      if (!firstRound && r.matches && r.matches.length) firstRound = r;
-    });
-    var title = firstRound ? (firstRound.name || '首轮对阵') : '参赛队伍';
-    var html = '<div class="card tree-card" id="sim-tree-card">' +
-      '<div class="tc-head">🗺️ ' + esc(battle.name || STATE.season) + ' · ' + esc(title) + '</div>';
-    if (firstRound) {
-      html += '<div class="tc-round">揭幕对阵</div>';
-      var shown = 0;
-      (firstRound.matches || []).forEach(function (m) {
-        if (!m.a_id || !m.b_id) return;
-        var selfA = m.a_id === STATE.team, selfB = m.b_id === STATE.team;
-        if (!selfA && !selfB && shown >= 16) return; // 非主队对阵最多展示 16 场
-        shown++;
-        var aCls = selfA ? ' tc-self' : '';
-        var bCls = selfB ? ' tc-self' : '';
-        html += '<div class="tc-match"><span class="tc-team' + aCls + '">' + esc(teamName(m.a_id)) + '</span>' +
-          '<span class="tc-score">vs</span>' +
-          '<span class="tc-team' + bCls + '">' + esc(teamName(m.b_id)) + '</span></div>';
-      });
-      if (firstRound.matches.length > shown) html += '<div class="tc-more">… 其余对阵开赛后揭晓</div>';
-    } else {
-      var seenTeams = {};
-      (DATA.seasonCache[STATE.season].rosters || []).forEach(function (r) {
-        if (r.team_franchise) seenTeams[r.team_franchise] = true;
-      });
-      var uniq = Object.keys(seenTeams);
-      html += '<div class="tc-teams">' + uniq.map(function (fid) {
-        return '<span class="tc-team-chip' + (fid === STATE.team ? ' sel' : '') + '">' + esc(teamName(fid)) + '</span>';
-      }).join('') + '</div>';
-    }
-    html += '<div class="tc-tip">你的战队已就位，赛程图将随每一战更新</div></div>';
-    var old = $('sim-tree-card');
-    if (old) old.remove();
-    var el = document.createElement('div');
-    el.innerHTML = html;
-    $('sim-events').appendChild(el.firstChild);
-  }
-
-  function renderTreeCard(tree, title) {
-    var old = $('sim-tree-card');
-    if (old) old.remove();
-    var el = document.createElement('div');
-    el.className = 'card tree-card';
-    el.id = 'sim-tree-card';
-    el.innerHTML = treeCardHtml(tree, title, false, true);
-    $('sim-events').appendChild(el);
-  }
-
-  /* 树卡内容（模拟页/战绩卡共用；compact 为缩小版） */
-  function treeCardHtml(tree, title, compact, showHead) {
-    var groups = [];
-    var seen = {};
-    (tree || []).forEach(function (m) {
-      var key = m.round || '对局';
-      // 注意：第一个分组的索引是 0，不能用 !seen[key] 判断（0 为 falsy）
-      if (seen[key] === undefined) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
-      groups[seen[key]].matches.push(m);
-    });
-    // 只保留淘汰赛轮次（常规赛/卡位赛不进树）
-    var ko = groups.filter(function (g) { return BRACKET_EXPECT[g.round]; });
-    var first = ko.length ? ko[0] : null;
-    var chain = first ? MAIN_CHAINS[first.round] : null;
-    var main, loser;
-    if (chain) {
-      main = chain.map(function (r) {
-        return ko.find(function (g) { return g.round === r; }) || { round: r, matches: [] };
-      });
-      var lc = LOSER_CHAINS[first.round];
-      loser = lc ? lc.map(function (r) {
-        return ko.find(function (g) { return g.round === r; }) || { round: r, matches: [] };
-      }) : ko.filter(function (g) { return /败者组/.test(g.round); });
-    } else {
-      main = ko.filter(function (g) { return !/败者组/.test(g.round); });
-      loser = ko.filter(function (g) { return /败者组/.test(g.round); });
-    }
-    var html = showHead
-      ? '<div class="tc-head">🗺️ 赛程图' + (title ? ' · ' + esc(title) : '') + '</div>'
-      : '';
-    if (!main.length) {
-      // 常规赛/小组赛阶段没有淘汰树，改显示已打场次列表
-      var regHtml = regularListHtml(tree);
-      html += regHtml || '<div class="tc-tip">尚未开战，等待第一场对决…</div>';
-    } else {
-      html += bracketColumns(main, 'bk-main', compact);
-      if (loser.length) html += bracketColumns(loser, 'bk-loser', compact);
-      html += treeStatusLine(tree);
-    }
-    return html;
-  }
-
-  /* 常规赛/小组赛：逐轮列出已打对阵（谁赢谁一目了然） */
-  function regularListHtml(tree) {
-    var groups = [];
-    var seen = {};
-    (tree || []).forEach(function (m) {
-      var key = m.round || '';
-      if (!/常规赛|小组赛|卡位/.test(key)) return;
-      if (seen[key] === undefined) { seen[key] = groups.length; groups.push({ round: key, matches: [] }); }
-      groups[seen[key]].matches.push(m);
-    });
-    if (!groups.length) return '';
-    var html = '';
-    groups.forEach(function (g) {
-      html += '<div class="tc-round">' + esc(g.round) + '</div>';
-      html += '<div class="tc-grid">';
-      g.matches.forEach(function (m) {
-        var na = teamName(m.a), nb = teamName(m.b);
-        var winnerIsA = m.w === m.a;
-        var trackIn = m.a === STATE.team || m.b === STATE.team;
-        var trackWon = m.w === STATE.team;
-        var cls = trackIn ? (trackWon ? ' tc-track tc-win' : ' tc-track tc-loss') : '';
-        var aCls = (m.a === STATE.team ? ' tc-self' : (winnerIsA ? ' tc-win' : ''));
-        var bCls = (m.b === STATE.team ? ' tc-self' : (!winnerIsA ? ' tc-win' : ''));
-        html += '<div class="tc-match' + cls + '"><span class="tc-team' + aCls + '">' +
-          teamAvaHtml(m.a, abbrOf(m.a)) + '<span class="tc-tn">' + esc(na) + '</span></span>' +
-           '<span class="tc-score">' + esc(m.sa) + ' : ' + esc(m.sb) + '</span>' +
-          '<span class="tc-team' + bCls + '">' +
-          teamAvaHtml(m.b, abbrOf(m.b)) + '<span class="tc-tn">' + esc(nb) + '</span></span></div>';
-      });
-      html += '</div>';
-    });
-    return html;
-  }
-
-  /* 各淘汰赛轮次的期望框数（用于补"待定"空位，凑出完整树） */
   var BRACKET_EXPECT = {
     '32强': 16, '16强': 8, '8强': 4, '4强': 2, '半决赛': 2, '总决赛': 1,
     '胜者组第1轮': 4, '胜者组第2轮': 2, '胜者组半决赛': 2, '胜者组决赛': 1,
@@ -2048,8 +509,6 @@
     '败者组第一轮': 2, '败者组第二轮': 2, '败者组第三轮': 2,
     '败者组第四轮': 1, '败者组第五轮': 1
   };
-
-  /* 各赛制的主链/败者组链（按首轮名匹配，用于补全未打轮次的空框） */
   var MAIN_CHAINS = {
     '32强': ['32强', '16强', '胜者组第1轮', '胜者组第2轮', '胜者组决赛', '总决赛'],
     '16强': ['16强', '胜者组第1轮', '胜者组第2轮', '胜者组决赛', '总决赛'],
@@ -2065,250 +524,40 @@
     '胜者组第1轮': ['败者组第1轮', '败者组第2轮', '败者组第3轮', '败者组决赛'],
     '胜者组半决赛': ['败者组第一轮', '败者组第二轮', '败者组第三轮', '败者组半决赛', '败者组决赛']
   };
-
-  /* 画一列组的标准淘汰树（首列在最左，胜者向右衍生；连线 floor(i/2)） */
-  function bracketColumns(cols, cls, compact) {
-    var COL_W = compact ? 150 : 176;
-    var GAP = compact ? 18 : 34;
-    var BOX_H = compact ? 46 : 50;
-    var ROW_H = compact ? 50 : 55;
-    var firstN = cols.length ? Math.max(cols[0].matches.length, BRACKET_EXPECT[cols[0].round] || cols[0].matches.length) : 1;
-    var H = Math.max(200, firstN * ROW_H);
-    var totalW = cols.length * (COL_W + GAP) + 10;
-    var lines = [];
-    var boxes = '';
-    cols.forEach(function (g, c) {
-      var n = Math.max(g.matches.length, BRACKET_EXPECT[g.round] || g.matches.length);
-      var x = c * (COL_W + GAP); // 首列在最左，胜者向右衍生
-      boxes += '<div class="bk-round-label" style="left:' + x + 'px;top:-20px">' + esc(g.round) + '</div>';
-      for (var i = 0; i < n; i++) {
-        var m = g.matches[i];
-        var y = (i + 0.5) * (H / n) - BOX_H / 2;
-        var clsB = 'bk-match';
-        var inner, isSelf = false, won = false, lost = false;
-        if (m) {
-          var na = teamName(m.a), nb = teamName(m.b);
-          var ab = abbrOf(m.a), bb = abbrOf(m.b);
-          var winnerIsA = m.w === m.a;
-          var score = m.sa + ':' + m.sb;
-          // 左侧两队（带对标，上下排列），右侧比分：胜者绿加粗、败者灰，主队所在框金色
-          inner = '<div class="bk-teams">' +
-            '<div class="bk-row' + (winnerIsA ? ' bk-win' : '') + '" title="' + esc(na) + '">' +
-              teamAvaHtml(m.a, ab) + '<span class="bk-tname">' + esc(ab) + '</span></div>' +
-            '<div class="bk-row' + (!winnerIsA ? ' bk-win' : '') + '" title="' + esc(nb) + '">' +
-              teamAvaHtml(m.b, bb) + '<span class="bk-tname">' + esc(bb) + '</span></div>' +
-            '</div><div class="bk-score">' + esc(score) + '</div>';
-          isSelf = m.w === STATE.team;
-          lost = !isSelf && (m.a === STATE.team || m.b === STATE.team);
-          won = isSelf;
-        } else {
-          inner = '<div class="bk-teams"><div class="bk-row"><span class="bk-tname mut">待定</span></div></div>' +
-            '<div class="bk-score"></div>';
-        }
-        if (won) clsB += ' bk-win bk-self';
-        else if (lost) clsB += ' bk-loss';
-        boxes += '<div class="' + clsB + '" style="left:' + x + 'px;top:' + y + 'px;width:' + COL_W + 'px;height:' + BOX_H + 'px">' + inner + '</div>';
-        // 连线：本场胜者 → 下一列 floor(i/2)
-        if (c + 1 < cols.length) {
-          var nextN = Math.max(cols[c + 1].matches.length, BRACKET_EXPECT[cols[c + 1].round] || cols[c + 1].matches.length);
-          var j = Math.min(Math.floor(i / 2), nextN - 1);
-          var x1 = x + COL_W;
-          var y1 = y + BOX_H / 2;
-          var x2 = x + COL_W + GAP;
-          var y2 = (j + 0.5) * (H / nextN);
-          var midX = x + COL_W + GAP / 2;
-          lines.push('<path d="M ' + x1 + ' ' + y1 + ' H ' + midX + ' V ' + y2 + ' H ' + x2 + '" fill="none" stroke="currentColor" stroke-width="1.7"/>');
-        }
-      }
-    });
-    return '<div class="bk-wrap' + (compact ? ' bk-sm' : '') + '"><div class="bk-inner ' + cls + '" style="width:' + totalW + 'px;height:' + H + 'px">' +
-      '<svg class="bk-lines" width="' + totalW + '" height="' + H + '" style="position:absolute;left:0;top:0">' +
-      lines.join('') + '</svg>' + boxes + '</div></div>';
-  }
-
-  function treeStatusLine(tree) {
-    var lastTrack = null;
-    for (var i = (tree || []).length - 1; i >= 0; i--) {
-      var mm = tree[i];
-      if (mm.a === STATE.team || mm.b === STATE.team) { lastTrack = mm; break; }
-    }
-    if (!lastTrack) return '';
-    return lastTrack.w === STATE.team
-      ? '<div class="tc-status ok">✅ ' + esc(teamName(STATE.team)) + ' 晋级下一轮</div>'
-      : '<div class="tc-status bad">❌ ' + esc(teamName(STATE.team)) + ' 止步' + esc(lastTrack.round) + '</div>';
-  }
-
-  function appendCard(ev) {
-    var cls = ev.cls === 'reg' ? ' reg' : (ev.cls === 'final' ? ' final' : '');
-    var lines = (ev.lines || []).map(function (l) {
-      return '<div class="se-line">' + esc(l).replace(/\n/g, '<br>') + '</div>';
-    }).join('');
-    var el = document.createElement('div');
-    el.className = 'story-event' + cls;
-    el.innerHTML = '<div class="se-title">' + esc(ev.title) + '</div>' + lines;
-    $('sim-events').appendChild(el);
-    requestAnimationFrame(function () { el.classList.add('show'); });
-  }
-
-  function updateRevealControls() {
-    var active = !!(SIM.queue.length || SIM.timer);
-    $('sim-reveal-controls').style.display = active ? 'grid' : 'none';
-    $('sim-pause').disabled = !active;
-    $('sim-pause').textContent = SIM.paused ? '继续' : '暂停';
-    $('sim-pause').setAttribute('aria-pressed', SIM.paused ? 'true' : 'false');
-    $('sim-speed').textContent = SIM.speed + '× 速度';
-    $('sim-skip-series').disabled = !active;
-  }
-
-  function finishReveal() {
-    SIM.paused = false;
-    updateRevealControls();
-    if (SIM.session && SIM.session.isDone && SIM.session.isDone()) {
-      // 整个赛季的最后一把打完：滚动到最后一场文字，显示"结束征战"，由玩家点击进入战绩卡
-      var cards = $('sim-events').querySelectorAll('.story-event');
-      if (cards.length) {
-        var el = cards[cards.length - 1];
-        var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
-        window.scrollTo({ top: top, behavior: scrollBehavior() });
-      }
-      $('sim-skip').style.display = 'none';
-      $('sim-sub').style.display = 'none';
-      $('sim-goon').style.display = 'none';
-      $('sim-next').style.display = '';
-      return;
-    }
-    showStageButtons();
-  }
-
-  function pumpReveal() {
-    if (SIM.timer || SIM.paused) { updateRevealControls(); return; }
-    if (!SIM.queue.length) { finishReveal(); return; }
-    SIM.timer = setTimeout(function () {
-      SIM.timer = null;
-      if (SIM.paused) { updateRevealControls(); return; }
-      var reveal = SIM.queue.shift();
-      if (reveal) reveal();
-      pumpReveal();
-    }, 550 / SIM.speed);
-    updateRevealControls();
-  }
-
-  function toggleRevealPause() {
-    if (!SIM.queue.length && !SIM.timer) return;
-    SIM.paused = !SIM.paused;
-    if (SIM.paused && SIM.timer) { clearTimeout(SIM.timer); SIM.timer = null; }
-    if (!SIM.paused) pumpReveal();
-    updateRevealControls();
-  }
-
-  function toggleRevealSpeed() {
-    SIM.speed = SIM.speed === 1 ? 2 : 1;
-    if (SIM.timer) { clearTimeout(SIM.timer); SIM.timer = null; }
-    if (!SIM.paused) pumpReveal();
-    updateRevealControls();
-  }
-
-  function skipCurrentReveal() {
-    if (SIM.timer) { clearTimeout(SIM.timer); SIM.timer = null; }
-    SIM.paused = false;
-    while (SIM.queue.length) SIM.queue.shift()();
-    finishReveal();
-  }
-
-  function scrollBottom() {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: scrollBehavior() });
-  }
-
-  /* 战报文本 -> 结构化块（BP/开局/中期/结束 + 名场面引用），选手名高亮 */
-  function hlText(t, names) {
-    var out = t;
-    (names || []).forEach(function (n) {
-      if (!n) return;
-      var re = new RegExp('(\\.)' + n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
-      out = out.replace(re, '<b class="hl">$1' + n + '</b>');
-    });
-    return out;
-  }
-
-  function gameHtml(g, names) {
-    var lines = esc(g).split('\n');
-    var parts = [];
-    lines.forEach(function (line) {
-      var m = line.match(/^(第\d+局)(.*)$/);
-      if (m) {
-        parts.push('<div class="g-head">' + m[1] + (m[2] ? ' · ' + m[2] : '') + '</div>');
-        return;
-      }
-      var tag = null;
-      ['BP', '开局', '中期', '结束', '本局MVP'].forEach(function (t) {
-        if (tag === null && line.indexOf(t + '：') === 0) tag = t;
-      });
-      if (tag) {
-        var txt = line.slice(tag.length + 1);
-        var segs = txt.split('；').filter(function (s) { return s.trim(); });
-        var cls = tag === 'BP' ? 'bp' : (tag === '开局' ? 'open' : (tag === '中期' ? 'mid' : (tag === '结束' ? 'end' : 'mvp')));
-        segs.forEach(function (s) {
-          parts.push('<div class="g-row ' + cls + '"><span class="g-tag">' + tag + '</span>' +
-            '<span class="g-txt">' + hlText(s.trim(), names) + '</span></div>');
-        });
-        return;
-      }
-      if (line.trim()) parts.push('<div class="g-quote">' + hlText(line.trim(), names) + '</div>');
-    });
-    return parts.join('');
-  }
-
-  function stageIcon(title) {
-    var t = String(title || '');
-    if (t.indexOf('决赛') >= 0 || t.indexOf('总决赛') >= 0) return '🏆';
-    if (t.indexOf('胜者组') >= 0 || t.indexOf('败者组') >= 0) return '⚔️';
-    if (t.indexOf('卡位') >= 0) return '🎯';
-    return '📋';
-  }
-
-  function showStageButtons() {
-    $('sim-skip').style.display = '';
-    $('sim-sub').style.display = STATE.mode === 'budget' ? 'none' : '';
-    $('sim-goon').style.display = '';
-    updateRevealControls();
-  }
-
-  function skipAll() {
-    if (SIM.timer) { clearTimeout(SIM.timer); SIM.timer = null; }
-    SIM.paused = false;
-    while (SIM.queue.length) SIM.queue.shift()();
-    if (STATE.mode === 'allstar') { go('#/result'); return; }
-    SIM.jump = false;
-    var guard = 0;
-    while (guard++ < 500) {
-      var stage = SIM.session.next();
-      SIM.stageNo += 1;
-      if (stage.kind === 'done') {
-        finishSim(stage.champion);
-        go('#/result');
-        return;
-      }
-      if (stage.kind === 'regular_recap') continue;
-      (stage.entries || []).forEach(function (entry) { SIM.path.push(entry); });
-    }
-    go('#/result');
-  }
-
+  var simulationModule=global.KPL_UI_MODULES.simulation(uiContext);
+  var showSim=simulationModule.showSim,
+      startSimulation=simulationModule.startSimulation,
+      startAllStarSimulation=simulationModule.startAllStarSimulation,
+      allStarRunStats=simulationModule.allStarRunStats,
+      saveAllStarHistory=simulationModule.saveAllStarHistory,
+      advance=simulationModule.advance,
+      scrollToLatestCard=simulationModule.scrollToLatestCard,
+      seriesContext=simulationModule.seriesContext,
+      appendEntryCard=simulationModule.appendEntryCard,
+      renderOpeningTree=simulationModule.renderOpeningTree,
+      renderTreeCard=simulationModule.renderTreeCard,
+      treeCardHtml=simulationModule.treeCardHtml,
+      regularListHtml=simulationModule.regularListHtml,
+      bracketColumns=simulationModule.bracketColumns,
+      treeStatusLine=simulationModule.treeStatusLine,
+      appendCard=simulationModule.appendCard,
+      updateRevealControls=simulationModule.updateRevealControls,
+      finishReveal=simulationModule.finishReveal,
+      pumpReveal=simulationModule.pumpReveal,
+      toggleRevealPause=simulationModule.toggleRevealPause,
+      toggleRevealSpeed=simulationModule.toggleRevealSpeed,
+      skipCurrentReveal=simulationModule.skipCurrentReveal,
+      scrollBottom=simulationModule.scrollBottom,
+      hlText=simulationModule.hlText,
+      gameHtml=simulationModule.gameHtml,
+      stageIcon=simulationModule.stageIcon,
+      showStageButtons=simulationModule.showStageButtons,
+      skipAll=simulationModule.skipAll;
   var confirmCb = null;
-  function openConfirm(title, body, onOk, okText) {
-    $('cf-title').textContent = title;
-    $('cf-body').textContent = body;
-    $('cf-ok').textContent = okText || '确定';
-    confirmCb = onOk || null;
-    $('confirm-mask').classList.add('show');
-    $('confirm-box').classList.add('show');
-  }
-  function closeConfirm() {
-    confirmCb = null;
-    $('confirm-mask').classList.remove('show');
-    $('confirm-box').classList.remove('show');
-  }
-
+  var dialogsModule=global.KPL_UI_MODULES.dialogs(uiContext);
+  var openConfirm=dialogsModule.openConfirm,
+      closeConfirm=dialogsModule.closeConfirm,
+      setupOverlayInteraction=dialogsModule.setupOverlayInteraction;
   function finishSim(championId) {
     if (window.KPLAnalytics) window.KPLAnalytics.trackEvent('kpl2k-complete');
     var championName = championId ? teamName(championId) : null;
@@ -2678,317 +927,21 @@
     requestAnimationFrame(function () { window.scrollTo({ top: 0 }); });
   }
 
-  function allStarHasCustom(run) {
-    return ((run.aRoster || []).concat(run.bRoster || [])).some(function (slot) {
-      return !!(slot && (slot.templatePid || String(slot.pid || '').indexOf('custom_') === 0));
-    });
-  }
-
-  function packAllStarSlots(slots) {
-    return (slots || []).map(function (slot) {
-      return [slot.pid, slot.sid, slot.teamFid || ''].map(encodeURIComponent).join('@');
-    }).join(',');
-  }
-
-  function shareLink() {
-    var run = STATE.lastRun || {};
-    if (run.mode === 'allstar') {
-      if (allStarHasCustom(run)) return '';
-      return location.href.split('#')[0] + '#/a?' +
-        'at=' + encodeURIComponent(run.aTeam) + '&bt=' + encodeURIComponent(run.bTeam) +
-        '&bo=' + encodeURIComponent(STATE.allStar.bo || 5) +
-        '&ar=' + packAllStarSlots(run.aRoster) + '&br=' + packAllStarSlots(run.bRoster) +
-        '&seed=' + encodeURIComponent(run.seed) + '&tc=' + encodeURIComponent(run.tactic || STATE.tactic) + '&v=' + encodeURIComponent(buildVersion());
-    }
-    var rosterStr = STATE.roster.map(function (s) { return s.pid + '@' + s.sid; }).join(',');
-    var url = location.href.split('#')[0] + '#/s?' +
-      't=' + encodeURIComponent(STATE.team) +
-      '&s=' + encodeURIComponent(STATE.season) +
-      '&r=' + encodeURIComponent(rosterStr) +
-      '&seed=' + STATE.seed + '&tc=' + encodeURIComponent(run.tactic || STATE.tactic) +
-      '&v=' + encodeURIComponent(buildVersion());
-    return url;
-  }
-
-  function copyShare() {
-    var url = shareLink();
-    function done() {
-      $('share-tip').textContent = '链接已复制，发给好友即可还原这场平行时空';
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done).catch(function () {
-        fallbackCopy(url, done, function () { $('share-tip').textContent = '复制失败，请手动复制浏览器地址'; });
-      });
-    } else {
-      fallbackCopy(url, done, function () { $('share-tip').textContent = '复制失败，请手动复制浏览器地址'; });
-    }
-  }
-  function fallbackCopy(text, done, fail) {
-    if (!text) { if (fail) fail(); return; }
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    var copied = false;
-    try { copied = document.execCommand('copy') === true; } catch (e) { copied = false; }
-    document.body.removeChild(ta);
-    if (copied) done();
-    else if (fail) fail();
-  }
-
-  /* ---------------- 战绩分享图（Canvas 手绘） ---------------- */
-  function roundRectPath(x, px, py, w, h, r) {
-    x.beginPath();
-    x.moveTo(px + r, py);
-    x.arcTo(px + w, py, px + w, py + h, r);
-    x.arcTo(px + w, py + h, px, py + h, r);
-    x.arcTo(px, py + h, px, py, r);
-    x.arcTo(px, py, px + w, py, r);
-    x.closePath();
-  }
-
-  function loadShareAvatar(icon) {
-    if (!icon) return Promise.resolve(null);
-    return new Promise(function (resolve) {
-      var image = new Image();
-      var timer = setTimeout(function () { finish(null); }, 8000);
-      function finish(value) {
-        clearTimeout(timer);
-        image.onload = image.onerror = null;
-        resolve(value);
-      }
-      // 同源缓存和自定义 data URL 均可导出；外链必须通过 CORS，避免污染整张画布。
-      image.crossOrigin = 'anonymous';
-      image.referrerPolicy = 'no-referrer';
-      image.onload = function () { finish(image.naturalWidth && image.naturalHeight ? image : null); };
-      image.onerror = function () { finish(null); };
-      image.src = icon;
-    });
-  }
-
-  function drawShareAvatar(x, image, name, px, py, size) {
-    x.save();
-    x.beginPath();
-    x.arc(px + size / 2, py + size / 2, size / 2, 0, Math.PI * 2);
-    x.clip();
-    x.fillStyle = '#203d5d';
-    x.fillRect(px, py, size, size);
-    if (image) {
-      // 按 object-fit: cover 居中裁切，保留头像比例。
-      var scale = Math.max(size / image.naturalWidth, size / image.naturalHeight);
-      var w = image.naturalWidth * scale, h = image.naturalHeight * scale;
-      x.drawImage(image, px + (size - w) / 2, py + (size - h) / 2, w, h);
-    } else {
-      x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
-      x.textAlign = 'center'; x.textBaseline = 'middle';
-      x.fillText(String(name || '?').slice(0, 1), px + size / 2, py + size / 2);
-    }
-    x.restore();
-  }
-
   var shareImagePending = false;
-  async function renderShareImage() {
-    var run = STATE.lastRun;
-    if (!run || shareImagePending) return;
-    var button = $('result-share'), buttonText = button.textContent;
-    shareImagePending = true;
-    button.disabled = true;
-    button.textContent = '正在生成战绩卡…';
-    try {
-      var avatars = await Promise.all(run.records.map(function (r) {
-        return loadShareAvatar(playerIcon(r.player_id));
-      }));
-      if (STATE.lastRun !== run || !$('result').classList.contains('active')) return;
-      paintShareImage(run, avatars);
-    } catch (error) {
-      showStorageWarning('战绩卡生成失败，请重试。');
-    } finally {
-      shareImagePending = false;
-      button.disabled = false;
-      button.textContent = buttonText;
-    }
-  }
-
-  function paintShareImage(run, avatars) {
-    var W = 1080, P = 64;
-    var rows = Math.min(run.path.length, 8);
-    var H = 400 + run.records.length * 124 + 90 + rows * 86 + 120;
-    var cv = document.createElement('canvas');
-    cv.width = W; cv.height = H;
-    var x = cv.getContext('2d');
-
-    var g = x.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, '#0b1a2e'); g.addColorStop(1, '#123052');
-    x.fillStyle = g; x.fillRect(0, 0, W, H);
-    x.strokeStyle = '#f0b90b'; x.lineWidth = 6;
-    x.strokeRect(26, 26, W - 52, H - 52);
-
-    var isAllStar = run.mode === 'allstar';
-    var team = isAllStar ? (run.aName + ' vs ' + run.bName) : teamName(run.team);
-    x.textAlign = 'center';
-    x.fillStyle = '#f0b90b';
-    x.font = '900 58px sans-serif';
-    x.fillText('KPL 2K · 战绩卡', W / 2, 122);
-    x.fillStyle = '#8fa8cc';
-    x.font = '30px sans-serif';
-    x.fillText(run.seasonName + ' · ' + team + ' · ' + tacticName(run.tactic) + ' · 种子 ' + run.seed, W / 2, 178);
-
-    var banner, color, bg;
-    if (isAllStar) {
-      var allStarWinner = run.champion === 'ALLSTAR_A' ? run.aName : run.bName;
-      banner = '🏆 ' + allStarWinner + '获胜 · ' + run.score; color = '#3fb950'; bg = 'rgba(63,185,80,.16)';
-    } else if (run.champion && teamName(run.champion) === team) {
-      banner = '🏆 冠军'; color = '#3fb950'; bg = 'rgba(63,185,80,.16)';
-    } else if (run.path.length && String(run.path[run.path.length - 1].round).indexOf('决赛') >= 0) {
-      banner = '亚军'; color = '#8fa8cc'; bg = 'rgba(143,168,204,.16)';
-    } else {
-      banner = '赛季止步 · ' + runPlacement(run);
-      color = '#f85149'; bg = 'rgba(248,81,73,.16)';
-    }
-    roundRectPath(x, W / 2 - 270, 216, 540, 96, 18);
-    x.fillStyle = bg; x.fill();
-    x.strokeStyle = color; x.lineWidth = 3; x.stroke();
-    x.fillStyle = color; x.font = '700 42px sans-serif';
-    x.fillText(banner, W / 2, 278);
-
-    var achievementText = achievementTags(run).join(' · ');
-    if (achievementText) {
-      x.fillStyle = '#ffe08a'; x.font = '700 25px sans-serif';
-      x.fillText(achievementText, W / 2, 352);
-    }
-
-    var y = 400;
-    x.textAlign = 'left';
-    x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
-    x.fillText(isAllStar ? '双方阵容' : '阵容', P, y); y += 18;
-    run.records.forEach(function (r, index) {
-      y += 124;
-      var name = playerName(r.player_id), textX = P + 104;
-      drawShareAvatar(x, avatars[index], name, P, y - 72, 80);
-      x.fillStyle = '#e9f1fb'; x.font = '700 36px sans-serif';
-      x.fillText(name, textX, y - 32, 340);
-      x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
-      var sideLabel = isAllStar ? (r.team_franchise === 'ALLSTAR_A' ? run.aName : run.bName) + ' · ' : '';
-      x.textAlign = 'right';
-      x.fillText(sideLabel + r.position, W - P, y - 32, 470);
-      var rs = (run.runStats || {})[r.player_id];
-      var kda = rs ? f1(rs.kda) : f1(r.avg_kda);
-      var part = rs ? pct(rs.participation) : pct(r.avg_participation_rate);
-      var mvp = rs ? rs.mvp : (r.mvp_count || 0);
-      x.textAlign = 'left';
-      x.fillStyle = '#f0b90b'; x.font = '600 28px sans-serif';
-      x.fillText('KDA ' + kda + ' · 参团 ' + part + ' · MVP ' + mvp, textX, y + 10);
-    });
-
-    y += 46;
-    x.fillStyle = '#f0b90b'; x.font = '800 34px sans-serif';
-    x.fillText('赛程', P, y); y += 16;
-    run.path.slice(-rows).forEach(function (p) {
-      y += 78;
-      x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
-      x.fillText(p.round + ' vs ' + p.opp, P, y);
-      x.textAlign = 'right';
-      x.fillStyle = p.win ? '#3fb950' : '#f85149'; x.font = '700 28px sans-serif';
-      x.fillText(p.score + ' ' + (p.win ? '胜' : '负'), W - P, y);
-      x.textAlign = 'left';
-    });
-
-    x.textAlign = 'center';
-    x.fillStyle = '#8fa8cc'; x.font = '28px sans-serif';
-    x.fillText('民间算法 · 平行时空 · KPL 2K', W / 2, H - 66);
-
-    $('share-img').src = cv.toDataURL('image/png');
-    var canCopy = !!shareLink();
-    $('share-copy').style.display = canCopy ? '' : 'none';
-    $('share-copy').textContent = '复制链接';
-    $('share-modal').querySelector('.sm-head').textContent = canCopy
-      ? '长按图片保存，或下载后发到社群'
-      : '自定义选手仅保存在当前设备，可下载本场战绩图';
-    var missingAvatars = avatars.filter(function (avatar) { return !avatar; }).length;
-    if (missingAvatars) {
-      $('share-modal').querySelector('.sm-head').textContent += ' · ' + missingAvatars + ' 位选手头像未加载，已用姓名代替，可关闭后重试';
-    }
-    $('share-modal').classList.add('show');
-    $('share-mask').classList.add('show');
-  }
-
-  function closeShareModal() {
-    $('share-modal').classList.remove('show');
-    $('share-mask').classList.remove('show');
-  }
-
-  function setupOverlayInteraction() {
-    var panels = [
-      { id: 'drawer', title: 'picker-title', close: closePicker },
-      { id: 'share-modal', label: '分享战绩', close: closeShareModal },
-      { id: 'confirm-box', title: 'cf-title', close: closeConfirm },
-      { id: 'disclaimer', label: '玩家须知', close: null }
-    ];
-    var active = null, returnFocus = null, savedOverflow = '';
-    var inertBefore = new Map();
-    function focusable(panel) {
-      return Array.from(panel.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),[tabindex="0"]'))
-        .filter(function (el) { return el.getClientRects().length && getComputedStyle(el).visibility !== 'hidden'; });
-    }
-    function sync() {
-      var next = panels.filter(function (item) { return $(item.id).classList.contains('show'); }).pop() || null;
-      if (next === active) return;
-      inertBefore.forEach(function (value, el) { el.inert = value; });
-      inertBefore.clear();
-      if (!active && next) { returnFocus = document.activeElement; savedOverflow = document.body.style.overflow; }
-      active = next;
-      if (active) {
-        var panel = $(active.id);
-        document.body.style.overflow = 'hidden';
-        Array.from(document.body.children).forEach(function (el) {
-          if (el === panel || el.contains(panel) || !el.querySelector('button,a,input,select')) return;
-          inertBefore.set(el, el.inert); el.inert = true;
-        });
-        (focusable(panel)[0] || panel).focus({ preventScroll: true });
-      } else {
-        document.body.style.overflow = savedOverflow;
-        if (returnFocus && returnFocus.isConnected) returnFocus.focus({ preventScroll: true });
-      }
-    }
-    panels.forEach(function (item) {
-      var panel = $(item.id);
-      panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true'); panel.tabIndex = -1;
-      panel.setAttribute(item.title ? 'aria-labelledby' : 'aria-label', item.title || item.label);
-      new MutationObserver(sync).observe(panel, { attributes: true, attributeFilter: ['class'] });
-    });
-    document.addEventListener('keydown', function (event) {
-      if (!active) return;
-      if (event.key === 'Escape' && active.close) { event.preventDefault(); active.close(); return; }
-      if (event.key !== 'Tab') return;
-      var panel = $(active.id), items = focusable(panel);
-      var index = items.indexOf(document.activeElement);
-      if (!items.length) { event.preventDefault(); panel.focus(); }
-      else if (index < 0 || (!event.shiftKey && index === items.length - 1) || (event.shiftKey && index === 0)) {
-        event.preventDefault(); items[event.shiftKey ? items.length - 1 : 0].focus();
-      }
-    });
-    var bars = Array.from(document.querySelectorAll('.bottom-bar'));
-    function measureBars() {
-      var height = Math.max.apply(null, [0].concat(bars.map(function (bar) { return bar.getBoundingClientRect().height; })));
-      document.body.style.setProperty('--action-bar-height', height + 'px');
-    }
-    var observer = new ResizeObserver(measureBars);
-    bars.forEach(function (bar) { observer.observe(bar); });
-    measureBars(); sync();
-  }
-
-  function downloadShare() {
-    var a = document.createElement('a');
-    a.href = $('share-img').src;
-    a.download = 'kpl2k-战绩卡.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    recordAchievementEvent('savedCards');
-  }
-
-  /* ---------------- 入口 ---------------- */
+  var shareModule=global.KPL_UI_MODULES.share(uiContext);
+  var allStarHasCustom=shareModule.allStarHasCustom,
+      packAllStarSlots=shareModule.packAllStarSlots,
+      shareLink=shareModule.shareLink,
+      copyShare=shareModule.copyShare,
+      fallbackCopy=shareModule.fallbackCopy,
+      roundRectPath=shareModule.roundRectPath,
+      loadShareAvatar=shareModule.loadShareAvatar,
+      drawShareAvatar=shareModule.drawShareAvatar,
+      renderShareImage=shareModule.renderShareImage,
+      paintShareImage=shareModule.paintShareImage,
+      closeShareModal=shareModule.closeShareModal,
+      downloadShare=shareModule.downloadShare;
+      /* ---------------- 入口 ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initDisclaimer();
     setupOverlayInteraction();

@@ -13,6 +13,8 @@
 from __future__ import annotations
 
 import json
+import hashlib
+from datetime import datetime, timezone
 import pathlib
 import re
 from collections import defaultdict
@@ -23,7 +25,6 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 PROC = ROOT / "data" / "processed"
 NARR = ROOT / "data" / "narrative"
 OUT = ROOT / "app" / "data"
-BUILD_VERSION = "2026.08.26.1"
 
 # 王朝战队预设：真实历史主力五人组；版本取王朝年代赛季（若该赛季无记录则就近回退），
 # 该选手当年战力差的部分由该赛季真实同场默契 + 组合胜率化学补偿
@@ -271,8 +272,8 @@ def main() -> None:
             })
 
     manifest = {
-        "generated": "2026-08-25",
-        "build_version": BUILD_VERSION,
+        "generated": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "build_version": "sha256:" + hashlib.sha256(b"".join(p.relative_to(ROOT).as_posix().encode("utf-8") + b"\0" + p.read_bytes() for folder in [PROC, NARR, ROOT / "data/overrides", ROOT / "data/curated"] for p in sorted(folder.glob("*.json")))).hexdigest(),
         "seasons": seasons,
         "teams2026": teams2026,
     }

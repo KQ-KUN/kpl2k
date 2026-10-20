@@ -7,7 +7,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
 const data = readJson('app/data/dynasties.json').dynasties || [];
-const ui = fs.readFileSync(path.join(ROOT, 'app/js/ui.js'), 'utf8');
+const ui = ['app/js/ui.js',...fs.readdirSync(path.join(ROOT,'app/js/ui')).map(name=>'app/js/ui/'+name)].map(file=>fs.readFileSync(path.join(ROOT,file),'utf8')).join('\n');
 const positions = new Set(['对抗路', '打野', '中路', '发育路', '游走']);
 const storyBuckets = ['opening', 'victory', 'defeat', 'final', 'champion', 'runnerup', 'eliminated'];
 const storyLines = [];

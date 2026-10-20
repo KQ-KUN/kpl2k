@@ -6,9 +6,7 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
-const { chromium } = require(require.resolve('playwright', {
-  paths: ['C:/Users/22974/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules'],
-}));
+const { chromium } = require(process.env.KPL_PLAYWRIGHT_PATH || 'playwright');
 const workspace = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const app = path.join(workspace, 'app');
 const output = path.join(workspace, 'output/first-batch-fixes-20261018');
@@ -45,7 +43,7 @@ const scenarios = [];
 let browser;
 const trackedIds = ['core-load-retry', 'btn-classic', 'btn-quick', 'btn-allstar', 'btn-budget'];
 async function scenario(name, config = {}) {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
+  const context = await browser.newContext({ viewport: { width: config.missingImages ? 1366 : 390, height: 844 }, reducedMotion: 'reduce' });
   const page = await context.newPage();
   const requests = {};
   const errors = [];
@@ -90,7 +88,7 @@ async function scenario(name, config = {}) {
     }
     return route.continue();
   });
-  const record = { name, passed: false, requests, runtimeErrors: errors, blockedAnalytics, screenshots: [] };
+  const record = { name, viewport: config.missingImages ? '1366x844' : '390x844', passed: false, requests, runtimeErrors: errors, blockedAnalytics, screenshots: [] };
   scenarios.push(record);
   try {
     await page.goto(origin + '/', { waitUntil: 'domcontentloaded' });
@@ -153,6 +151,8 @@ async function scenario(name, config = {}) {
       record.optionalFallback = true;
     }
     if (config.missingImages) {
+      // Lazy logos load only after their row is visible following keyboard navigation.
+      await page.locator('#team-strip .team-chip').first().scrollIntoViewIfNeeded();
       await page.waitForFunction(() => [...document.querySelectorAll('#team-strip img')].some(image => image.style.display === 'none'));
       record.failedImages = await page.locator('#team-strip img[style*="display: none"]').count();
       assert.ok(record.failedImages > 0);
@@ -164,7 +164,7 @@ async function scenario(name, config = {}) {
     record.passed = true;
   } catch (error) {
     record.failure = error.stack ?? String(error);
-    record.lastState = await page.evaluate(() => ({ state: document.body.dataset.loadState, message: document.getElementById('core-load-message')?.textContent })).catch(() => null);
+    record.lastState = await page.evaluate(() => ({ state: document.body.dataset.loadState, message: document.getElementById('core-load-message')?.textContent, icons: window.KPL_DATA?.DATA.teamIcons, strip: document.querySelector('#team-strip')?.innerHTML.slice(0,2500) })).catch(() => null);
   } finally {
     await context.close();
   }
@@ -172,7 +172,7 @@ async function scenario(name, config = {}) {
 
 try {
   await new Promise((resolve, reject) => { server.once('error', reject); server.listen(4199, '127.0.0.1', resolve); });
-  browser = await chromium.launch({ channel: 'msedge', headless: true });
+  browser = await chromium.launch({ channel: process.env.KPL_BROWSER_CHANNEL || 'msedge', headless: true });
   await scenario('base-503-keyboard-retry', { resource: '/data/base.json' });
   await scenario('base-html-200', { resource: '/data/base.json', failure: 'html' });
   await scenario('base-invalid-schema', { resource: '/data/base.json', failure: 'schema' });
@@ -185,7 +185,7 @@ try {
   await new Promise(resolve => server.close(resolve));
   const report = {
     testedAt: new Date().toISOString(), browser: 'Microsoft Edge (Playwright Chromium channel msedge), headless',
-    viewport: '390x844', server: origin, strict404: true, passed: scenarios.length === 7 && scenarios.every(item => item.passed) && statsForwarded.length === 0,
+    viewport: '390x844; logo fallback at 1366x844 where Editorial renders team images', server: origin, strict404: true, passed: scenarios.length === 7 && scenarios.every(item => item.passed) && statsForwarded.length === 0,
     productAnalyticsRequestsForwarded: statsForwarded, scenarios,
     limitations: ['真实 Edge headless 浏览器；未进行物理手机、正式生产站点或中国大陆网络验收。'],
   };

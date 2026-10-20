@@ -146,8 +146,7 @@
     if (my !== seq || audio !== el) return; // 已被更新的请求覆盖
     var p = el.play();
     if (p && typeof p.then === 'function') {
-      p.then(function () { fadeIn(el, my); });
-      p.catch(function (err) {
+      p.then(function () { fadeIn(el, my); }).catch(function (err) {
         if (my !== seq || audio !== el) return; // 过期请求，忽略
         if (err && err.name === 'NotAllowedError') {
           // 自动播放被拦（手机端常见）：记下状态，下一次手势时重试

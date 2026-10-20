@@ -1,0 +1,296 @@
+{
+  "coverage": {
+    "people": 747,
+    "teams": 84,
+    "seasons": 32,
+    "seasonRecords": 3290,
+    "libraryCards": 701,
+    "libraryPeople": 448
+  },
+  "duplicateCanonicalIds": {
+    "players": [],
+    "teams": [],
+    "seasons": []
+  },
+  "unresolvedRecordReferences": [],
+  "sameNamePeople": [
+    {
+      "name": "KK",
+      "playerIds": [
+        "13A9C772A1C4B7C6435A26F9609F35B8",
+        "569DD373CDE41D1F2E4575D370304725"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "乐乐",
+      "playerIds": [
+        "1F7128DED0987F92C0BEDE8E80CEE3B0",
+        "7977936C523F7C3A455C567106921CC4"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "九月",
+      "playerIds": [
+        "2A5E5F2CCBC300E9EE7466A31B075EBB",
+        "55833AAED46B1045AFE756BA8C0B4F07"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "呆呆",
+      "playerIds": [
+        "6E268FD3AAC0826AFAE6BA4D13DB32C9",
+        "BC0352ACF4ABEB15A678D3084FFDE373"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "小寒",
+      "playerIds": [
+        "4B0976EE5323F2FA514B717A035E3C65",
+        "6677ABCD70AC1CC2D69832F12798F166"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "小智",
+      "playerIds": [
+        "594B7248379B4A6748CE696D506ECC53",
+        "F6F7F6E86FF0DF5B9B880A65672E2EC5"
+      ],
+      "status": "keep-separate-unverified"
+    },
+    {
+      "name": "白衣",
+      "playerIds": [
+        "2FE76F4B0ECB608C366DC62D48652D02",
+        "40169943EB7FB67EB53AE88905CD007F"
+      ],
+      "status": "keep-separate-unverified"
+    }
+  ],
+  "sameSeasonNameConflicts": [
+    {
+      "seasonId": "KPL2018QJS",
+      "name": "TOPM",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2019S1",
+      "name": "TOPM",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2019S2",
+      "name": "TES",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2020S1",
+      "name": "TES",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2020S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2021S1",
+      "name": "长沙TES",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2021S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2022S1",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2022S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2023S1",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2023S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2024S1",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2024S2",
+      "name": "TCG",
+      "teamIds": [
+        "10303",
+        "10601"
+      ]
+    },
+    {
+      "seasonId": "KPL2024S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2024S3",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S1",
+      "name": "情久",
+      "teamIds": [
+        "10403",
+        "10903"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S1",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S2",
+      "name": "桐乡情久",
+      "teamIds": [
+        "10403",
+        "10903"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S3",
+      "name": "桐乡情久",
+      "teamIds": [
+        "10403",
+        "10903"
+      ]
+    },
+    {
+      "seasonId": "KPL2025S3",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2026S1",
+      "name": "无锡TCG",
+      "teamIds": [
+        "10303",
+        "10601"
+      ]
+    },
+    {
+      "seasonId": "KPL2026S1",
+      "name": "桐乡情久",
+      "teamIds": [
+        "10403",
+        "10903"
+      ]
+    },
+    {
+      "seasonId": "KPL2026S1",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    },
+    {
+      "seasonId": "KPL2026S2",
+      "name": "长沙TES.A",
+      "teamIds": [
+        "10019",
+        "10028"
+      ]
+    }
+  ],
+  "missingFacts": {
+    "emptyRealNames": 744,
+    "libraryUnknownDebut": 627,
+    "libraryUnknownChampionship": 549
+  },
+  "priorities": [
+    {
+      "priority": "P1",
+      "item": "Ambiguous names must be resolved by provider player_id and evidence; never nickname-merge."
+    },
+    {
+      "priority": "P1",
+      "item": "Full raw rebuild remains incomplete because complete raw inputs are absent."
+    },
+    {
+      "priority": "P2",
+      "item": "Historical fixed data_version fields are legacy snapshot metadata; consumption manifest input SHA256 is authoritative. Explicit generators now emit content versions."
+    }
+  ],
+  "scope": "Structural checks do not verify historical identity continuity or the truth of existing facts."
+}

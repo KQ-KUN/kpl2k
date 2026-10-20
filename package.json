@@ -2,12 +2,24 @@
   "name": "kpl-game-hub",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "guessing"
-  ],
   "scripts": {
-    "test": "npm --workspace guessing test && node tools/verify_engine.js && node tools/verify_daily_challenge.js && node tools/verify_history_archive.js && node tools/verify_ui_interactions.js && node tools/verify_player_identity.cjs && python -m unittest tools.test_attribution && node --test tools/test_data_loading.cjs",
-    "build": "npm --workspace guessing run build && node tools/build_portal.mjs",
-    "serve": "python tools/serve_local.py"
+    "test": "node tools/verify_engine.js && node tools/verify_daily_challenge.js && node tools/verify_history_archive.js && node tools/verify_ui_interactions.js && node tools/verify_player_identity.cjs && python -m unittest tools.test_attribution tools.test_player_icons tools.test_link_snapshot && node --test tools/test_data_loading.cjs tools/test_ui_modules.cjs",
+    "build": "node tools/build_game.mjs",
+    "serve": "python tools/serve_local.py",
+    "test:legacy-guessing": "npm --prefix guessing test",
+    "test:browser": "node tools/verify_data_loading.mjs && node tools/verify_journeys.mjs",
+    "build:legacy": "npm --prefix guessing run build && node tools/build_portal.mjs",
+    "styles:sync": "node tools/build_styles.cjs",
+    "data:icons": "python tools/build_team_icons.py",
+    "data:portraits": "python tools/player_icons.py",
+    "snapshot:sync": "python tools/consumption_manifest.py",
+    "snapshot:check": "python tools/consumption_manifest.py --check",
+    "validate": "npm run snapshot:check"
+  },
+  "devDependencies": {
+    "postcss": "8.5.26"
+  },
+  "kplgame": {
+    "standaloneBuild": true
   }
 }

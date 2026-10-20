@@ -1,42 +1,46 @@
-"""Reuse Guessing's verified portrait cache in KPL 2K web builds."""
-
+"""Read canonical/local portrait paths; optional explicit external input, never Guessing."""
 from __future__ import annotations
-
+import argparse
 import json
 import shutil
 from pathlib import Path
+ROOT=Path(__file__).resolve().parent.parent
+APP_ASSETS=ROOT/'app/assets/player-icons'
+KPL_CACHE=ROOT/'data/processed/player_icon_cache.json'
 
-ROOT = Path(__file__).resolve().parent.parent
-GUESSING_DATA = ROOT / "guessing" / "public" / "data" / "player_library.json"
-GUESSING_ASSETS = ROOT / "guessing" / "public" / "assets" / "player-icons"
-APP_ASSETS = ROOT / "app" / "assets" / "player-icons"
-KPL_CACHE = ROOT / "data" / "processed" / "player_icon_cache.json"
-
-
-def sync_player_icon_cache() -> dict[str, str]:
-    """Copy cached portraits and return player ID -> app-relative icon path."""
-    if not GUESSING_DATA.exists():
-        return {}
-
-    payload = json.loads(GUESSING_DATA.read_text(encoding="utf-8"))
-    mapping: dict[str, str] = {}
-    APP_ASSETS.mkdir(parents=True, exist_ok=True)
+def sync_player_icon_cache(source: Path | None = None, assets: Path | None = None) -> dict[str,str]:
+    mapping={}
     if KPL_CACHE.exists():
-        cached = json.loads(KPL_CACHE.read_text(encoding="utf-8"))
-        for player_id, icon in cached.get("icons", {}).items():
-            if (ROOT / "app" / icon).is_file():
-                mapping[player_id] = icon
-    for player in payload.get("players", []):
-        player_id = str(player.get("id", "")).split("@", 1)[0]
-        icon = str(player.get("icon", ""))
-        if not player_id or "/assets/player-icons/" not in icon:
-            continue
-        filename = Path(icon).name
-        source = GUESSING_ASSETS / filename
-        if not source.is_file():
-            continue
-        destination = APP_ASSETS / filename
-        if not destination.exists():
-            shutil.copy2(source, destination)
-        mapping.setdefault(player_id, f"assets/player-icons/{filename}")
-    return mapping
+        for pid, icon in json.loads(KPL_CACHE.read_text(encoding='utf-8')).get('icons',{}).items():
+            candidate=(ROOT/'app'/icon).resolve()
+            if candidate.is_relative_to((ROOT/'app').resolve()) and candidate.is_file():mapping[pid]=icon
+    library=source or ROOT/'data/processed/player_library.json'
+    if not library.exists():return mapping
+    if source is not None and assets is None:raise ValueError('Explicit --source requires --assets')
+    for player in json.loads(library.read_text(encoding='utf-8')).get('players',[]):
+        pid=str(player.get('player_id') or player.get('id') or '').split('@')[0]
+        icon=str(player.get('icon') or '')
+        if not pid or not icon or '://' in icon or icon.startswith('data:'):continue
+        if assets is None:
+            candidate=(ROOT/'app'/icon).resolve()
+            if candidate.is_relative_to((ROOT/'app').resolve()) and candidate.is_file():mapping.setdefault(pid,icon)
+        else:
+            candidate=assets.resolve()/Path(icon).name
+            if not candidate.is_file():continue
+            APP_ASSETS.mkdir(parents=True,exist_ok=True)
+            destination=APP_ASSETS/candidate.name
+            if destination.exists() and destination.read_bytes()!=candidate.read_bytes():
+                raise ValueError(f'Portrait filename collision: {candidate.name}')
+            if not destination.exists():shutil.copy2(candidate,destination)
+            mapping.setdefault(pid,f'assets/player-icons/{candidate.name}')
+    return dict(sorted(mapping.items()))
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source',type=Path);parser.add_argument('--assets',type=Path)
+    args=parser.parse_args()
+    mapping=sync_player_icon_cache(args.source,args.assets)
+    KPL_CACHE.parent.mkdir(parents=True,exist_ok=True)
+    KPL_CACHE.write_text(json.dumps({'schema_version':'0.1','icons':mapping},ensure_ascii=False,indent=2),encoding='utf-8')
+    print(f'Local canonical portrait paths: {len(mapping)}')
+if __name__=='__main__':main()

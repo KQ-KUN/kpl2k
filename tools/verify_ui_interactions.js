@@ -3,21 +3,20 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const source = fs.readFileSync(path.join(__dirname, '../app/js/ui.js'), 'utf8');
-const start = source.indexOf('  var teamViewRequest = 0;');
-const end = source.indexOf('\n  /*', start);
-assert.ok(start >= 0 && end > start);
+const source = fs.readFileSync(path.join(__dirname, '../app/js/ui/roster.js'), 'utf8');
 function fixture() {
   const pending = [];
-  const elements = { 'team-slots': { innerHTML: '' }, 'btn-confirm-team': { disabled: false } };
+  const elements = { 'team-slots': { innerHTML: '', querySelectorAll:()=>[] }, 'btn-confirm-team': { disabled: false } };
   const ctx = {
-    STATE: { team: 'A', roster: [] }, PRESET_SEASONS: [], currentTeamData: null,
-    $: id => elements[id],
+    STATE: { team: 'A', roster: ['preserved'] }, PRESET_SEASONS: [], POS_ORDER: [], teamViewRequest: 0, currentTeamData: null,
+    $: id => elements[id] || (elements[id]={style:{},textContent:'',innerHTML:''}),
+    strengthOf:()=>[0,{raw:50}],
     D: { loadSeason: () => Promise.resolve(), loadTeam: id => new Promise((resolve, reject) => pending.push({ id, resolve, reject })) },
     presetRoster: id => [id], saveState() {}, renderSlots() {}, renderStrength() {}, esc: String
   };
-  vm.createContext(ctx);
-  vm.runInContext(source.slice(start, end), ctx);
+  const window={};
+  vm.runInNewContext(source,{window});
+  Object.assign(ctx,window.KPL_UI_MODULES.roster(ctx));
   return { ctx, pending, elements };
 }
 const settle = () => new Promise(setImmediate);
@@ -33,7 +32,7 @@ const settle = () => new Promise(setImmediate);
     else pending[0].resolve({ id: 'A' });
     await settle();
     assert.equal(ctx.currentTeamData.id, 'B');
-    assert.equal(ctx.STATE.roster[0], 'B');
+    assert.equal(ctx.STATE.roster[0], 'preserved');
     assert.equal(elements['team-slots'].innerHTML, content);
     assert.equal(elements['btn-confirm-team'].disabled, false);
   }

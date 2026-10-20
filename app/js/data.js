@@ -67,36 +67,41 @@
     return baseRequest;
   }
 
+  // One request per shard. Failed promises are evicted so the next action can retry.
+  var shardRequests = Object.create(null);
+  function loadShard(key, path, read, publish, validate) {
+    var cached = read();
+    if (cached) return Promise.resolve(cached);
+    if (shardRequests[key]) return shardRequests[key];
+    shardRequests[key] = fetchJson(path).then(function (value) {
+      if (!validate(value)) throw new Error('数据分片格式不完整：' + path);
+      publish(value); return value;
+    }).finally(function () { delete shardRequests[key]; });
+    return shardRequests[key];
+  }
+  function safeId(value) {
+    if (typeof value !== 'string' || !/^[a-zA-Z0-9_-]+$/.test(value)) throw new Error('无效的数据分片 ID');
+    return value;
+  }
   function loadTeam(fid) {
-    if (DATA.teamsCache[fid]) return Promise.resolve(DATA.teamsCache[fid]);
-    return fetchJson('data/teams/' + fid + '.json').then(function (d) {
-      DATA.teamsCache[fid] = d;
-      return d;
-    });
+    fid = safeId(fid);
+    return loadShard('team:' + fid, 'data/teams/' + fid + '.json',
+      function () { return DATA.teamsCache[fid]; }, function (d) { DATA.teamsCache[fid] = d; },
+      function (d) { return d && Array.isArray(d.players); });
   }
-
   function loadAllStar() {
-    if (DATA.allStar) return Promise.resolve(DATA.allStar);
-    return fetchJson('data/all_star.json').then(function (d) {
-      DATA.allStar = d;
-      return d;
-    });
+    return loadShard('allstar', 'data/all_star.json', function () { return DATA.allStar; },
+      function (d) { DATA.allStar = d; }, function (d) { return d && Array.isArray(d.players); });
   }
-
   function loadBudgetPairs() {
-    if (DATA.budgetPairs) return Promise.resolve(DATA.budgetPairs);
-    return fetchJson('data/budget_pairs.json').then(function (d) {
-      DATA.budgetPairs = d;
-      return d;
-    });
+    return loadShard('budget', 'data/budget_pairs.json', function () { return DATA.budgetPairs; },
+      function (d) { DATA.budgetPairs = d; }, function (d) { return d && d.pairs && typeof d.pairs === 'object'; });
   }
-
   function loadSeason(sid) {
-    if (DATA.seasonCache[sid]) return Promise.resolve(DATA.seasonCache[sid]);
-    return fetchJson('data/seasons/' + sid + '.json').then(function (d) {
-      DATA.seasonCache[sid] = d;
-      return d;
-    });
+    sid = safeId(sid);
+    return loadShard('season:' + sid, 'data/seasons/' + sid + '.json',
+      function () { return DATA.seasonCache[sid]; }, function (d) { DATA.seasonCache[sid] = d; },
+      function (d) { return d && d.season_id === sid && Array.isArray(d.rosters) && Array.isArray(d.rounds); });
   }
 
   function loadSeasons(sids) {

@@ -1,0 +1,4 @@
+# Preserve snapshot and generator bytes across Windows and CI checkouts.
+app/** -text
+data/** -text
+tools/*.py -text

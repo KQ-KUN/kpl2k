@@ -56,3 +56,14 @@ test('partial initialization is terminal until refresh so listeners are not rebo
   const f=bootstrapFixture(async()=>{},()=>{initialized++;throw Error('DOM issue');});
   await settle();await f.api.retry();assert.equal(initialized,1);assert.equal(f.body.dataset.loadState,'error');assert.equal(f.elements['core-load-retry'].hidden,true);
 });
+for(const [kind,method,path,success] of [
+ ['team','loadTeam','data/teams/t.json',{players:[]}],
+ ['season','loadSeason','data/seasons/s.json',{season_id:'s',rosters:[],rounds:[]}],
+ ['allstar','loadAllStar','data/all_star.json',{players:[]}]
+])test(`${kind} shard is single-flight and failed requests can retry`,async()=>{
+ let calls=0,fail=true;const api=dataFixture(async requested=>{assert.equal(requested,path);calls++;if(fail)throw Error('offline');return response(success)});
+ const args=kind==='team'?['t']:kind==='season'?['s']:[];
+ const a=api[method](...args),b=api[method](...args);assert.equal(a,b);await assert.rejects(a,/offline/);assert.equal(calls,1);
+ fail=false;await api[method](...args);await api[method](...args);assert.equal(calls,2);
+});
+test('shard IDs cannot escape the data directory',()=>{const api=dataFixture(()=>{throw Error('must not fetch')});assert.throws(()=>api.loadTeam('../base'),/无效/)});

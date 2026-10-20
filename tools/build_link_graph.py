@@ -7,6 +7,9 @@ same-side match lineup and reviewed provider-to-canonical identity mappings.
 from __future__ import annotations
 
 import json
+import argparse
+import hashlib
+from datetime import datetime, timezone
 import re
 from collections import defaultdict, deque
 from itertools import combinations
@@ -20,11 +23,6 @@ except ImportError:
     from attribution import membership_records
 
 
-ROOT = Path(__file__).resolve().parents[1]
-PROCESSED = ROOT / "data" / "processed"
-OUTPUT = ROOT / "link" / "public" / "data"
-QUIZ_DATA = ROOT / "guessing" / "public" / "data" / "quiz_players.json"
-QUIZ_CONFIG = ROOT / "guessing" / "config" / "quiz.json"
 HISTORICAL_EVENTS = {
     "KPL2016S2": ("2016 KPL 秋季赛", "2016-12-18", "KPL2016QJS"),
     "KPL2017S1": ("2017 KPL 春季赛", "2017-07-08", "KPL2017CJS"),
@@ -118,16 +116,36 @@ def historical_lineups(identities, documents, known_ids, aliases):
     }
 
 
-def build_data() -> tuple[dict, dict]:
-    players_doc = load(PROCESSED / "players.json")
-    attribution_doc = load(PROCESSED / "player_attribution.json")
-    seasons_doc = load(PROCESSED / "seasons.json")
-    franchises_doc = load(PROCESSED / "franchises.json")
-    icons_doc = load(PROCESSED / "player_icon_cache.json")
-    quiz_doc = load(QUIZ_DATA)
-    quiz_config = load(QUIZ_CONFIG)
-    registration = load_roster()
-    corrections = load(ROOT / "data/curated/player_identity_corrections.json")
+def build_data(source_root: Path, quiz_data: Path, quiz_config: Path) -> tuple[dict, dict]:
+    processed = source_root / 'data/processed'
+    players_doc = load(processed / "players.json")
+    attribution_doc = load(processed / "player_attribution.json")
+    seasons_doc = load(processed / "seasons.json")
+    franchises_doc = load(processed / "franchises.json")
+    icons_doc = load(processed / "player_icon_cache.json")
+    quiz_doc = load(quiz_data)
+    quiz_config = load(quiz_config)
+    registration = load(source_root / 'data/curated/official_rosters_2026_annual.json')
+    registered = [p['playerId'] for team in registration['teams'] for p in team['players']]
+    if registration['seasonId'] != 'KPL2026S3' or len(registration['teams']) != 12 or len(registered) != 84 or len(set(registered)) != 84:
+        raise ValueError('Unexpected or duplicate official registration identities')
+    canonical_players = {p['player_id']: p for p in players_doc['players']}
+    registered_teams = set()
+    for team in registration['teams']:
+        if team['franchiseId'] in registered_teams or len(team['players']) != 7:
+            raise ValueError('Duplicate team or incomplete seven-player roster')
+        registered_teams.add(team['franchiseId'])
+        for player in team['players']:
+            pid = player['playerId']
+            if not player['name'] or not player['realName']: raise ValueError('Unidentified registered player')
+            if player['identityKind'] == 'canonical':
+                if pid not in canonical_players or canonical_players[pid]['name'] != player['name']:
+                    raise ValueError(f'Unreviewed canonical registration identity: {pid}')
+            elif player['identityKind'] == 'smoba-openid':
+                if not re.fullmatch('[A-F0-9]{32}', pid): raise ValueError('Invalid official openid')
+            elif player['identityKind'] != 'registration-only' or pid != 'REGISTERED_EDGM_ZHAOHAOWEI':
+                raise ValueError('Unreviewed registration identity')
+    corrections = load(source_root / "data/curated/player_identity_corrections.json")
     attribution_ids = {(r["season_id"], r["team_franchise"], r["player_name"]): r["player_id"]
                        for r in corrections["attributionIdentities"]}
 
@@ -242,9 +260,9 @@ def build_data() -> tuple[dict, dict]:
         sample = ", ".join(f"{season}/{name}/{team}" for season, name, team in ambiguous[:8])
         raise ValueError(f"ambiguous attribution identities ({len(ambiguous)}): {sample}")
 
-    identities = load(ROOT / "data/curated/wanplus_identity_map.json")
+    identities = load(source_root / "data/curated/wanplus_identity_map.json")
     documents = {}
-    for path in sorted((ROOT / "data/curated").glob("wanplus_K*.json")):
+    for path in sorted((source_root / "data/curated").glob("wanplus_K*.json")):
         doc = load(path)
         event_id = doc["sampleEventId"]
         if event_id in documents:
@@ -420,12 +438,84 @@ def build_data() -> tuple[dict, dict]:
 
 
 def main() -> None:
-    players, graph = build_data()
-    write(OUTPUT / "players.json", players)
-    write(OUTPUT / "link_graph.json", graph)
-    print(f"KPL Link graph built: {OUTPUT}")
-    print(f"excluded attribution records: {graph['sourceAudit']['unmappedRecords']}")
-    print_stats(graph["stats"])
+    parser = argparse.ArgumentParser(description='Explicit full build or fact-preserving frozen snapshot split')
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument('--source', type=Path, help='canonical repository root; requires explicit quiz inputs')
+    mode.add_argument('--snapshot-source', type=Path, help='directory containing frozen players.json/link_graph.json')
+    parser.add_argument('--quiz-data', type=Path)
+    parser.add_argument('--quiz-config', type=Path)
+    parser.add_argument('--quiz-source-commit', help='verified commit containing the explicit quiz inputs for a full build')
+    parser.add_argument('--output', type=Path, required=True, help='Link public/data output directory')
+    parser.add_argument('--source-commit', required=True, help='verified 40-character commit of actual primary input repository')
+    args = parser.parse_args()
+    if not re.fullmatch('[0-9a-f]{40}', args.source_commit): parser.error('source-commit must be a full commit SHA')
+    if args.source:
+        if not args.quiz_data or not args.quiz_config: parser.error('full build requires --quiz-data and --quiz-config')
+        if not args.quiz_source_commit or not re.fullmatch('[0-9a-f]{40}', args.quiz_source_commit): parser.error('full build requires a complete --quiz-source-commit')
+        players, graph = build_data(args.source, args.quiz_data, args.quiz_config)
+        input_paths = [*sorted((args.source / 'data/processed').glob('*.json')), *sorted((args.source / 'data/curated').glob('*.json')), args.quiz_data, args.quiz_config]
+        input_locations = [({'path': path.relative_to(args.source).as_posix(), 'sourceCommit': args.source_commit}
+                            if path not in (args.quiz_data, args.quiz_config) else
+                            {'path': 'quiz/' + path.name, 'sourceCommit': args.quiz_source_commit}) for path in input_paths]
+    else:
+        input_paths = [args.snapshot_source / 'players.json', args.snapshot_source / 'link_graph.json']
+        input_locations = [{'path': 'public/data/' + path.name, 'sourceCommit': args.source_commit} for path in input_paths]
+        players, graph = (load(path) for path in input_paths)
+        if 'evidence' not in graph: parser.error('snapshot-source must contain the original frozen full evidence graph')
+    emit_snapshot(players, graph, args.output, args.source_commit, input_paths, frozen=bool(args.snapshot_source), input_locations=input_locations)
+    print_stats(graph['stats'])
+
+
+def emit_snapshot(players, graph, output, source_commit, input_paths, *, frozen, input_locations=None):
+    # Capture hashes before writing, including when output equals the input directory.
+    digest = lambda data: hashlib.sha256(data).hexdigest()
+    if not re.fullmatch('[0-9a-f]{40}', source_commit): raise ValueError('source_commit must be a full commit SHA')
+    if input_locations is None: input_locations = [{'path': path.name, 'sourceCommit': source_commit} for path in input_paths]
+    if len(input_locations) != len(input_paths): raise ValueError('input location count mismatch')
+    inputs = [{**location, 'sha256': digest(path.read_bytes())} for path, location in zip(input_paths, input_locations)]
+    ids = {p['id'] for p in players['players']}
+    if len(ids) != len(players['players']) or set(graph['adjacency']) != ids: raise ValueError('player/graph ID mismatch')
+    if players['dataVersion'] != graph['dataVersion']: raise ValueError('input versions differ')
+    # The legacy checked date describes the frozen facts, not the generated version.
+    legacy_version = graph['dataVersion']
+    data_version = 'source:' + source_commit
+    for left, neighbors in graph['adjacency'].items():
+        if len(set(neighbors)) != len(neighbors) or left in neighbors: raise ValueError('duplicate neighbor or self edge')
+        for right in neighbors:
+            if right not in ids or left not in graph['adjacency'][right]: raise ValueError('asymmetric or unknown neighbor')
+            if '|'.join(sorted((left, right))) not in graph['evidence']: raise ValueError('edge missing evidence')
+    latest = {pid: None for pid in ids}
+    for key, proofs in graph['evidence'].items():
+        left, right = key.split('|')
+        if left not in ids or right not in graph['adjacency'][left]: raise ValueError(f'orphan evidence {key}')
+        for proof in proofs:
+            year = year_from_season(proof['seasonId'])
+            if year is not None:
+                for pid in (left, right): latest[pid] = max(latest[pid] or year, year)
+    runtime = {key: value for key, value in graph.items() if key != 'evidence'}
+    runtime['dataVersion'] = data_version
+    runtime['sourceAudit'] = {**graph.get('sourceAudit', {}), 'legacyDataVersion': legacy_version}
+    runtime['latestYear'] = {pid: latest[pid] for pid in sorted(latest)}
+    evidence = {'schemaVersion': 1, 'dataVersion': data_version, 'evidence': graph['evidence']}
+    write(output / 'players.json', {**players, 'dataVersion': data_version})
+    write(output / 'link_graph.json', runtime)
+    write(output / 'link_evidence.json', evidence)
+    public = output.parent
+    files = [output / name for name in ('players.json', 'link_graph.json', 'link_evidence.json')]
+    files += sorted({public / p['avatar'].removeprefix('./') for p in players['players'] if p.get('avatar')})
+    missing = [str(path) for path in files if not path.is_file()]
+    if missing: raise ValueError(f'missing final assets: {missing[:3]}')
+    manifest = {'schemaVersion': 1, 'sourceCommit': source_commit, 'dataVersion': data_version,
+        'inputs': inputs, 'outputs': [{'path': 'public/' + path.relative_to(public).as_posix(), 'sha256': digest(path.read_bytes()), 'bytes': path.stat().st_size} for path in files],
+        'generatedAt': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+        'generator': {'name': 'tools/build_link_graph.py', 'version': digest(Path(__file__).read_bytes())},
+        'coverage': {**graph['stats'], 'evidenceEdges': len(graph['evidence']), 'evidenceRecords': sum(map(len, graph['evidence'].values()))},
+        'exclusionRules': ['No nickname identity merge', 'No missing historical lineup edges', 'No fact changes when deriving frozen snapshot'],
+        'semantics': {'latestYear': 'maximum evidence season year per player; null means unknown', 'totalGames': 'source appearance count; not inferred from graph degree', 'frozenDerivation': frozen, 'upstreamRawRebuild': not frozen},
+        'identities': {'canonicalIds': len(ids), 'duplicates': len(players['players']) - len(ids), 'unmappedAttribution': graph.get('sourceAudit', {}).get('unmappedRecords')},
+        'resources': {'avatarRefs': sum(bool(p.get('avatar')) for p in players['players']), 'localAvatars': len(files) - 3, 'missingAvatars': sum(not p.get('avatar') for p in players['players']), 'externalAvatars': sum(str(p.get('avatar', '')).startswith('http') for p in players['players'])},
+        'quality': {'historicalComplete': graph.get('sourceAudit', {}).get('historical', {}).get('complete'), 'sourceChain': 'frozen consumer snapshot; original provenance retained in sourceAudit' if frozen else 'explicit canonical and quiz inputs'}}
+    write(output / 'manifest.json', manifest)
 
 
 def graph_stats(adjacency: dict[str, list[str]]) -> dict[str, Any]:
