@@ -11,6 +11,8 @@ npm run build
 
 `npm test` 覆盖身份、阵容/引擎、每日挑战、历史脚本、过期请求、存储、模拟播放、分享编解码与加载失败恢复。默认不运行兼容 Guessing。
 
+维护及测试工具要求 Python >=3.10。npm 入口先探测解释器版本：Linux 优先 `python3`，Windows 支持 `python` 和 `py -3`；不会执行 Python 2。需要指定安装时，将 `PYTHON` 设为解释器的完整路径（不含命令参数）。此选择同时用于 test、build、serve 和快照/头像命令，避免云镜像的 `python=2.7` 别名造成不一致。
+
 `npm run test:browser` 要求 Playwright 与本机 Edge。可用本地 `playwright` 包，或显式设置 `KPL_PLAYWRIGHT_PATH` 为外部 Playwright 模块目录；`KPL_BROWSER_CHANNEL` 默认 `msedge`。脚本使用 strict-404/MIME 本地服务并阻断产品统计和外域请求。覆盖故障重试、完整模拟/战绩卡/分享还原、图鉴深链、键盘、320/390/768/1366 浅深主题；headless 通过不代表物理手机、音频实际听感或生产部署。
 
 ## 显式维护
