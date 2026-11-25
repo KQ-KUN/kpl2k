@@ -44,24 +44,22 @@
   }
 
   function saveState() {
-    var payload = JSON.stringify({
+    var payload = {
       mode: ctx.STATE.mode, budgetTotal: ctx.STATE.budgetTotal, team: ctx.STATE.team, roster: ctx.STATE.roster, season: ctx.STATE.season, seed: ctx.STATE.seed, tactic: ctx.STATE.tactic,
       dynasty: ctx.STATE.dynasty,
       lastRun: ctx.STATE.lastRun, allStar: ctx.STATE.allStar
-    });
+    };
     try {
-      localStorage.setItem(ctx.STATE_KEY, payload);
+      localStorage.setItem(ctx.STATE_KEY, JSON.stringify(payload));
       return true;
     } catch (e) {
-      var storageHistory = loadHistory();
-      while (storageHistory.length) {
-        storageHistory.pop();
+      if (payload.lastRun) {
+        payload.lastRun = null;
         try {
-          localStorage.setItem(ctx.HISTORY_KEY, JSON.stringify(storageHistory));
-          localStorage.setItem(ctx.STATE_KEY, payload);
-          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
+          localStorage.setItem(ctx.STATE_KEY, JSON.stringify(payload));
+          showStorageWarning('本地空间不足，已保存阵容和设置，本次结果页无法通过刷新恢复。');
           return true;
-        } catch (retryError) { /* keep pruning oldest history */ }
+        } catch (retryError) { /* Preserve the previous save if the smaller write also fails. */ }
       }
     }
     showStorageWarning('本地存储空间不足，本次设置可能无法保留。请清理浏览器存储后重试。');
@@ -99,20 +97,13 @@
       copy.allStar = compactAllStarState(item.allStar);
       return copy;
     });
-    while (out.length) {
-      try {
-        localStorage.setItem(ctx.HISTORY_KEY, JSON.stringify(out));
-        if (out.length < Math.min(h.length, 20)) {
-          showStorageWarning('本地空间不足，已自动移除最早的部分历史战绩。');
-        }
-        return true;
-      } catch (e) {
-        out.pop();
-      }
+    try {
+      localStorage.setItem(ctx.HISTORY_KEY, JSON.stringify(out));
+      return true;
+    } catch (e) {
+      showStorageWarning('未能保存战绩变更，原有战绩已保留。');
+      return false;
     }
-    try { localStorage.setItem(ctx.HISTORY_KEY, '[]'); } catch (e2) { /* storage unavailable */ }
-    showStorageWarning('历史战绩保存失败：浏览器本地存储空间不足。');
-    return false;
   }
   function fmtTime(ts) {
     var d = new Date(ts);

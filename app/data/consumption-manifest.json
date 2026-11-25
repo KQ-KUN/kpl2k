@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceCommit": "6fc57da32f911f65a595ad3b7ddaea877ee4114f",
+  "sourceCommit": "799e6988a7b4c37e5dc6c7ce500eb976a26d417a",
   "inputs": [
     {
       "path": "data/curated/championships.json",
@@ -5201,8 +5201,8 @@
     },
     {
       "path": "app/js/ui/storage.js",
-      "sha256": "f652627163f2e69e7ee55f44302d780e0d21773e554d8e9b90fbc396469cb904",
-      "bytes": 9239
+      "sha256": "39c14ae26f6ccb25fed09e04086590a4c004858c0d231940ca397497efb59b2c",
+      "bytes": 8854
     },
     {
       "path": "app/js/ui.js",
@@ -5245,7 +5245,7 @@
       "bytes": 1458
     }
   ],
-  "generatedAt": "2026-10-20T02:16:57.685340Z",
+  "generatedAt": "2026-11-25T16:34:23.882095Z",
   "generator": {
     "name": "tools/consumption_manifest.py",
     "version": "77bda83a6f21327b1ef6860dc77986025055bf67412d9344ed02e45bc84da119"

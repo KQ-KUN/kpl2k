@@ -5,6 +5,25 @@ test('storage validates malformed state and round-trips a five-player roster',()
  const data=new Map(),storage={getItem:key=>data.get(key)||null,setItem:(key,value)=>data.set(key,value)};const ctx={STATE:{},STATE_KEY:'state'};const api=feature('storage',{localStorage:storage})(ctx);
  data.set('state',JSON.stringify({mode:'bad',roster:[1,2,3,4,5,6],seed:-5,tactic:'bad',allStar:{bo:4}}));api.loadState();assert.equal(ctx.STATE.mode,'classic');assert.equal(ctx.STATE.roster.length,5);assert.equal(ctx.STATE.seed,0);assert.equal(ctx.STATE.allStar.bo,5);assert.equal(api.saveState(),true);
 });
+test('storage quota preserves history and falls back to saving the current lineup',()=>{
+ const history=JSON.stringify([{teamName:'A'},{teamName:'B'}]);
+ const data=new Map([['history',history],['state','previous']]);
+ let quota=0;
+ const localStorage={getItem:key=>data.get(key),setItem(key,value){if(value.length>quota)throw new Error('quota');data.set(key,value)}};
+ const ctx={STATE:{team:'new',lastRun:{detail:'x'.repeat(5000)}},STATE_KEY:'state',HISTORY_KEY:'history',$:()=>null};
+ const api=feature('storage',{localStorage})(ctx);
+ assert.equal(api.saveState(),false);
+ assert.equal(data.get('state'),'previous');
+ assert.equal(data.get('history'),history);
+ quota=64;
+ assert.equal(api.saveState(),true);
+ assert.deepEqual(JSON.parse(data.get('state')),{team:'new',lastRun:null});
+ assert.equal(data.get('history'),history);
+ assert.equal(api.saveHistory([{detail:'x'.repeat(100)}]),false);
+ assert.equal(data.get('history'),history);
+ assert.equal(api.saveHistory([]),true);
+ assert.equal(data.get('history'),'[]');
+});
 test('library achievements count a person once across display cards',()=>{const api=feature('achievements')({});const result=api.normalizeAchievementProgress({libraryPlayers:{'A@one':true,'A@two':true,B:true}});assert.equal(Object.keys(result.libraryPlayers).length,2)});
 test('share codec preserves roster, seed, tactics and rejects custom public links',()=>{
  const state={lastRun:{},roster:[{pid:'A',sid:'S'}],team:'T',season:'S',seed:42,tactic:'stable',allStar:{bo:5}};
